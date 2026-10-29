@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Requests and chat · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,4vw,48px)}
+body,.bub,.intown,dd{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+input::placeholder{color:#636665}
+a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+/* buttons and chips, same system as Home6 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;border:0}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-red{background:#d31110;color:#ffffff}
+.btn-ghost{background:transparent;color:#000000;box-shadow:inset 0 0 0 1.5px #000000}
+.btn-ink{background:#000000;color:#ffffff}
+.decl{background:none;border:0;padding:4px 0;min-height:44px;font:400 13px 'Inter',sans-serif;color:#000000;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.chip{flex:1 1 0;min-width:0;min-height:40px;padding:0 10px;border-radius:999px;border:1px solid #2f2f31;background:transparent;color:#a2a5a4;font:700 13px 'Inter',sans-serif;white-space:nowrap;cursor:pointer}
+.chip[aria-pressed="true"]{background:#ffffff;color:#000000;border-color:#ffffff}
+.btn:active,.send:active{transform:translateY(1px)}
+/* nav: the shell nav (canon 4.1), account items in .navend; it does not stick here */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:relative;z-index:20;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card);box-shadow:0 100vh 0 100vh rgba(0,0,0,.72)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.go{background:#d31110;color:#ffffff}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (max-width:1100px){.nav6 .navbook{display:none}}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(100vw - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+/* layout: three rounded panels on black */
+.inbox{flex:1 1 auto;display:grid;grid-template-columns:320px minmax(0,1fr) 300px;gap:12px;padding:0 12px 12px;box-sizing:border-box}
+.inbox > *{min-width:0}
+.panel{background:#0e0e0f;border-radius:var(--r-card);box-shadow:inset 0 0 0 1px #1f1f21}
+.col-list{display:flex;flex-direction:column;overflow:hidden}
+.col-chat{display:flex;flex-direction:column;min-width:0;background:#fffde9;color:#000000;border-radius:var(--r-card);overflow:clip}
+.col-info{display:flex;flex-direction:column;gap:16px;padding:22px clamp(16px,1.6vw,22px)}
+/* thread list */
+.listhead{padding:22px clamp(16px,1.6vw,22px) 14px;display:flex;flex-direction:column;gap:14px}
+.listhead h1{margin:0;font-size:44px;line-height:.9;font-weight:700;letter-spacing:-0.065em}
+.filters{display:flex;gap:6px}
+.rows{display:flex;flex-direction:column;gap:4px;padding:0 10px 10px}
+.thread{width:100%;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;box-sizing:border-box;padding:12px;border:0;border-radius:var(--r-bar);background:transparent;color:#ffffff;font:inherit;text-align:left;cursor:pointer;text-decoration:none}
+.thread.on{background:#1c1c1e}
+.tav{display:block;width:48px;height:48px;margin:4px;border-radius:50%;overflow:hidden;background:#000000;box-shadow:0 0 0 2px #0e0e0f,0 0 0 4px #d31110}
+.thread.on .tav{box-shadow:0 0 0 2px #1c1c1e,0 0 0 4px #d31110}
+.tav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.tname{font-size:17px;font-weight:700;letter-spacing:-0.03em;min-width:0}
+.tstat{display:block;font-size:13px;font-weight:700;line-height:1.35}
+.preview{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;line-height:1.35;font-size:14px;color:#a2a5a4}
+.listfoot{margin-top:auto;padding:14px clamp(16px,1.6vw,22px) 20px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #1f1f21}
+/* the button text is a hole (span.sc-interp), so only the line under it is styled */
+.listfoot > span{font-size:13px;color:#a2a5a4}
+/* chat */
+.chathead{padding:20px clamp(16px,3vw,36px) 18px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(0,0,0,.12)}
+@media (min-width:761px){.chathead{position:sticky;top:0;z-index:2;background:#fffde9}}
+.whohead{display:flex;align-items:center;gap:14px;min-width:0}
+.whohead .tav{width:56px;height:56px;box-shadow:0 0 0 2px #fffde9,0 0 0 4px #d31110}
+.whohead h2{margin:0;font-size:40px;line-height:.95;font-weight:700;letter-spacing:-0.06em}
+.refchip{margin-left:auto;align-self:flex-start;flex:none;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:700;color:#4d504f;font-variant-numeric:tabular-nums}
+.metaline{font-size:14px;line-height:1.4}
+.metaline.dim{color:#4d504f}
+.metaline a{font-weight:700;text-underline-offset:3px}
+/* QA6 r2: a 40px+ tap area that does not stretch the focus ring */
+.metaline a,.terms a{position:relative}
+.metaline a::after,.terms a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+.steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.steps li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps .bar{height:6px;border-radius:999px}
+.steplbl{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:420px){.steplbl{font-size:11px}}
+.log{flex:1 1 auto;padding:24px clamp(16px,3vw,36px);display:flex;flex-direction:column;justify-content:flex-start;gap:12px}
+.log > *{flex-shrink:0}
+.log::before{content:"";flex:1 0 0;margin-bottom:-12px}
+.bub{max-width:min(78%,520px);padding:12px 16px;font-size:15px;line-height:1.45;border-radius:20px;overflow-wrap:anywhere}
+.bub strong{display:block;font-size:12px;margin-bottom:4px}
+.bub-me{align-self:flex-end;background:#000000;color:#ffffff;border-bottom-right-radius:6px}
+.bub-them{align-self:flex-start;background:#ffffff;color:#000000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);border-bottom-left-radius:6px}
+.sysline{align-self:center;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:700;color:#4d504f}
+.sysline.red{background:rgba(211,17,16,.1);color:#d31110}
+.note{align-self:center;max-width:520px;font-size:13px;line-height:1.4;color:#4d504f;text-align:center}
+.offer{align-self:flex-start;width:min(100%,520px);background:#ffffff;border-radius:var(--r-card);overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.14),inset 0 0 0 1px rgba(0,0,0,.12);display:flex;flex-direction:column}
+.offerbar{background:#000000;color:#ffffff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:700}
+.offerbar .tag{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);font-size:12px;white-space:nowrap}
+.offerbody{padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+.price{font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
+.terms{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;font-size:14px;padding:14px;border-radius:var(--r-bar);background:#fffde9}
+.terms dt{font-weight:700}.terms dd{margin:0}
+.box{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;background:#fffde9;border-radius:var(--r-bar);padding:12px 14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14)}
+.box-col{flex-direction:column;flex-wrap:nowrap;align-items:stretch}
+.box-ink{background:#000000;color:#ffffff;box-shadow:none}
+.field{display:flex;align-items:center;min-width:0;background:#ffffff;border-radius:var(--r-field);box-shadow:inset 0 0 0 1.5px #000000}
+.field input{flex:1 1 auto;min-width:0;width:100%;border:0;background:transparent;color:#000000;font:700 18px 'Inter',sans-serif;padding:12px 14px 12px 4px;outline:none}
+.field:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.ferr{display:block;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+/* composer, same as the Home6 composer */
+.composer{position:sticky;bottom:0;z-index:2;padding:12px clamp(12px,2.4vw,28px) 14px;background:#fffde9;border-top:1px solid rgba(0,0,0,.12)}
+.composer-in{display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:#ffffff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.composer-in:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+.att{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.06);cursor:pointer;display:grid;place-items:center}
+.att-off{opacity:.4;cursor:default}
+.composer input{flex:1 1 auto;min-width:0;border:0;background:transparent;font:400 16px 'Inter',sans-serif;color:#000000;padding:10px 4px;outline:none}
+.send{flex:none;min-height:44px;padding:0 22px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 15px 'Inter',sans-serif;cursor:pointer}
+.send-off{opacity:.4;cursor:default}
+/* request details */
+.col-info h2{margin:0;font-size:24px;line-height:1;font-weight:700;letter-spacing:-0.04em}
+.facts{margin:0;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:var(--r-bar);background:#151516}
+.facts div{display:flex;flex-direction:column;gap:2px}
+.facts dt{font-size:12px;color:#a2a5a4}
+.facts dd{margin:0;font-size:18px;font-weight:700;letter-spacing:-0.03em}
+.flag{margin:0;padding:12px 14px;border-radius:var(--r-bar);font-size:15px;font-weight:700;line-height:1.35}
+.flag-red{box-shadow:inset 0 0 0 1.5px #ff3b2f}
+.flag-cream{background:#fffde9;color:#000000}
+.intown{background:#d31110;color:#ffffff;padding:14px 16px;border-radius:var(--r-bar);font-size:15px;line-height:1.4}
+.infocard{display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:var(--r-bar);background:#151516}
+.infocard h3{margin:0;font-size:15px;font-weight:700;letter-spacing:-0.02em}
+#rider:target{box-shadow:inset 0 0 0 2px #ff3b2f}
+.rider{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;font-size:14px;line-height:1.4}
+.rider dt{color:#a2a5a4}.rider dd{margin:0}
+.small{margin:0;font-size:13px;line-height:1.4;color:#a2a5a4}
+.col-info .small a{color:#ffffff;text-underline-offset:3px;position:relative}
+.col-info .small a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+/* QA6: dot separators; the dot before an item that wraps to a new line is clipped off */
+.dots{display:block;clip-path:inset(-24px -24px -24px -3px)}
+.dots > span{display:flex;flex-wrap:wrap;margin-left:-.9em}
+.dots > span > span{position:relative;min-width:0;padding-left:.9em}
+.dots > span > span::before{content:"\00b7";position:absolute;left:0;width:.9em;text-align:center}
+/* QA6: desktop is one app screen; the chat log and the details scroll inside their panels */
+.app{min-height:1000px}
+@media (min-width:1200px){
+.app{height:100svh;min-height:640px}
+.chathead,.composer{position:relative}
+.inbox{grid-template-rows:minmax(0,1fr);min-height:0}
+.col-list,.col-chat{min-height:0}
+.col-info{min-height:0;overflow-y:auto}
+.log{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+/* QA7: the details panel scrolls past its last card instead of cutting it at the edge */
+.col-info{gap:12px;padding-bottom:28px}
+.facts{gap:10px}
+}
+/* hover: pointer devices only */
+@media (hover: hover) and (pointer: fine){
+.nl:hover,.acctmenu a:hover{color:#ff3b2f}
+.go:hover{background:#ffffff;color:#000000}
+.navmenu:hover{border-color:#ffffff}
+.btn-red:hover,.send:not(.send-off):hover{background:#000000;color:#ffffff}
+.listfoot .btn-red:hover{background:#ffffff;color:#000000}
+.btn-ghost:hover{background:#000000;color:#ffffff}
+.btn-ink:hover{background:#d31110}
+.thread:not(.on):hover{background:#151516}
+.thread:not(.on):hover .tav{box-shadow:0 0 0 2px #151516,0 0 0 4px #d31110}
+.chip[aria-pressed="false"]:hover{color:#ffffff;border-color:#a2a5a4}
+.att:not(.att-off):hover{background:#000000}
+.att:not(.att-off):hover svg{stroke:#ffffff}
+.decl:hover{color:#d31110}
+}
+@media (max-width:1199px){
+.inbox{grid-template-columns:300px minmax(0,1fr)}
+.col-info{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+.col-info > h2,.col-info > .flag,.col-info > .facts,.col-info > .small,.col-info > .intown{grid-column:1/-1}
+.facts{flex-direction:row;flex-wrap:wrap;gap:12px 32px}
+/* QA6 r2: spare height (min-height 1000) goes to the list and chat row, not to an empty details panel */
+.inbox{grid-template-rows:1fr auto}
+}
+/* QA7: tablet, the thread list hugs its rows so the red button sits under them, not at the bottom of a tall empty panel */
+@media (min-width:761px) and (max-width:1199px){.col-list{align-self:start}.listfoot{margin-top:0}}
+/* QA7 final: on a tall enough tablet the list rides along while you read the chat, instead of leaving a black column */
+@media (min-width:761px) and (max-width:1199px) and (min-height:720px){.col-list{position:sticky;top:12px}}
+/* QA7 final: tablet and phone scroll the page, with the chat head (tablet) and the composer stuck to the screen edges.
+   Anything in the log that scrolls into view (a focused button, a new message) stops clear of them. */
+@media (max-width:1199px){.log *{scroll-margin:210px 0 96px}}
+@media (max-width:760px){.log *{scroll-margin:16px 0 96px}}
+/* QA7: tablet portrait, the five facts sit 3 + 2 instead of 4 + 1 */
+@media (min-width:761px) and (max-width:900px){.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* QA6 r2: tablet portrait, keep 'Jude & Frank' on one line next to the ref chip */
+@media (min-width:761px) and (max-width:820px){.whohead h2{font-size:34px}}
+@media (max-width:760px){
+.inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none;padding:0 16px 16px;gap:8px}
+.listhead h1{font-size:32px}
+.rows{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:10px;padding-top:6px}
+/* QA7: the end spacer lets the last card snap to the start; inactive cards read as cards */
+.rows{gap:10px}
+/* QA7 final: the gap matches the 10px snap inset, so no sliver of the card before peeks at the left edge */
+.rows::after{content:"";flex:0 0 calc(18% - 10px)}
+.thread{flex:0 0 82%;scroll-snap-align:start;background:#151516}
+.thread.on{background:#1c1c1e}
+.thread .tav{box-shadow:0 0 0 2px #151516,0 0 0 4px #d31110}
+.thread.on .tav{box-shadow:0 0 0 2px #1c1c1e,0 0 0 4px #d31110}
+.whohead h2{font-size:30px}
+.refchip{display:none}
+.col-info{grid-template-columns:minmax(0,1fr)}
+.facts{flex-direction:column;gap:12px}
+}
+/* QA7 final: small phones, 'Message Jude & Frank' fits the field instead of being cut mid word */
+@media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
+</style>
+</helmet>
+
+<div class="app" onPointerDown="{{outsideDown}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
+
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+<defs>
+<g id="bk-word-i">
+<path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path>
+<path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.050ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path>
+<path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path>
+<path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path>
+<path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path>
+<path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path>
+</g>
+</defs>
+</svg>
+
+<!-- NAV (signed in) -->
+<header class="nav6">
+<a class="skip" href="#main">Skip to the chat</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><use href="#bk-word-i"></use></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="index.html#how">How it works</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="#main" aria-current="page" style="display: inline-flex; align-items: center; gap: 8px;">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 50%; background: #ff3b2f; color: #000000; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; line-height: 1;">1</span><span class="vh">&nbsp;(1 waiting on you)</span></sc-if></a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="index.html#find">Book a DJ</a>
+<div ref="{{acctWrapRef}}" onKeyDown="{{acctKey}}" onBlur="{{acctBlur}}" style="position: relative; flex: 0 0 auto;">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span style="font-size: 13px; line-height: 1.4; color: #a2a5a4;">Signed in as <strong style="color: #ffffff; font-weight: 700;">[Host name]</strong></span>
+<a href="index.html" style="display: block; padding: 13px 0; font-size: 15px; font-weight: 700;">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="#main" aria-current="page" onClick="{{closeMenu}}">Inbox</a>
+</nav>
+</sc-if>
+</header>
+
+<div class="inbox">
+
+<!-- THREAD LIST -->
+<aside class="col-list panel" aria-label="Your inbox">
+<div class="listhead">
+<h1>Inbox.</h1>
+<div class="filters" role="group" aria-label="Show requests">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+<button type="button" class="chip" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}&nbsp;·&nbsp;{{f.count}}</button>
+</sc-for>
+</div>
+</div>
+<div class="rows" ref="{{rowsRef}}" onFocus="{{rowsFocus}}">
+<sc-for list="{{threads}}" as="t" hint-placeholder-count="2">
+<button type="button" class="{{t.cls}}" onClick="{{t.pick}}" aria-current="{{t.current}}">
+<span class="tav"><img src="{{t.photo}}" alt="" style="opacity: {{t.imgOpacity}}; filter: {{t.grade}}; object-position: {{t.pos}};"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<span style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 8px;"><span class="tname" style="color: {{t.nameColor}};">{{t.name}}</span><span style="font-size: 12px; color: #a2a5a4; white-space: nowrap;">{{t.time}}</span></span>
+<span class="tstat dots"><span><span style="color: {{t.statusColor}};">{{t.status}}</span><span style="color: #a2a5a4; font-weight: 400;">{{t.date}}</span></span></span>
+<span class="preview">{{t.preview}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{listEmpty}}" hint-placeholder-val="{{ false }}">
+<p class="small" style="padding: 8px clamp(16px, 1.6vw, 22px);">{{emptyText}}</p>
+</sc-if>
+<sc-if value="{{listfootOffer}}" hint-placeholder-val="{{ true }}">
+<div class="listfoot"><a class="btn btn-red" href="index.html#find">{{footFind}}</a><span>{{footSee}}</span></div>
+</sc-if>
+<sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
+<div class="listfoot"><a class="btn btn-red" href="index.html#find">See the roster</a><span>Booked for Nov&nbsp;14. Need a second&nbsp;DJ?</span></div>
+</sc-if>
+</aside>
+
+<!-- CHAT -->
+<main class="col-chat" id="main">
+
+<div class="chathead">
+<div class="whohead">
+<span class="tav"><img src="{{activePhoto}}" alt="" style="filter: {{activeGrade}}; object-position: {{activePos}};"></span>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<h2>{{activeName}}</h2>
+<span class="metaline dots"><span><span>With {{chatWith}}</span><sc-if value="{{hasProfile}}" hint-placeholder-val="{{ true }}"><span><a href="{{profileHref}}">See her profile</a></span></sc-if></span></span>
+</div>
+<span class="refchip">{{chatRef}}</span>
+</div>
+<span class="metaline dim dots"><span><sc-for list="{{metaBits}}" as="b" hint-placeholder-count="4"><span>{{b.t}}</span></sc-for></span></span>
+<ol class="steps" aria-label="Request status">
+<sc-for list="{{steps}}" as="step" hint-placeholder-count="5">
+<li aria-current="{{step.current}}">
+<span class="bar" style="background: {{step.bar}};"></span>
+<span class="steplbl" style="color: {{step.text}};">{{step.label}}</span>
+</li>
+</sc-for>
+</ol>
+</div>
+
+<div class="log" role="log" aria-label="Messages" ref="{{logRef}}">
+
+<sc-if value="{{isKaytranCanned}}" hint-placeholder-val="{{ true }}">
+<div class="sysline">Request sent · Tue, Oct 20, 4:12 PM</div>
+
+<div class="bub bub-me"><strong>You · 4:12 PM</strong>Hi! Loft party in Bushwick for about 120 people, mostly my friends. Looking for something warm and dancey from 10 to 2.</div>
+
+<div class="bub bub-them"><strong>Mara, Kaytran's agent · 4:47 PM</strong>Thanks for reaching out. Kaytran's in New York that weekend, so there's no travel fee. Sending an offer now.</div>
+
+<div class="offer">
+<div class="offerbar"><span>Offer from Kaytran</span><span class="tag" style="color: {{offerTagColor}};">{{offerTag}}</span></div>
+<div class="offerbody">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div class="price">$2,400</div>
+<span style="font-size: 14px; line-height: 1.35; font-weight: 700; color: #d31110;">$100 under your budget. No travel&nbsp;fee.</span>
+<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">Total for the night. [Booking fee]&nbsp;included.</span>
+</div>
+<dl class="terms">
+<dt>Set</dt><dd>Sat, Nov&nbsp;14 · 10&nbsp;PM to 2&nbsp;AM (4&nbsp;hrs)</dd>
+<dt>Travel</dt><dd>$0. Kaytran is already in New&nbsp;York.</dd>
+<dt>Deposit</dt><dd>[X%] when you accept, the rest after the&nbsp;party</dd>
+<dt>Rider</dt><dd><a href="#rider">See her rider</a></dd>
+<dt>Valid until</dt><dd>Tue, Nov&nbsp;3</dd>
+</dl>
+<sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red btn-lg" type="button" onClick="{{accept}}" ref="{{acceptRef}}" style="flex: 1 1 160px;">Accept offer</button>
+<button class="btn btn-ghost btn-lg" type="button" onClick="{{startCounter}}" ref="{{counterBtnRef}}" style="flex: 0 1 auto;">Counter</button>
+</div>
+<button class="decl" type="button" onClick="{{decline}}" style="align-self: flex-start;">Not this time</button>
+</div>
+</sc-if>
+<sc-if value="{{countering}}" hint-placeholder-val="{{ false }}">
+<form class="box box-col" onSubmit="{{sendCounter}}" onKeyDown="{{counterKey}}" aria-label="Counter offer" style="margin: 0;">
+<label style="display: flex; flex-direction: column; gap: 8px; min-width: 0;"><span style="font-size: 15px; font-weight: 700;">Your number for the night<span class="vh">&nbsp;in dollars</span></span>
+<span class="field"><span aria-hidden="true" style="padding-left: 14px; font-size: 18px; font-weight: 700;">$</span><input type="text" inputmode="numeric" autocomplete="off" maxlength="9" value="{{counterAmt}}" onInput="{{typeCounter}}" ref="{{counterRef}}" aria-invalid="{{counterInvalid}}" aria-describedby="{{counterDescribe}}"></span>
+</label>
+<sc-if value="{{counterErr}}" hint-placeholder-val="{{ false }}"><span id="err-counter" class="ferr" role="alert" style="margin-top: -6px;">Type a number first, like&nbsp;2,200.</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red" type="button" onClick="{{sendCounter}}" style="flex: 1 1 160px;">Send counter</button>
+<button class="btn btn-ghost" type="button" onClick="{{cancelCounter}}" style="flex: 0 1 auto;">Cancel</button>
+</div>
+</form>
+</sc-if>
+<sc-if value="{{countered}}" hint-placeholder-val="{{ false }}">
+<div class="box" role="status" tabindex="-1" ref="{{counteredRef}}">
+<span style="min-width: 0; font-size: 15px; font-weight: 700; line-height: 1.35;">{{counterLine}}</span>
+<button class="btn btn-ghost btn-sm" type="button" onClick="{{undoCounter}}">Undo</button>
+</div>
+</sc-if>
+<sc-if value="{{declined}}" hint-placeholder-val="{{ false }}">
+<div class="box" role="status" tabindex="-1" ref="{{declinedRef}}">
+<span style="font-size: 15px; font-weight: 700;">You passed on this&nbsp;offer.</span>
+<button class="btn btn-ghost btn-sm" type="button" onClick="{{undoDecline}}">Undo</button>
+</div>
+</sc-if>
+<sc-if value="{{depositDue}}" hint-placeholder-val="{{ false }}">
+<div class="box box-col">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Accepted. Lock the date with a [X%]&nbsp;deposit.</span>
+<button class="btn btn-red btn-lg" type="button" onClick="{{payDeposit}}" ref="{{dueRef}}">Pay [X%] deposit</button>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+<span style="flex: 1 1 220px; min-width: 0; font-size: 13px; line-height: 1.4; color: #4d504f;">Sample flow. No card needed. Paying means you agree to the&nbsp;terms.</span>
+<button class="btn btn-ghost btn-sm" type="button" onClick="{{undo}}">Undo</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
+<div class="box box-col box-ink" role="status" tabindex="-1" ref="{{paidRef}}" style="gap: 4px;">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Booked. Kaytran is yours on Sat, Nov&nbsp;14.</span>
+<span style="font-size: 13px; line-height: 1.4; color: #a2a5a4;">Deposit [X%] paid. The rest is due after the&nbsp;party.</span>
+</div>
+</sc-if>
+</div>
+</div>
+
+<div class="bub bub-them"><strong style="color: #d31110;">Kaytran · 5:02 PM</strong>Can't wait. Send me a few songs you love and I'll work them in.</div>
+</sc-if>
+
+<sc-if value="{{isKaytranFresh}}" hint-placeholder-val="{{ false }}">
+<div class="sysline">Request sent · Just now</div>
+<div class="bub bub-me"><strong>You · Just now</strong>{{freshText}}</div>
+<div class="note">Kaytran or Mara usually replies in [X&nbsp;hrs]. The&nbsp;offer lands right&nbsp;here.</div>
+<button class="btn btn-ghost btn-sm" type="button" onClick="{{showSample}}" style="align-self: center;">See a sample offer</button>
+</sc-if>
+
+<sc-if value="{{isJude}}" hint-placeholder-val="{{ false }}">
+<div class="sysline">Request sent · {{judeTime}}</div>
+<div class="bub bub-me"><strong>You · {{judeTime}}</strong>Loft party in Bushwick for about 120 people, mostly my friends. Looking for something housey from 10 to&nbsp;2.</div>
+<div class="note">Seen. Usually replies in [X&nbsp;hrs].</div>
+</sc-if>
+
+<sc-if value="{{isDial}}" hint-placeholder-val="{{ false }}">
+<div class="sysline">Request sent · {{dialTime}}</div>
+<div class="bub bub-me"><strong>You · {{dialTime}}</strong>Hi! Loft party in Bushwick on Sat, Nov 14, about 120 people, mostly my friends. Up for some techno from 10 to&nbsp;2?</div>
+<div class="note">Delivered. Usually replies in [X&nbsp;hrs].</div>
+</sc-if>
+
+<sc-for list="{{sent}}" as="m" hint-placeholder-count="0">
+<sc-if value="{{m.mine}}" hint-placeholder-val="{{ true }}">
+<div class="bub bub-me"><strong>You · {{m.time}}</strong>{{m.text}}</div>
+</sc-if>
+<sc-if value="{{m.sys}}" hint-placeholder-val="{{ false }}">
+<div class="sysline red">{{m.text}}</div>
+</sc-if>
+</sc-for>
+</div>
+
+<form class="composer" onSubmit="{{send}}" onKeyDown="{{sendKey}}" aria-label="Write a message">
+<div class="composer-in">
+<button class="{{attCls}}" type="button" onClick="{{attach}}" aria-label="Attach a file" aria-disabled="{{attDisabled}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" aria-hidden="true"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.5 3.5 0 0 1 5 5L10.5 18a2 2 0 0 1-3-3L15 7.5"></path></svg></button>
+<label style="flex: 1 1 auto; display: flex; min-width: 0;"><span class="vh">Message</span><input type="text" value="{{draft}}" onInput="{{typeDraft}}" placeholder="{{draftHint}}" ref="{{composerRef}}"></label>
+<button class="{{sendCls}}" type="button" onClick="{{send}}" aria-disabled="{{sendDisabled}}">Send</button>
+</div>
+</form>
+</main>
+
+<!-- REQUEST DETAILS -->
+<aside class="col-info panel" aria-label="Request details">
+<h2>Your request</h2>
+<sc-if value="{{isKaytran}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{depositDue}}" hint-placeholder-val="{{ false }}">
+<p class="flag flag-red">Deposit due: [X%] to lock Nov&nbsp;14.</p>
+</sc-if>
+<sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
+<p class="flag flag-cream">Booked. Deposit&nbsp;paid.</p>
+</sc-if>
+</sc-if>
+<dl class="facts">
+<sc-for list="{{factRows}}" as="r" hint-placeholder-count="5">
+<div><dt>{{r.k}}</dt><dd>{{r.v}}</dd></div>
+</sc-for>
+</dl>
+<p class="small">Need to change the date or budget? Say so in the&nbsp;chat.</p>
+<sc-if value="{{isKaytran}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{kCards}}" hint-placeholder-val="{{ true }}">
+<div class="intown"><strong>In town.</strong> Kaytran is in New York Nov 13 to&nbsp;15. No travel fee on this&nbsp;booking.</div>
+<div class="infocard">
+<h3>Files</h3>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">Kaytran_Rider.pdf</span><span style="font-size: 12px; color: #a2a5a4;">From Mara, Oct&nbsp;20</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">Loft_floorplan.jpg</span><span style="font-size: 12px; color: #a2a5a4;">From you, Oct&nbsp;20</span></span>
+<sc-if value="{{kShared}}" hint-placeholder-val="{{ false }}">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">[Host_songs.pdf]</span><span style="font-size: 12px; color: #a2a5a4;">From you, just&nbsp;now</span></span>
+</sc-if>
+</div>
+</sc-if>
+<div class="infocard" id="rider" style="scroll-margin-top: 16px;">
+<h3>Rider</h3>
+<dl class="rider">
+<dt>Decks</dt><dd>[Players and mixer]</dd>
+<dt>Monitors</dt><dd>[Booth monitors]</dd>
+<dt>Arrival</dt><dd>[Arrival time]</dd>
+<dt>Hospitality</dt><dd>[Drinks, guest list]</dd>
+</dl>
+</div>
+</sc-if>
+<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. Dates are&nbsp;samples.</p>
+</aside>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+var INBOX_THREADS = [
+{ key: 'kaytran', name: 'Kaytran', photo: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', time: 'Oct 20', preview: "Kaytran: Can't wait. Send me a few songs you love and I'll work them in." },
+{ key: 'jude', name: 'Jude & Frank', photo: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', time: 'Yesterday', preview: 'You: Loft party in Bushwick for about 120 people, mostly my friends.' },
+{ key: 'dial', name: 'Dial Tone', photo: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', time: 'Yesterday', preview: 'You: Hi! Loft party in Bushwick on Sat, Nov 14, about 120 people, mostly my friends.', grade: 'grayscale(1) contrast(1.8) brightness(.85)', pos: '40% 30%' }
+];
+var INBOX_GRADE = 'grayscale(1) contrast(1.15)';
+var INBOX_POS = '50% 50%';
+var INBOX_DATE = 'Sat, Nov 14';
+// The canned request (Kaytran's sample thread, Jude & Frank, Dial Tone).
+var INBOX_FACTS = [
+{ k: 'Date', v: 'Sat, Nov 14' },
+{ k: 'Set time', v: '10 PM to 2 AM' },
+{ k: 'Where', v: 'Private loft, Brooklyn, NY' },
+{ k: 'Guests', v: 'About 120' },
+{ k: 'Your budget', v: '$2,500' }
+];
+var INBOX_META = ['Sat, Nov 14', '10 PM to 2 AM', 'Brooklyn', 'budget $2,500'];
+var INBOX_FILTERS = [
+{ key: 'open', label: 'Open' },
+{ key: 'booked', label: 'Booked' },
+{ key: 'closed', label: 'Closed' }
+];
+var INBOX_EMPTY = {
+open: 'Nothing open right now.',
+booked: 'Nothing booked yet. Pay a deposit and it lands here.',
+closed: 'Nothing closed. Everyone is still talking.'
+};
+
+// Booking stage of the Kaytran thread: 'offer' | 'accepted' | 'paid'.
+// IB owns state.stage; the accepted fallback stays for older state.
+function inboxStage(st) {
+return st.stage || (st.accepted ? 'accepted' : 'offer');
+}
+
+// Which filter a thread lives under. Kaytran moves to Booked once paid and to Closed when you pass.
+function inboxGroup(key, stage, declined) {
+if (key === 'kaytran' && stage === 'paid') return 'booked';
+if (key === 'kaytran' && declined && stage === 'offer') return 'closed';
+return 'open';
+}
+
+// IB: chat header per thread.
+var INBOX_CHAT = {
+kaytran: { ref: '#BK-1114', withWho: 'Mara, her agent', profile: '' },
+jude: { ref: '#BK-1115', withWho: '[Agent name], their agent', profile: '' },
+dial: { ref: '#BK-1109', withWho: '[Agent name], her agent', profile: '' }
+};
+
+// QA7: the request Kaytran6 just sent (sessionStorage 'bookd.req.kaytran'), cleaned up for the thread.
+// The budget gets Kaytran6's $ and commas: '1800' is '$1,800', '1,800' is '$1,800', '$1,800' stays.
+// QA7 final: 'about 2k' or '~2500' loses the 'about' ('Budget is around $2k', not 'around about 2k'),
+// and a head count typed without a word ('about 60', '80ish') gets 'people' in the bubble and 'guests' in the head line.
+function inboxReq(r) {
+var s = function (x) { return String(x == null ? '' : x).replace(/\s+/g, ' ').trim(); };
+var cut = function (x) { return s(x).replace(/[.\s]+$/, ''); };
+var b = cut(r.budget);
+var bn = b.replace(/^(about|around|roughly|approx\.?|maybe|~)\s*/i, '');
+var money = b;
+if (/^\d+$/.test(bn)) money = '$' + bn.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+else if (/^\d/.test(bn)) money = '$' + bn;
+else if (/^\$/.test(bn)) money = bn;
+var g = cut(r.guests);
+var bare = /\d/.test(g) && !/guest|people|ppl|person|friend|crowd/i.test(g);
+var d = cut(r.date);
+var day = (d.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}$/) || [])[0] || '';
+return { date: d, day: day, where: cut(r.where), guests: g, num: /^\d+$/.test(g), bare: bare, budget: b, money: money, msg: s(r.msg) };
+}
+function inboxReqText(q) {
+return 'Hi! Party' + (q.date ? ' on ' + q.date : '') + (q.where ? ' in ' + q.where : '') +
+(q.guests ? (q.num ? ', about ' + q.guests + ' people' : ', ' + q.guests + (q.bare ? ' people' : '')) : '') + '.' +
+(q.budget ? ' Budget is around ' + q.money + '.' : '') + (q.msg ? ' ' + q.msg : '');
+}
+var INBOX_STEPS = ['Sent', 'Seen', 'Offer', 'Accepted', 'Booked'];
+
+// IB: ref callback that keeps the element and focuses it once when this.wantFocus names it.
+function inboxFocusRef(self, name) {
+return function (el) {
+self.els[name] = el;
+if (el && self.wantFocus === name) {
+self.wantFocus = null;
+if (el.focus) el.focus();
+self.focusMoved = true;
+}
+};
+}
+
+// IB: '2200', '2,200' or '02200' becomes '2,200'; '$2,250.00' drops the cents; no digits gives ''.
+function inboxMoney(v) {
+var d = String(v || '').split('.')[0].replace(/\D/g, '').replace(/^0+/, '');
+return d ? d.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+}
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+this.state = {
+active: 'kaytran', filter: 'open', acctOpen: false, menuOpen: false,
+stage: 'offer', draft: '', drafts: {}, sent: [],
+countering: false, countered: false, declined: false, counterAmt: '2,200', counterSent: '', counterErr: false,
+req: null, sample: false, openedWith: '', shared: {}
+};
+this.acctBtn = null;
+this.acctWrap = null;
+this.acctBtnRef = function (el) { self.acctBtn = el; };
+this.acctWrapRef = function (el) { self.acctWrap = el; };
+// QA7: phone menu (shell 2.3). Escape closes it and puts focus back on the Menu button.
+this.menuBtn = null;
+this.menuListen = false;
+this.menuBtnRef = function (el) { self.menuBtn = el; };
+this.menuEsc = function (e) {
+if (!e || e.key !== 'Escape') return;
+self.setMenu(false);
+if (self.menuBtn && self.menuBtn.focus) self.menuBtn.focus();
+};
+// QA7: the composer field, focused again after a send by click
+this.composerEl = null;
+this.composerRef = function (el) { self.composerEl = el; };
+// IB: focus targets for the offer flow
+this.els = {};
+this.wantFocus = null;
+this.focusMoved = false;
+this.acceptRef = inboxFocusRef(this, 'accept');
+this.counterBtnRef = inboxFocusRef(this, 'counterBtn');
+this.counterRef = inboxFocusRef(this, 'counter');
+this.counteredRef = inboxFocusRef(this, 'countered');
+this.declinedRef = inboxFocusRef(this, 'declined');
+this.dueRef = inboxFocusRef(this, 'due');
+this.paidRef = inboxFocusRef(this, 'paid');
+// QA6: the chat log and the phone thread carousel, kept in view by syncView
+this.logEl = null;
+this.rowsEl = null;
+this.viewSig = '';
+this.alive = true;
+this.logRef = function (el) { self.logEl = el; };
+this.rowsRef = function (el) { self.rowsEl = el; };
+}
+// QA6: newest message in view where the log scrolls inside its panel (desktop),
+// and the open thread in view where the list is a swipe row (phone). Runs once per thread, filter, sample or new line.
+// QA7: on a thread with the offer, the offer card sits at the top of the log, one gap under the chat head,
+// with the line before it fully scrolled out (no sliver of it peeking under the head).
+syncView(force) {
+var st = this.state;
+var sig = st.active + ':' + st.filter + ':' + st.sent.length + ':' + (st.sample ? 1 : 0);
+if (!force && sig === this.viewSig) return;
+this.viewSig = sig;
+var log = this.logEl;
+var newLine = this.viewThread === st.active && st.sent.length > (this.viewSent || 0);
+var offer = log ? log.querySelector('.offer') : null;
+var lastLine = st.sent[st.sent.length - 1];
+// Accept and Pay add a system line that the box inside the offer already says, so the offer stays put
+// and only the focused box comes into view; messages and counters scroll to the newest line.
+var stay = newLine && offer && lastLine && (lastLine.kind === 'accepted' || lastLine.kind === 'paid');
+var a = typeof document !== 'undefined' ? document.activeElement : null;
+var focusBox = log && a && a !== log && log.contains(a) ? (a.closest('.box') || a) : null;
+if (log && log.scrollHeight > log.clientHeight) {
+if (stay) {
+if (focusBox) focusBox.scrollIntoView({ block: 'nearest' });
+} else if (newLine || !offer) {
+log.scrollTop = log.scrollHeight;
+if (focusBox) focusBox.scrollIntoView({ block: 'nearest' });
+} else {
+var prev = offer.previousElementSibling;
+var lt = log.getBoundingClientRect().top;
+log.scrollTop += Math.ceil(prev ? prev.getBoundingClientRect().bottom - lt : offer.getBoundingClientRect().top - lt - 12);
+}
+} else if (log && newLine && !stay && log.lastElementChild && log.lastElementChild.scrollIntoView) {
+// QA7 final: tablet and phone scroll the page and the composer sticks to the bottom of the screen,
+// so a message you just sent comes up above the composer (scroll-margin on .log children) instead of under it.
+log.lastElementChild.scrollIntoView({ block: 'nearest' });
+if (focusBox) focusBox.scrollIntoView({ block: 'nearest' });
+}
+this.viewThread = st.active;
+this.viewSent = st.sent.length;
+var rows = this.rowsEl;
+if (rows && rows.scrollWidth > rows.clientWidth + 1 && rows.querySelector) {
+var on = rows.querySelector('.thread.on');
+if (on && on.getBoundingClientRect) rows.scrollLeft += on.getBoundingClientRect().left - rows.getBoundingClientRect().left - 10;
+}
+}
+componentDidMount() {
+// Profile sent cards link to inbox.html#kaytran, #jude or #dial.
+var key = (typeof location !== 'undefined' && location.hash) ? location.hash.slice(1) : '';
+if (key === 'kaytran' || key === 'jude' || key === 'dial') {
+var next = { active: key, filter: inboxGroup(key, inboxStage(this.state), this.state.declined), openedWith: key };
+// QA7 (canon 6.3): Kaytran6 leaves the request it just sent in sessionStorage. Read only, never written or cleared here.
+if (key === 'kaytran') {
+var r = null;
+try { r = JSON.parse(sessionStorage.getItem('bookd.req.kaytran') || 'null'); } catch (e) { r = null; }
+if (r && typeof r === 'object' && (r.date || r.where)) next.req = r;
+}
+this.setState(next);
+}
+this.syncView();
+var self = this;
+if (typeof document !== 'undefined' && document.fonts && document.fonts.ready && document.fonts.ready.then) {
+document.fonts.ready.then(function () { if (self.alive) self.syncView(true); });
+}
+}
+componentDidUpdate() {
+this.syncView();
+this.revealFocus();
+}
+// QA7 final: after the offer flow moves focus (Accept, Pay, Counter, Undo), the whole box around the focused
+// control comes into view, clear of the sticky chat head and composer on tablet and phone.
+revealFocus() {
+if (!this.focusMoved) return;
+this.focusMoved = false;
+var log = this.logEl;
+var a = typeof document !== 'undefined' ? document.activeElement : null;
+if (!log || !a || a === log || !log.contains(a)) return;
+var box = a.closest('.box') || a;
+if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest' });
+}
+componentWillUnmount() {
+if (this.menuListen && typeof document !== 'undefined') document.removeEventListener('keydown', this.menuEsc);
+this.menuListen = false;
+this.menuBtn = null;
+this.composerEl = null;
+this.acctBtn = null;
+this.acctWrap = null;
+this.els = {};
+this.wantFocus = null;
+this.alive = false;
+this.logEl = null;
+this.rowsEl = null;
+}
+// QA7: open or close the phone menu; the Escape listener lives only while it is open.
+setMenu(open) {
+if (typeof document !== 'undefined') {
+if (open && !this.menuListen) { document.addEventListener('keydown', this.menuEsc); this.menuListen = true; }
+if (!open && this.menuListen) { document.removeEventListener('keydown', this.menuEsc); this.menuListen = false; }
+}
+if (!!this.state.menuOpen !== open) this.setState({ menuOpen: open });
+}
+pickThread(key) {
+if (this.state.active === key) return;
+// Repair: each thread keeps its own half-typed draft.
+var drafts = {};
+for (var k in this.state.drafts) drafts[k] = this.state.drafts[k];
+drafts[this.state.active] = this.state.draft;
+this.setState({ active: key, drafts: drafts, draft: drafts[key] || '' });
+}
+// QA7: a filter that hides the open chat also opens its first thread; an empty filter leaves the chat alone.
+pickFilter(key) {
+if (this.state.filter === key) return;
+var st = this.state;
+var stage = inboxStage(st);
+this.setState({ filter: key });
+if (inboxGroup(st.active, stage, st.declined) !== key) {
+var first = INBOX_THREADS.filter(function (d) { return inboxGroup(d.key, stage, st.declined) === key; })[0];
+if (first) this.pickThread(first.key);
+}
+}
+// IB: add a line to a thread (the active one by default), in the order it happened.
+// kind: 'msg' (your bubble, default), 'counter' (your counter bubble), 'accepted' or 'paid' (centred system lines).
+addSent(text, extra, thread, kind) {
+var next = { sent: this.state.sent.concat([{ text: text, time: 'Just now', thread: thread || this.state.active, kind: kind || 'msg' }]) };
+if (extra) { for (var k in extra) next[k] = extra[k]; }
+this.setState(next);
+}
+renderVals() {
+var self = this;
+var st = this.state;
+var stage = inboxStage(st);
+var paid = stage === 'paid';
+var depositDue = stage === 'accepted';
+var accepted = depositDue || paid;
+var offerOpen = stage === 'offer';
+var active = st.active;
+var chat = INBOX_CHAT[active] || INBOX_CHAT.kaytran;
+var declined = offerOpen && !!st.declined;
+
+// QA7 (canon 6.3): a request handed off from Kaytran6 shows as a fresh, pending Kaytran thread
+// until you ask for the sample offer.
+var fresh = !!st.req && !st.sample;
+var q = fresh ? inboxReq(st.req) : null;
+var freshText = q ? inboxReqText(q) : '';
+var judeTime = st.openedWith === 'jude' ? 'Just now' : 'Yesterday';
+var dialTime = st.openedWith === 'dial' ? 'Just now' : 'Yesterday';
+var kFresh = fresh && active === 'kaytran';
+
+// Request details panel and the chat head line: the stored request when fresh, the canned one otherwise.
+var factRows = INBOX_FACTS;
+var metaList = INBOX_META;
+if (kFresh) {
+factRows = [
+{ k: 'Date', v: q.date },
+{ k: 'Where', v: q.where },
+{ k: 'Guests', v: q.guests ? (q.num ? 'About ' + q.guests : q.guests.charAt(0).toUpperCase() + q.guests.slice(1)) : '' },
+{ k: 'Your budget', v: q.money }
+].filter(function (f) { return !!f.v; });
+metaList = [q.date, q.where, q.guests ? (q.num || q.bare ? q.guests + ' guests' : q.guests) : '', q.budget ? 'budget ' + q.money : '']
+.filter(function (x) { return !!x; });
+}
+var metaBits = metaList.map(function (t, i) { return { key: 'm' + i, t: t }; });
+factRows = factRows.map(function (f) { return { key: f.k, k: f.k, v: f.v }; });
+
+// IB: status steps. cur is the step in red (aria-current), done the count shown as reached.
+var cur = 2;
+var done = 2;
+if (active === 'kaytran') {
+if (fresh) { cur = 0; done = 0; }
+else if (declined) { cur = -1; done = 3; }
+else { cur = paid ? 4 : (accepted ? 3 : 2); done = cur; }
+}
+else if (active === 'jude') { cur = 1; done = 1; }
+else { cur = 0; done = 0; }
+var steps = INBOX_STEPS.map(function (label, i) {
+var on = i === cur;
+return {
+label: label,
+bar: on ? '#d31110' : (i < done ? '#000000' : '#a2a5a4'),
+text: on ? '#d31110' : (i < done ? '#000000' : '#6b6e6d'),
+current: on ? 'step' : 'false'
+};
+});
+
+// IB: offer tag on the black bar
+var offerTag = 'Waiting on you';
+var offerTagColor = '#ff3b2f';
+if (paid) { offerTag = 'Booked'; offerTagColor = '#ffffff'; }
+else if (depositDue) { offerTag = 'Deposit due'; }
+else if (st.declined) { offerTag = 'Declined'; offerTagColor = '#a2a5a4'; }
+else if (st.countered) { offerTag = 'Countered'; offerTagColor = '#a2a5a4'; }
+
+// IB: your messages in the active thread
+var sent = st.sent.filter(function (m) { return m.thread === active; }).map(function (m, i) {
+var sys = m.kind === 'accepted' || m.kind === 'paid';
+return { key: m.thread + '-' + i, text: m.text, time: m.time, sys: sys, mine: !sys };
+});
+var draftBlank = !String(st.draft || '').trim();
+
+// IA: thread list. Kaytran's status follows the booking stage (and IB's counter or decline).
+var kStatus = 'Your move · offer in';
+var kColor = '#ff3b2f';
+if (fresh) { kStatus = 'Sent'; kColor = '#a2a5a4'; }
+else if (paid) { kStatus = 'Booked'; kColor = '#ffffff'; }
+else if (depositDue) { kStatus = 'Deposit due'; }
+else if (st.declined) { kStatus = 'You passed'; kColor = '#a2a5a4'; }
+else if (st.countered) { kStatus = 'Countered · waiting on them'; kColor = '#a2a5a4'; }
+var status = {
+kaytran: kStatus,
+jude: 'Seen · waiting on them',
+dial: 'Delivered · waiting on her'
+};
+var statusColor = { kaytran: kColor, jude: '#a2a5a4', dial: '#a2a5a4' };
+var rowTime = { kaytran: fresh ? 'Just now' : null, jude: judeTime, dial: dialTime };
+var rowPreview = { kaytran: fresh ? 'You: ' + freshText : null };
+var rowDate = { kaytran: fresh ? (q.date || 'No date yet') : INBOX_DATE };
+// QA7 final: the list foot asks about the night you just requested
+var footDay = fresh ? q.day : 'Nov 14';
+var footFind = 'Find another DJ' + (footDay ? ' for ' + footDay.replace(/ (\d+)$/, ' $1') : '');
+var footSee = fresh && !q.date ? 'See who is already in town.' : 'See who is already in town that night.';
+var counts = { open: 0, booked: 0, closed: 0 };
+var threads = [];
+var activeName = '';
+var activePhoto = INBOX_THREADS[0].photo;
+var activeGrade = INBOX_GRADE;
+var activePos = INBOX_POS;
+INBOX_THREADS.forEach(function (d) {
+var group = inboxGroup(d.key, stage, st.declined);
+var on = d.key === active;
+var dim = group === 'closed';
+counts[group] += 1;
+if (on) { activeName = d.name; activePhoto = d.photo; activeGrade = d.grade || INBOX_GRADE; activePos = d.pos || INBOX_POS; }
+if (group !== st.filter) return;
+// QA7: the row previews the last thing you sent in that thread
+var last = st.sent.filter(function (m) { return m.thread === d.key && (m.kind === 'msg' || m.kind === 'counter'); }).pop();
+threads.push({
+key: d.key,
+name: d.name,
+photo: d.photo,
+grade: d.grade || INBOX_GRADE,
+pos: d.pos || INBOX_POS,
+time: last ? 'Just now' : (rowTime[d.key] || d.time),
+date: rowDate[d.key] || INBOX_DATE,
+status: status[d.key],
+statusColor: statusColor[d.key],
+preview: last ? 'You: ' + last.text : (rowPreview[d.key] || d.preview),
+current: on ? 'true' : 'false',
+cls: on ? 'thread on' : 'thread',
+imgOpacity: dim ? '.7' : '1',
+nameColor: dim ? '#a2a5a4' : '#ffffff',
+pick: function () { self.pickThread(d.key); }
+});
+});
+var filters = INBOX_FILTERS.map(function (f) {
+return {
+key: f.key,
+label: f.label,
+count: counts[f.key],
+on: f.key === st.filter ? 'true' : 'false',
+pick: function () { self.pickFilter(f.key); }
+};
+});
+
+// polish Q5: one send each for the button click, Enter in the field and the form submit
+var sendCounterFn = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var amt = inboxMoney(self.state.counterAmt);
+if (!amt) {
+// QA7: say what is missing instead of only refocusing the field
+self.setState({ counterErr: true });
+var box = self.els.counter;
+if (box && box.focus) box.focus();
+return;
+}
+self.wantFocus = 'countered';
+self.addSent('Could you do $' + amt + '? Same night, same hours.', { countering: false, countered: true, counterAmt: amt, counterSent: amt, counterErr: false }, 'kaytran', 'counter');
+};
+var sendMsgFn = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var text = String(self.state.draft || '').trim();
+if (!text) return;
+self.addSent(text, { draft: '' });
+// QA7: a click on Send keeps you in the field, like Enter does
+if (self.composerEl && self.composerEl.focus) self.composerEl.focus();
+};
+// QA7: Enter that confirms an IME candidate (Japanese, Chinese, Korean) is not a send
+var composing = function (e) { return !!e && (e.keyCode === 229 || !!(e.nativeEvent && e.nativeEvent.isComposing)); };
+var shared = !!(st.shared && st.shared[active]);
+
+return {
+// IA: nav and account menu (nothing waits on you once paid, countered or declined, or while a fresh request is out)
+navWaiting: !fresh && !paid && !st.countered && !st.declined,
+acctOpen: !!st.acctOpen,
+acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: this.acctBtnRef,
+acctWrapRef: this.acctWrapRef,
+logRef: this.logRef,
+rowsRef: this.rowsRef,
+// QA7 final: on the phone swipe row, a card reached with Tab slides fully into view (Chrome leaves a half-hidden card where it is)
+rowsFocus: function (e) {
+var rows = self.rowsEl;
+var card = e && e.target && e.target.closest ? e.target.closest('.thread') : null;
+if (!rows || !card || rows.scrollWidth <= rows.clientWidth + 1) return;
+var rr = rows.getBoundingClientRect();
+var cr = card.getBoundingClientRect();
+if (cr.left < rr.left + 10 || cr.right > rr.right) rows.scrollLeft += cr.left - rr.left - 10;
+},
+composerRef: this.composerRef,
+toggleAcct: function () { self.setState({ acctOpen: !self.state.acctOpen }); },
+acctKey: function (e) {
+if (!e || e.key !== 'Escape' || !self.state.acctOpen) return;
+if (e.preventDefault) e.preventDefault();
+self.setState({ acctOpen: false });
+if (self.acctBtn && self.acctBtn.focus) self.acctBtn.focus();
+},
+// QA7: the account menu closes once keyboard focus leaves it
+acctBlur: function (e) {
+var n = e && e.relatedTarget;
+if (self.state.acctOpen && n && self.acctWrap && !self.acctWrap.contains(n)) self.setState({ acctOpen: false });
+},
+outsideDown: function (e) {
+var t = e && e.target;
+// QA7: a tap outside the phone menu (on the dimmed page) closes it
+if (self.state.menuOpen && !(t && t.closest && t.closest('#mnav, .navmenu'))) self.setMenu(false);
+if (!self.state.acctOpen) return;
+var w = self.acctWrap;
+if (w && t && w.contains && w.contains(t)) return;
+self.setState({ acctOpen: false });
+},
+// QA7: phone menu
+menuOpen: !!st.menuOpen,
+menuExpanded: st.menuOpen ? 'true' : 'false',
+menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: this.menuBtnRef,
+toggleMenu: function () { self.setMenu(!self.state.menuOpen); },
+closeMenu: function () { self.setMenu(false); },
+// IA: thread list and filters
+threads: threads,
+filters: filters,
+listEmpty: threads.length === 0,
+emptyText: INBOX_EMPTY[st.filter] || '',
+listfootOffer: !paid,
+footFind: footFind,
+footSee: footSee,
+openCount: counts.open,
+bookedCount: counts.booked,
+closedCount: counts.closed,
+activeName: activeName,
+activePhoto: activePhoto,
+activeGrade: activeGrade,
+activePos: activePos,
+isKaytran: active === 'kaytran',
+isKaytranCanned: active === 'kaytran' && !fresh,
+isKaytranFresh: kFresh,
+kCards: active === 'kaytran' && !fresh,
+kShared: !!(st.shared && st.shared.kaytran),
+isJude: active === 'jude',
+isDial: active === 'dial',
+judeTime: judeTime,
+dialTime: dialTime,
+freshText: freshText,
+showSample: function () {
+self.wantFocus = 'accept';
+self.setState({ sample: true });
+},
+factRows: factRows,
+metaBits: metaBits,
+// IB: chat header
+chatRef: chat.ref,
+chatWith: chat.withWho,
+profileHref: chat.profile, hasProfile: !!chat.profile,
+steps: steps,
+// IB: offer, counter, decline and deposit
+open: offerOpen && !st.countering && !st.countered && !st.declined,
+accepted: accepted,
+depositDue: depositDue,
+paid: paid,
+countering: offerOpen && !!st.countering,
+countered: offerOpen && !!st.countered,
+declined: declined,
+offerTag: offerTag,
+offerTagColor: offerTagColor,
+counterAmt: st.counterAmt,
+counterErr: !!st.counterErr,
+counterInvalid: st.counterErr ? 'true' : 'false',
+counterDescribe: st.counterErr ? 'err-counter' : '',
+counterLine: 'You countered at $' + st.counterSent + '. Mara will get back to\u00a0you.',
+acceptRef: this.acceptRef,
+counterBtnRef: this.counterBtnRef,
+counterRef: this.counterRef,
+counteredRef: this.counteredRef,
+declinedRef: this.declinedRef,
+dueRef: this.dueRef,
+paidRef: this.paidRef,
+accept: function () {
+self.wantFocus = 'due';
+self.addSent('You accepted the offer · just now', { stage: 'accepted' }, 'kaytran', 'accepted');
+},
+undo: function () {
+self.wantFocus = 'accept';
+self.setState({ stage: 'offer', sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
+},
+payDeposit: function () {
+// Kaytran moves to Booked, so show that filter and keep her row in view.
+self.wantFocus = 'paid';
+self.addSent("Deposit paid · you're booked", { stage: 'paid', filter: 'booked' }, 'kaytran', 'paid');
+},
+startCounter: function () {
+self.wantFocus = 'counter';
+self.setState({ countering: true });
+},
+typeCounter: function (e) {
+var v = (e && e.target && e.target.value) || '';
+// QA7: the first '.' and two cent digits stay in the field, so typing '2,250.50' key by key never glues
+// the cents onto the dollars; inboxMoney drops them on send ('2,250.50' is sent as $2,250).
+var parts = String(v).replace(/[^\d,.]/g, '').split('.');
+self.setState({ counterAmt: parts[0] + (parts.length > 1 ? '.' + parts.slice(1).join('').replace(/,/g, '').slice(0, 2) : ''), counterErr: false });
+},
+cancelCounter: function () {
+self.wantFocus = 'counterBtn';
+self.setState({ countering: false, counterErr: false });
+},
+sendCounter: sendCounterFn,
+counterKey: function (e) {
+if (composing(e)) return;
+if (e.key === 'Escape') {
+e.preventDefault();
+self.wantFocus = 'counterBtn';
+self.setState({ countering: false, counterErr: false });
+return;
+}
+if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); sendCounterFn(); }
+},
+undoCounter: function () {
+// Repair: take the counter back so the offer (and the deposit flow) is reachable again.
+self.wantFocus = 'accept';
+self.setState({ countered: false, counterSent: '', sent: self.state.sent.filter(function (m) { return m.kind !== 'counter'; }) });
+},
+decline: function () {
+// QA7: Kaytran moves to Closed, so show that filter (the way paying shows Booked).
+self.wantFocus = 'declined';
+self.setState({ declined: true, filter: 'closed' });
+},
+undoDecline: function () {
+self.wantFocus = 'accept';
+self.setState({ declined: false, filter: 'open' });
+},
+// IB: composer
+sent: sent,
+draft: st.draft,
+draftHint: 'Message ' + (activeName || 'Kaytran'),
+sendCls: draftBlank ? 'send send-off' : 'send',
+sendDisabled: draftBlank ? 'true' : 'false',
+typeDraft: function (e) {
+var v = (e && e.target && e.target.value) || '';
+self.setState({ draft: String(v) });
+},
+send: sendMsgFn,
+sendKey: function (e) {
+if (composing(e)) return;
+if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); sendMsgFn(); }
+},
+// QA7: one shared file per thread; it shows in the Files card and the clip goes quiet
+attCls: shared ? 'att att-off' : 'att',
+attDisabled: shared ? 'true' : 'false',
+attach: function () {
+var cur = self.state.shared || {};
+if (cur[self.state.active]) return;
+var copy = {};
+for (var k in cur) copy[k] = cur[k];
+copy[self.state.active] = true;
+self.addSent('Shared a file: [Host_songs.pdf]', { shared: copy });
+}
+};
+}
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>
