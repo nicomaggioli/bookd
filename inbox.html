@@ -242,7 +242,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <div class="navgrid">
 <a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><use href="#bk-word-i"></use></svg></a>
 <nav class="navc" aria-label="Main">
+<a class="nl">The roster</a>
 <a class="nl" href="index.html#how">How it works</a>
+<a class="nl">For artists</a>
 </nav>
 <div class="navend">
 <a class="nl navlogin" href="#main" aria-current="page" style="display: inline-flex; align-items: center; gap: 8px;">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 50%; background: #ff3b2f; color: #000000; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; line-height: 1;">1</span><span class="vh">&nbsp;(1 waiting on you)</span></sc-if></a>
@@ -261,7 +263,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 </div>
 <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
 <nav id="mnav" aria-label="Menu">
+<a class="nl">The roster</a>
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl">For artists</a>
 <a class="nl" href="#main" aria-current="page" onClick="{{closeMenu}}">Inbox</a>
 </nav>
 </sc-if>

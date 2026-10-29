@@ -569,7 +569,9 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 </svg>
 </a>
 <nav class="navc" aria-label="Main" style="justify-self: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 30px;">
+<a class="nl">The roster</a>
 <a class="nl" href="#how">How it works</a>
+<a class="nl">For artists</a>
 </nav>
 <div class="navend">
 <button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
@@ -578,7 +580,9 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 </div>
 <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
 <nav id="mnav" aria-label="Menu" style="background: #000000; border-top: 1px solid #333333; display: flex; flex-direction: column; padding: 8px clamp(16px, 4vw, 48px) 16px;">
+<a class="nl" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid #222222;">The roster</a>
 <a class="nl" href="#how" onClick="{{closeMenu}}" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid #222222;">How it works</a>
+<a class="nl" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid #222222;">For artists</a>
 </nav>
 </sc-if>
 </header>
