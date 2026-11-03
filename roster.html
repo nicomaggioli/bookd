@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The roster · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+<script>/* canvas: page stays still */
+(function () {
+  var still = function () {
+    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+  };
+  var css = document.createElement('style');
+  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+  document.head.appendChild(css);
+  var check = function () {
+    var on = still();
+    document.documentElement.classList.toggle('oncanvas', on);
+    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+  };
+  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* big screens (bigscreen.py) */
+:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@media (min-width:1921px){
+  html{zoom:calc(100vw / 1920px)}
+  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+}
+
+/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px);--sec:clamp(64px,calc(8 * var(--vw)),110px)}
+html{scroll-padding-top:88px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+/* type */
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+/* nav */
+/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+/* YOU button and its menu */
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+/* ===== end nav shell ===== */
+/* buttons, chips, fields, cards */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.btn:active{transform:translateY(1px)}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+/* flash photos (same look as the Home6 feed and camera) and avatars */
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+/* footer */
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+
+/* ===== Roster6: the roster as a club flyer lineup poster ===== */
+/* search desk: plain fields, red pill, city chips. Fields go Where, When, Budget, Sound, the same order as the Home6 search. */
+.r6-top{padding-top:clamp(40px,calc(6 * var(--vw)),88px);padding-bottom:clamp(32px,calc(4 * var(--vw)),52px);display:flex;flex-direction:column;gap:clamp(24px,calc(3 * var(--vw)),36px)}
+.r6-head{display:grid;grid-template-columns:minmax(min-content,1.3fr) minmax(0,1fr);gap:18px 56px;align-items:end}
+.r6-find{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,1.25fr) auto;gap:8px;margin:0;padding:10px;border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.r6-find .field{transition:background .15s,box-shadow .15s}
+.r6-find select{cursor:pointer;padding-right:24px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 8 L10 13 L15 8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 0 center;background-size:18px 18px}
+.r6-go{align-self:stretch;min-height:58px;padding:0 30px;font-size:18px;letter-spacing:-0.02em}
+.r6-under{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
+.r6-chips{display:flex;flex-wrap:wrap;gap:8px}
+.r6-chips .chip,.empty-do .chip{color:#fffde9;border-color:#fffde9}
+.r6-chips .chip[aria-pressed="true"]{background:#fffde9;color:#000000;border-color:#fffde9}
+.r6-count{flex:1 1 280px;margin:0;font-size:15px;font-weight:700;line-height:1.4;color:#fffde9}
+/* the poster */
+.r6-wall{padding:0 0 clamp(64px,calc(8 * var(--vw)),120px)}
+.bill{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--r-card);background:#d31110;color:#fffde9;padding:clamp(24px,calc(5.4 * var(--vw)),84px);display:flex;flex-direction:column;gap:clamp(56px,calc(7 * var(--vw)),112px);box-shadow:0 40px 120px rgba(211,17,16,.22)}
+.bill > *{position:relative;z-index:1}
+.bill > .bill-grain{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.bill > .bill-flash{position:absolute;inset:0;z-index:6;pointer-events:none;background:#fffde9;opacity:0}
+.bill-pop > .bill-flash{animation:billflash .7s cubic-bezier(.2,.7,.3,1) both}
+@keyframes billflash{0%{opacity:.85}100%{opacity:0}}
+.bill :focus-visible{outline-color:#fffde9}
+/* the ring follows the surface (LEXICON 4.5): red on the white search desk and on the cream close band */
+.r6-find :focus-visible,.r6-close :focus-visible{outline-color:#d31110}
+.bill-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 32px;align-items:start}
+.bill-mark{grid-column:2;grid-row:1;display:block;width:clamp(96px,calc(11 * var(--vw)),170px);height:auto;fill:#000000;margin-top:calc(.5 * var(--vw))}
+.bill-date{grid-column:1;grid-row:1;margin:0;font-size:clamp(52px,calc(10 * var(--vw)),168px);line-height:.84;font-weight:700;letter-spacing:-0.075em;color:#fffde9;overflow-wrap:anywhere}
+/* a search lands focus here (tabindex -1, never a control), so it takes no ring */
+.bill-date:focus{outline:none}
+.bill-city{grid-column:1 / -1;margin:20px 0 0;font-size:clamp(28px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.055em;color:#000000;overflow-wrap:anywhere}
+.bill-note{grid-column:1 / -1;margin:10px 0 0;font-size:clamp(16px,calc(1.3 * var(--vw)),19px);line-height:1.45;color:#fffde9;max-width:40em}
+/* billing: headliners */
+.bill-tops{display:flex;flex-direction:column;gap:clamp(64px,calc(9 * var(--vw)),136px)}
+.act{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,calc(6 * var(--vw)),96px);align-items:start}
+.act-flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.act-flip .act-shot{order:2}
+/* both billing sizes share one grid, so every name starts on the same line */
+.act-l{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.act-l.act-flip{grid-template-columns:minmax(0,8fr) minmax(0,4fr)}
+/* the photo files are 334x205 thumbnails, so the poster shows them in the camera's 4:3 frame, close to their real size */
+.act-shot{position:relative;width:100%;max-width:440px;justify-self:start}
+.act-photo{aspect-ratio:4 / 3}
+/* a digicam frame: straight, square corners, direct flash that dies off into the dark, noisy sensor */
+.act-photo .dfx,.sub-photo .dfx{background:radial-gradient(ellipse 62% 58% at 50% 38%,rgba(255,255,255,.26) 0%,rgba(255,255,255,0) 46%,rgba(0,0,0,.28) 76%,rgba(0,0,0,.72) 100%)}
+.act-photo .dgrain,.sub-photo .dgrain{opacity:.34}
+.act-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.act-name{margin:0;font-weight:700;line-height:.82;letter-spacing:-0.075em;color:#fffde9;text-wrap:balance}
+/* the giant name starts in its own column, so it never runs over the photo. The bottom margin keeps a descender (the y in Kaytran) off the line under it. */
+.act-xl .act-name{font-size:clamp(64px,calc(11.5 * var(--vw)),168px);margin-bottom:max(0px,calc(.17em - 18px))}
+.act-l .act-name{font-size:clamp(48px,calc(8 * var(--vw)),136px);margin-bottom:max(0px,calc(.17em - 18px))}
+.act-sound{margin:18px 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.2;font-weight:700;letter-spacing:-0.03em;color:#000000}
+/* the home town stays on one line, so "/ Rome" never ends up alone */
+.act-from{font-weight:400;color:#fffde9;letter-spacing:-0.01em;white-space:nowrap}
+/* what a booker compares, in the same two lines on every name */
+.act-when{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.3;letter-spacing:-0.02em;color:#fffde9}
+.act-fee{margin:6px 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.3;font-weight:700;letter-spacing:-0.02em;color:#000000}
+.act-do{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,calc(2.6 * var(--vw)),36px)}
+.act-page{font-size:15px;font-weight:700;color:#fffde9;text-decoration:underline;text-underline-offset:4px;padding:12px 0}
+/* billing: the smaller names */
+.bill-subs{display:grid;border-top:2px solid #000000}
+.bill-with{margin:0;padding:24px 0 12px;font-size:clamp(20px,calc(2 * var(--vw)),28px);line-height:1.1;font-weight:700;letter-spacing:-0.04em;color:#000000}
+.sub{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1fr) auto;gap:14px clamp(24px,calc(3 * var(--vw)),48px);align-items:center;padding:28px 0;border-bottom:1px solid rgba(0,0,0,.35)}
+/* the last row has no rule of its own: the black rule over the open slot closes the list */
+.sub:last-child{border-bottom:0;padding-bottom:0}
+.sub-photo{width:96px;height:72px}
+.sub-out .sub-photo img{opacity:.72}
+.sub-name{margin:0;font-size:clamp(34px,calc(3.8 * var(--vw)),58px);line-height:.9;font-weight:700;letter-spacing:-0.065em;color:#fffde9}
+.sub-sound{margin:8px 0 0;font-size:19px;line-height:1.2;font-weight:700;letter-spacing:-0.02em;color:#000000}
+.sub-facts{min-width:0}
+.sub-facts .act-when,.sub-facts .act-fee{margin:0;font-size:17px}
+.sub-facts .act-fee{margin-top:4px}
+.sub-do{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+/* wide screens: every small print row shares one set of columns, so the facts and buttons line up row to row */
+@media (min-width:1101px){.bill-subs{grid-template-columns:96px minmax(0,1fr) minmax(0,1fr) auto;column-gap:clamp(24px,calc(3 * var(--vw)),48px)}.bill-with{grid-column:1 / -1}.sub{grid-column:1 / -1;grid-template-columns:subgrid}}
+/* from 1366 a name in the small print stays on one line and its column grows to fit it, so "Jude & Frank" never breaks because another row has a Try button. Narrower, a one line name would push the notes to two or three lines, so it may wrap there. */
+@media (min-width:1366px){.bill-subs{grid-template-columns:96px minmax(min-content,1fr) minmax(0,1fr) auto}.sub-name{white-space:nowrap}}
+/* nobody on the bill */
+.bill-empty{flex-direction:column;align-items:flex-start;gap:20px}
+.empty-big{margin:0;font-size:clamp(48px,calc(7.5 * var(--vw)),128px);line-height:.86;font-weight:700;letter-spacing:-0.07em;color:#000000}
+.empty-copy{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;max-width:34em}
+.empty-do{display:flex;flex-wrap:wrap;gap:8px}
+/* the open slot */
+.bill-you{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:12px clamp(20px,calc(3 * var(--vw)),48px);padding-top:clamp(20px,calc(2.4 * var(--vw)),32px);border-top:2px solid #000000;color:#000000;text-decoration:none}
+.you-line{display:flex;align-items:baseline;gap:.25em}
+.you-and{font-size:clamp(28px,calc(3 * var(--vw)),48px);font-weight:700;letter-spacing:-0.05em;color:#fffde9}
+.you-big{font-size:clamp(110px,calc(19 * var(--vw)),320px);line-height:.78;font-weight:700;letter-spacing:-0.085em;color:#000000;transition:color .2s}
+.you-side{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:clamp(6px,calc(1 * var(--vw)),16px)}
+.you-copy{font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:24em}
+.bill-fine{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px 32px;padding-top:18px;border-top:1px solid rgba(0,0,0,.4);font-size:15px;line-height:1.5;color:#fffde9}
+.bill-fine p{margin:0}
+/* back to the party */
+.r6-close{position:relative;overflow:hidden;background:#fffde9;color:#000000;padding:var(--sec) 0}
+.r6-close-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.r6-close .h2{max-width:11em}
+.r6-close-p{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:30em}
+/* the whole crowd band at its natural size; the top fades into the cream so haze never ends in a hard line */
+.r6-crowd{display:block;width:120%;max-width:none;height:auto;margin:clamp(20px,calc(4 * var(--vw)),56px) 0 -2px -10%;aspect-ratio:1920 / 392;object-fit:fill;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000000 24%);mask-image:linear-gradient(180deg,transparent 0,#000000 24%);mix-blend-mode:multiply;pointer-events:none;background:transparent}
+.vidbtn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;white-space:nowrap;cursor:pointer}
+.r6-vid{position:absolute;right:max(var(--gut),calc((100% - 1440px) / 2 + var(--gut)));bottom:clamp(12px,calc(2 * var(--vw)),24px);z-index:2}
+@media (max-width:380px){.r6-head .h1{font-size:clamp(40px,calc(14 * var(--vw)),48px)}}
+@media (max-width:1240px){
+  .r6-find{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .r6-where{grid-column:1 / -1}
+}
+@media (max-width:1100px){
+  .sub{grid-template-columns:80px minmax(0,1fr)}
+  .sub-photo{width:80px;height:60px}
+  .sub-facts,.sub-do{grid-column:1 / -1}
+  .sub-do{justify-content:flex-start}
+}
+@media (max-width:900px){.r6-head{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .act,.act-flip,.act-l,.act-l.act-flip{grid-template-columns:minmax(0,1fr);gap:0}
+  .act-flip .act-shot{order:0}
+  /* the photo files are small: past phone width a full-width headliner photo blows up and runs taller than the screen */
+  .act-shot{max-width:400px;justify-self:start}
+  .act-xl .act-name,.act-l .act-name{margin:20px 0 0 -2px}
+  .act-xl .act-name{font-size:clamp(60px,calc(17 * var(--vw)),120px)}
+  .act-l .act-name{font-size:clamp(48px,calc(13 * var(--vw)),96px)}
+  .bill-top{grid-template-columns:minmax(0,1fr)}
+  .bill-mark,.bill-date{grid-column:1;grid-row:auto}
+  .bill-mark{margin:0 0 8px}
+  .bill-you{grid-template-columns:minmax(0,1fr)}
+  /* phones show the middle of the crowd at twice the size, so it stays tall enough to read beside the video button */
+  .r6-crowd{width:212%;margin-left:-56%}
+}
+/* two columns squeeze a picked sound under the chevron below about 560px, so the desk stacks from 600 */
+@media (max-width:600px){
+  .r6-find{grid-template-columns:minmax(0,1fr);border-radius:24px}
+  .r6-go{width:100%}
+}
+@media (max-width:520px){
+  .you-big{font-size:clamp(80px,calc(calc(48 * var(--vw)) - 60px),110px)}
+  .sub{grid-template-columns:64px minmax(0,1fr);gap:12px 16px}
+  .sub-photo{width:64px;height:48px}
+}
+/* three small buttons stop fitting one row below about 410px: the date suggestion takes its own row so Hear a set and Request stay together */
+@media (max-width:420px){
+  .r6-chips{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .r6-chips .chip{justify-content:center}
+  .sub-do{display:grid;grid-template-columns:repeat(2,max-content)}
+  .sub-do .paper{grid-column:1 / -1;justify-self:start}
+}
+@media (hover: hover) and (pointer: fine){
+  .r6-find .field:hover:not(:focus-within){background:#ebebe8}
+  .r6-find .go:hover,.r6-close .go:hover{background:#000000;color:#ffffff}
+  .bill .ink:hover{background:#fffde9;color:#000000}
+  .bill .paper:hover{background:#000000;color:#fffde9}
+  .r6-chips .chip[aria-pressed="false"]:hover,.empty-do .chip:hover{background:rgba(255,253,233,.14)}
+  .act-page:hover{text-decoration-thickness:3px}
+  .bill-you:hover .you-big{color:#fffde9}
+  .bill-you:hover .you-btn{background:#fffde9;color:#000000}
+  .vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}
+}
+@media (prefers-reduced-motion: reduce){.bill-pop > .bill-flash{animation:none}}
+</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<!-- NAV -->
+<!-- NAV: public shell, logged out (A/fix/shell/public.html) -->
+<header class="nav6">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">Log in</a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">Log in</a>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto;">
+<!-- ROSTER: the search desk. Typing filters and re-sorts the poster live; the red pill jumps to it. -->
+<section class="wrap r6-top" aria-labelledby="r6-h">
+<div class="r6-head">
+<h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1>
+<p class="lede">Tell us where and when. Whoever's already in town that night gets top billing, and you skip the travel&nbsp;fee.</p>
+</div>
+<form class="r6-find" id="find" aria-label="Filter the roster" onSubmit="{{noSubmit}}" onKeyDown="{{findKey}}">
+<label class="field r6-where"><span class="field-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
+<label class="field"><span class="field-l">When</span><input type="text" value="{{when}}" onInput="{{setWhen}}" placeholder="Sat, Nov 14"></label>
+<label class="field"><span class="field-l">Budget</span><input type="text" value="{{budget}}" onInput="{{setBudget}}" inputmode="numeric" placeholder="$3,000"></label>
+<label class="field"><span class="field-l">Sound</span><select value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label>
+<button class="btn btn-lg go r6-go" type="button" onClick="{{showLineup}}">Show the lineup</button>
+</form>
+<div class="r6-under">
+<div class="r6-chips" role="group" aria-label="Pick a city">
+<sc-for list="{{cityChips}}" as="cc" hint-placeholder-count="4"><button class="chip" type="button" onClick="{{cc.pick}}" aria-pressed="{{cc.on}}">{{cc.label}}</button></sc-for>
+</div>
+<p class="r6-count" aria-live="polite">{{countLine}}</p>
+</div>
+</section>
+
+<!-- ROSTER: the lineup poster. In town that night is the headliner, lives here comes next, everyone else gets the small print. -->
+<section id="lineup" class="r6-wall" aria-labelledby="bill-h">
+<div class="wrap">
+<div class="bill" ref="{{billRef}}">
+<span class="bill-grain" aria-hidden="true"></span>
+<span class="bill-flash" aria-hidden="true"></span>
+
+<div class="bill-top">
+<svg class="bill-mark" viewBox="80 455 1190 170" aria-hidden="true" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<h2 id="bill-h" class="bill-date" tabindex="-1" ref="{{billHRef}}"><span class="vh">The lineup for </span>{{billDate}}</h2>
+<p class="bill-city">{{billCity}}</p>
+<p class="bill-note">{{billNote}}</p>
+</div>
+
+<div class="bill-tops" style="display: {{topsDisplay}};">
+<sc-for list="{{tops}}" as="t" hint-placeholder-count="2">
+<article class="{{t.cls}}">
+<div class="act-shot">
+<span class="dflash act-photo"><img src="{{t.img}}" alt="{{t.alt}}" loading="lazy" decoding="async" style="filter: {{t.grade}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
+</div>
+<div class="act-copy">
+<h3 class="act-name">{{t.name}}</h3>
+<p class="act-sound">{{t.genre}} <span class="act-from">{{t.home}}</span></p>
+<p class="act-when">{{t.note}}</p>
+<p class="act-fee">{{t.fee}}</p>
+<div class="act-do">
+<a class="btn ghost" href="{{t.setsHref}}" aria-label="{{t.hearAria}}">Hear a set</a>
+<a class="btn ink" href="{{t.reqHref}}" aria-label="{{t.reqAria}}" onClick="{{t.reqGo}}">Request</a>
+<sc-if value="{{t.hasPage}}" hint-placeholder-val="{{ true }}"><a class="act-page" href="{{t.pageHref}}">{{t.pageText}}</a></sc-if>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+
+<div class="bill-subs" style="display: {{subsDisplay}}; border-top-width: {{subsRule}};">
+<p class="bill-with">{{withLine}}</p>
+<sc-for list="{{subs}}" as="u" hint-placeholder-count="1">
+<article class="{{u.cls}}">
+<span class="dflash sub-photo"><img src="{{u.img}}" alt="{{u.alt}}" loading="lazy" decoding="async" style="filter: {{u.grade}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
+<div>
+<h3 class="sub-name">{{u.name}}</h3>
+<p class="sub-sound">{{u.genre}}</p>
+</div>
+<div class="sub-facts"><p class="act-when">{{u.note}}</p><p class="act-fee">{{u.fee}}</p></div>
+<div class="sub-do">
+<sc-if value="{{u.hasTry}}" hint-placeholder-val="{{ true }}"><button class="btn btn-sm paper" type="button" onClick="{{u.tryIt}}" aria-label="{{u.tryAria}}">{{u.tryLabel}}</button></sc-if>
+<a class="btn btn-sm ghost" href="{{u.setsHref}}" aria-label="{{u.hearAria}}">Hear a set</a>
+<a class="btn btn-sm ink" href="{{u.reqHref}}" aria-label="{{u.reqAria}}" onClick="{{u.reqGo}}">Request</a>
+</div>
+</article>
+</sc-for>
+</div>
+
+<div class="bill-empty" style="display: {{emptyDisplay}};">
+<h3 class="empty-big">Nobody's on the bill&nbsp;yet.</h3>
+<p class="empty-copy">{{emptyLine}}</p>
+<div class="empty-do" role="group" aria-label="Pick a city" style="display: {{emptyCityDisplay}};">
+<sc-for list="{{emptyChips}}" as="ec" hint-placeholder-count="4"><button class="chip" type="button" onClick="{{ec.pick}}">{{ec.label}}</button></sc-for>
+<a class="btn btn-sm ghost" href="mailto:[contact email]">Tell us where</a>
+</div>
+<div class="empty-do" style="display: {{emptySoundDisplay}};">
+<button class="btn paper" type="button" onClick="{{clearSound}}">Show every sound</button>
+</div>
+</div>
+
+<a class="bill-you" href="artists.html">
+<span class="you-line"><span class="you-and">and</span><span class="you-big">You?</span></span>
+<span class="you-side"><span class="you-copy">{{youLine}}</span><span class="btn ink you-btn">Join the roster</span></span>
+</a>
+
+<div class="bill-fine">
+<p>{{fineBudget}}</p>
+<p>Doors whenever you say. No travel fee for anyone already in town. Fees run [$X to $Y], plus travel for anyone flying in. Strictly no "can you play something we&nbsp;know".</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ROSTER: back to the party -->
+<section class="r6-close" aria-labelledby="r6-close-h">
+<div class="wrap r6-close-in">
+<h2 id="r6-close-h" class="h2">Can't pick? Go play the party&nbsp;yourself.</h2>
+<p class="r6-close-p">The decks on the homepage are open. Ten minutes in, you'll want to book&nbsp;someone.</p>
+<a class="btn btn-lg go" href="index.html#booth">Take the decks</a>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
+<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3773}}'>
+/* Roster6 data, copied from Home6 (H4_ART, H4_CITIES, H4_ALIAS, H4_MATCH). Only Kaytran has a profile page; the other two request through the inbox and their sets play in the Home6 booth. */
+var H4_ART = {
+  kaytran: { name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', alt: 'Kaytran DJing in a restaurant kitchen', page: 'kaytran.html', pageText: 'See her profile', req: 'kaytran.html#request', sets: 'kaytran.html#sets' },
+  jude: { name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', alt: 'One half of Jude & Frank, bearded, in round tinted sunglasses', page: '', pageText: '', req: 'inbox.html#jude', sets: 'index.html#booth-jude', plural: true },
+  dial: { name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', page: '', pageText: '', req: 'inbox.html#dial', sets: 'index.html#booth-dial', grade: 'grayscale(1) brightness(.8) contrast(2.1)' }
+};
+/* Dial Tone's photo is overexposed. Home6's grade (contrast 1.8, brightness .85) goes milky under this page's flash glow, so the poster gives it more contrast instead: the whites stay white and the shadows stay deep, level with the other two. */
+/* 'in' rows carry r[3] and r[4]: first and last day in town (December counts as 30 + day) */
+var H4_CITIES = [
+  { key: 'nyc', label: 'New York', name: 'Brooklyn, NY', short: 'New\u00a0York', list: [['kaytran', 'in', 'In town Nov 13 to 15', 13, 15], ['jude', 'home', 'Lives here'], ['dial', 'in', 'In town Nov 20', 20, 20]] },
+  { key: 'bos', label: 'Boston', name: 'Boston, MA', short: 'Boston', list: [['dial', 'in', 'In town Nov 6 to 8', 6, 8], ['kaytran', 'in', 'In town Nov 21', 21, 21], ['jude', 'travel', 'Travels from Brooklyn']] },
+  { key: 'atl', label: 'Atlanta', name: 'Atlanta, GA', short: 'Atlanta', list: [['kaytran', 'home', 'Lives here'], ['jude', 'in', 'In town Nov 21', 21, 21], ['dial', 'travel', 'Travels from Chicago']] },
+  { key: 'chi', label: 'Chicago', name: 'Chicago, IL', short: 'Chicago', list: [['dial', 'home', 'Lives here'], ['kaytran', 'in', 'In town Nov 28', 28, 28], ['jude', 'in', 'In town Dec 5', 35, 35]] }
+];
+/* a DJ who lives here or flies in is not free on a night another city has them in town (F8). Returns that city and its dates, or null. */
+function H4_AWAY(id, day, here) { for (var i = 0; i < H4_CITIES.length; i++) { if (i === here) continue; var l = H4_CITIES[i].list; for (var j = 0; j < l.length; j++) { var r = l[j]; if (r[0] === id && r[1] === 'in' && day >= r[3] && day <= r[4]) return { city: H4_CITIES[i].short, when: r[2].replace('In town ', '') }; } } return null; }
+/* typed city to H4_CITIES index (same order: nyc, bos, atl, chi); -1 when nothing matches */
+var H4_ALIAS = [['new york', 'nyc', 'ny', 'brooklyn', 'manhattan', 'queens', 'bronx', 'bushwick', 'williamsburg', 'greenpoint', 'bed stuy', 'harlem', 'soho', 'tribeca', 'astoria'], ['boston', 'ma', 'cambridge', 'somerville', 'allston', 'brookline'], ['atlanta', 'atl', 'ga', 'decatur', 'buckhead'], ['chicago', 'chi', 'il', 'evanston', 'wicker park', 'logan square']];
+function H4_MATCH(q) {
+  q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
+  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (q.indexOf(' ' + H4_ALIAS[i][j] + ' ') >= 0) return i; } }
+  return -1;
+}
+/* a covered place named in full (brooklyn, atlanta), not just a state code: "Savannah, GA" is not Atlanta, so the poster shows the covered city instead */
+function R6_NAMED(q) {
+  q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
+  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { var a = H4_ALIAS[i][j]; if (a.length > 2 && q.indexOf(' ' + a + ' ') >= 0) return i; } }
+  return -1;
+}
+/* live typing: a whole word wins (H4_MATCH), then a half-typed name ("bos", "new yo"). -2 means too short to tell, so the current city stays ("ma" is on its way to manhattan as often as it means Boston). */
+function R6_CITY(q) {
+  if ((q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim() === 'ma') return -2;
+  var hit = H4_MATCH(q); if (hit >= 0) return hit;
+  var t = (q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+  if (t.length < 2) return -2;
+  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (H4_ALIAS[i][j].length > 2 && H4_ALIAS[i][j].indexOf(t) === 0) return i; } }
+  return -1;
+}
+/* the place as it goes on the poster: a bare code (nyc, atl) shows the city, anything else keeps what was typed with its capitals fixed ("brooklyn, ny" to "Brooklyn, NY", "sf" to "SF") */
+var R6_CODES = ['nyc', 'ny', 'ma', 'atl', 'ga', 'chi', 'il'];
+/* US state codes, so "brooklyn ny" without a comma still gets "NY" (and "San Di", half typed, stays as it is) */
+var R6_STATES = ' al ak az ar ca co ct de fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri sc sd tn tx ut vt va wa wv wi wy dc ';
+function R6_PLACE(q, city) {
+  var t = (q || '').trim(), n = t.toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+  if (!t || R6_CODES.indexOf(n) >= 0) return city.name;
+  return t.split(',').map(function (p, i) {
+    p = p.trim();
+    if (p.length <= 2) return p.toUpperCase();
+    return p.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/(\S\s+)([A-Za-z]{2})$/, function (m, a, b) { return R6_STATES.indexOf(' ' + b.toLowerCase() + ' ') >= 0 ? a + b.toUpperCase() : m; });
+  }).filter(function (p) { return p; }).join(', ');
+}
+/* dates: the sample year is 2026 and Nov 1 is a Sunday. Same day logic as Home6: times are dropped first (8pm, at 9, 10:30), then the number right after Nov or Dec is the day, else the last 1 or 2 digit number. December counts as 30 + day. */
+var R6_DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var R6_OTHER = /\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sept?(ember)?|oct(ober)?)\b/;
+function R6_LABEL(day) { var dec = day > 30, d = dec ? day - 30 : day; return R6_DOW[(day - 1) % 7] + ', ' + (dec ? 'Dec ' : 'Nov ') + d; }
+function R6_DATE(txt) {
+  var t = (txt || '').trim(), w = t.toLowerCase(), bad = { day: -1, label: t };
+  if (!t) return { day: 14, label: R6_LABEL(14) };
+  w = w.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ').replace(/\bat\s+\d{1,2}\b/g, ' ');
+  var dec = w.indexOf('dec') >= 0, n;
+  /* with no month name typed, 12/5 or 11/14/26 read month first (14/11 works too), so a short year is never taken for the day. Other months are outside the sample dates. */
+  var md = !dec && w.indexOf('nov') < 0 ? w.match(/\b(\d{1,2})\s*\/\s*(\d{1,2})\b/) : null;
+  if (md) {
+    var a = parseInt(md[1], 10), b = parseInt(md[2], 10), mo = a > 12 ? b : a;
+    n = a > 12 ? a : b;
+    if (mo !== 11 && mo !== 12) return bad;
+    dec = mo === 12;
+  } else {
+    if (!dec && w.indexOf('nov') < 0 && R6_OTHER.test(w)) return bad;
+    var nums = w.replace(/\d{3,}/g, ' ').match(/\d{1,2}/g);
+    var mm = w.match(/\b(nov|dec)[a-z]*\.?\s*(\d{1,2})(st|nd|rd|th)?\b/);
+    n = mm ? parseInt(mm[2], 10) : (nums ? parseInt(nums[nums.length - 1], 10) : 14);
+  }
+  if (n < 1 || n > (dec ? 31 : 30)) return bad;
+  var day = n + (dec ? 30 : 0);
+  return { day: day, label: R6_LABEL(day) };
+}
+/* a Saturday inside an in-town window, or its first day */
+function R6_PICK(a, b) { for (var d = a; d <= b; d++) { if ((d - 1) % 7 === 6) return d; } return a; }
+/* no widows: the last two words stay together */
+function R6_NB(t) { var i = t.lastIndexOf(' '); return i > 0 ? t.slice(0, i) + '\u00a0' + t.slice(i + 1) : t; }
+var R6_GRADE = 'grayscale(1) brightness(1.12) contrast(1.5)';
+var R6_BADGE = ['In town', 'Lives here', 'Flies in', 'Not around'];
+var R6_BCLS = ['in', 'home', 'fly', 'out'];
+function R6_NOTE(rank, r) {
+  if (rank === 0) return 'Here ' + r[2].replace('In town ', '') + ', so no travel fee.';
+  if (rank === 1) return 'Local, so no travel fee.';
+  /* the fee line under it already says plus travel, so this one only says where they come from */
+  if (rank === 2) return r[2].replace('Travels from', 'Coming from') + '.';
+  return r[2] + '. Move the party?';
+}
+
+/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
+   Then three lines in the class (README step 4):
+     constructor, last line:         nav6Init(this);
+     componentWillUnmount, add:      nav6Off(this);
+     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
+   The nav keys come last, so they always win over any leftover old nav key in the page's object.
+   Settings (all optional, defaults below):
+     host:    inboxHref, curInbox, curAccount, waiting
+     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
+     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
+     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
+   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
+var NAV6_DEFAULTS = {
+  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
+  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+  waiting: 0, shell: ''
+};
+// Constructor: refs and stable handlers. Both menus start closed.
+function nav6Init(self) {
+  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+  if (!self.state) self.state = {};
+  self.state.menuOpen = false;
+  self.state.acctOpen = false;
+  n.btnRef = function (el) { n.btn = el; };
+  n.acctBtnRef = function (el) { n.acctBtn = el; };
+  n.acctWrapRef = function (el) { n.acctWrap = el; };
+  n.key = function (e) { nav6Key(self, e); };
+  n.focusIn = function (e) { nav6FocusIn(self, e); };
+  n.down = function (e) { nav6Down(self, e); };
+  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+  // pages that still call this.setMenu(true or false) keep working
+  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Set(self, patch) {
+  var st = self.state || {};
+  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+  nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+  var n = self.nav6;
+  if (!n || typeof document === 'undefined' || n.on === on) return;
+  n.on = on;
+  var f = on ? 'addEventListener' : 'removeEventListener';
+  document[f]('keydown', n.key);
+  document[f]('focusin', n.focusIn);
+  document[f]('pointerdown', n.down, true);
+}
+// componentWillUnmount
+function nav6Off(self) { nav6Listen(self, false); }
+// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Items(n) {
+  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
+function nav6Key(self, e) {
+  var n = self.nav6, st = self.state || {};
+  if (!e) return;
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+    return;
+  }
+  if (e.key !== 'Tab' || !st.menuOpen) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  var i = items.indexOf(document.activeElement);
+  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+  e.preventDefault();
+  items[j].focus();
+}
+// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
+// The YOU menu closes once focus leaves it.
+function nav6FocusIn(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  items[0].focus();
+}
+// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
+// and closes the menu on click, so nothing under it gets the tap (F331).
+function nav6Down(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+// renderVals: every key the four shells use.
+function nav6Vals(self, cfg) {
+  var n = self.nav6, st = self.state || {}, c = {}, k;
+  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  return {
+    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
+    outsideDown: undefined
+  };
+}
+/* ===== end nav shell ===== */
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var self = this;
+    this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    /* lastDay: the last date the parser could read, so a When it can't read never goes on the poster. out: a DJ who cancelled Sat, Nov 14 (#kaytran-out), empty by default */
+    this.state = { where: 'Brooklyn, NY', when: 'Sat, Nov 14', lastDay: 14, sound: '', budget: '', city: 0, miss: false, crowdPaused: this.reduce, out: '' };
+    this.crowdOff = this.reduce;
+    this.billRef = function (el) { self.billEl = el; };
+    this.billHRef = function (el) { self.billHEl = el; };
+    this.whereRef = function (el) { self.whereEl = el; };
+    /* the crowd only dances while it is on screen and not paused (paused from the start with reduced motion). The same element again on a re-render keeps its observer. */
+    this.crowdRef = function (el) {
+      if (el && el === self.crowdEl && self.crowdIO) return;
+      if (self.crowdIO) { self.crowdIO.disconnect(); self.crowdIO = null; }
+      self.crowdEl = el;
+      if (el && window.IntersectionObserver) {
+        self.crowdIO = new IntersectionObserver(function (en) {
+          var v = self.crowdEl; if (!v) return;
+          self.crowdVis = en[en.length - 1].isIntersecting;
+          if (self.crowdVis && !self.crowdOff) { var p = v.play ? v.play() : null; if (p && p.catch) p.catch(function () {}); }
+          else if (v.pause) v.pause();
+        }, { threshold: 0.15 });
+        self.crowdIO.observe(el);
+      }
+    };
+    nav6Init(this);
+  }
+  /* Find another DJ on Cancel6#dj-out opens roster.html#kaytran-out: Kaytran can't make Sat, Nov 14 any more, so that night's poster leaves her off. With no hash the poster is the usual sample.
+     #lineup (See it the way hosts do, on Erika's dashboard) lands on the poster. The page draws after load, so the browser's own jump never finds it; this scrolls through the ref, with no flash. */
+  componentDidMount() {
+    var self = this, h = typeof location !== 'undefined' ? location.hash : '';
+    if (h === '#kaytran-out') this.setState({ out: 'kaytran' });
+    if (h === '#lineup') this.hashT = setTimeout(function () {
+      self.hashT = null;
+      var t = self.billEl && self.billEl.closest ? self.billEl.closest('.r6-wall') : null;
+      if (t && t.scrollIntoView) t.scrollIntoView({ block: 'start' });
+    }, 80);
+  }
+  componentWillUnmount() {
+    if (this.crowdIO) { this.crowdIO.disconnect(); this.crowdIO = null; }
+    if (this.crowdEl && this.crowdEl.pause) this.crowdEl.pause();
+    clearTimeout(this.popT); this.popT = null;
+    clearTimeout(this.focusT); this.focusT = null;
+    clearTimeout(this.bookT); this.bookT = null;
+    clearTimeout(this.hashT); this.hashT = null;
+    nav6Off(this);
+  }
+  /* one camera flash over the poster when the bill changes on purpose (pill, chip, a suggested date). wait lets a smooth scroll land first. */
+  pop(wait) {
+    var self = this; if (!this.billEl || this.reduce) return;
+    clearTimeout(this.popT);
+    this.popT = setTimeout(function () {
+      var el = self.billEl; self.popT = null; if (!el) return;
+      el.classList.remove('bill-pop'); void el.offsetWidth; el.classList.add('bill-pop');
+      self.popT = setTimeout(function () { self.popT = null; if (self.billEl) self.billEl.classList.remove('bill-pop'); }, 800);
+    }, wait || 0);
+  }
+  /* scroll through the ref, not a document id, so another artboard on the same canvas can never catch it */
+  show() {
+    var t = this.billEl && this.billEl.closest ? this.billEl.closest('.r6-wall') : null;
+    if (t && t.scrollIntoView) t.scrollIntoView({ behavior: this.reduce ? 'auto' : 'smooth', block: 'start' });
+    this.pop(t && !this.reduce ? 320 : 0);
+  }
+  /* the button that was pressed disappears with the old bill, so keyboard focus lands on the poster's date instead of the page top */
+  focusBill() { var h = this.billHEl; if (!h || !h.focus) return; try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+  /* on a phone the poster is below the fold, so a chip goes to it like Try does; wider screens flash it in place. A chip inside the empty poster also goes to it when the poster's date has scrolled out of view, since focus lands on that date. */
+  pickCity(i, fromBill) {
+    this.setState({ city: i, where: H4_CITIES[i].name, miss: false });
+    var h = this.billHEl, top = h && h.getBoundingClientRect ? h.getBoundingClientRect().top : 0;
+    var phone = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    if (phone || (fromBill && (top < 88 || top > (window.innerHeight || 800) - 120))) this.show(); else this.pop();
+  }
+  tryDate(day) { if (!day) return; this.setState({ when: R6_LABEL(day), lastDay: day }); this.show(); this.focusBill(); }
+
+  renderVals() {
+    var self = this, s = this.state, city = H4_CITIES[s.city], d = R6_DATE(s.when), bad = d.day < 0;
+    if (bad) d = { day: s.lastDay, label: R6_LABEL(s.lastDay) };
+    /* the sound in running text: lower case, except R&B and EBM */
+    var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
+    var whereShow = R6_PLACE(s.where, city), short = city.short, dateShow = R6_NB(d.label);
+    var billCity = s.miss || R6_NAMED(s.where) >= 0 ? whereShow : city.name;
+    /* a town matched only by its state code ("Albany, NY", "Savannah, GA") keeps the covered city's poster, but the count line makes it no travel promise */
+    var wWords = (s.where || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim().split(' ');
+    var viaState = !s.miss && H4_MATCH(s.where) >= 0 && R6_NAMED(s.where) < 0 && wWords.some(function (x) { return x && R6_STATES.indexOf(' ' + x + ' ') < 0; });
+    /* rank: 0 in town that night, 1 lives here, 2 travels in, 3 not around (in another city that night counts as not around). Sound filters, rank sorts, list order breaks ties.
+       A DJ who cancelled Sat, Nov 14 (#kaytran-out) is left off that night only. */
+    var rows = s.miss ? [] : city.list.filter(function (r) { return !(r[0] === s.out && d.day === 14); }).map(function (r, idx) {
+      var k = r[1], now = k === 'in' && d.day >= r[3] && d.day <= r[4], away = k === 'in' ? null : H4_AWAY(r[0], d.day, s.city);
+      return { r: r, a: H4_ART[r[0]], idx: idx, away: away, rank: now ? 0 : (away ? 3 : (k === 'home' ? 1 : (k === 'travel' ? 2 : 3))) };
+    }).filter(function (x) { return !s.sound || x.a.genre === s.sound; }).sort(function (x, y) { return (x.rank - y.rank) || (x.idx - y.idx); });
+    /* Request on Jude & Frank or Dial Tone opens their chat (Inbox6#jude, #dial) and takes the search along: the poster's night and place (or the town typed, when only its state
+       matched) and the budget, in the same shape Kaytran6 gives 'bookd.req.kaytran', so the chat starts from the host's own search. Kaytran's Request opens her own form on Kaytran6#request
+       and leaves the same search in 'bookd.ask.kaytran', a draft Kaytran6 reads only on #request to prefill the night, the place and the budget (it falls back to Sat, Nov 14 without it). */
+    var reqWhere = viaState ? whereShow : billCity;
+    var reqGo = function (id) {
+      return function () {
+        if (id !== 'jude' && id !== 'dial' && id !== 'kaytran') return;
+        var key = id === 'kaytran' ? 'bookd.ask.kaytran' : 'bookd.req.' + id;
+        try { sessionStorage.setItem(key, JSON.stringify({ date: d.label, where: reqWhere, guests: '', budget: String(s.budget || '').trim(), msg: '' })); } catch (err) {}
+      };
+    };
+    var has0 = rows.some(function (x) { return x.rank === 0; }), has1 = rows.some(function (x) { return x.rank <= 1; });
+    var tops = [], subs = [];
+    rows.forEach(function (x) {
+      /* billing size: in town is the headliner. Lives here headlines when nobody is visiting. A travelling act only goes big when nobody local can play. */
+      var size = x.rank === 0 ? 'xl' : (x.rank === 1 ? (has0 ? 'l' : 'xl') : (x.rank === 2 && !has1 ? 'l' : 's'));
+      /* Try suggests a night inside an in-town window. Never for a DJ who is in another city that night, and never the night a DJ cancelled.
+         With no Try to press, the cancelled DJ's line only says when they're in town, without "Move the party?". The away line keeps its dates in one piece ("Nov 13 to 15"). */
+      var a = x.a, r = x.r, tryDay = x.rank === 3 && !x.away ? R6_PICK(r[3], r[4]) : 0, gone = tryDay === 14 && r[0] === s.out;
+      if (gone) tryDay = 0;
+      var v = { name: R6_NB(a.name), genre: a.genre, home: ('from ' + a.home).replace(/ /g, '\u00a0'), img: a.img, alt: a.alt, grade: a.grade || R6_GRADE,
+        badge: R6_BADGE[x.rank], badgeCls: 'badge badge-' + R6_BCLS[x.rank], note: x.away ? 'In ' + x.away.city + ' ' + x.away.when.replace(/ /g, '\u00a0') + '.' : R6_NB(gone ? r[2] + '.' : R6_NOTE(x.rank, r)), free: x.rank <= 1,
+        fee: x.rank === 2 ? 'Fee [$X to $Y] plus\u00a0travel' : 'Fee [$X to\u00a0$Y]', feeVal: x.rank === 2 ? '[$X to $Y] plus\u00a0travel' : '[$X to\u00a0$Y]',
+        reqHref: a.req, reqGo: reqGo(r[0]), hearAria: 'Hear a set by ' + a.name, reqAria: 'Request ' + a.name, setsHref: a.sets,
+        hasPage: !!a.page, pageHref: a.page || 'roster.html', pageText: a.pageText || '',
+        hasTry: !!tryDay, tryLabel: tryDay ? 'Try ' + R6_LABEL(tryDay) : '', tryAria: tryDay ? 'Try ' + R6_LABEL(tryDay) + ', when ' + a.name + (a.plural ? ' are' : ' is') + ' in town' : '', tryIt: function () { self.tryDate(tryDay); } };
+      if (size === 's') { v.cls = x.rank === 3 ? 'sub sub-out' : 'sub'; subs.push(v); }
+      else { v.cls = 'act act-' + size; tops.push(v); }
+    });
+    var freeN = rows.filter(function (x) { return x.rank <= 1; }).length, fly = rows.filter(function (x) { return x.rank === 2; });
+    var subFly = subs.some(function (u) { return u.cls === 'sub'; }), subOut = subs.some(function (u) { return u.cls !== 'sub'; });
+    var countLine = s.miss ? "We're not in " + whereShow + ' yet. Pick a city and we\'ll show you who\'s\u00a0around.'
+      : (!rows.length ? 'Nobody on the roster plays ' + snd + '\u00a0yet.'
+      : bad ? "That date's not on our calendar yet, so here's " + R6_NB(d.label) + '.'
+      : (freeN ? (freeN === 1 ? '1 DJ is' : freeN + ' DJs are') + ' around ' + short + ' on ' + dateShow + (viaState ? '.' : ', no travel\u00a0fee.')
+      : (s.sound ? 'No ' + snd : "Nobody's") + ' around ' + short + ' on ' + dateShow + '. ' + (fly.length ? fly[0].a.name + ' can fly\u00a0in.' : 'Try another\u00a0date.')));
+    var withLine = !tops.length ? (s.sound ? 'No ' + snd + ' that night. Close,\u00a0though.' : "Nobody's around that night. Close,\u00a0though.")
+      : (subFly && subOut ? 'Also on the roster. They can fly in, or play another\u00a0night.'
+      : (subFly ? 'Also on the roster. They can fly in, travel fee\u00a0extra.' : 'Also on the roster. Just not around that\u00a0night.'));
+    var emptySound = !s.miss && !rows.length;
+    /* the count line up top already says what is missing, so the empty card only says what to do next */
+    var emptyLine = s.miss ? "Right now it's New York, Boston, Atlanta and Chicago. Pick one, or tell us where to go\u00a0next."
+      : 'Open it up to every sound, or wait for the right DJ to sign\u00a0up.';
+    var youLine = emptySound ? 'Play ' + snd + '? Then the top of this bill is\u00a0yours.'
+      : (s.miss ? 'DJ in ' + whereShow + '? Be the first name on the\u00a0bill.' : "There's room at the bottom of the bill. For now. DJs, put your name on the\u00a0roster.");
+    /* Book a DJ on the roster: the search is right here, so it goes to the form and puts the cursor in Where (no reload, the picks stay) */
+    var bookNow = function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      /* the scroll waits a beat while an open phone menu closes */
+      var wasOpen = self.state.menuOpen;
+      self.setMenu(false);
+      clearTimeout(self.bookT); clearTimeout(self.focusT);
+      self.bookT = setTimeout(function () {
+        self.bookT = null;
+        var f = self.whereEl && self.whereEl.closest ? self.whereEl.closest('form') : null;
+        if (f) f.scrollIntoView({ behavior: self.reduce ? 'auto' : 'smooth', block: 'center' });
+        self.focusT = setTimeout(function () { self.focusT = null; if (self.whereEl) self.whereEl.focus({ preventScroll: true }); }, 350);
+      }, wasOpen ? 80 : 0);
+    };
+    return Object.assign({
+      whereRef: this.whereRef,
+      where: s.where, when: s.when, sound: s.sound, budget: s.budget,
+      setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState({ where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
+      setWhen: function (e) { var v = e.target.value, wd = R6_DATE(v); self.setState(wd.day > 0 ? { when: v, lastDay: wd.day } : { when: v }); },
+      setSound: function (e) { self.setState({ sound: e.target.value }); },
+      setBudget: function (e) { self.setState({ budget: e.target.value }); },
+      noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); self.show(); self.focusBill(); },
+      /* Enter in Where, When or Budget jumps to the poster. A focused button keeps its own click. Focus follows to the poster's date either way. */
+      findKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); self.show(); self.focusBill(); } },
+      showLineup: function () { self.show(); self.focusBill(); },
+      cityChips: H4_CITIES.map(function (c, i) { var on = i === s.city && !s.miss; return { label: c.label, on: on ? 'true' : 'false', pick: function () { self.pickCity(i); } }; }),
+      /* the same chips inside the empty poster; they vanish once picked, so focus moves to the new bill */
+      emptyChips: H4_CITIES.map(function (c, i) { return { label: c.label, pick: function () { self.pickCity(i, true); self.focusBill(); } }; }),
+      countLine: countLine,
+      billRef: this.billRef, billHRef: this.billHRef, crowdRef: this.crowdRef,
+      /* the crowd's video toggle: pausing keeps the frame (or the poster, before it ever played) */
+      vidLabel: s.crowdPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
+      toggleVid: function () {
+        var p = !self.state.crowdPaused, v = self.crowdEl; self.crowdOff = p; self.setState({ crowdPaused: p });
+        if (!v) return;
+        if (p) { if (v.pause) v.pause(); }
+        else if (self.crowdVis !== false && v.play) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+      },
+      billDate: dateShow, billCity: billCity,
+      billNote: 'Private party, address on the guest list. ' + (s.sound ? s.sound + ' all\u00a0night.' : 'Anything good, all\u00a0night.'),
+      tops: tops, subs: subs, withLine: withLine,
+      topsDisplay: tops.length ? 'flex' : 'none', subsDisplay: subs.length ? 'grid' : 'none', subsRule: tops.length ? '2px' : '0px',
+      emptyDisplay: rows.length ? 'none' : 'flex', emptyLine: emptyLine,
+      emptyCityDisplay: s.miss ? 'flex' : 'none', emptySoundDisplay: emptySound ? 'flex' : 'none',
+      clearSound: function () { self.setState({ sound: '' }); self.pop(); self.focusBill(); },
+      youLine: youLine,
+      fineBudget: 'Put your budget in your request and nobody wastes a\u00a0reply.'
+    }, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
+  }
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

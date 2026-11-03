@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inbox · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+<script>/* canvas: page stays still */
+(function () {
+  var still = function () {
+    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+  };
+  var css = document.createElement('style');
+  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+  document.head.appendChild(css);
+  var check = function () {
+    var on = still();
+    document.documentElement.classList.toggle('oncanvas', on);
+    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+  };
+  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* big screens (bigscreen.py) */
+:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@media (min-width:1921px){
+  html{zoom:calc(100vw / 1920px)}
+  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+}
+
+/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+/* type */
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+/* nav */
+/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+/* YOU button and its menu */
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+/* ===== end nav shell ===== */
+html{scroll-padding-top:88px}
+/* buttons, chips, fields, cards */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+/* flash photos (same look as the Home6 feed and camera) and avatars */
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+/* footer */
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+/* ===== InboxNew6: a new host's inbox. Nothing here yet, so the record waits on an empty deck. ===== */
+.in{position:relative;isolation:isolate;overflow:hidden;background:#d31110;color:#fffde9;min-height:min(calc(calc(100 * var(--svh)) - 68px),832px);box-sizing:border-box;padding:clamp(24px,calc(3 * var(--vw)),44px) 0 clamp(56px,calc(6 * var(--vw)),88px)}
+.in :focus-visible{outline-color:#ffffff}
+.in-room{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 78% 66%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}
+.in-disc{position:absolute;z-index:-1;right:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.3);bottom:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.16);width:clamp(300px,calc(42 * var(--vw)),640px);aspect-ratio:1 / 1;border-radius:50%;filter:drop-shadow(0 24px 40px rgba(0,0,0,.4))}
+.in-spin{position:absolute;inset:0;display:block;border-radius:50%;animation:inspin 7s linear infinite}
+@keyframes inspin{to{transform:rotate(360deg)}}
+.in-spin img,.in-spin svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.in-spin text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
+.in-h{margin:0 0 0 -0.04em;font-size:clamp(84px,calc(15.2 * var(--vw)),219px);line-height:.84;font-weight:700;letter-spacing:-0.075em;padding-bottom:.06em;color:#fffde9}
+.in-p{margin:clamp(20px,calc(2.4 * var(--vw)),32px) 0 0;max-width:24em;font-size:clamp(20px,calc(1.9 * var(--vw)),27px);line-height:1.2;letter-spacing:-0.025em;font-weight:700;color:#ffffff}
+.in-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
+.in-next{margin:clamp(36px,calc(4 * var(--vw)),56px) 0 0;padding:0;list-style:none;max-width:560px;border-top:2px solid #000000}
+.in-next li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.4);font-size:17px;line-height:1.4}
+/* 19px bold black is large text on the red (F235) */
+.in-next b{font-weight:700;color:#000000;font-size:19px}
+@media (hover: hover) and (pointer: fine){.in .ink:hover{background:#ffffff;color:#000000}.in .ghost:hover{background:#ffffff;color:#000000;box-shadow:none}}
+/* below 1200 the glow sits low and right, behind the record and off the list text (F235) */
+@media (max-width:1199px){.in-room{background:radial-gradient(ellipse 60% 56% at 88% 86%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+/* 761 to 880 on short screens (a phone on its side): the record rose onto the end of the list, so keep room for it under the list */
+@media (min-width:761px) and (max-width:880px){.in{padding-bottom:calc(clamp(300px,calc(42 * var(--vw)),640px) * .84 + 24px)}}
+/* phones: the record sits under the list as a block and bleeds off the bottom right (F232) */
+@media (max-width:760px){.in-h{font-size:clamp(84px,calc(27 * var(--vw)),200px)}.in-disc{display:block;position:relative;right:auto;bottom:auto;width:min(calc(78 * var(--vw)),340px);margin:44px calc(min(calc(78 * var(--vw)),340px) * -.2) calc(min(calc(78 * var(--vw)),340px) * -.24) auto;z-index:0}.in{padding-bottom:0}.in-room{background:radial-gradient(ellipse 90% 34% at 78% 92%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+@media (max-width:480px){.in-acts,.in-acts .btn{width:100%}.in-next li{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion: reduce){.in-spin{animation:none}}
+</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<!-- NAV -->
+<!-- NAV: host shell, signed in (A/fix/shell/host.html) -->
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl nlc navlogin" href="{{inboxHref}}" aria-current="{{curInbox}}">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="roster.html">Book a DJ</a>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>Dani Rivera</strong></span>
+<a href="account.html" aria-current="{{curAccount}}">Your account</a>
+<a href="index.html">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
+<a class="nl nlc" href="{{inboxHref}}" aria-current="{{curInbox}}" onClick="{{closeMenu}}">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+<a class="nl" href="account.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto;">
+<section class="in" aria-labelledby="in-h">
+<span class="in-room" aria-hidden="true"></span>
+<div class="wrap">
+<h1 id="in-h" class="in-h">Quiet in&nbsp;here.</h1>
+<p class="in-p">No requests yet. Pick a DJ and the whole night happens right&nbsp;here.</p>
+<div class="in-acts">
+<a class="btn btn-lg ink" href="roster.html">Find a DJ</a>
+<a class="btn btn-lg ghost" href="index.html#how">How it works</a>
+</div>
+<ol class="in-next" aria-label="What lands in your inbox">
+<li><b>Their answer</b><span>Usually within [X&nbsp;hrs].</span></li>
+<li><b>The offer</b><span>One price for the night, yours to take or&nbsp;counter.</span></li>
+<li><b>The chat</b><span>You and the DJ or their agent. No email&nbsp;chains.</span></li>
+</ol>
+</div>
+<span class="in-disc" aria-hidden="true"><span class="in-spin"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg viewBox="0 0 200 200" focusable="false"><defs><path id="inarc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs><text x="100" y="88" text-anchor="middle" font-size="9.5" letter-spacing="-0.4">Your DJ</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#inarc" textLength="170">BOOKD RECORDS · BEST PLAYED LOUD · BOOKD RECORDS · BEST PLAYED LOUD · </textPath></text></svg></span></span>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
+<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1296}}'>
+// InboxNew6: Inbox6 before a new host has sent anything. Sign up lands here; the first request opens the real inbox.
+/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
+   Then three lines in the class (README step 4):
+     constructor, last line:         nav6Init(this);
+     componentWillUnmount, add:      nav6Off(this);
+     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
+   The nav keys come last, so they always win over any leftover old nav key in the page's object.
+   Settings (all optional, defaults below):
+     host:    inboxHref, curInbox, curAccount, waiting
+     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
+     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
+     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
+   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
+var NAV6_DEFAULTS = {
+  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
+  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+  waiting: 0, shell: ''
+};
+// Constructor: refs and stable handlers. Both menus start closed.
+function nav6Init(self) {
+  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+  if (!self.state) self.state = {};
+  self.state.menuOpen = false;
+  self.state.acctOpen = false;
+  n.btnRef = function (el) { n.btn = el; };
+  n.acctBtnRef = function (el) { n.acctBtn = el; };
+  n.acctWrapRef = function (el) { n.acctWrap = el; };
+  n.key = function (e) { nav6Key(self, e); };
+  n.focusIn = function (e) { nav6FocusIn(self, e); };
+  n.down = function (e) { nav6Down(self, e); };
+  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+  // pages that still call this.setMenu(true or false) keep working
+  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Set(self, patch) {
+  var st = self.state || {};
+  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+  nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+  var n = self.nav6;
+  if (!n || typeof document === 'undefined' || n.on === on) return;
+  n.on = on;
+  var f = on ? 'addEventListener' : 'removeEventListener';
+  document[f]('keydown', n.key);
+  document[f]('focusin', n.focusIn);
+  document[f]('pointerdown', n.down, true);
+}
+// componentWillUnmount
+function nav6Off(self) { nav6Listen(self, false); }
+// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Items(n) {
+  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
+function nav6Key(self, e) {
+  var n = self.nav6, st = self.state || {};
+  if (!e) return;
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+    return;
+  }
+  if (e.key !== 'Tab' || !st.menuOpen) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  var i = items.indexOf(document.activeElement);
+  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+  e.preventDefault();
+  items[j].focus();
+}
+// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
+// The YOU menu closes once focus leaves it.
+function nav6FocusIn(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  items[0].focus();
+}
+// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
+// and closes the menu on click, so nothing under it gets the tap (F331).
+function nav6Down(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+// renderVals: every key the four shells use.
+function nav6Vals(self, cfg) {
+  var n = self.nav6, st = self.state || {}, c = {}, k;
+  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  return {
+    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
+    outsideDown: undefined
+  };
+}
+/* ===== end nav shell ===== */
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    nav6Init(this);
+  }
+  componentWillUnmount() {
+    nav6Off(this);
+  }
+  renderVals() {
+    return Object.assign({
+    }, nav6Vals(this, { inboxHref: 'inbox-new.html', curInbox: 'page' }));
+  }
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

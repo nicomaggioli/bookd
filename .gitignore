@@ -1,2 +1,5 @@
 build.py
+build_all.py
 .DS_Store
+_admin/
+_test/

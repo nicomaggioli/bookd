@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your dashboard · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+<script>/* canvas: page stays still */
+(function () {
+  var still = function () {
+    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+  };
+  var css = document.createElement('style');
+  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+  document.head.appendChild(css);
+  var check = function () {
+    var on = still();
+    document.documentElement.classList.toggle('oncanvas', on);
+    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+  };
+  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* big screens (bigscreen.py) */
+:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@media (min-width:1921px){
+  html{zoom:calc(100vw / 1920px)}
+  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+}
+
+/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px);--sec:clamp(64px,calc(8 * var(--vw)),110px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+/* a status line that takes focus after an action needs no ring (as InboxDJ6) */
+[tabindex="-1"]:focus{outline:none}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+/* type */
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+/* nav */
+/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+/* YOU button and its menu */
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+/* ===== end nav shell ===== */
+html{scroll-padding-top:88px}
+/* buttons, chips, fields, cards */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn:active{transform:translateY(1px)}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+/* background video toggle (same on Roster6, Login6 and Kaytran6) */
+.vidbtn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;white-space:nowrap;cursor:pointer}
+/* flash photos (same look as the Home6 feed and camera) and avatars */
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+/* footer */
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}.vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+.k6sec{overflow-x:clip}
+.k6h2s{font-size:clamp(40px,calc(4.6 * var(--vw)),72px)}
+.k6side-note{margin:0;font-size:clamp(18px,calc(1.55 * var(--vw)),23px);line-height:1.35;letter-spacing:-0.015em;max-width:22em}
+.k6head{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px 56px;align-items:end;margin-bottom:clamp(28px,calc(4 * var(--vw)),52px)}
+@media (max-width:860px){.k6head{grid-template-columns:minmax(0,1fr)}}
+/* dates: the back of a tour shirt. Where she'll be anyway, big enough to read across a room. */
+.k6town-sec{position:relative;background:#d31110;color:#fffde9;padding:var(--sec) 0}
+.k6town-sec :focus-visible{outline-color:#ffffff}
+.k6town-sec .k6card :focus-visible{outline-color:#d31110}
+.k6dates{margin:0;padding:0;list-style:none;border-top:2px solid #000000}
+.k6dates li{border-bottom:1px solid rgba(0,0,0,.4)}
+.k6drow{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr) minmax(150px,auto);align-items:baseline;gap:6px 24px;padding:clamp(14px,calc(1.6 * var(--vw)),22px) 0;color:inherit;text-decoration:none;transition:color .15s}
+.k6dwhen,.k6dcity{font-size:clamp(34px,calc(5.8 * var(--vw)),84px);font-weight:700;letter-spacing:-0.065em;line-height:.95;font-variant-numeric:tabular-nums;white-space:nowrap}
+.k6drow-ny{color:#000000}
+.k6dask{justify-self:start;font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.k6dtaken{opacity:.55}
+.k6dtaken .k6dcity{text-decoration:line-through;text-decoration-thickness:.07em}
+.k6dtaken .k6dask{text-decoration:none}
+.k6fine{margin:clamp(20px,calc(2 * var(--vw)),28px) 0 0;font-size:15px;line-height:1.5;color:#fffde9;max-width:44em}
+@media (hover: hover) and (pointer: fine){a.k6drow:hover{color:#000000}}
+@media (max-width:760px){.k6drow{grid-template-columns:minmax(0,1fr)}.k6dwhen,.k6dcity{font-size:clamp(34px,calc(11 * var(--vw)),72px)}.k6dask{margin-top:6px}}
+/* cost and rider: two plain lists on cream, same rows, nothing tilted */
+.k6costs{background:#fffde9;color:#000000;padding:var(--sec) 0}
+.k6costs :focus-visible{outline-color:#d31110}
+.k6costgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(48px,calc(7 * var(--vw)),112px);align-items:start}
+.k6col{display:flex;flex-direction:column;min-width:0}
+.k6colhead{display:flex;flex-direction:column;gap:14px}
+.k6price{margin:6px 0 0;font-size:clamp(44px,calc(5.6 * var(--vw)),84px);line-height:.95;font-weight:700;letter-spacing:-0.06em;color:#d31110;white-space:nowrap}
+.k6colnote{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:26em}
+.k6ledger{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;border-top:2px solid #000000}
+.k6ledger div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:baseline;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4}
+.k6ledger dt{font-weight:400}
+.k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.k6need div{grid-template-columns:minmax(96px,120px) minmax(0,1fr)}
+.k6need dt{font-weight:700}
+.k6need dd{font-weight:400}
+.k6costfoot{margin:16px 0 0;font-size:15px;line-height:1.45;color:#2f2f31}
+@media (min-width:901px){.k6colhead{min-height:clamp(200px,calc(17 * var(--vw)),250px)}}
+@media (max-width:900px){.k6costgrid{grid-template-columns:minmax(0,1fr)}}
+.k6card{min-width:0;box-sizing:border-box;padding:clamp(12px,calc(1.4 * var(--vw)),18px);border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.k6form{margin:0}
+.k6fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.k6f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.k6wide{grid-column:1 / -1}
+.k6err{padding:0 8px;font-size:13px;font-weight:700;color:#d31110}
+.k6hint{padding:0 8px;font-size:13px;color:#4d504f}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+@media (max-width:480px){.k6fgrid{grid-template-columns:minmax(0,1fr)}.k6card{border-radius:24px}.field input{font-size:18px}}
+
+/* ---------- DJ6: Kaytran's own dashboard. The tour dates are the page; everything else is a plain list. ---------- */
+.djlink{background:none;border:0;padding:0;min-height:44px;display:inline-flex;align-items:center;color:inherit;font:700 15px 'Inter',sans-serif;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+/* hero */
+.djtop{padding:clamp(24px,calc(2.8 * var(--vw)),40px) 0 clamp(56px,calc(6 * var(--vw)),88px)}
+.djtop .k6head{margin-bottom:clamp(24px,calc(3 * var(--vw)),40px)}
+.djtop .k6side-note b{display:block;margin-bottom:8px;font-weight:700}
+.djdrow{grid-template-columns:minmax(0,6fr) minmax(0,5fr) minmax(170px,auto);padding:clamp(12px,calc(.9 * var(--vw)),14px) 0}
+.djdrow .k6dwhen,.djdrow .k6dcity{white-space:normal;overflow-wrap:anywhere;text-wrap:balance}
+/* tablets: a touch smaller so Most weekends and long cities stay on one line (F183) */
+@media (min-width:761px) and (max-width:1180px){.djdrow .k6dwhen,.djdrow .k6dcity{font-size:clamp(34px,calc(4.6 * var(--vw)),84px)}}
+.djend{display:inline-flex;flex-wrap:wrap;align-items:center;gap:0 14px;font-size:15px;font-weight:700}
+/* the home row reads dimmed, but its Home label stays at full strength so it can be read (F341) */
+.djhome{color:#fffde9}
+.djhome .k6dwhen,.djhome .k6dcity{opacity:.72}
+.djhome .k6dask{text-decoration:none}
+.djnone{color:#000000}
+.djadd{margin-top:clamp(20px,calc(2.4 * var(--vw)),32px);border-radius:30px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.djaddrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:stretch}
+.djaddbtn{min-height:62px;padding:0 36px}
+.djndhint,.djnderr{margin:10px 8px 2px}
+.field input[type="date"]{min-height:28px;font-size:18px;letter-spacing:-0.02em}
+/* an empty date reads like the Where to? placeholder (F161) */
+.field input[type="date"][data-empty="true"]:not(:focus){color:#636665;font-weight:400}
+.djadded{font-weight:700;color:#000000}
+.djra{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:18px;min-height:44px}
+.djranote{font-size:15px;line-height:1.4;color:#fffde9}
+.djstat{margin:0;font-size:15px;line-height:1.4;font-weight:700;color:#fffde9}
+/* Undo keeps its 44px target without stretching a wrapped line */
+.djstat .djlink{margin:-11px 0}
+/* Removed Boston. Undo: sits where the row was (F349) */
+.djgone{padding:clamp(22px,calc(1.6 * var(--vw)),24px) 0}
+/* requests */
+/* dot separators; the dot before an item that wraps to a new line is clipped off (same as Inbox6) */
+.dots{display:block;clip-path:inset(-24px -24px -24px -3px)}
+.dots > span{display:flex;flex-wrap:wrap;margin-left:-.9em}
+.dots > span > span{position:relative;min-width:0;padding-left:.9em}
+.dots > span > span::before{content:"\00b7";position:absolute;left:0;width:.9em;text-align:center}
+.djreq{background:#000000;color:#fffde9;padding:var(--sec) 0}
+.djlist{margin:0;padding:0;list-style:none;border-top:2px solid #fffde9}
+.djr{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,370px);gap:10px 32px;align-items:center;padding:clamp(18px,calc(2 * var(--vw)),26px) 0;border-bottom:1px solid #2f2f31}
+.djwhen{font-size:clamp(30px,calc(3.4 * var(--vw)),48px);font-weight:700;letter-spacing:-0.055em;line-height:1;font-variant-numeric:tabular-nums}
+.djwho{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:15px;line-height:1.4;color:#a2a5a4}
+.djwho b{font-size:clamp(20px,calc(1.7 * var(--vw)),24px);letter-spacing:-0.03em;line-height:1.15;color:#ffffff}
+.djtownyes{font-weight:700;color:#ff3b2f}
+.djtownno{color:#a2a5a4}
+.djacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-width:0}
+.djanswer{font-size:15px;line-height:1.35;color:#fffde9}
+.djanswer > span{flex:1 1 100%;font-weight:700}
+.djr-off .djwhen,.djr-off .djwho b{color:#a2a5a4}
+.djr-off .djtownyes{color:#a2a5a4;font-weight:400}
+.djall{margin-top:clamp(24px,calc(3 * var(--vw)),36px)}
+/* profile */
+.djprogrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:start}
+.djpic{display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-width:0}
+.djphoto{aspect-ratio:4 / 5}
+.djphoto img{object-position:50% 30%;filter:grayscale(1) contrast(1.1)}
+.djnoimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 24px;text-align:center;text-wrap:balance;font-size:15px;font-weight:700;color:#a2a5a4}
+.djpicbtn:has(> input.vh:focus-visible){outline:2px solid #d31110;outline-offset:3px}
+.djphotoerr{margin:0;padding:0}
+.djbio{margin-top:18px}
+.djneed{margin-top:clamp(24px,calc(2.6 * var(--vw)),36px)}
+/* the profile list is words, not money: tabular figures make a hyphen as wide as a digit, so it reads like a spaced one */
+.djneed dd{overflow-wrap:anywhere;font-variant-numeric:normal}
+.djproacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:24px}
+.djpro .k6costfoot{margin-top:8px;min-height:1.45em}
+.djform{margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
+.djform .field{background:#ffffff}
+.djform .field input{font-size:18px}
+.djpro .go:hover,.djpro .ghost:hover{background:#000000;color:#ffffff}
+/* booked and paid */
+.djmoney{background:#000000;color:#fffde9;padding:var(--sec) 0 0}
+.djmoney .k6colnote{color:#a2a5a4}
+.djmoney .k6price{color:#ff3b2f}
+.djmoney .k6ledger{border-top-color:#fffde9}
+.djmoney .k6ledger div{border-bottom-color:#2f2f31}
+.djmoney .k6ledger dt{display:flex;flex-direction:column;gap:2px}
+.djmoney .k6ledger dt b{font-size:clamp(24px,calc(2.2 * var(--vw)),30px);letter-spacing:-0.045em;line-height:1.05}
+.djmoney .k6ledger dt > span{font-size:15px;color:#a2a5a4}
+.djmoney + .foot6,.foot6{margin-top:0}
+@media (hover: hover) and (pointer: fine){
+.djtop .paper:hover{background:#000000;color:#ffffff}
+.djadd .go:hover{background:#000000;color:#ffffff}
+.djlink:hover{color:#ff3b2f}
+.djtop .djlink:hover{color:#000000}
+.djpro .djlink:hover{color:#d31110}
+.djreq .ghost:hover{background:#ffffff;color:#000000}
+}
+@media (max-width:1180px){.djr{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}.djacts{grid-column:1 / -1}}
+@media (max-width:980px){.djaddrow{grid-template-columns:repeat(2,minmax(0,1fr))}.djaddrow > label:first-child,.djaddbtn{grid-column:1 / -1}}
+@media (max-width:760px){.djprogrid{grid-template-columns:minmax(0,1fr)}.djpic{max-width:420px}}
+@media (max-width:760px){
+.djdrow{grid-template-columns:minmax(0,1fr)}
+.djend{margin-top:2px}
+.djr{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.djadd{border-radius:24px}.field input[type="date"]{font-size:16px}}
+</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<!-- NAV -->
+<!-- NAV: DJ shell, signed in (A/fix/shell/dj.html) -->
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}">Dashboard</a>
+<a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+</nav>
+<div class="navend">
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="btn go navbook" href="{{seeHref}}">See your page</a></sc-if>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{signedIn}}</strong></span>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a href="{{seeHref}}">See your page</a></sc-if>
+<a href="index.html">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}" onClick="{{closeMenu}}">Dashboard</a>
+<a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}" onClick="{{closeMenu}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="nl" href="{{seeHref}}" onClick="{{closeMenu}}">See your page</a></sc-if>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto;">
+
+<!-- DATES: the hero. Same giant list as Kaytran6, with an add line at the bottom. -->
+<section id="dates" class="k6town-sec k6sec djtop" aria-labelledby="dates-h">
+<div class="wrap">
+<div class="k6head">
+<h1 id="dates-h" class="h1">Where you'll&nbsp;be.</h1>
+<p class="k6side-note"><b>{{remind}}</b>Hosts check this list first. In town means no flight, no hotel and an easy&nbsp;yes.</p>
+</div>
+<ul class="k6dates">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="3">
+<li><sc-if value="{{d.row}}" hint-placeholder-val="{{ true }}"><div class="{{d.cls}}"><span class="k6dwhen">{{d.when}}</span><span class="k6dcity">{{d.city}}</span><span class="djend"><sc-if value="{{d.sample}}" hint-placeholder-val="{{ false }}"><span class="djsample">Sample</span></sc-if><button class="djlink" type="button" onClick="{{d.remove}}" ref="{{d.rmRef}}" aria-label="{{d.removeAria}}">Remove</button></span></div></sc-if><sc-if value="{{d.gone}}" hint-placeholder-val="{{ false }}"><p class="djstat djgone" role="status"><span id="gone-t">{{d.text}}</span>&nbsp; <button class="djlink" type="button" onClick="{{d.undo}}" ref="{{d.undoRef}}" aria-describedby="gone-t">Undo</button></p></sc-if></li>
+</sc-for>
+<sc-if value="{{noDates}}" hint-placeholder-val="{{ false }}">
+<li><div class="k6drow djdrow djnone"><span class="k6dwhen">Nowhere yet.</span><span class="k6dcity"></span><span class="djend"><button class="djlink" type="button" onClick="{{focusCity}}">Add a city</button></span></div></li>
+</sc-if>
+<li><div class="k6drow djdrow djhome"><span class="k6dwhen">Most weekends</span><span class="k6dcity">{{homeShort}}</span><span class="k6dask">Home</span></div></li>
+</ul>
+
+<div class="k6card djadd">
+<form class="k6form" aria-label="Add a date" onSubmit="{{addDate}}" novalidate="">
+<div class="djaddrow">
+<label class="field"><span class="field-l">City</span><input type="text" value="{{nd.city}}" onInput="{{ndSet.city}}" ref="{{cityRef}}" maxlength="32" placeholder="Where to?" autocomplete="off" autocapitalize="words" aria-invalid="{{ndInv.city}}" aria-describedby="{{ndDescribe}}"></label>
+<label class="field"><span class="field-l">From</span><input type="date" value="{{nd.from}}" onInput="{{ndSet.from}}" ref="{{fromRef}}" min="2026-11-02" data-empty="{{ndEmpty.from}}" aria-invalid="{{ndInv.from}}" aria-describedby="{{ndDescribe}}"></label>
+<label class="field"><span class="field-l">To</span><input type="date" value="{{nd.to}}" onInput="{{ndSet.to}}" ref="{{toRef}}" min="2026-11-02" data-empty="{{ndEmpty.to}}" aria-invalid="{{ndInv.to}}" aria-describedby="{{ndDescribe}}"></label>
+<button class="btn go btn-lg djaddbtn" type="submit">Add it</button>
+</div>
+<sc-if value="{{hasDateErr}}" hint-placeholder-val="{{ false }}"><p id="err-nd" class="k6err djnderr" role="alert">{{dateErr}}</p></sc-if>
+<sc-if value="{{noDateErr}}" hint-placeholder-val="{{ true }}"><p class="k6hint djndhint"><span class="djadded" role="status">{{added}}</span>{{ndHint}}</p></sc-if>
+</form>
+</div>
+
+<sc-if value="{{raShow}}" hint-placeholder-val="{{ true }}">
+<div class="djra">
+<sc-if value="{{raIdle}}" hint-placeholder-val="{{ true }}">
+<button class="btn paper" type="button" onClick="{{pullRa}}" ref="{{pullRef}}">Pull from Resident Advisor</button>
+<span class="djranote">One click, no typing. It adds sample dates for&nbsp;now.</span>
+</sc-if>
+<sc-if value="{{hasStat}}" hint-placeholder-val="{{ false }}">
+<p class="djstat" role="status" tabindex="-1" ref="{{statRef}}">{{stat}}<sc-if value="{{canUndo}}" hint-placeholder-val="{{ true }}">&nbsp; <button class="djlink" type="button" onClick="{{undoDates}}">Undo</button></sc-if></p>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- REQUESTS: a plain list, one line per host -->
+<section id="requests" class="djreq k6sec" aria-labelledby="req-h">
+<div class="wrap">
+<div class="k6head">
+<h2 id="req-h" class="h2">{{reqHead}}</h2>
+<p class="k6side-note">{{reqNote}}</p>
+</div>
+<sc-if value="{{hasReqs}}" hint-placeholder-val="{{ true }}">
+<ul class="djlist">
+<sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
+<li class="{{r.cls}}">
+<span class="djwhen">{{r.date}}</span>
+<span class="djwho"><b>{{r.who}}</b><span class="dots"><span><sc-for list="{{r.bits}}" as="x" hint-placeholder-count="4"><span>{{x.t}}</span></sc-for></span></span><span class="{{r.townCls}}">{{r.town}}</span></span>
+<sc-if value="{{r.waiting}}" hint-placeholder-val="{{ true }}">
+<span class="djacts"><button class="btn go" type="button" onClick="{{r.accept}}" ref="{{r.accRef}}" aria-label="{{r.acceptAria}}">Accept</button><a class="btn ghost" href="{{r.offerHref}}" aria-label="{{r.offerAria}}">Send an offer</a><button class="djlink" type="button" onClick="{{r.decline}}" aria-label="{{r.declineAria}}">Decline</button></span>
+</sc-if>
+<sc-if value="{{r.answered}}" hint-placeholder-val="{{ false }}">
+<span class="djacts djanswer" role="status" tabindex="-1" ref="{{r.ansRef}}"><span>{{r.line}}</span><a class="djlink" href="{{r.chatHref}}">Open the chat</a><sc-if value="{{r.canUndo}}" hint-placeholder-val="{{ true }}"><button class="djlink" type="button" onClick="{{r.undo}}">Undo</button></sc-if></span>
+</sc-if>
+</li>
+</sc-for>
+</ul>
+</sc-if>
+<sc-if value="{{showAll}}" hint-placeholder-val="{{ true }}"><a class="btn ghost djall" href="requests.html">See every request</a></sc-if>
+</div>
+</section>
+
+<!-- PROFILE: reads like her rider, edits like the request form -->
+<section id="profile" class="k6costs k6sec djpro" aria-labelledby="pro-h">
+<div class="wrap djprogrid" onKeyDown="{{editKey}}">
+<div class="djpic">
+<span class="dflash djphoto"><sc-if value="{{p.hasImg}}" hint-placeholder-val="{{ true }}"><img src="{{p.img}}" alt="{{p.imgAlt}}"></sc-if><sc-if value="{{p.noImg}}" hint-placeholder-val="{{ false }}"><span class="djnoimg">{{p.noImgText}}</span></sc-if><span class="dfx"></span><span class="dgrain"></span></span>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+<label class="btn ghost djpicbtn">Change photo<input class="vh" type="file" accept="image/*" onChange="{{pickPhoto}}"></label>
+<sc-if value="{{photoErr}}" hint-placeholder-val="{{ false }}"><p class="k6err djphotoerr" role="alert">That file won't open. Try a JPG or&nbsp;PNG.</p></sc-if>
+</sc-if>
+</div>
+<div class="k6col">
+<h2 id="pro-h" class="h2">{{p.nameNb}}.</h2>
+<sc-if value="{{reading}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{p.hasBio}}" hint-placeholder-val="{{ true }}"><p class="k6side-note djbio">{{p.bio}}</p></sc-if>
+<dl class="k6ledger k6need djneed">
+<div><dt>Sound</dt><dd>{{p.sound}}</dd></div>
+<div><dt>Home city</dt><dd>{{p.home}}</dd></div>
+<div><dt>Fee range</dt><dd>{{p.fee}}</dd></div>
+<div><dt>Agent</dt><dd>{{p.agent}}</dd></div>
+<div><dt>SoundCloud</dt><dd>{{p.sc}}</dd></div>
+<div><dt>Mixcloud</dt><dd>{{p.mc}}</dd></div>
+<div><dt>YouTube</dt><dd>{{p.yt}}</dd></div>
+</dl>
+<div class="djproacts">
+<button class="btn go" type="button" onClick="{{startEdit}}" ref="{{editBtnRef}}">Edit my profile</button>
+<sc-if value="{{seeHosts}}" hint-placeholder-val="{{ true }}"><a class="djlink" href="kaytran.html#mine">See it the way hosts&nbsp;do</a></sc-if>
+</div>
+<p class="k6costfoot" role="status">{{savedLine}}</p>
+</sc-if>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+<form class="k6form djform" aria-label="Edit your profile" onSubmit="{{saveEdit}}" novalidate="">
+<div class="k6fgrid">
+<div class="k6f">
+<label class="field"><span class="field-l">DJ name</span><input type="text" value="{{ed.name}}" onInput="{{edSet.name}}" ref="{{nameRef}}" aria-invalid="{{edInv.name}}" aria-describedby="{{edDesc.name}}"></label>
+<sc-if value="{{edBad.name}}" hint-placeholder-val="{{ false }}"><span id="err-ed-name" class="k6err" role="alert">Add your DJ name so hosts know who's&nbsp;playing.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Sound</span><input type="text" value="{{ed.sound}}" onInput="{{edSet.sound}}"></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Home city</span><input type="text" value="{{ed.home}}" onInput="{{edSet.home}}" ref="{{homeRef}}" aria-invalid="{{edInv.home}}" aria-describedby="{{edDesc.home}}"></label>
+<sc-if value="{{edBad.home}}" hint-placeholder-val="{{ false }}"><span id="err-ed-home" class="k6err" role="alert">Add your home city so hosts know where home&nbsp;is.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Fee range</span><input type="text" value="{{ed.fee}}" onInput="{{edSet.fee}}"></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">One line about you</span><textarea rows="3" maxlength="120" value="{{ed.bio}}" onInput="{{edSet.bio}}"></textarea></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">SoundCloud</span><input type="text" value="{{ed.sc}}" onInput="{{edSet.sc}}" ref="{{scRef}}" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Mixcloud</span><input type="text" value="{{ed.mc}}" onInput="{{edSet.mc}}" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">YouTube</span><input type="text" value="{{ed.yt}}" onInput="{{edSet.yt}}" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+<sc-if value="{{edBad.links}}" hint-placeholder-val="{{ false }}"><span id="err-ed-links" class="k6err" role="alert">Add one set so hosts can hear you&nbsp;play.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Agent name</span><input type="text" value="{{ed.agent}}" onInput="{{edSet.agent}}"></label>
+</div>
+</div>
+<div class="djproacts">
+<button class="btn go" type="submit">Save changes</button>
+<button class="djlink" type="button" onClick="{{cancelEdit}}">Never mind</button>
+</div>
+</form>
+</sc-if>
+</div>
+</div>
+</section>
+
+<!-- BOOKED AND PAID: two plain lists, same rows as cost and rider -->
+<section class="djmoney k6sec" aria-label="Your booked nights and what you've been paid">
+<div class="wrap k6costgrid">
+<div class="k6col">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">{{bookedHead}}</h2>
+<p class="k6colnote">{{bookedNote}}</p>
+</div>
+<sc-if value="{{hasBooked}}" hint-placeholder-val="{{ true }}">
+<dl class="k6ledger">
+<sc-for list="{{booked}}" as="b" hint-placeholder-count="2">
+<div><dt><b>{{b.date}}</b><span>{{b.meta}}</span></dt><dd><a class="djlink" href="{{b.chatHref}}" aria-label="{{b.chatAria}}">Open the chat</a></dd></div>
+</sc-for>
+</dl>
+</sc-if>
+</div>
+<div class="k6col">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">What you've&nbsp;made.</h2>
+<p class="k6price">{{madePrice}}</p>
+<p class="k6colnote">{{madeNote}}</p>
+</div>
+<dl class="k6ledger">
+<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}">
+<div><dt>October</dt><dd>[$X]</dd></div>
+<div><dt>September</dt><dd>[$X]</dd></div>
+</sc-if>
+<div><dt>BOOKD's cut</dt><dd>[X%]</dd></div>
+<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}"><div><dt>Next payout</dt><dd>[Date]</dd></div></sc-if>
+</dl>
+</div>
+</div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
+<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3955}}'>
+// DJ6: Kaytran's dashboard, a mockup. Nothing leaves the browser. Dates, request answers and the profile
+// sit in sessionStorage ('bookd.dj') so they survive a trip to InboxDJ6 and back. Cancel6 marks a night
+// 'cancelled' there, and InboxDJ6 notes who said yes in 'by' ('you', 'mara' or 'host').
+// dashboard.html#new is a brand new DJ's first visit, straight from Build6's Go live. It reads and writes its own
+// key ('bookd.newdj'), so Kaytran's sample in 'bookd.dj' is never touched. Opened on its own, it shows Soft Static,
+// the applicant Erika approves on Admin6.
+var DJ_KEY = 'bookd.dj';
+var DJ_NEW_KEY = 'bookd.newdj';
+// the sample's today: past dates can't be added, and a date a year or more out shows its year
+var DJ_TODAY = '2026-11-02';
+var DJ_YEAR_ON = '2027-11-02';
+var DJ_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var DJ_DATES = [
+  { city: 'New York', from: '2026-11-13', to: '2026-11-15' },
+  { city: 'Boston', from: '2026-11-21', to: '2026-11-21' },
+  { city: 'Chicago', from: '2026-11-28', to: '2026-11-28' },
+  { city: 'Chicago', from: '2026-12-31', to: '2026-12-31' }
+];
+// sample only: Pull from Resident Advisor adds these, tagged as samples
+var DJ_RA = [
+  { city: 'Chicago', from: '2026-12-12', to: '2026-12-12', sample: true },
+  { city: 'Detroit', from: '2026-12-19', to: '2026-12-19', sample: true }
+];
+var DJ_PROFILE = {
+  name: 'Kaytran', sound: 'Afro / Amapiano', home: 'Atlanta, GA', fee: '[$X to $Y]', agent: 'Mara',
+  bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.",
+  sc: 'soundcloud.com/[kaytran]', mc: 'mixcloud.com/[kaytran]', yt: 'youtube.com/[kaytran]',
+  img: 'assets/ad370760271850c5893b948c9756c7a7.webp'
+};
+// DJ6#new opened on its own: Soft Static as Admin6's draft has them (no photo, bio or agent yet)
+var DJ_NEW = {
+  name: 'Soft Static', sound: 'House and disco', home: 'Portland, OR', fee: '[$X to $Y]', agent: '', bio: '',
+  sc: 'soundcloud.com/[soft-static]/warehouse-set', mc: 'mixcloud.com/[soft-static]/rooftop-set', yt: '', img: ''
+};
+// the same requests as InboxDJ6; stage is 'sent' until she answers
+var DJ_REQS = [
+  { key: 'dani', who: 'Dani R.', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', meta: 'Brooklyn · Loft party · About 120 · Budget $2,500', budget: '2,500', stage: 'sent' },
+  { key: 'theo', who: 'Theo M.', date: 'Sat, Nov 21', iso: '2026-11-21', city: 'Boston', metro: 'Boston', meta: 'Boston · 40th birthday · About 60 · Budget $1,800', budget: '1,800', stage: 'sent' },
+  { key: 'priya', who: 'Priya S.', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', meta: 'Austin · Wedding after party · About 80 · Budget $3,000', budget: '3,000', stage: 'sent' }
+];
+var DJ_BOOKED = [
+  { key: 'sam', who: 'Sam & Lou', date: 'Sat, Nov 7', iso: '2026-11-07', city: 'Atlanta', fee: '1,500' },
+  { key: 'noor', who: 'Noor K.', date: 'Thu, Dec 31', iso: '2026-12-31', city: 'Chicago', fee: '2,200' }
+];
+// when the next month's dates are due: the first Monday of that month
+var DJ_DUE = [
+  { y: 2026, m: 10, name: 'November', next: "December's", due: 'Mon, Dec 7' },
+  { y: 2026, m: 11, name: 'December', next: "January's", due: 'Mon, Jan 4' }
+];
+var DJ_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+
+function djLoad() { try { var o = JSON.parse(sessionStorage.getItem(DJ_KEY) || 'null'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function djSave(patch) { try { var o = djLoad(); for (var k in patch) o[k] = patch[k]; sessionStorage.setItem(DJ_KEY, JSON.stringify(o)); } catch (e) {} }
+function djNewLoad() {
+  var o = null;
+  try { o = JSON.parse(sessionStorage.getItem(DJ_NEW_KEY) || 'null'); } catch (e) { o = null; }
+  if (!o || typeof o !== 'object') o = {};
+  var src = o.profile && typeof o.profile === 'object' ? o.profile : o;
+  var str = function (v) { return typeof v === 'string' ? v : ''; };
+  var name = str(o.name).trim() || str(src.name).trim();
+  var fee = str(src.fee).trim() || (str(src.low).trim() && str(src.high).trim() ? djMoney(src.low) + ' to ' + djMoney(src.high) : '');
+  // Build6 sends a small JPEG data URL in profile.img; a blob: photo dies on the way here, so it is left out
+  var img = str(src.img || src.cover);
+  var profile = name ? {
+    name: name, sound: str(src.sound), home: str(src.home), fee: fee, agent: str(src.agent), bio: str(src.bio || src.line),
+    sc: str(src.sc), mc: str(src.mc), yt: str(src.yt), img: /^blob:/.test(img) ? '' : img
+  } : Object.assign({}, DJ_NEW);
+  var dates = (Array.isArray(o.dates) ? o.dates : []).filter(function (d) { return d && typeof d.city === 'string' && d.city.trim() && djParse(d.from); })
+    .map(function (d) { var o = { city: djTitle(d.city), from: d.from, to: djParse(d.to) && d.to >= d.from ? d.to : d.from }; if (d.sample) o.sample = true; return o; });
+  // live but no photo arrived: Build6 asked for a cover, so the empty box must not say there is none
+  return { profile: profile, dates: djSort(dates), lost: !!(name && o.live && !profile.img) };
+}
+function djNewSave(patch) { try { var o = JSON.parse(sessionStorage.getItem(DJ_NEW_KEY) || 'null'); if (!o || typeof o !== 'object') o = {}; for (var k in patch) o[k] = patch[k]; sessionStorage.setItem(DJ_NEW_KEY, JSON.stringify(o)); } catch (e) {} }
+function djMoney(v) { v = String(v || '').replace(/[^\d]/g, ''); return v ? '$' + v.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''; }
+function djParse(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+// a typed two digit year (12/19/26) arrives as 0026-12-19
+function djYear(v) { v = String(v || ''); return /^00\d\d-/.test(v) ? '20' + v.slice(2) : v; }
+function djShort(d) { return DJ_MON[d.getMonth()] + ' ' + d.getDate(); }
+function djRange(from, to) {
+  var a = djParse(from), b = djParse(to) || a;
+  if (!a) return '';
+  var out = b.getTime() === a.getTime() ? djShort(a) : a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() ? djShort(a) + ' to ' + b.getDate() : djShort(a) + ' to ' + djShort(b);
+  return from >= DJ_YEAR_ON ? out + ', ' + b.getFullYear() : out;
+}
+function djSort(list) { return list.slice().sort(function (a, b) { return a.from < b.from ? -1 : a.from > b.from ? 1 : 0; }); }
+function djCity(s) { return String(s || '').split(',')[0].trim(); }
+// a typed city gets capital first letters, so los angeles reads Los Angeles; any capitals she typed stay (F364)
+function djTitle(s) { return String(s || '').trim().replace(/\s+/g, ' ').replace(/(^|\s)(\S)/g, function (m, sp, c) { return sp + c.toUpperCase(); }); }
+// read view: a link may break after a slash, never mid word; empty fields say so
+function djUrl(s) { s = String(s || '').trim(); return s ? s.replace(/\/(?!\/)/g, '/' + String.fromCharCode(8203)) : 'Not added yet'; }
+function djOr(s) { return String(s || '').trim() || 'Not added yet'; }
+// ties the last two words so a heading never ends on one word alone
+function djNb(s) { s = String(s || '').trim(); var i = s.lastIndexOf(' '); return i > 0 ? s.slice(0, i) + ' ' + s.slice(i + 1) : s; }
+function djInTown(dates, r) {
+  return dates.some(function (d) { var c = djCity(d.city).toLowerCase(); return (c === r.metro.toLowerCase() || c === r.city.toLowerCase()) && d.from <= r.iso && d.to >= r.iso; });
+}
+function djHas(dates, y, m) { return dates.some(function (d) { var a = djParse(d.from); return a.getFullYear() === y && a.getMonth() === m; }); }
+function djRemind(dates) {
+  var nov = djHas(dates, 2026, 10), dec = djHas(dates, 2026, 11);
+  if (!nov && dec) return "November's looking empty, but December's are in. January's are due Mon, Jan 4.";
+  if (!nov) return "November's looking empty. December's are due Mon, Dec 7.";
+  if (dec) return "Your November and December dates are in. January's are due Mon, Jan 4.";
+  return "Your November dates are in. December's are due Mon, Dec 7.";
+}
+
+/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
+   Then three lines in the class (README step 4):
+     constructor, last line:         nav6Init(this);
+     componentWillUnmount, add:      nav6Off(this);
+     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
+   The nav keys come last, so they always win over any leftover old nav key in the page's object.
+   Settings (all optional, defaults below):
+     host:    inboxHref, curInbox, curAccount, waiting
+     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
+     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
+     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
+   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
+var NAV6_DEFAULTS = {
+  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
+  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+  waiting: 0, shell: ''
+};
+// Constructor: refs and stable handlers. Both menus start closed.
+function nav6Init(self) {
+  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+  if (!self.state) self.state = {};
+  self.state.menuOpen = false;
+  self.state.acctOpen = false;
+  n.btnRef = function (el) { n.btn = el; };
+  n.acctBtnRef = function (el) { n.acctBtn = el; };
+  n.acctWrapRef = function (el) { n.acctWrap = el; };
+  n.key = function (e) { nav6Key(self, e); };
+  n.focusIn = function (e) { nav6FocusIn(self, e); };
+  n.down = function (e) { nav6Down(self, e); };
+  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+  // pages that still call this.setMenu(true or false) keep working
+  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Set(self, patch) {
+  var st = self.state || {};
+  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+  nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+  var n = self.nav6;
+  if (!n || typeof document === 'undefined' || n.on === on) return;
+  n.on = on;
+  var f = on ? 'addEventListener' : 'removeEventListener';
+  document[f]('keydown', n.key);
+  document[f]('focusin', n.focusIn);
+  document[f]('pointerdown', n.down, true);
+}
+// componentWillUnmount
+function nav6Off(self) { nav6Listen(self, false); }
+// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Items(n) {
+  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
+function nav6Key(self, e) {
+  var n = self.nav6, st = self.state || {};
+  if (!e) return;
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+    return;
+  }
+  if (e.key !== 'Tab' || !st.menuOpen) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  var i = items.indexOf(document.activeElement);
+  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+  e.preventDefault();
+  items[j].focus();
+}
+// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
+// The YOU menu closes once focus leaves it.
+function nav6FocusIn(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  items[0].focus();
+}
+// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
+// and closes the menu on click, so nothing under it gets the tap (F331).
+function nav6Down(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+// renderVals: every key the four shells use.
+function nav6Vals(self, cfg) {
+  var n = self.nav6, st = self.state || {}, c = {}, k;
+  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  return {
+    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
+    outsideDown: undefined
+  };
+}
+/* ===== end nav shell ===== */
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var self = this;
+    var saved = djLoad();
+    this.state = {
+      dates: saved.dates || DJ_DATES, nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {},
+      stat: '', prev: null, gone: null, added: '',
+      stage: saved.stage || {}, fee: saved.fee || {}, by: saved.by || {},
+      profile: saved.profile || DJ_PROFILE, editing: false, ed: null, edErr: false, savedAt: false, photoErr: false,
+      newDj: ''
+    };
+    this.cityEl = null; this.fromEl = null; this.toEl = null; this.nameEl = null; this.homeEl = null; this.scEl = null; this.editBtn = null; this.undoEl = null;
+    this.pullEl = null; this.statEl = null;
+    this.rmEls = {}; this.ansEls = {}; this.accEls = {};
+    this.wantName = false; this.wantEdit = false; this.wantUndo = false; this.wantRow = ''; this.wantNd = ''; this.wantEd = '';
+    // after Accept or Decline focus goes to the line that says so, after Undo back to Accept (F176)
+    this.wantAns = ''; this.wantAcc = ''; this.wantStat = false; this.wantPull = false;
+    this.cityRef = function (el) { self.cityEl = el; };
+    this.fromRef = function (el) { self.fromEl = el; };
+    this.toRef = function (el) { self.toEl = el; };
+    this.nameRef = function (el) { self.nameEl = el; };
+    this.homeRef = function (el) { self.homeEl = el; };
+    this.scRef = function (el) { self.scEl = el; };
+    this.editBtnRef = function (el) { self.editBtn = el; };
+    this.undoRef = function (el) { self.undoEl = el; };
+    this.pullRef = function (el) { self.pullEl = el; };
+    this.statRef = function (el) { self.statEl = el; };
+    // on #new the skip link and Dashboard (#main) would drop the hash and a reload would open Kaytran, so #new goes back
+    this.onHash = function () {
+      var h = typeof location !== 'undefined' ? location.hash : '';
+      if (h === '#new') { if (!self.state.newDj) self.openNew(); return; }
+      if (self.state.newDj && typeof history !== 'undefined' && history.replaceState) {
+        try { history.replaceState(history.state, '', location.pathname + location.search + '#new'); } catch (e) {}
+      }
+    };
+    nav6Init(this);
+  }
+  componentDidMount() {
+    if (typeof location !== 'undefined' && location.hash === '#new') this.openNew();
+    if (typeof window !== 'undefined') window.addEventListener('hashchange', this.onHash);
+  }
+  componentDidUpdate() {
+    var el = null;
+    if (this.wantName && this.nameEl) { this.wantName = false; this.nameEl.focus(); }
+    if (this.wantEdit && this.editBtn) { this.wantEdit = false; this.editBtn.focus(); }
+    if (this.wantUndo && this.undoEl) { this.wantUndo = false; this.undoEl.focus(); }
+    if (this.wantRow) { el = this.rmEls[this.wantRow]; this.wantRow = ''; if (el && el.isConnected) el.focus(); }
+    if (this.wantNd) { el = { city: this.cityEl, from: this.fromEl, to: this.toEl }[this.wantNd]; this.wantNd = ''; if (el) el.focus(); }
+    if (this.wantEd) { el = { name: this.nameEl, home: this.homeEl, links: this.scEl }[this.wantEd]; this.wantEd = ''; if (el) el.focus(); }
+    if (this.wantAns) { el = this.ansEls[this.wantAns]; this.wantAns = ''; if (el && el.isConnected) el.focus(); }
+    if (this.wantAcc) { el = this.accEls[this.wantAcc]; this.wantAcc = ''; if (el && el.isConnected) el.focus(); }
+    if (this.wantStat) { el = this.statEl; this.wantStat = false; if (el && el.isConnected) el.focus(); }
+    if (this.wantPull) { el = this.pullEl; this.wantPull = false; if (el && el.isConnected) el.focus(); }
+  }
+  componentWillUnmount() {
+    nav6Off(this);
+    if (typeof window !== 'undefined') window.removeEventListener('hashchange', this.onHash);
+  }
+  // DJ6#new: the new DJ's own name, profile and dates, with nothing waiting and nothing booked yet
+  openNew() {
+    var n = djNewLoad();
+    this.setState({
+      newDj: n.profile.name, coverLost: n.lost, profile: n.profile, dates: n.dates, stage: {}, fee: {}, by: {},
+      nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {}, stat: '', prev: null, gone: null, added: '',
+      editing: false, ed: null, edErr: false, savedAt: false, photoErr: false
+    });
+  }
+  // Kaytran's sample keeps to 'bookd.dj'; a new DJ's dates and profile go to 'bookd.newdj'
+  keep(patch) {
+    if (!this.state.newDj) { djSave(patch); return; }
+    var o = {};
+    if (patch.dates) o.dates = patch.dates;
+    if (patch.profile) { o.profile = patch.profile; o.name = patch.profile.name; }
+    djNewSave(o);
+  }
+  // every change to the list clears the last confirmation, so only one Undo is ever on screen
+  putDates(dates, extra) {
+    this.keep({ dates: dates });
+    this.setState(Object.assign({ dates: dates, stat: '', prev: null, gone: null, added: '', ndErr: '', ndBad: {} }, extra || {}));
+  }
+  addDate(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var nd = this.state.nd, bad = {}, err = '';
+    var from = djYear(nd.from), to = djYear(nd.to) || from, city = djTitle(nd.city);
+    if (!city) bad.city = true;
+    if (!djParse(from)) bad.from = true;
+    if (bad.city || bad.from) err = 'Add a city and a first night.';
+    else if (from < DJ_TODAY) { bad.from = true; err = 'That date\'s already gone.'; }
+    else if (!djParse(to) || to < from) { bad.to = true; err = 'The last night has to come after the first one.'; }
+    else {
+      // one night, one city: a date that overlaps one on the list is caught, whatever the city (F353)
+      var hit = this.state.dates.filter(function (d) { return d.from <= to && d.to >= from; })[0];
+      if (hit && djCity(hit.city).toLowerCase() === djCity(city).toLowerCase() && hit.from === from) { bad.from = true; err = 'That one\'s already on the list.'; }
+      else if (hit) { bad.from = true; if (nd.to) bad.to = true; err = 'You\'ll be in ' + djCity(hit.city) + ' then.'; }
+    }
+    if (err) {
+      this.wantNd = bad.city ? 'city' : bad.from ? 'from' : 'to';
+      this.setState({ ndErr: err, ndBad: bad, added: '', gone: null });
+      return;
+    }
+    // the new row is the confirmation, and its own Remove is the undo
+    var dates = djSort(this.state.dates.concat([{ city: city, from: from, to: to }]));
+    this.putDates(dates, { nd: { city: '', from: '', to: '' }, added: 'Added ' + djCity(city) + '.' });
+    if (this.cityEl && this.cityEl.focus) this.cityEl.focus();
+  }
+  // who: 'you', 'mara' or 'host', the one who said yes (InboxDJ6 writes the same 'by' map)
+  setStage(key, stage, fee, who) {
+    var s = Object.assign({}, this.state.stage), f = Object.assign({}, this.state.fee), b = Object.assign({}, this.state.by);
+    if (stage) s[key] = stage; else delete s[key];
+    if (fee) f[key] = fee; else delete f[key];
+    if (who) b[key] = who; else delete b[key];
+    djSave({ stage: s, fee: f, by: b });
+    this.setState({ stage: s, fee: f, by: b });
+  }
+  renderVals() {
+    var self = this, s = this.state, p = s.profile, isNew = !!s.newDj;
+    var t = function (v) { return String(v || '').trim(); };
+    var first = function (r) { return r.who.split(' ')[0]; };
+    var reqs = [];
+    var waiting = 0;
+    if (!isNew) DJ_REQS.forEach(function (r) {
+      var stage = s.stage[r.key] || r.stage;
+      // a booked night moves down to the booked list; a night she cancelled on Cancel6 leaves the page
+      if (stage === 'booked' || stage === 'cancelled') return;
+      var inTown = djInTown(s.dates, r);
+      var open = stage === 'sent';
+      if (open || stage === 'countered') waiting++;
+      var fee = s.fee[r.key] || r.budget, by = s.by[r.key];
+      var line = stage === 'closed' ? 'You passed. Mara will let ' + first(r) + ' down gently.'
+        : stage === 'offer' ? 'Offer sent at $' + fee + '. Waiting on ' + first(r) + '.'
+        : stage === 'countered' ? first(r) + ' countered at $' + fee + '.'
+        : by === 'host' ? first(r) + ' said yes at $' + fee + '. Waiting on the deposit.'
+        : by === 'mara' ? 'Mara said yes at $' + fee + '. Waiting on ' + first(r) + '\'s deposit.'
+        : 'You said yes at $' + fee + '. Waiting on ' + first(r) + '\'s deposit.';
+      reqs.push({
+        key: r.key, date: r.date, who: r.who, bits: r.meta.split(' · ').map(function (x, i) { return { key: 'b' + i, t: x }; }),
+        cls: stage === 'closed' ? 'djr djr-off' : 'djr',
+        town: inTown ? 'You\'re in town' : 'Not in town. Travel is [$X].', townCls: inTown ? 'djtownyes' : 'djtownno',
+        waiting: open, answered: !open, canUndo: stage !== 'countered', line: line,
+        offerHref: 'requests.html#' + r.key + '-offer', chatHref: 'requests.html#' + r.key,
+        acceptAria: 'Accept ' + r.who + ', ' + r.date, offerAria: 'Send ' + r.who + ' an offer', declineAria: 'Decline ' + r.who + ', ' + r.date,
+        accRef: function (el) { if (el) self.accEls[r.key] = el; },
+        ansRef: function (el) { if (el) self.ansEls[r.key] = el; },
+        accept: function () { self.wantAns = r.key; self.setStage(r.key, 'accepted', r.budget, 'you'); },
+        decline: function () { self.wantAns = r.key; self.setStage(r.key, 'closed'); },
+        undo: function () { self.wantAcc = r.key; self.setStage(r.key, null); }
+      });
+    });
+    var reqHead = isNew ? 'Quiet for now.' : waiting === 0 ? 'You\'re all caught up.' : waiting === 1 ? 'One host is waiting.' : DJ_WORDS[waiting] + ' hosts are waiting.';
+    var reqNote = isNew ? 'Add your dates and hosts in those cities can find you.'
+      : waiting ? 'Say yes, say no or name your price. Mara can answer too, she\'s in every chat.'
+      : 'Nobody\'s waiting on you. Go enjoy your coffee. We\'ll text you when someone new asks.';
+
+    var bookedList = isNew ? [] : DJ_BOOKED.filter(function (b) { return s.stage[b.key] !== 'cancelled'; })
+      .map(function (b) { return { iso: b.iso, date: b.date, meta: b.city + ', ' + b.who + ' · $' + b.fee, chatHref: 'requests.html#' + b.key, chatAria: 'Open the chat with ' + b.who }; });
+    if (!isNew) DJ_REQS.forEach(function (r) {
+      if ((s.stage[r.key] || r.stage) === 'booked') bookedList.push({ iso: r.iso, date: r.date, meta: r.city + ', ' + r.who + ' · $' + (s.fee[r.key] || r.budget), chatHref: 'requests.html#' + r.key, chatAria: 'Open the chat with ' + r.who });
+    });
+    bookedList.sort(function (a, b) { return a.iso < b.iso ? -1 : 1; });
+    var nb = bookedList.length;
+    var bookedHead = isNew ? 'Nothing booked yet.' : (DJ_WORDS[nb] || nb) + (nb === 1 ? ' night booked.' : ' nights booked.');
+
+    var hasSample = s.dates.some(function (d) { return d.sample; });
+    var undoRemove = function () {
+      var g = self.state.gone;
+      if (!g) return;
+      self.wantRow = g.key;
+      self.putDates(g.prev);
+    };
+    var dates = s.dates.map(function (d, i) {
+      var key = d.city + d.from;
+      return {
+        key: key, row: true, gone: false, when: djRange(d.from, d.to), city: djCity(d.city), sample: !!d.sample,
+        cls: 'k6drow djdrow' + (i === 0 ? ' k6drow-ny' : ''),
+        removeAria: 'Remove ' + djCity(d.city) + ', ' + djRange(d.from, d.to),
+        rmRef: function (el) { if (el) self.rmEls[key] = el; },
+        // the confirmation and its Undo take the removed row's place, so they show where she tapped
+        remove: function () {
+          var before = self.state.dates, list = before.slice();
+          list.splice(i, 1);
+          self.wantUndo = true;
+          self.putDates(list, { gone: { at: i, key: key, text: 'Removed ' + djCity(d.city) + '.', prev: before } });
+        }
+      };
+    });
+    if (s.gone) dates.splice(Math.min(s.gone.at, dates.length), 0, { key: 'gone', row: false, gone: true, text: s.gone.text, undo: undoRemove, undoRef: this.undoRef });
+    // fixing a field clears only its own error; the line goes once nothing is marked (LEXICON 4.6, as Build6)
+    var ndSet = {};
+    ['city', 'from', 'to'].forEach(function (k) {
+      ndSet[k] = function (e) {
+        var nd = Object.assign({}, self.state.nd), bad = Object.assign({}, self.state.ndBad);
+        nd[k] = (e && e.target && e.target.value) || '';
+        delete bad[k];
+        self.setState({ nd: nd, ndBad: bad, ndErr: Object.keys(bad).length ? self.state.ndErr : '', added: '', gone: null });
+      };
+    });
+    var ed = s.ed || p;
+    // after a failed Save each field keeps its own mark and line until it is filled in (LEXICON 4.6, as Join6)
+    var edSet = {};
+    ['name', 'sound', 'home', 'fee', 'bio', 'sc', 'mc', 'yt', 'agent'].forEach(function (k) {
+      edSet[k] = function (e) {
+        var o = Object.assign({}, self.state.ed);
+        o[k] = (e && e.target && e.target.value) || '';
+        self.setState({ ed: o, edErr: self.state.edErr && (!t(o.name) || !t(o.home) || !(t(o.sc) || t(o.mc) || t(o.yt))) });
+      };
+    });
+    var noLink = !(t(ed.sc) || t(ed.mc) || t(ed.yt));
+    var edInv = { name: s.edErr && !t(ed.name) ? 'true' : 'false', home: s.edErr && !t(ed.home) ? 'true' : 'false', links: s.edErr && noLink ? 'true' : 'false' };
+    var cancel = function () { self.wantEdit = true; self.setState({ editing: false, ed: null, edErr: false, photoErr: false }); };
+    var save = function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      var d = self.state.ed;
+      if (!d) return;
+      var miss = !t(d.name) ? 'name' : !t(d.home) ? 'home' : !(t(d.sc) || t(d.mc) || t(d.yt)) ? 'links' : '';
+      if (miss) { self.wantEd = miss; self.setState({ edErr: true }); return; }
+      self.keep({ profile: d });
+      self.wantEdit = true;
+      self.setState({ profile: d, editing: false, ed: null, edErr: false, savedAt: true, photoErr: false, newDj: self.state.newDj ? t(d.name) : '' });
+    };
+    // the picked photo only shows in the form until Save, and is kept as a small JPEG, never a blob: link
+    var pick = function (e) {
+      var input = e && e.target, f = input && input.files && input.files[0];
+      if (!f) return;
+      var fail = function () { if (self.state.editing) self.setState({ photoErr: true }); };
+      var use = function (url) { if (self.state.editing && self.state.ed) self.setState({ ed: Object.assign({}, self.state.ed, { img: url }), photoErr: false }); };
+      if (f.type && !/^image\//.test(f.type)) fail();
+      else {
+        try {
+          var rd = new FileReader();
+          rd.onerror = fail;
+          rd.onload = function () {
+            var im = new Image();
+            im.onerror = fail;
+            im.onload = function () {
+              try {
+                var w = im.naturalWidth, h = im.naturalHeight;
+                if (!w || !h) { fail(); return; }
+                var k = Math.min(1, 1200 / Math.max(w, h)), c = document.createElement('canvas');
+                c.width = Math.max(1, Math.round(w * k)); c.height = Math.max(1, Math.round(h * k));
+                var g = c.getContext('2d');
+                g.fillStyle = '#000000'; g.fillRect(0, 0, c.width, c.height);
+                g.drawImage(im, 0, 0, c.width, c.height);
+                use(c.toDataURL('image/jpeg', 0.85));
+              } catch (err) { fail(); }
+            };
+            im.src = rd.result;
+          };
+          rd.readAsDataURL(f);
+        } catch (err) { fail(); }
+      }
+      // so the same file can be picked again
+      try { input.value = ''; } catch (err) {}
+    };
+    var shown = (s.editing && s.ed && s.ed.img) || p.img || '';
+    return Object.assign({
+      remind: djRemind(s.dates), dates: dates, noDates: !s.dates.length, homeShort: djCity(p.home),
+      nd: s.nd, ndSet: ndSet, ndInv: { city: s.ndBad.city ? 'true' : 'false', from: s.ndBad.from ? 'true' : 'false', to: s.ndBad.to ? 'true' : 'false' },
+      ndEmpty: { from: s.nd.from ? 'false' : 'true', to: s.nd.to ? 'false' : 'true' },
+      ndDescribe: s.ndErr ? 'err-nd' : '', hasDateErr: !!s.ndErr, noDateErr: !s.ndErr, dateErr: s.ndErr,
+      added: s.added, ndHint: s.added ? '' : 'Only there one night? Leave To empty.',
+      cityRef: this.cityRef, fromRef: this.fromRef, toRef: this.toRef, addDate: function (e) { self.addDate(e); },
+      raShow: !hasSample || !!s.stat, raIdle: !hasSample && !s.stat,
+      pullRa: function () {
+        var before = self.state.dates;
+        // a sample night already on the list, in any city, stays out (one night, one city, F353)
+        var fresh = DJ_RA.filter(function (x) { return !before.some(function (d) { return d.from <= x.to && d.to >= x.from; }); });
+        var n = fresh.length;
+        self.wantStat = true;
+        if (!n) { self.setState({ stat: 'Those dates are already on your list.', prev: null, gone: null, added: '', ndErr: '', ndBad: {} }); return; }
+        self.putDates(djSort(before.concat(fresh)), { stat: 'Pulled ' + DJ_WORDS[n].toLowerCase() + (n === 1 ? ' date' : ' dates') + ' from Resident Advisor. They\'re samples, nothing\'s hooked up yet.', prev: before });
+      },
+      hasStat: !!s.stat, stat: s.stat, canUndo: !!s.prev, pullRef: this.pullRef, statRef: this.statRef,
+      undoDates: function () { var prev = self.state.prev; if (prev) { self.wantPull = true; self.putDates(prev); } },
+      // the empty list's Add a city is a real button: it takes her to the City field (F352)
+      focusCity: function () { var el = self.cityEl; if (el && el.focus) el.focus(); },
+      reqs: reqs, hasReqs: reqs.length > 0, reqHead: reqHead, reqNote: reqNote, showAll: !isNew,
+      booked: bookedList, hasBooked: nb > 0, bookedHead: bookedHead,
+      bookedNote: isNew ? 'Your first yes lands here.' : nb ? 'The address, the rider and the songs they begged for are all in the chat.' : 'Your next yes lands here.',
+      madePrice: isNew ? '$0' : '[$X]', hasMonths: !isNew,
+      madeNote: isNew ? 'Your first payout lands [X] days after your first party.' : 'Paid out so far this year. Money lands [X] days after each party.',
+      p: {
+        name: p.name, nameNb: djNb(p.name), sound: djOr(p.sound), home: p.home, fee: djOr(p.fee), agent: djOr(p.agent),
+        bio: djNb(p.bio), hasBio: !!t(p.bio), sc: djUrl(p.sc), mc: djUrl(p.mc), yt: djUrl(p.yt),
+        img: shown, hasImg: !!shown, noImg: !shown, imgAlt: p.name + ', profile photo',
+        noImgText: isNew && s.coverLost ? 'Your cover got lost on the way. Add it again in Edit my\u00a0profile.' : 'No photo\u00a0yet'
+      },
+      seeHosts: !isNew,
+      reading: !s.editing, editing: s.editing, ed: ed, edSet: edSet, edInv: edInv,
+      // a line under each bad field (DJ name, Home city, and one for the three set links), each field pointing at its own
+      edBad: { name: edInv.name === 'true', home: edInv.home === 'true', links: edInv.links === 'true' },
+      edDesc: { name: edInv.name === 'true' ? 'err-ed-name' : '', home: edInv.home === 'true' ? 'err-ed-home' : '', links: edInv.links === 'true' ? 'err-ed-links' : '' },
+      nameRef: this.nameRef, homeRef: this.homeRef, scRef: this.scRef, editBtnRef: this.editBtnRef,
+      startEdit: function () { self.wantName = true; self.setState({ editing: true, ed: Object.assign({}, self.state.profile), edErr: false, savedAt: false, photoErr: false }); },
+      cancelEdit: cancel, saveEdit: save,
+      // on the whole profile grid, so Escape also works from Change photo, which sits outside the form (F351)
+      editKey: function (e) { if (e && e.key === 'Escape' && self.state.editing) cancel(); },
+      pickPhoto: pick, photoErr: s.photoErr,
+      savedLine: s.savedAt ? 'Saved. This is a sample, so nothing left the page.' : 'This is what hosts see on your profile.'
+    }, nav6Vals(this, {
+      dashHref: '#main', curDash: 'page', reqHref: isNew ? 'requests.html#new' : 'requests.html',
+      waiting: waiting, signedIn: s.newDj || p.name, seeOn: !isNew
+    }));
+  }
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

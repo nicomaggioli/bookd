@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kaytran · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+<script>/* canvas: page stays still */
+(function () {
+  var still = function () {
+    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+  };
+  var css = document.createElement('style');
+  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+  document.head.appendChild(css);
+  var check = function () {
+    var on = still();
+    document.documentElement.classList.toggle('oncanvas', on);
+    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+  };
+  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* big screens (bigscreen.py) */
+:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@media (min-width:1921px){
+  html{zoom:calc(100vw / 1920px)}
+  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+}
+
+/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px);--sec:clamp(64px,calc(8 * var(--vw)),110px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+/* type */
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+/* nav */
+/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+/* YOU button and its menu */
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+/* ===== end nav shell ===== */
+/* keep a tabbed-to control clear of the dock; the dock never shows while the hero is on screen, so the hero needs no bottom room */
+html{scroll-padding-top:88px;scroll-padding-bottom:96px}
+html:has(.k6hero :focus){scroll-padding-bottom:0}
+/* buttons, chips, fields, cards */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn:active{transform:translateY(1px)}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+/* background video toggle (same on Roster6, Login6 and Kaytran6) */
+.vidbtn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;white-space:nowrap;cursor:pointer}
+/* flash photos (same look as the Home6 feed and camera) and avatars */
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+/* footer */
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}.vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+
+/* ---------- Kaytran6: Kaytran's profile. Her record, her top songs, the dates, the cost, the rider, the request. ---------- */
+.k6sec{overflow-x:clip}
+.k6h2s{font-size:clamp(40px,calc(4.6 * var(--vw)),72px)}
+.k6side-note{margin:0;font-size:clamp(18px,calc(1.55 * var(--vw)),23px);line-height:1.35;letter-spacing:-0.015em;max-width:22em}
+.k6head{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px 56px;align-items:end;margin-bottom:clamp(28px,calc(4 * var(--vw)),52px)}
+@media (max-width:860px){.k6head{grid-template-columns:minmax(0,1fr)}}
+/* #mine: Kaytran looking at her own page from her dashboard. One quiet line under the nav, nothing else changes. 6px above and below keeps the link's focus ring (2px, 3px out) clear of the nav and the hero. */
+.k6mine{background:#000000}
+.k6mine p{margin:0;padding:6px 0;font-size:15px;line-height:1.45;color:#a2a5a4}
+.k6mine a{display:inline-flex;align-items:center;min-height:44px;padding:0 2px;color:#ffffff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media (hover: hover) and (pointer: fine){.k6mine a:hover{color:#ff3b2f}}
+
+/* hero: her name on the wall and her record, nothing else. The record is the player. */
+.k6hero{position:relative;isolation:isolate;overflow:hidden;background:#d31110;--sz:clamp(250px,calc(35 * var(--vw)),510px);padding:clamp(20px,calc(3 * var(--vw)),40px) 0 clamp(56px,calc(7 * var(--vw)),104px)}
+.k6room{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 68% 70%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}
+.k6name{position:relative;margin:0 0 0 -0.04em;font-size:clamp(84px,calc(27 * var(--vw)),400px);line-height:.8;font-weight:700;letter-spacing:-0.075em;color:#fffde9;white-space:nowrap;padding-bottom:.05em}
+.k6hgrid{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:end;column-gap:clamp(24px,calc(4 * var(--vw)),64px);margin-top:clamp(-96px,-6.4vw,-20px)}
+.k6copy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(18px,calc(2 * var(--vw)),28px);min-width:0;padding-top:clamp(120px,calc(10 * var(--vw)),160px)}
+.k6lede{margin:0;font-size:clamp(24px,calc(2.6 * var(--vw)),38px);line-height:1.08;letter-spacing:-0.04em;font-weight:700;color:#ffffff;max-width:15em;text-wrap:balance}
+.k6town{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:26em}
+.k6hero :focus-visible{outline-color:#ffffff}
+.k6recwrap{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.k6rec{display:block;padding:0;border:0;background:none;cursor:pointer;width:var(--sz);height:var(--sz)}
+.k6tilt{position:relative;display:block;width:100%;height:100%;transform:perspective(1400px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+/* the disc is a render, so it turns; the light on it stays still, the way it does on a real record */
+.k6vinyl{position:absolute;top:2%;left:2%;width:96%;height:96%;border-radius:50%;transform:translateX(12%);transition:transform .9s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
+.k6live .k6vinyl{transform:translateX(62%)}
+.k6disc{position:absolute;inset:0;display:block;border-radius:50%;animation:k6spin 1.8s linear infinite;animation-play-state:paused}
+.k6anim .k6disc,.k6spin .k6disc{animation-play-state:running;will-change:transform}
+@keyframes k6spin{to{transform:rotate(360deg)}}
+.k6disc img,.k6lbl{position:absolute;inset:0;display:block;width:100%;height:100%}
+.k6lbl text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
+.k6sheen{position:absolute;inset:0;border-radius:50%;pointer-events:none;mix-blend-mode:screen;background:conic-gradient(from 28deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.2) 16deg,rgba(255,255,255,.03) 38deg,rgba(255,255,255,0) 160deg,rgba(255,255,255,.14) 196deg,rgba(255,255,255,.02) 222deg,rgba(255,255,255,0) 360deg);-webkit-mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%);mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%)}
+.k6sleeve{position:absolute;inset:0;display:block;background:#0e0e0f;box-shadow:0 34px 60px rgba(0,0,0,.42),0 4px 10px rgba(0,0,0,.3),3px 0 6px rgba(0,0,0,.4)}
+.k6sleeve img{display:block;width:100%;height:100%;object-fit:cover}
+/* the card is two sheets: a lit spine on the left, the open mouth on the right */
+.k6sleeve::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,0) 2.5%,rgba(0,0,0,0) 97.5%,rgba(0,0,0,.34))}
+/* the note sits above the sleeve's shadow, so it reads cream, not grey */
+.k6note{position:relative;z-index:1;margin:0;min-height:1.45em;font-size:15px;line-height:1.45;font-weight:700;color:#fffde9}
+@media (hover: hover) and (pointer: fine){.k6rec:hover .k6vinyl{transform:translateX(50%)}.k6live .k6rec:hover .k6vinyl{transform:translateX(62%)}}
+.k6rec:focus-visible .k6vinyl{transform:translateX(50%)}
+.k6live .k6rec:focus-visible .k6vinyl{transform:translateX(62%)}
+@media (max-width:760px){
+.k6hero{--sz:min(calc(68 * var(--vw)),380px)}
+.k6hgrid{grid-template-columns:minmax(0,1fr);margin-top:20px;row-gap:32px}
+.k6recwrap{grid-row:1}
+.k6copy{padding-top:0}
+/* the playing note takes two lines on a phone, so keep room for both and nothing moves on a tap */
+.k6note{min-height:2.9em}
+.k6live .k6vinyl,.k6live .k6rec:focus-visible .k6vinyl{transform:translateX(40%)}
+.k6rec:focus-visible .k6vinyl{transform:translateX(24%)}
+}
+
+/* songs: the record hangs off the left edge, her top songs beside it */
+.k6sets{background:#000000;padding:var(--sec) 0;overflow:clip}
+.k6deck{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:center}
+.k6big{position:relative;display:block;width:clamp(420px,calc(46 * var(--vw)),680px);aspect-ratio:1 / 1;justify-self:end;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;box-shadow:0 0 120px rgba(211,17,16,.28)}
+.k6songs{min-width:0}
+.k6songs .lede{margin:18px 0 0;max-width:30em}
+.k6tracks{margin:clamp(28px,calc(3.4 * var(--vw)),48px) 0 0;padding:0;list-style:none;border-top:1.5px solid #fffde9}
+.k6tracks li{border-bottom:1px solid #2f2f31}
+.k6trk{display:grid;grid-template-columns:clamp(44px,calc(5 * var(--vw)),72px) minmax(0,1fr) 22px;gap:16px;align-items:center;width:100%;padding:18px 0;border:0;background:none;color:#fffde9;font:inherit;text-align:left;cursor:pointer;transition:color .15s}
+.k6tid{font-size:clamp(26px,calc(2.8 * var(--vw)),40px);font-weight:700;letter-spacing:-0.05em;line-height:1;color:#d31110;font-variant-numeric:tabular-nums}
+.k6ttext{display:flex;flex-direction:column;gap:4px;min-width:0}
+.k6ttitle{font-size:clamp(26px,calc(2.8 * var(--vw)),40px);font-weight:700;letter-spacing:-0.05em;line-height:1}
+.k6tmeta{font-size:14px;line-height:1.35;color:#a2a5a4}
+.k6trk svg{width:20px;height:20px;display:block}
+.k6trk-on,.k6trk-on .k6tid,.k6trk-on .k6tmeta{color:#ff3b2f}
+.k6liner{margin:clamp(24px,calc(3 * var(--vw)),40px) 0 0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:30em}
+@media (hover: hover) and (pointer: fine){.k6trk:hover,.k6trk:hover .k6tid{color:#ff3b2f}}
+@media (max-width:900px){
+.k6deck{grid-template-columns:minmax(0,1fr)}
+.k6big{justify-self:center;width:min(calc(72 * var(--vw)),420px)}
+}
+
+/* dates: the back of a tour shirt. Where she'll be anyway, big enough to read across a room. */
+.k6town-sec{position:relative;background:#d31110;color:#fffde9;padding:var(--sec) 0}
+.k6town-sec :focus-visible{outline-color:#ffffff}
+/* one grid for every row (each row a subgrid), so the cities and the Ask links share one edge and Most weekends never runs into Atlanta */
+.k6dates{display:grid;grid-template-columns:minmax(max-content,6fr) minmax(0,5fr) max-content;column-gap:24px;margin:0;padding:0;list-style:none;border-top:2px solid #000000}
+.k6dates li{display:grid;grid-column:1 / -1;grid-template-columns:subgrid;border-bottom:1px solid rgba(0,0,0,.4)}
+.k6drow{display:grid;grid-column:1 / -1;grid-template-columns:subgrid;align-items:baseline;gap:6px 24px;padding:clamp(14px,calc(1.6 * var(--vw)),22px) 0;color:inherit;text-decoration:none;transition:color .15s}
+.k6dwhen,.k6dcity{font-size:clamp(34px,calc(5.8 * var(--vw)),84px);font-weight:700;letter-spacing:-0.065em;line-height:.95;font-variant-numeric:tabular-nums;white-space:nowrap}
+.k6drow-ny{color:#000000}
+.k6dask{justify-self:start;font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+/* the taken night: the big words fade, Taken stays full strength so it can be read */
+.k6dtaken .k6dwhen,.k6dtaken .k6dcity{opacity:.72}
+.k6dtaken .k6dcity{text-decoration:line-through;text-decoration-thickness:.07em}
+.k6dtaken .k6dask{text-decoration:none}
+.k6fine{margin:clamp(20px,calc(2 * var(--vw)),28px) 0 0;font-size:15px;line-height:1.5;color:#fffde9;max-width:44em}
+@media (hover: hover) and (pointer: fine){a.k6drow:hover{color:#000000}}
+@media (max-width:760px){.k6dates,.k6dates li{display:block}.k6drow{grid-template-columns:minmax(0,1fr)}.k6dwhen,.k6dcity{font-size:clamp(34px,calc(11 * var(--vw)),72px)}.k6dask{margin-top:6px}}
+/* tablets: a size smaller, so each row still reads as two things */
+@media (min-width:761px) and (max-width:1180px){.k6dwhen,.k6dcity{font-size:clamp(34px,calc(5 * var(--vw)),84px)}}
+
+/* cost and rider: two plain lists on cream, same rows, nothing tilted */
+.k6costs{background:#fffde9;color:#000000;padding:var(--sec) 0}
+.k6costs :focus-visible{outline-color:#d31110}
+.k6card :focus-visible{outline-color:#d31110}
+.k6costgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(48px,calc(7 * var(--vw)),112px);align-items:start}
+.k6col{display:flex;flex-direction:column;min-width:0}
+.k6colhead{display:flex;flex-direction:column;gap:14px}
+.k6price{margin:6px 0 0;font-size:clamp(44px,calc(5.6 * var(--vw)),84px);line-height:.95;font-weight:700;letter-spacing:-0.06em;color:#d31110;white-space:nowrap}
+@media (max-width:480px){.k6price{white-space:normal}}
+.k6colnote{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:26em}
+.k6ledger{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;border-top:2px solid #000000}
+.k6ledger div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:baseline;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4}
+.k6ledger dt{font-weight:400}
+.k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.k6need div{grid-template-columns:minmax(96px,120px) minmax(0,1fr)}
+.k6need dt{font-weight:700}
+.k6need dd{font-weight:400}
+.k6costfoot{margin:16px 0 0;font-size:15px;line-height:1.45;color:#2f2f31}
+@media (min-width:901px){.k6colhead{min-height:clamp(200px,calc(17 * var(--vw)),250px)}}
+@media (max-width:900px){.k6costgrid{grid-template-columns:minmax(0,1fr)}}
+
+.k6req{background:#000000;padding:var(--sec) 0 clamp(40px,calc(5 * var(--vw)),72px)}
+.k6reqgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,calc(5 * var(--vw)),80px);align-items:start}
+@media (max-width:960px){.k6reqgrid{grid-template-columns:minmax(0,1fr)}}
+.k6reqcopy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.k6who{display:flex;align-items:center;gap:4px;font-size:15px;line-height:1.4;color:#fffde9}
+.k6who .fav{width:44px;height:44px}
+.k6who p{margin:0 0 0 10px;max-width:22em}
+.k6ini{display:grid;place-items:center;width:100%;height:100%;background:#fffde9;color:#000000;font-size:15px;font-weight:700}
+.k6card{min-width:0;box-sizing:border-box;padding:clamp(12px,calc(1.4 * var(--vw)),18px);border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.k6form{margin:0}
+.k6fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.k6f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.k6wide{grid-column:1 / -1}
+.k6err{padding:0 8px;font-size:13px;font-weight:700;color:#d31110}
+.k6hint{padding:0 8px;font-size:13px;color:#4d504f}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.k6send{width:100%;margin-top:12px;min-height:58px;font-size:18px}
+.k6card .k6fine{margin:12px 8px 6px;color:#4d504f}
+.k6sent{display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:clamp(10px,calc(1.6 * var(--vw)),22px)}
+.k6senth{margin:0;font-size:clamp(44px,calc(4.4 * var(--vw)),64px);line-height:.92;font-weight:700;letter-spacing:-0.065em;outline:none}
+.k6sum{display:flex;flex-wrap:wrap;gap:6px}
+.k6sum>span{padding:7px 12px;border-radius:999px;background:#f2f2f0;font-size:14px;font-weight:700}
+.k6next{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:k6n}
+.k6next li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;align-items:start;font-size:16px;line-height:1.45}
+.k6next li::before{counter-increment:k6n;content:counter(k6n);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#d31110;color:#ffffff;font-size:14px;font-weight:700}
+.k6sentacts{display:flex;flex-wrap:wrap;gap:10px}
+.k6notone{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;margin-top:clamp(56px,calc(6 * var(--vw)),96px);padding-top:28px;border-top:1px solid #2f2f31}
+.k6notone p{margin:0;font-size:clamp(22px,calc(2.2 * var(--vw)),30px);font-weight:700;letter-spacing:-0.04em;line-height:1.1}
+@media (max-width:480px){.k6fgrid{grid-template-columns:minmax(0,1fr)}.k6card{border-radius:24px}.field input{font-size:18px}}
+
+/* the dock: her name, a pause button and Request, once the hero has scrolled away */
+/* the nav sits above the dock, so the open phone menu dims the dock along with the rest of the page */
+.k6dock{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;width:min(560px,calc(100% - 32px));box-sizing:border-box;padding:6px 6px 6px 8px;border-radius:999px;background:rgba(14,14,15,.96);box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;transform:translate(-50%,140%);opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s,visibility 0s linear .35s}
+.k6dock-on{transform:translate(-50%,0);opacity:1;visibility:visible;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s,visibility 0s}
+/* next to the request form the dock is just her name and the pause button */
+.k6dock-form{width:auto}.k6dock-form .btn{display:none}
+.k6dock .fav{width:40px;height:40px;box-shadow:0 0 0 2px #0e0e0f,0 0 0 4px #d31110}
+.k6dockt{display:flex;flex-direction:column;gap:1px;flex:1 1 auto;min-width:0;font-size:13px;line-height:1.25;color:#a2a5a4}
+.k6dockt b{font-size:16px;letter-spacing:-0.02em;color:#ffffff}
+.k6dockt>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k6dplay{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#1c1c1e;color:#ffffff;cursor:pointer;box-shadow:inset 0 0 0 1px #4d504f}
+.k6dplay-on{background:#d31110;box-shadow:none}
+.k6dplay svg{width:16px;height:16px;display:block}
+@media (max-width:440px){.k6dock{padding-left:16px}.k6dock .fav{display:none}.k6dock .btn{padding:0 16px}}
+@media (max-width:370px){.k6dock{gap:8px}.k6dockt{font-size:12px}}
+
+@media (hover: hover) and (pointer: fine){
+.k6hero .paper:hover{background:#000000;color:#ffffff}
+.k6hero .ink:hover{background:#ffffff;color:#000000}
+.k6trk-on .k6tplay:hover{background:#000000}
+.k6card .go:hover{background:#000000;color:#ffffff}
+.k6card .ghost:hover{background:#000000;color:#ffffff}
+.k6dplay:hover{background:#fffde9;color:#000000}
+.k6dock .go:hover{background:#ffffff;color:#000000}
+}
+@media (max-width:760px) and (hover: hover) and (pointer: fine){.k6hero .paper:hover{background:#d31110;color:#ffffff}}
+@media (prefers-reduced-motion: reduce){.k6tilt{transition:none}.k6anim .k6beam,.k6anim .k6name,.k6anim .k6disc,.k6eq i{animation:none !important}}
+</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<!-- NAV -->
+<!-- NAV: public shell, logged out (A/fix/shell/public.html) -->
+<header class="nav6">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">Log in</a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">Log in</a>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto; --beat: {{beatDur}};">
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><g id="k6mark"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></g></defs></svg>
+
+<!-- #mine: Kaytran previewing her own page from her dashboard -->
+<sc-if value="{{mine}}" hint-placeholder-val="{{ false }}">
+<div class="k6mine"><div class="wrap"><p>This is what hosts&nbsp;see. <a href="dashboard.html">Back to my&nbsp;dashboard</a></p></div></div>
+</sc-if>
+
+<!-- HERO: her name and her record. Hover pulls the disc out, a click plays it. -->
+<section class="{{heroCls}}" ref="{{heroRef}}" onPointerMove="{{tiltMove}}" onPointerLeave="{{tiltLeave}}" aria-labelledby="k6name">
+<span class="k6room" aria-hidden="true"></span>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><path id="k6arc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs></svg>
+<div class="wrap">
+<h1 id="k6name" class="k6name">Kaytran</h1>
+<div class="k6hgrid">
+<div class="k6copy">
+<p class="k6lede"><span class="vh">The photo: Kaytran in headphones and sunglasses, wearing a Sade shirt. </span>Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play&nbsp;Sade.</p>
+<p class="k6town"><strong>In New York Nov 13 to&nbsp;15.</strong> Book Sat, Nov&nbsp;14 and skip the flight and the&nbsp;hotel.</p>
+<a class="btn btn-lg ink" href="#request">Request Kaytran</a>
+</div>
+<div class="k6recwrap">
+<button type="button" class="k6rec" onClick="{{heroToggle}}" aria-label="{{recAria}}" aria-pressed="{{recPressed}}">
+<span class="k6tilt" ref="{{tiltRef}}">
+<span class="k6vinyl" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="9.5" letter-spacing="-0.4">Kaytran</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">BOOKD RECORDS · MADE IN ATLANTA · BKD 1114 · BEST PLAYED LOUD · </textPath></text></svg></span><span class="k6sheen"></span></span>
+<span class="k6sleeve"><img src="assets/ad370760271850c5893b948c9756c7a7.webp" alt="" fetchpriority="high"></span>
+</span>
+</button>
+<p class="k6note" aria-live="polite">{{heroNote}}</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SONGS: her record beside her top songs -->
+<section id="sets" class="k6sets k6sec" aria-labelledby="sets-h">
+<div class="wrap k6deck">
+<button type="button" class="{{bigCls}}" onClick="{{heroToggle}}" aria-label="{{recAria}}" aria-pressed="{{recPressed}}"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt="" loading="lazy" decoding="async"><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="9.5" letter-spacing="-0.4">Kaytran</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">BOOKD RECORDS · MADE IN ATLANTA · BKD 1114 · BEST PLAYED LOUD · </textPath></text></svg></span><span class="k6sheen"></span></button>
+<div class="k6songs">
+<h2 id="sets-h" class="h2">Hear her before you book&nbsp;her.</h2>
+<p class="lede">Her top songs. Stand-in loops in her style for now, until she links the real&nbsp;ones.</p>
+<ol class="k6tracks"><sc-for list="{{songs}}" as="t" hint-placeholder-count="4"><li><button type="button" class="{{t.cls}}" onClick="{{t.toggle}}" aria-label="{{t.aria}}"><span class="k6tid">{{t.num}}</span><span class="k6ttext"><span class="k6ttitle">{{t.title}}</span><span class="k6tmeta">{{t.meta}}</span></span><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="{{t.icon}}" fill="currentColor"></path></svg></button></li></sc-for></ol>
+<p class="k6liner">[Two lines in her own words: the rooms she plays and the records she never leaves home&nbsp;without.]</p>
+</div>
+</div>
+</section>
+
+<!-- DATES: the back of a tour shirt -->
+<section id="dates" class="k6town-sec k6sec" aria-labelledby="dates-h">
+<div class="wrap">
+<div class="k6head">
+<h2 id="dates-h" class="h2">Three nights in New&nbsp;York.</h2>
+<p class="k6side-note">She's in town anyway, so book one of these and you skip the flight and the hotel. Pick a date to start your&nbsp;request.</p>
+</div>
+<ul class="k6dates">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="4">
+<li><a class="{{d.cls}}" href="#request" onClick="{{d.pick}}"><span class="k6dwhen">{{d.when}}</span><span class="k6dcity">{{d.city}}</span><span class="k6dask">{{d.ask}}</span></a></li>
+</sc-for>
+<li><div class="k6drow k6dtaken"><span class="k6dwhen">Dec 31</span><span class="k6dcity">Chicago</span><span class="k6dask">Taken</span></div></li>
+</ul>
+<p class="k6fine">No travel fee on any date above. Anywhere else, she flies in from Atlanta and travel is [$X]. Dates are&nbsp;samples.</p>
+</div>
+</section>
+
+<!-- COST AND RIDER -->
+<section class="k6costs k6sec" aria-label="What she costs and what she needs">
+<div class="wrap k6costgrid">
+<div class="k6col">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">What she&nbsp;costs.</h2>
+<p class="k6price">[$X to $Y]</p>
+<p class="k6colnote">For [2 to 4 hrs] on Sat, Nov 14 in New York. Her offer in the chat has the real&nbsp;numbers.</p>
+</div>
+<dl class="k6ledger">
+<div><dt>Flight from Atlanta</dt><dd>$0</dd></div>
+<div><dt>Hotel</dt><dd>$0</dd></div>
+<div><dt>BOOKD booking fee</dt><dd>[Booking fee]</dd></div>
+<div><dt>Deposit to lock the date</dt><dd>[X%]</dd></div>
+<div><dt>The rest</dt><dd>After the party</dd></div>
+</dl>
+<p class="k6costfoot">She's in New York anyway. You're&nbsp;welcome.</p>
+</div>
+<div class="k6col" id="needs">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">What she&nbsp;needs.</h2>
+<p class="k6colnote">Her rider in plain words. The full one comes in the chat once you&nbsp;ask.</p>
+</div>
+<dl class="k6ledger k6need">
+<div><dt>Decks</dt><dd>[Players and mixer], set up and plugged in before she gets&nbsp;there.</dd></div>
+<div><dt>Room sound</dt><dd>A speaker pointed at her so she can hear the mix. [Booth&nbsp;monitors]</dd></div>
+<div><dt>A table</dt><dd>Sturdy, hip height, near a power outlet. Not the ironing&nbsp;board.</dd></div>
+<div><dt>Arrival</dt><dd>She gets there [Arrival time] to check the&nbsp;sound.</dd></div>
+<div><dt>Hospitality</dt><dd>[Drinks, guest list]. Water is not&nbsp;optional.</dd></div>
+</dl>
+<p class="k6costfoot">Questions about the room? Ask Mara in the chat. She's seen every kind of&nbsp;kitchen.</p>
+</div>
+</div>
+</section>
+
+<!-- REQUEST -->
+<section class="k6req k6sec" aria-labelledby="req-h">
+<div class="wrap k6reqgrid">
+<div class="k6reqcopy">
+<h2 id="req-h" class="h2">Ask her. It's&nbsp;free.</h2>
+<p class="lede">It goes straight to Kaytran and Mara, her agent. You pay nothing until you say yes to her&nbsp;offer.</p>
+<div class="k6who"><span class="fav fav-dj"><img src="assets/eb426020ba85d14f593a6dfca9a06bf9.jpg" alt="" loading="lazy" decoding="async"></span><span class="fav" aria-hidden="true"><span class="k6ini">M</span></span><p>Kaytran or Mara usually replies in [X&nbsp;hrs].</p></div>
+</div>
+<div id="request" class="k6card" ref="{{formRef}}">
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<form class="k6form" aria-labelledby="req-h" onSubmit="{{send}}" onKeyDown="{{sendKey}}" novalidate="">
+<div class="k6fgrid">
+<div class="k6f">
+<label class="field"><span class="field-l">Date</span><input type="text" value="{{form.date}}" onInput="{{set.date}}" ref="{{fieldRef.date}}" placeholder="{{datePh}}" autocomplete="off" aria-invalid="{{invalid.date}}" aria-describedby="{{describe.date}}"></label>
+<sc-if value="{{err.date}}" hint-placeholder-val="{{ false }}"><span id="err-date" class="k6err" role="alert">{{dateErr}}</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Where</span><input type="text" value="{{form.where}}" onInput="{{set.where}}" ref="{{fieldRef.where}}" placeholder="Neighborhood" autocomplete="address-level2" aria-invalid="{{invalid.where}}" aria-describedby="{{describe.where}}"></label>
+<sc-if value="{{err.where}}" hint-placeholder-val="{{ false }}"><span id="err-where" class="k6err" role="alert">Where's the party? A neighborhood is&nbsp;enough.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Guests</span><input type="text" inputmode="numeric" value="{{form.guests}}" onInput="{{set.guests}}" placeholder="About 120" autocomplete="off"></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Budget</span><input type="text" inputmode="numeric" value="{{form.budget}}" onInput="{{set.budget}}" placeholder="$2,500" autocomplete="off" aria-describedby="hint-budget"></label>
+<span id="hint-budget" class="k6hint">Her range is [$X to $Y]. A ballpark is&nbsp;fine.</span>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">Anything she should know</span><textarea rows="3" value="{{form.msg}}" onInput="{{set.msg}}" placeholder="The room, the crowd, three songs you love."></textarea></label>
+</div>
+</div>
+<sc-if value="{{askedOn}}" hint-placeholder-val="{{ false }}"><p class="k6hint" style="margin: 12px 0 0;">You already asked for {{askedDate}}. Sending again updates that&nbsp;request.</p></sc-if>
+<button type="button" class="btn btn-lg go k6send" onClick="{{send}}">Send to Kaytran</button>
+<p class="k6fine">Your request opens a chat with her in your&nbsp;inbox.</p>
+</form>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<div class="k6sent" role="status">
+<h3 class="k6senth" ref="{{sentRef}}" tabindex="-1">Sent.</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.45;">Kaytran and Mara have it. Here's what you asked&nbsp;for:</p>
+<div class="k6sum"><sc-for list="{{sentBits}}" as="b" hint-placeholder-count="4"><span>{{b.t}}</span></sc-for></div>
+<ol class="k6next">
+<li><span><b>Kaytran or Mara answers</b> in your&nbsp;inbox.</span></li>
+<li><span><b>Kaytran sends an offer</b> in the chat with her price, set length and&nbsp;rider.</span></li>
+<li><span><b>Say yes and pay [X%].</b> The night is yours. The rest is due after the&nbsp;party.</span></li>
+</ol>
+<div class="k6sentacts"><a class="btn btn-lg go" href="inbox.html#kaytran">Open my inbox</a><button type="button" class="btn btn-lg ghost" onClick="{{editReq}}">Change something</button></div>
+</div>
+</sc-if>
+</div>
+</div>
+<div class="wrap">
+<div class="k6notone"><p>Not the one? See who else is&nbsp;around.</p><a class="btn btn-lg ghost" href="roster.html">See the roster</a></div>
+</div>
+</section>
+
+<!-- DOCK -->
+<aside class="{{dockCls}}" aria-label="Kaytran, quick actions">
+<span class="fav" aria-hidden="true"><img src="assets/eb426020ba85d14f593a6dfca9a06bf9.jpg" alt="" loading="lazy" decoding="async"></span>
+<span class="k6dockt"><b>Kaytran</b><span>{{dockLine}}</span></span>
+<button type="button" class="{{dockPlayCls}}" onClick="{{heroToggle}}" aria-label="{{dockPlayAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="{{playIcon}}" fill="currentColor"></path></svg></button>
+<a class="btn go" href="#request">Request</a>
+</aside>
+</main>
+<!-- FOOTER -->
+<footer class="foot6" style="padding-bottom: {{footPad}};">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
+<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5193}}'>
+// Kaytran6: her photo, the play and pause icons
+var K6_IMG = 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg';
+var K6_PLAY = 'M6 4 L16 10 L6 16 Z';
+var K6_PAUSE = 'M5 4 H8.5 V16 H5 Z M11.5 4 H15 V16 H11.5 Z';
+// Kaytran6: her sets. Titles, venues and links are placeholders until she sends them.
+// Each play runs a stand-in loop in that set's style (16 steps a bar, same voices as the Home6 decks). It never claims to be her mix.
+var K6_SETS = [
+  { id: 'A1', title: '[Song title]', meta: '[Length] · on [SoundCloud]', style: 'Amapiano', bpm: 112, root: 55, prog: [0, 0, -4, -2], minor: true, chordLen: 0.9,
+    p: { kick: 'x.......x.......', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', log: '...x..x...xx..x.', chord: 'x...............', perc: '.h......h..h....' } },
+  { id: 'A2', title: '[Song title]', meta: '[Length] · on [Mixcloud]', style: 'Afro house', bpm: 122, root: 49, prog: [0, 0, 3, -2], minor: true, chordLen: 0.22,
+    p: { kick: 'x...x...x...x...', hat: '..x...x...x...x.', shk: 'x.xxx.xxx.xxx.xx', perc: 'h..l..h...l.h.l.', bass: 'x..x..x...x..x..', chord: '...x.......x....' } },
+  { id: 'B1', title: '[Song title]', meta: '[Length] · on [YouTube]', style: 'Afrobeats', bpm: 104, root: 46, prog: [0, 0, 3, 5], minor: true, chordLen: 0.3,
+    p: { kick: 'x..x....x..x....', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', perc: 'h.lh..l.h.l..hl.', bass: 'x..x....x..x..x.', chord: '..x.......x.....' } },
+  { id: 'B2', title: '[Song title]', meta: '[Length] · on [SoundCloud]', style: 'Soulful house', bpm: 120, root: 52, prog: [0, -2, 3, 5], minor: true, chordLen: 0.34,
+    p: { kick: 'x...x...x...x...', hat: '..x...x...x...x.', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', bass: 'x.....x...x.....', chord: '..x....x..x.....' } }
+];
+// 16 bar loop: two bars of drums, the full groove, then two bars of breakdown
+function k6Sec(bar) {
+  if (bar < 2) return { kick: 1, hat: 1, shk: 1, perc: 1 };
+  if (bar < 14) return { kick: 1, hat: 1, shk: 1, clap: 1, bass: 1, log: 1, perc: 1, chord: 1 };
+  return { shk: 1, perc: 1, log: 1, chord: 1 };
+}
+function k6Set(id) {
+  for (var i = 0; i < K6_SETS.length; i++) if (K6_SETS[i].id === id) return K6_SETS[i];
+  return null;
+}
+// Kaytran6: where she is (Home6 H4_CITIES). Picking a row fills the date and city in the request.
+var K6_DATES = [
+  { when: 'Nov 13 to 15', city: 'New York', chip: 'No travel fee', free: true, ask: 'Ask for Sat, Nov 14', date: 'Sat, Nov 14', where: 'New York, NY' },
+  { when: 'Nov 21', city: 'Boston', chip: 'No travel fee', ask: 'Ask for Sat, Nov 21', date: 'Sat, Nov 21', where: 'Boston, MA' },
+  { when: 'Nov 28', city: 'Chicago', chip: 'No travel fee', ask: 'Ask for Sat, Nov 28', date: 'Sat, Nov 28', where: 'Chicago, IL' },
+  { when: 'Most weekends', city: 'Atlanta', chip: 'No travel fee', ask: 'Ask for a date at home', date: '', where: 'Atlanta, GA' }
+];
+var K6_FIELDS = ['date', 'where', 'guests', 'budget', 'msg'];
+
+/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
+   Then three lines in the class (README step 4):
+     constructor, last line:         nav6Init(this);
+     componentWillUnmount, add:      nav6Off(this);
+     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
+   The nav keys come last, so they always win over any leftover old nav key in the page's object.
+   Settings (all optional, defaults below):
+     host:    inboxHref, curInbox, curAccount, waiting
+     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
+     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
+     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
+   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
+var NAV6_DEFAULTS = {
+  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
+  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+  waiting: 0, shell: ''
+};
+// Constructor: refs and stable handlers. Both menus start closed.
+function nav6Init(self) {
+  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+  if (!self.state) self.state = {};
+  self.state.menuOpen = false;
+  self.state.acctOpen = false;
+  n.btnRef = function (el) { n.btn = el; };
+  n.acctBtnRef = function (el) { n.acctBtn = el; };
+  n.acctWrapRef = function (el) { n.acctWrap = el; };
+  n.key = function (e) { nav6Key(self, e); };
+  n.focusIn = function (e) { nav6FocusIn(self, e); };
+  n.down = function (e) { nav6Down(self, e); };
+  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+  // pages that still call this.setMenu(true or false) keep working
+  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Set(self, patch) {
+  var st = self.state || {};
+  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+  nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+  var n = self.nav6;
+  if (!n || typeof document === 'undefined' || n.on === on) return;
+  n.on = on;
+  var f = on ? 'addEventListener' : 'removeEventListener';
+  document[f]('keydown', n.key);
+  document[f]('focusin', n.focusIn);
+  document[f]('pointerdown', n.down, true);
+}
+// componentWillUnmount
+function nav6Off(self) { nav6Listen(self, false); }
+// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Items(n) {
+  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
+function nav6Key(self, e) {
+  var n = self.nav6, st = self.state || {};
+  if (!e) return;
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+    return;
+  }
+  if (e.key !== 'Tab' || !st.menuOpen) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  var i = items.indexOf(document.activeElement);
+  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+  e.preventDefault();
+  items[j].focus();
+}
+// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
+// The YOU menu closes once focus leaves it.
+function nav6FocusIn(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  items[0].focus();
+}
+// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
+// and closes the menu on click, so nothing under it gets the tap (F331).
+function nav6Down(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+// renderVals: every key the four shells use.
+function nav6Vals(self, cfg) {
+  var n = self.nav6, st = self.state || {}, c = {}, k;
+  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  return {
+    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
+    outsideDown: undefined
+  };
+}
+/* ===== end nav shell ===== */
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var self = this;
+    this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this.state = {
+      playing: null, cur: 'A1', noAudio: false,
+      heroVis: true, heroOut: false, formIn: false, pastForm: false,
+      form: { date: 'Sat, Nov 14', where: '', guests: '', budget: '', msg: '' },
+      errors: {}, sent: false, asked: '',
+      mine: false,
+      vidPaused: this.reduce
+    };
+    // crowd video: PAUSE VIDEO / PLAY VIDEO; with reduced motion it starts paused
+    this.vidOff = this.reduce;
+    this.tx = 0; this.ty = 0; this.tiltRaf = 0; this.dockCompact = false;
+    this.heroVisNow = typeof IntersectionObserver === 'undefined';
+    // hero: one observer drives the crowd video, the beat animations and the dock
+    this.heroRef = function (el) {
+      if (el === self.heroEl) return;
+      if (self.heroIO) { self.heroIO.disconnect(); self.heroIO = null; }
+      self.heroEl = el;
+      if (!el || typeof IntersectionObserver === 'undefined') return;
+      self.heroIO = new IntersectionObserver(function (entries) {
+        var e = entries[entries.length - 1];
+        var vis = !!e.isIntersecting;
+        var out = !vis && e.boundingClientRect.top < 0;
+        self.heroVisNow = vis;
+        self.syncVid();
+        if (vis !== self.state.heroVis || out !== self.state.heroOut) self.setState({ heroVis: vis, heroOut: out });
+      });
+      self.heroIO.observe(el);
+    };
+    this.tiltRef = function (el) { self.tiltEl = el; };
+    this.crowdRef = function (el) { self.vidEl = el; if (el) { el.muted = true; self.syncVid(); } };
+    // request card: the dock hides while the form is on screen and after you scroll past it
+    this.formRef = function (el) {
+      if (el === self.formEl) return;
+      if (self.formIO) { self.formIO.disconnect(); self.formIO = null; }
+      self.formEl = el;
+      if (!el || typeof IntersectionObserver === 'undefined') return;
+      self.formIO = new IntersectionObserver(function (entries) {
+        var e = entries[entries.length - 1];
+        var inView = !!e.isIntersecting;
+        var past = !inView && e.boundingClientRect.top < 0;
+        if (inView !== self.state.formIn || past !== self.state.pastForm) self.setState({ formIn: inView, pastForm: past });
+      });
+      self.formIO.observe(el);
+    };
+    // request form: one stable setter per field; typing clears that field's hint
+    this.setters = {};
+    K6_FIELDS.forEach(function (k) {
+      self.setters[k] = function (e) {
+        var v = e && e.target ? e.target.value : '';
+        if (self.state.form[k] === v) return;
+        var f = Object.assign({}, self.state.form); f[k] = v;
+        var patch = { form: f };
+        if (self.state.errors[k]) { var er = Object.assign({}, self.state.errors); delete er[k]; patch.errors = er; }
+        self.setState(patch);
+      };
+    });
+    this.fieldEls = {};
+    this.fieldRef = {
+      date: function (el) { self.fieldEls.date = el; if (el && self.errFocus === 'date') self.focusErr(); },
+      where: function (el) { self.fieldEls.where = el; if (el && self.errFocus === 'where') self.focusErr(); }
+    };
+    this.sentRef = function (el) { if (el && el.focus) el.focus(); };
+    nav6Init(this);
+  }
+  componentDidMount() {
+    var self = this;
+    var h = window.location && window.location.hash;
+    // #mine: she came from See your page on her dashboard, so add the line back to it and stay at the top
+    if (h === '#mine') { this.setState({ mine: true }); return; }
+    // #request from Roster6: bring along the night, place and budget the host searched (bookd.ask.kaytran); without it, Sat, Nov 14 stays
+    if (h === '#request') {
+      var ask = null;
+      try { ask = JSON.parse(sessionStorage.getItem('bookd.ask.kaytran') || 'null'); } catch (err) { ask = null; }
+      if (ask && typeof ask === 'object') {
+        var pick = function (v) { return v == null ? '' : String(v).trim(); };
+        var f = Object.assign({}, this.state.form);
+        if (pick(ask.date)) f.date = pick(ask.date);
+        if (pick(ask.where)) f.where = pick(ask.where);
+        if (pick(ask.budget)) f.budget = pick(ask.budget);
+        this.setState({ form: f });
+      }
+    }
+    if (h && h.length > 1) this.hashT = setTimeout(function () { self.hashT = null; var el = document.getElementById(h.slice(1)); if (el && el.scrollIntoView) el.scrollIntoView(); }, 80);
+  }
+  componentDidUpdate() {
+    if (this.errFocus) this.focusErr();
+  }
+  componentWillUnmount() {
+    if (this.hashT) clearTimeout(this.hashT);
+    if (this.errT) clearTimeout(this.errT);
+    nav6Off(this);
+    if (this.heroIO) this.heroIO.disconnect();
+    if (this.formIO) this.formIO.disconnect();
+    if (this.tiltRaf) cancelAnimationFrame(this.tiltRaf);
+    if (this.sched) clearInterval(this.sched);
+    if (this.master) { try { this.master.disconnect(); } catch (err) {} }
+    if (this.ac && this.ac.close) { try { var r = this.ac.close(); if (r && r.catch) r.catch(function () {}); } catch (err) {} }
+    if (this.vidEl && this.vidEl.pause) { try { this.vidEl.pause(); } catch (err) {} }
+    this.hashT = null; this.errT = null; this.errFocus = null; this.heroIO = null; this.formIO = null; this.tiltRaf = 0;
+    this.sched = null; this.master = null; this.ac = null; this.noise = null; this.loop = null;
+    this.vidEl = null; this.tiltEl = null; this.heroEl = null; this.formEl = null; this.fieldEls = {};
+  }
+  // crowd video: plays only while the hero is on screen and nobody paused it (it starts paused with reduced motion)
+  syncVid() {
+    var v = this.vidEl;
+    if (!v) return;
+    if (!this.vidOff && this.heroVisNow) {
+      if (v.paused && v.play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    } else if (!v.paused && v.pause) v.pause();
+  }
+  // record tilt: a few degrees toward the pointer, eased by the CSS transition
+  applyTilt() {
+    var el = this.tiltEl;
+    if (!el || !el.style) return;
+    el.style.setProperty('--ry', (this.tx * 6).toFixed(2) + 'deg');
+    el.style.setProperty('--rx', (-this.ty * 4).toFixed(2) + 'deg');
+  }
+  // stand-in audio, ported from the old profile player and the Home6 deck voices
+  ensureAudio() {
+    if (this.ac) return true;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    try { this.ac = new AC(); } catch (err) { this.ac = null; return false; }
+    var ac = this.ac, n = ac.sampleRate, buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    this.noise = buf;
+    return true;
+  }
+  playSet(id) {
+    var self = this, st = k6Set(id);
+    if (!st) return;
+    if (!this.ensureAudio()) { this.setState({ noAudio: true, cur: id }); return; }
+    var ac = this.ac;
+    if (this.master) { try { this.master.disconnect(); } catch (err) {} }
+    this.master = ac.createGain(); this.master.gain.value = 0.42; this.master.connect(ac.destination);
+    if (ac.resume) { var r = ac.resume(); if (r && r.catch) r.catch(function () {}); }
+    this.loop = st; this.step = 0; this.nextT = ac.currentTime + 0.06;
+    if (!this.sched) this.sched = setInterval(function () { self.schedule(); }, 25);
+    this.setState({ playing: id, cur: id, noAudio: false });
+  }
+  pauseSet() {
+    if (this.sched) { clearInterval(this.sched); this.sched = null; }
+    if (this.master) { try { this.master.disconnect(); } catch (err) {} this.master = null; }
+    this.loop = null;
+    if (this.ac && this.ac.suspend) { var r = this.ac.suspend(); if (r && r.catch) r.catch(function () {}); }
+    if (this.state.playing !== null) this.setState({ playing: null });
+  }
+  toggleSet(id) {
+    if (this.state.playing === id) this.pauseSet(); else this.playSet(id);
+  }
+  schedule() {
+    var ac = this.ac, st = this.loop;
+    if (!ac || !st || !this.master) return;
+    var now = ac.currentTime, spb = 60 / st.bpm / 4;
+    if (this.nextT < now - 0.05) this.nextT = now + 0.03;
+    while (this.nextT < now + 0.12) { this.playStep(st, this.step, this.nextT); this.nextT += spb; this.step++; }
+  }
+  playStep(tr, step, t) {
+    var self = this, out = this.master, P = tr.p, s = step % 16, bar = Math.floor(step / 16) % 16, m = k6Sec(bar);
+    var f = tr.root * Math.pow(2, tr.prog[bar % 4] / 12);
+    var c = function (k) { return P[k] ? P[k][s] : '.'; };
+    if (m.kick && c('kick') !== '.') this.kick(out, t, 0.85);
+    if (m.hat && c('hat') !== '.') this.hit(out, t, 'highpass', 8500, 0.12, 0.05);
+    if (m.shk && c('shk') !== '.') this.hit(out, t, 'highpass', 11000, 0.035, 0.03);
+    if (m.clap && c('clap') !== '.') this.hit(out, t, 'bandpass', 1500, 0.3, 0.16);
+    if (m.bass && c('bass') !== '.') this.tone(out, t, f * 2, null, 'triangle', 0.26, 0.18);
+    if (m.log && c('log') !== '.') this.tone(out, t, f * 2, f * 1.27, 'sine', 0.5, 0.3);
+    if (m.chord && c('chord') !== '.') (tr.minor ? [0, 3, 7, 10] : [0, 4, 7, 11]).forEach(function (iv) { self.tone(out, t, f * 4 * Math.pow(2, iv / 12), null, 'triangle', 0.04, tr.chordLen || 0.3); });
+    var pc = c('perc');
+    if (m.perc && pc !== '.') this.tone(out, t, pc === 'h' ? 340 : 230, pc === 'h' ? 300 : 200, 'sine', 0.2, 0.12);
+  }
+  env(node, out, t, peak, dur) {
+    var g = this.ac.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    node.connect(g); g.connect(out);
+  }
+  kick(out, t, v) {
+    var o = this.ac.createOscillator();
+    o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.12);
+    this.env(o, out, t, v, 0.36); o.start(t); o.stop(t + 0.4);
+  }
+  hit(out, t, type, fr, v, dur) {
+    var s = this.ac.createBufferSource(), f = this.ac.createBiquadFilter();
+    s.buffer = this.noise; f.type = type; f.frequency.value = fr; s.connect(f);
+    this.env(f, out, t, v, dur); s.start(t, Math.random() * 0.5); s.stop(t + dur + 0.02);
+  }
+  tone(out, t, fr, to, type, v, dur) {
+    var o = this.ac.createOscillator();
+    o.type = type; o.frequency.setValueAtTime(fr, t);
+    if (to) o.frequency.exponentialRampToValueAtTime(to, t + dur);
+    this.env(o, out, t, v, dur); o.start(t); o.stop(t + dur + 0.02);
+  }
+  pickDate(d) {
+    var f = Object.assign({}, this.state.form, { date: d.date, where: d.where });
+    var er = Object.assign({}, this.state.errors); delete er.date; delete er.where;
+    // a row with no set night (home in Atlanta) leaves Date empty, so put the cursor there.
+    // The row is a link to #request, and following it moves focus to the page, so focus Date right after that.
+    if (!d.date) {
+      var self = this;
+      if (this.errT) clearTimeout(this.errT);
+      this.errT = setTimeout(function () { self.errT = null; self.errFocus = 'date'; self.focusErr(); }, 0);
+    }
+    this.setState({ form: f, errors: er, sent: false });
+  }
+  // focus the field named in errFocus; if it is not mounted yet, its ref does it
+  focusErr() {
+    var k = this.errFocus;
+    var el = k ? this.fieldEls[k] : null;
+    if (k && !el) return;
+    this.errFocus = null;
+    if (this.errT) { clearTimeout(this.errT); this.errT = null; }
+    if (el && el.focus) el.focus();
+  }
+  sendReq(e) {
+    var self = this;
+    if (e && e.preventDefault) e.preventDefault();
+    var f = this.state.form, bad = {};
+    if (!String(f.date || '').trim()) bad.date = true;
+    if (!String(f.where || '').trim()) bad.where = true;
+    var first = bad.date ? 'date' : (bad.where ? 'where' : '');
+    if (first) {
+      this.errFocus = first;
+      this.setState({ errors: bad });
+      if (this.errFocus) {
+        if (this.errT) clearTimeout(this.errT);
+        this.errT = setTimeout(function () { self.errT = null; self.focusErr(); }, 0);
+      }
+      return;
+    }
+    // hand the request to Inbox6 (it reads this when opened with #kaytran)
+    try { sessionStorage.setItem('bookd.req.kaytran', JSON.stringify({ date: f.date, where: f.where, guests: f.guests, budget: f.budget, msg: f.msg })); } catch (err) {}
+    this.setState({ errors: {}, sent: true, asked: f.date });
+  }
+  renderVals() {
+    var self = this, s = this.state;
+    var cur = k6Set(s.cur) || K6_SETS[0];
+    var live = s.playing ? k6Set(s.playing) : null;
+    var row = function (st, i) {
+      var on = s.playing === st.id;
+      return {
+        num: String(i + 1), title: st.title, meta: on ? 'Stand-in loop · ' + st.style + ' · ' + st.bpm + ' BPM' : st.meta,
+        cls: on ? 'k6trk k6trk-on' : 'k6trk', icon: on ? K6_PAUSE : K6_PLAY,
+        aria: (on ? 'Pause the stand-in loop for song ' : 'Play a stand-in loop for song ') + (i + 1) + ', ' + st.style,
+        toggle: function () { self.toggleSet(st.id); }
+      };
+    };
+    var errs = s.errors || {};
+    var f = s.form;
+    // sent summary: '120' reads as '120 guests', '2500' as '$2,500 budget'
+    var gTxt = String(f.guests || '').trim(), bTxt = String(f.budget || '').trim();
+    if (gTxt && !/guest|people|ppl|person/i.test(gTxt)) gTxt += (gTxt === '1' ? ' guest' : ' guests');
+    if (/^\d{4,}$/.test(bTxt)) bTxt = bTxt.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (bTxt) { if (/^\d/.test(bTxt)) bTxt = '$' + bTxt; if (!/budget/i.test(bTxt)) bTxt += ' budget'; }
+    var bits = [f.date, f.where, gTxt, bTxt]
+      .map(function (x) { return String(x || '').trim(); })
+      .filter(function (x) { return !!x; })
+      .map(function (x) { return { t: x }; });
+    // phones and tablets have no hover, so the note says Tap there and Click with a mouse
+    var tap = typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(hover: none)').matches;
+    var heroNote = s.noAudio ? "This browser won't play the stand-in loop."
+      : (live ? 'Stand-in loop, ' + live.style.toLowerCase() + '. Not her mix. Hers are\u00a0better.' : (tap ? 'Tap' : 'Click') + ' the record to hear\u00a0her.');
+    // the date error names the Saturday of the row she picked; at home in Atlanta there is no set night.
+    // A typed neighborhood keeps the New York night. The empty Date field hints the same night, so hint and error agree.
+    var dRow = K6_DATES.filter(function (d) { return d.where === f.where; })[0];
+    var dateErr = (dRow && !dRow.date) ? 'Pick a Saturday. She\'s home most\u00a0weekends.'
+      : 'Pick a night. ' + ((dRow && dRow.date) || 'Sat, Nov 14').replace(/ (\d+)$/, '\u00a0$1') + ' has no travel\u00a0fee.';
+    // the dock stays while a loop plays (it's the only pause on screen down there); next to the form it drops Request
+    var dockOn = s.heroOut && (!!s.playing || (!s.formIn && !s.pastForm && !s.sent));
+    // while it slides away the dock keeps the shape it had, so the full pill never snaps to the compact one on its way out
+    var dockCompact = dockOn ? !!s.formIn : !!this.dockCompact;
+    this.dockCompact = dockCompact;
+    return Object.assign({
+      // #mine
+      mine: !!s.mine,
+      // hero
+      heroCls: 'k6hero' + (s.playing ? ' k6live' : '') + (s.playing && s.heroVis && !this.reduce ? ' k6anim' : ''),
+      heroRef: this.heroRef, tiltRef: this.tiltRef, crowdRef: this.crowdRef,
+      toggleVid: function () { self.vidOff = !self.vidOff; self.setState({ vidPaused: self.vidOff }); self.syncVid(); },
+      vidLabel: s.vidPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
+      tiltMove: function (e) {
+        if (self.reduce || !e || e.pointerType !== 'mouse' || !self.heroEl) return;
+        var r = self.heroEl.getBoundingClientRect();
+        if (!r || !r.width || !r.height) return;
+        self.tx = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / r.width - 0.5));
+        self.ty = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top) / r.height - 0.5));
+        if (!self.tiltRaf) self.tiltRaf = requestAnimationFrame(function () { self.tiltRaf = 0; self.applyTilt(); });
+      },
+      tiltLeave: function () {
+        self.tx = 0; self.ty = 0;
+        if (!self.tiltRaf) self.tiltRaf = requestAnimationFrame(function () { self.tiltRaf = 0; self.applyTilt(); });
+      },
+      beatDur: (60 / (live || cur).bpm).toFixed(3) + 's',
+      heroToggle: function () { self.toggleSet(self.state.playing || self.state.cur); },
+      playIcon: s.playing ? K6_PAUSE : K6_PLAY,
+      recAria: s.playing ? 'Pause the record' : 'Play the record, a stand-in loop in her style', recPressed: s.playing ? 'true' : 'false',
+      bigCls: 'k6big' + (s.playing && !this.reduce ? ' k6spin' : ''),
+      heroNote: heroNote,
+      // sets
+      songs: K6_SETS.map(row),
+      // dates
+      dates: K6_DATES.map(function (d) {
+        return {
+          when: d.when, city: d.city, ask: d.ask,
+          cls: d.free ? 'k6drow k6drow-ny' : 'k6drow',
+          pick: function () { self.pickDate(d); }
+        };
+      }),
+      // request
+      formRef: this.formRef,
+      form: f, set: this.setters, fieldRef: this.fieldRef,
+      err: { date: !!errs.date, where: !!errs.where },
+      invalid: { date: errs.date ? 'true' : 'false', where: errs.where ? 'true' : 'false' },
+      describe: { date: errs.date ? 'err-date' : '', where: errs.where ? 'err-where' : '' },
+      dateErr: dateErr,
+      datePh: (!f.date && dRow) ? (dRow.date || 'Which Saturday?') : 'Sat, Nov 14',
+      askedOn: !!s.asked && !s.sent, askedDate: s.asked,
+      send: function (e) { self.sendReq(e); },
+      sendKey: function (e) { if (e && e.key === 'Enter' && !e.isComposing && e.target && e.target.tagName === 'INPUT') self.sendReq(e); },
+      notSent: !s.sent, sent: s.sent, sentRef: this.sentRef, sentBits: bits,
+      editReq: function () { self.errFocus = 'date'; self.setState({ sent: false }); },
+      // dock
+      dockCls: 'k6dock' + (dockOn ? ' k6dock-on' : '') + (dockCompact ? ' k6dock-form' : ''),
+      footPad: dockOn ? '96px' : '22px',
+      dockLine: live ? 'Stand-in loop · ' + live.style : 'In New York Nov 13 to 15',
+      dockPlayCls: s.playing ? 'k6dplay k6dplay-on' : 'k6dplay',
+      dockPlayAria: s.playing ? 'Pause the stand-in loop' : 'Play a stand-in loop'
+    }, nav6Vals(this, {}));
+  }
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

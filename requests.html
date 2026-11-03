@@ -1,0 +1,1228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Requests · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="BOOKD. DJs for private parties.">
+<script>/* canvas: page stays still */
+(function () {
+  var still = function () {
+    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+  };
+  var css = document.createElement('style');
+  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+  document.head.appendChild(css);
+  var check = function () {
+    var on = still();
+    document.documentElement.classList.toggle('oncanvas', on);
+    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+  };
+  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* big screens (bigscreen.py) */
+:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@media (min-width:1921px){
+  html{zoom:calc(100vw / 1920px)}
+  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+}
+
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+body,.bub,dd{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+input::placeholder{color:#636665}
+a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.col-chat :focus-visible{outline-color:#d31110}
+/* buttons and chips, same system as Home6 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;border:0}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-red{background:#d31110;color:#ffffff}
+.btn-ghost{background:transparent;color:#000000;box-shadow:inset 0 0 0 1.5px #000000}
+.btn-ink{background:#000000;color:#ffffff}
+.decl{display:inline-flex;align-items:center;background:none;border:0;padding:0 2px;min-height:44px;font:700 15px 'Inter',sans-serif;color:#000000;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.chip{flex:1 1 0;min-width:0;min-height:40px;padding:0 10px;border-radius:999px;border:1px solid #2f2f31;background:transparent;color:#a2a5a4;font:700 13px 'Inter',sans-serif;white-space:nowrap;cursor:pointer}
+.chip[aria-pressed="true"]{background:#ffffff;color:#000000;border-color:#ffffff}
+.btn:active,.send:active{transform:translateY(1px)}
+/* nav: the shell nav (canon 4.1), account items in .navend; it does not stick here */
+/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+/* YOU button and its menu */
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+/* ===== end nav shell ===== */
+.nav6{position:relative}
+.go{background:#d31110;color:#ffffff}
+/* layout: the list and the details sit straight on black, only the chat is a sheet */
+.inbox{flex:1 1 auto;display:grid;grid-template-columns:320px minmax(0,1fr) 300px;gap:12px;padding:0 12px 12px;box-sizing:border-box}
+/* F106: the app lines up with the nav row (1440px plus its gutters): Requests. sits under the logo and the details end under YOU */
+@media (min-width:761px){.inbox{width:100%;max-width:1536px;margin-inline:auto;padding-inline:calc(var(--gut) - clamp(16px,calc(1.6 * var(--vw)),22px))}}
+.inbox > *{min-width:0}
+.panel{background:transparent}
+.col-list{display:flex;flex-direction:column;overflow:hidden}
+/* F182: the list's inner box. It changes nothing on desktop and phone; on tablet it is the part that rides along */
+.listin{display:contents}
+.col-chat{display:flex;flex-direction:column;min-width:0;background:#fffde9;color:#000000;border-radius:var(--r-card);overflow:clip}
+.col-info{display:flex;flex-direction:column;gap:16px;padding:22px clamp(16px,calc(1.6 * var(--vw)),22px)}
+/* thread list */
+.listhead{padding:22px clamp(16px,calc(1.6 * var(--vw)),22px) 14px;display:flex;flex-direction:column;gap:14px}
+.listhead h1{margin:0;font-size:44px;line-height:.9;font-weight:700;letter-spacing:-0.065em}
+.filters{display:flex;gap:6px}
+.rows{display:flex;flex-direction:column;gap:4px;padding:0 10px 10px}
+.thread{width:100%;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;box-sizing:border-box;padding:12px;border:0;border-radius:var(--r-bar);background:transparent;color:#ffffff;font:inherit;text-align:left;cursor:pointer;text-decoration:none}
+.thread.on{background:#1c1c1e}
+.tav{display:block;width:48px;height:48px;margin:4px;border-radius:50%;overflow:hidden;background:#000000}
+.thread.on .tav{box-shadow:0 0 0 2px #1c1c1e,0 0 0 4px #d31110}
+.tname{font-size:17px;font-weight:700;letter-spacing:-0.03em;min-width:0}
+.tstat{display:block;font-size:13px;font-weight:700;line-height:1.35}
+.preview{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;line-height:1.35;font-size:14px;color:#a2a5a4}
+.listfoot{margin-top:auto;padding:10px clamp(16px,calc(1.6 * var(--vw)),22px) 15px}
+.listlink{display:inline-flex;align-items:center;min-height:44px;padding:0 2px;font-size:15px;font-weight:700;color:#ffffff;text-underline-offset:3px}
+.pastnote{margin:0;padding:6px clamp(16px,calc(1.6 * var(--vw)),22px) 12px;font-size:13px;line-height:1.4;color:#a2a5a4}
+/* chat */
+.chathead{padding:20px clamp(16px,calc(3 * var(--vw)),36px) 18px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(0,0,0,.12)}
+@media (min-width:761px){.chathead{position:sticky;top:0;z-index:2;background:#fffde9}}
+.whohead{display:flex;align-items:center;gap:14px;min-width:0}
+.whohead .tav{flex:none;width:56px;height:56px;box-shadow:0 0 0 2px #fffde9,0 0 0 4px #d31110}
+.whohead h2{margin:0;font-size:40px;line-height:.95;font-weight:700;letter-spacing:-0.06em}
+.metaline{font-size:14px;line-height:1.4}
+.outcome{margin:0;font-size:15px;font-weight:700;line-height:1.35}
+.metaline a{font-weight:700;text-underline-offset:3px}
+/* QA6 r2: a 40px+ tap area that does not stretch the focus ring */
+.metaline a,.terms a{position:relative}
+.metaline a::after,.terms a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+.steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.steps li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps .bar{height:6px;border-radius:999px}
+.steplbl{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:420px){.steplbl{font-size:11px}}
+.log{flex:1 1 auto;padding:24px clamp(16px,calc(3 * var(--vw)),36px);display:flex;flex-direction:column;justify-content:flex-start;gap:12px}
+.log > *{flex-shrink:0}
+/* V1: the log and the composer share one column, so the sticky composer never rises over the chat head on a short phone */
+.chatbody{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.log::before{content:"";flex:1 0 0;margin-bottom:-12px}
+.bub{max-width:min(78%,520px);padding:12px 16px;font-size:15px;line-height:1.45;border-radius:20px;overflow-wrap:anywhere}
+.bub strong{display:block;font-size:12px;margin-bottom:4px}
+.bub-me{align-self:flex-end;background:#000000;color:#ffffff;border-bottom-right-radius:6px}
+.bub-them{align-self:flex-start;background:#ffffff;color:#000000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);border-bottom-left-radius:6px}
+.sysline{align-self:center;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:700;color:#4d504f}
+.sysline.red{background:#d31110;color:#ffffff}
+.note{align-self:center;max-width:520px;font-size:13px;line-height:1.4;color:#4d504f;text-align:center}
+.offer{align-self:flex-start;width:min(100%,520px);background:#ffffff;border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column}
+.offerbar{padding:16px 16px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;font-weight:700}
+.offerbody{padding:12px 16px 18px;display:flex;flex-direction:column;gap:14px}
+.price{font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
+.terms{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;font-size:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
+.terms dt{font-weight:700}.terms dd{margin:0}
+.box{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
+.box-col{flex-direction:column;flex-wrap:nowrap;align-items:stretch}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field-money{display:flex;align-items:baseline;gap:2px;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em}
+.field input{flex:1 1 auto;width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;outline:none}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.ferr{display:block;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+/* composer, same as the Home6 composer */
+.composer{position:sticky;bottom:0;z-index:2;padding:12px clamp(12px,calc(2.4 * var(--vw)),28px) 14px;background:#fffde9;border-top:1px solid rgba(0,0,0,.12)}
+.composer-in{display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:#ffffff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.composer-in:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+.att{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.06);cursor:pointer;display:grid;place-items:center}
+.att-off{opacity:.4;cursor:default}
+.composer input{flex:1 1 auto;min-width:0;border:0;background:transparent;font:400 16px 'Inter',sans-serif;color:#000000;padding:10px 4px;outline:none}
+.send{flex:none;min-height:44px;padding:0 22px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 15px 'Inter',sans-serif;cursor:pointer}
+.send-off{background:rgba(0,0,0,.06);color:#6b6e6d;cursor:default}
+/* request details */
+.col-info h2{margin:0;font-size:24px;line-height:1;font-weight:700;letter-spacing:-0.04em}
+.facts{margin:0;display:flex;flex-direction:column;gap:12px}
+.facts div{display:flex;flex-direction:column;gap:2px}
+.facts dt{font-size:13px;color:#a2a5a4}
+.facts dd{margin:0;font-size:18px;font-weight:700;letter-spacing:-0.03em}
+.flag{margin:0;padding:12px 14px;border-radius:var(--r-bar);font-size:15px;font-weight:700;line-height:1.35}
+.flag-red{box-shadow:inset 0 0 0 1.5px #ff3b2f}
+.flag-cream{background:#fffde9;color:#000000}
+.infocard{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid #2f2f31}
+.infocard h3{margin:0;font-size:15px;font-weight:700;letter-spacing:-0.02em}
+#rider:target h3{color:#ff3b2f}
+.rider{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;font-size:14px;line-height:1.4}
+.rider dt{color:#a2a5a4}.rider dd{margin:0}
+.small{margin:0;font-size:13px;line-height:1.4;color:#a2a5a4}
+.col-info .small a{color:#ffffff;text-underline-offset:3px;position:relative}
+.col-info .small a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+/* QA6: dot separators; the dot before an item that wraps to a new line is clipped off */
+.dots{display:block;clip-path:inset(-24px -24px -24px -3px)}
+.dots > span{display:flex;flex-wrap:wrap;margin-left:-.9em}
+.dots > span > span{position:relative;min-width:0;padding-left:.9em}
+.dots > span > span::before{content:"\00b7";position:absolute;left:0;width:.9em;text-align:center}
+/* QA6: desktop is one app screen; the chat log and the details scroll inside their panels */
+.app{min-height:1000px}
+@media (min-width:1200px){
+.app{height:calc(100 * var(--svh));min-height:640px}
+.chathead,.composer{position:relative}
+.inbox{grid-template-rows:minmax(0,1fr);min-height:0}
+.col-list,.col-chat{min-height:0}
+.col-info{min-height:0;overflow-y:auto}
+.log{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+/* QA7: the details panel scrolls past its last card instead of cutting it at the edge */
+.col-info{gap:12px;padding-bottom:28px}
+.facts{gap:10px}
+/* F377: on a short laptop screen the rows scroll inside the list, so every thread and the link under them stay reachable.
+   The 6px keeps the first row's focus ring whole; the head gives up the same 6px, so the first row does not move. */
+.rows{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-top:6px}
+.listhead{padding-bottom:8px}
+/* V2: a row tabbed into view at the bottom of the list keeps its whole focus ring */
+.rows{scroll-padding-block:6px}
+}
+/* hover: pointer devices only */
+@media (hover: hover) and (pointer: fine){
+.go:hover{background:#ffffff;color:#000000}
+.btn-red:hover,.send:not(.send-off):hover{background:#000000;color:#ffffff}
+.listlink:hover{color:#ff3b2f}
+.btn-ghost:hover{background:#000000;color:#ffffff}
+.btn-ink:hover{background:#d31110}
+.thread:not(.on):hover{background:#151516}
+.chip[aria-pressed="false"]:hover{color:#ffffff;border-color:#a2a5a4}
+.att:not(.att-off):hover{background:#000000}
+.att:not(.att-off):hover svg{stroke:#ffffff}
+.decl:hover{color:#d31110}
+}
+@media (max-width:1199px){
+.inbox{grid-template-columns:300px minmax(0,1fr)}
+.col-info{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+.col-info > h2,.col-info > .flag,.col-info > .facts,.col-info > .small{grid-column:1/-1}
+.facts{flex-direction:row;flex-wrap:wrap;gap:12px 32px}
+/* QA6 r2: spare height (min-height 1000) goes to the list and chat row, not to an empty details panel */
+.inbox{grid-template-rows:1fr auto}
+}
+/* QA7: tablet, the thread list hugs its rows so the link sits under them, not at the bottom of a tall empty panel.
+   F182: the aside stretches to the chat's height and only its inner box rides along, so the list stops where the chat ends
+   and never slides over The request below it */
+@media (min-width:761px) and (max-width:1199px){.col-list{overflow:visible}.listin{display:block}.listfoot{margin-top:0}}
+/* QA7 final: on a tall enough tablet the list rides along while you read the chat, instead of leaving a black column */
+@media (min-width:761px) and (max-width:1199px) and (min-height:720px){.listin{position:sticky;top:12px}}
+/* QA7 final: tablet and phone scroll the page, with the chat head (tablet) and the composer stuck to the screen edges.
+   Anything in the log that scrolls into view (a focused button, a new message) stops clear of them.
+   F368: the composer here is 127px with its Reply as row, so 140px keeps a new line 13px clear of it, as on Inbox6. */
+@media (max-width:1199px){.log *{scroll-margin:210px 0 140px}}
+@media (max-width:760px){.log *{scroll-margin:16px 0 140px}}
+/* QA7: tablet portrait, the five facts sit 3 + 2 instead of 4 + 1 */
+@media (min-width:761px) and (max-width:900px){.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){
+.inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none;padding:0 16px 16px;gap:8px}
+.listhead h1{font-size:32px}
+/* F334: phones get the desktop list, every thread in view, without the previews */
+.rows{padding:0 0 10px}
+.rows .preview{display:none}
+/* F379: the open row gets a thin cream ring, so it reads as open even with the chat scrolled out of view */
+.thread.on{box-shadow:inset 0 0 0 1.5px #fffde9}
+/* the rows run the full width here, so the list clips nothing and a focused row's ring shows on all four sides */
+.col-list{overflow:visible}
+.whohead h2{font-size:30px}
+.col-info{grid-template-columns:minmax(0,1fr)}
+.facts{flex-direction:column;gap:12px}
+}
+@media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
+/* C3: a phone on its side. The chat head scrolls away and Reply as shares the composer's row, so the chat keeps room to read */
+@media (orientation:landscape) and (max-height:500px){
+.chathead{position:static}
+.composer{display:flex;align-items:center;gap:10px;padding-top:8px;padding-bottom:8px}
+.asrow{flex:none;margin:0}
+.composer-in{flex:1 1 auto;min-width:0;gap:6px}
+.send{padding:0 16px}
+.log *{scroll-margin:16px 0 84px}
+}
+/* C3: where the list column leaves the chat narrow, the two chips stand on their own (the group is still Reply as to screen readers) */
+@media (orientation:landscape) and (max-height:500px) and (min-width:761px) and (max-width:899px){.asrow > span{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}}
+/* InboxDJ6: the DJ's side of Inbox6. Hosts have no photo, so they get an initial and a grey ring, like Kaytran6's agent. */
+.tini{display:grid;place-items:center;width:100%;height:100%;background:#fffde9;color:#000000;font-size:15px;font-weight:700;letter-spacing:-0.02em}
+.whohead .tini{background:#000000;color:#fffde9}
+/* the red ring is for DJs; a host gets a plain circle */
+.tav,.thread .tav,.thread.on .tav,.whohead .tav{box-shadow:none !important}
+.bub-mara{align-self:flex-end;background:#2f2f31;color:#ffffff;border-bottom-right-radius:6px}
+.asrow{display:flex;align-items:center;gap:6px;margin:0 0 8px 6px;font-size:13px;color:#4d504f}
+.asrow > span{margin-right:4px}
+.aschip{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(0,0,0,.3);background:transparent;color:#000000;font:700 14px 'Inter',sans-serif;cursor:pointer}
+@media (pointer:coarse){.aschip{min-height:44px}}
+.aschip[aria-pressed="true"]{background:#000000;color:#ffffff;border-color:#000000}
+.cardyes{font-size:14px;line-height:1.35;font-weight:700;color:#d31110}
+.cardno{font-size:14px;line-height:1.35;font-weight:700;color:#000000}
+@media (hover: hover) and (pointer: fine){.aschip[aria-pressed="false"]:hover{background:#000000;color:#ffffff}}
+/* F206, F75: InboxDJ6#new, a brand new DJ's first visit. Nothing to answer yet, so it borrows InboxNew6, the host's empty inbox */
+.app.app-new{height:auto;min-height:calc(100 * var(--vh));min-height:calc(100 * var(--svh))}
+.innew{flex:1 1 auto;display:flex;flex-direction:column}
+.in{flex:1 1 auto;position:relative;isolation:isolate;overflow:hidden;background:#d31110;color:#fffde9;min-height:min(calc(calc(100 * var(--svh)) - 68px),832px);box-sizing:border-box;padding:clamp(24px,calc(3 * var(--vw)),44px) 0 clamp(56px,calc(6 * var(--vw)),88px)}
+.in :focus-visible{outline-color:#ffffff}
+.in-wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.in-room{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 78% 66%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}
+.in-disc{position:absolute;z-index:-1;right:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.3);bottom:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.16);width:clamp(300px,calc(42 * var(--vw)),640px);aspect-ratio:1 / 1;border-radius:50%;filter:drop-shadow(0 24px 40px rgba(0,0,0,.4))}
+.in-spin{position:absolute;inset:0;display:block;border-radius:50%;animation:inspin 7s linear infinite}
+@keyframes inspin{to{transform:rotate(360deg)}}
+.in-spin img,.in-spin svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.in-spin text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
+.in-h{margin:0 0 0 -0.04em;font-size:clamp(84px,calc(15.2 * var(--vw)),219px);line-height:.84;font-weight:700;letter-spacing:-0.075em;padding-bottom:.06em;color:#fffde9;text-wrap:balance}
+.in-p{margin:clamp(20px,calc(2.4 * var(--vw)),32px) 0 0;max-width:24em;font-size:clamp(20px,calc(1.9 * var(--vw)),27px);line-height:1.2;letter-spacing:-0.025em;font-weight:700;color:#ffffff}
+.in-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
+.in-next{margin:clamp(36px,calc(4 * var(--vw)),56px) 0 0;padding:0;list-style:none;max-width:560px;border-top:2px solid #000000}
+.in-next li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.4);font-size:17px;line-height:1.4}
+.in-next b{font-weight:700;color:#000000;font-size:19px}
+.in-fine{margin:clamp(28px,calc(3 * var(--vw)),40px) 0 0;font-size:13px;line-height:1.4;color:#ffffff}
+.in-fine a{color:#ffffff;font-weight:700;text-underline-offset:3px}
+@media (hover: hover) and (pointer: fine){.in .btn-ink:hover{background:#ffffff;color:#000000}.in-fine a:hover{color:#000000}}
+@media (max-width:1199px){.in-room{background:radial-gradient(ellipse 60% 56% at 88% 86%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+@media (max-width:760px){.in-h{font-size:clamp(84px,calc(27 * var(--vw)),200px)}.in-disc{display:block;position:relative;right:auto;bottom:auto;width:min(calc(78 * var(--vw)),340px);margin:44px calc(min(calc(78 * var(--vw)),340px) * -.2) calc(min(calc(78 * var(--vw)),340px) * -.24) auto;z-index:0}.in{padding-bottom:0}.in-room{background:radial-gradient(ellipse 90% 34% at 78% 92%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+@media (max-width:480px){.in-acts,.in-acts .btn{width:100%}.in-next li{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion: reduce){.in-spin{animation:none}}
+</style>
+</helmet>
+
+<div class="{{appCls}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
+
+
+<!-- NAV (signed in) -->
+<!-- NAV: DJ shell, signed in (A/fix/shell/dj.html) -->
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">{{skipText}}</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}">Dashboard</a>
+<a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+</nav>
+<div class="navend">
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="btn go navbook" href="{{seeHref}}">See your page</a></sc-if>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{signedIn}}</strong></span>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a href="{{seeHref}}">See your page</a></sc-if>
+<a href="index.html">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}" onClick="{{closeMenu}}">Dashboard</a>
+<a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}" onClick="{{closeMenu}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="nl" href="{{seeHref}}" onClick="{{closeMenu}}">See your page</a></sc-if>
+</nav>
+</sc-if>
+</header>
+
+<!-- F206, F75: #new, a brand new DJ's first visit (DECISIONS 4). Same layout as InboxNew6. -->
+<sc-if value="{{isNew}}" hint-placeholder-val="{{ false }}">
+<main id="main" class="innew">
+<section class="in" aria-labelledby="in-h">
+<span class="in-room" aria-hidden="true"></span>
+<div class="in-wrap">
+<h1 id="in-h" class="in-h">Quiet in&nbsp;here.</h1>
+<p class="in-p">Hosts find you through your dates. Add a few and requests land&nbsp;here.</p>
+<div class="in-acts">
+<a class="btn btn-lg btn-ink" href="dashboard.html#new">Add my dates</a>
+</div>
+<ol class="in-next" aria-label="What lands here">
+<li><b>The request</b><span>The night, the room and their&nbsp;budget.</span></li>
+<li><b>Your answer</b><span>Say yes, say no or name your&nbsp;price.</span></li>
+<li><b>The chat</b><span>You and the host. No email&nbsp;chains.</span></li>
+</ol>
+<p class="in-fine">© 2026 BOOKD. Dates are&nbsp;samples. <span style="white-space: nowrap;"><a href="mailto:[contact email]">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+</div>
+<span class="in-disc" aria-hidden="true"><span class="in-spin"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg viewBox="0 0 200 200" focusable="false"><defs><path id="inarc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs><text x="100" y="88" text-anchor="middle" font-size="9.5" letter-spacing="-0.4">Next up</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#inarc" textLength="170">BOOKD RECORDS · BEST PLAYED LOUD · BOOKD RECORDS · BEST PLAYED LOUD · </textPath></text></svg></span></span>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{appOn}}" hint-placeholder-val="{{ true }}">
+<div class="inbox">
+
+<!-- THREAD LIST -->
+<aside class="col-list panel" aria-label="Requests">
+<div class="listin">
+<div class="listhead">
+<h1>Requests.</h1>
+<div class="filters" role="group" aria-label="Show requests">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+<button type="button" class="chip" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}&nbsp;·&nbsp;{{f.count}}</button>
+</sc-for>
+</div>
+</div>
+<div class="rows">
+<sc-for list="{{threads}}" as="t" hint-placeholder-count="3">
+<button type="button" class="{{t.cls}}" onClick="{{t.pick}}" aria-current="{{t.current}}">
+<span class="tav"><span class="tini">{{t.ini}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<span style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 8px;"><span class="tname" style="color: {{t.nameColor}};">{{t.name}}</span><span style="font-size: 12px; color: #a2a5a4; white-space: nowrap;">{{t.time}}</span></span>
+<span class="tstat dots"><span><span style="color: {{t.statusColor}};">{{t.status}}</span><span style="color: #a2a5a4; font-weight: 400;">{{t.date}}</span></span></span>
+<span class="preview">{{t.preview}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{listEmpty}}" hint-placeholder-val="{{ false }}">
+<p class="small" style="padding: 8px clamp(16px, calc(1.6 * var(--vw)), 22px);">{{emptyText}}</p>
+</sc-if>
+<div class="listfoot"><a class="listlink" href="dashboard.html">Back to my dashboard</a></div>
+</div>
+</aside>
+
+<!-- CHAT -->
+<main class="col-chat" id="main">
+
+<div class="chathead">
+<div class="whohead">
+<span class="tav"><span class="tini">{{activeIni}}</span></span>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<h2>{{activeName}}</h2>
+<span class="metaline">{{activeRole}}. Mara's on this one&nbsp;too.</span>
+</div>
+</div>
+<sc-if value="{{outcomeOn}}" hint-placeholder-val="{{ false }}"><p class="outcome">{{outcome}}</p></sc-if>
+<sc-if value="{{stepsOn}}" hint-placeholder-val="{{ true }}">
+<ol class="steps" aria-label="Request status">
+<sc-for list="{{steps}}" as="step" hint-placeholder-count="4">
+<li aria-current="{{step.current}}">
+<span class="bar" style="background: {{step.bar}};"></span>
+<span class="steplbl" style="color: {{step.text}};">{{step.label}}</span>
+</li>
+</sc-for>
+</ol>
+</sc-if>
+</div>
+
+<div class="chatbody">
+<div class="log" role="log" aria-label="Messages" ref="{{logRef}}">
+<sc-for list="{{seed}}" as="m" hint-placeholder-count="2">
+<sc-if value="{{m.isSys}}" hint-placeholder-val="{{ false }}"><div class="sysline">{{m.text}}</div></sc-if>
+<sc-if value="{{m.isBub}}" hint-placeholder-val="{{ true }}"><div class="{{m.cls}}"><strong>{{m.head}}</strong>{{m.text}}</div></sc-if>
+</sc-for>
+
+<div class="offer">
+<div class="offerbar"><span>{{cardTitle}}</span><span style="color: {{cardTagColor}};">{{cardTag}}</span></div>
+<div class="offerbody">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div class="price">{{cardPrice}}</div>
+<sc-if value="{{cardLineOn}}" hint-placeholder-val="{{ true }}"><span class="{{cardLineCls}}">{{cardLine}}</span></sc-if>
+<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">{{cardSub}}</span>
+</div>
+<dl class="terms">
+<sc-for list="{{terms}}" as="x" hint-placeholder-count="4"><dt>{{x.k}}</dt><dd>{{x.v}}</dd></sc-for>
+</dl>
+<sc-if value="{{showActions}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red btn-lg" type="button" onClick="{{accept}}" ref="{{acceptRef}}" style="flex: 1 1 140px;">Accept</button>
+<button class="btn btn-ghost btn-lg" type="button" onClick="{{startOffer}}" ref="{{offerBtnRef}}" style="flex: 1 1 160px;">Send an offer</button>
+</div>
+<button class="decl" type="button" onClick="{{decline}}" style="align-self: flex-start;">Decline</button>
+</div>
+</sc-if>
+<sc-if value="{{counterOn}}" hint-placeholder-val="{{ false }}">
+<div class="box box-col">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{counterLine}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red btn-lg" type="button" onClick="{{acceptCounter}}" ref="{{acceptRef}}" style="flex: 1 1 140px;">{{acceptCounterLabel}}</button>
+<button class="btn btn-ghost btn-lg" type="button" onClick="{{startOffer}}" ref="{{offerBtnRef}}" style="flex: 1 1 160px;">Send a new offer</button>
+</div>
+<button class="decl" type="button" onClick="{{decline}}" style="align-self: flex-start;">Decline</button>
+</div>
+</sc-if>
+<sc-if value="{{offering}}" hint-placeholder-val="{{ false }}">
+<form class="box box-col" onSubmit="{{sendOffer}}" onKeyDown="{{offerKey}}" aria-label="Send an offer" style="margin: 0;">
+<label class="field"><span class="field-l">Your fee for the night<span class="vh">&nbsp;in dollars</span></span>
+<span class="field-money"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" autocomplete="off" maxlength="9" value="{{offerAmt}}" onInput="{{typeOffer}}" ref="{{offerRef}}" aria-invalid="{{offerInvalid}}" aria-describedby="{{offerDescribe}}"></span>
+</label>
+<sc-if value="{{offerErr}}" hint-placeholder-val="{{ false }}"><span id="err-offer" class="ferr" role="alert" style="margin-top: -6px;">Type a number first, like&nbsp;2,400.</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red" type="submit" style="flex: 1 1 160px;">Send offer</button>
+<button class="decl" type="button" onClick="{{cancelOffer}}">Never mind</button>
+</div>
+</form>
+</sc-if>
+<sc-if value="{{showBox}}" hint-placeholder-val="{{ false }}">
+<div class="{{boxCls}}" role="status" tabindex="-1" ref="{{boxRef}}">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{boxLine}}</span>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+<sc-if value="{{canPretend}}" hint-placeholder-val="{{ false }}"><button class="btn btn-ink btn-sm" type="button" onClick="{{pretend}}">{{pretendLabel}}</button></sc-if>
+<sc-if value="{{canUndo}}" hint-placeholder-val="{{ false }}"><button class="decl" type="button" onClick="{{undo}}">Undo</button></sc-if>
+</div>
+<sc-if value="{{canPretend}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; line-height: 1.4; color: #4d504f;">Sample flow. The button stands in for the&nbsp;host.</span></sc-if>
+</div>
+</sc-if>
+</div>
+</div>
+
+<sc-for list="{{sent}}" as="m" hint-placeholder-count="0">
+<sc-if value="{{m.bub}}" hint-placeholder-val="{{ true }}">
+<div class="{{m.cls}}"><strong>{{m.head}}</strong>{{m.text}}</div>
+</sc-if>
+<sc-if value="{{m.sys}}" hint-placeholder-val="{{ false }}">
+<div class="sysline red">{{m.text}}</div>
+</sc-if>
+</sc-for>
+</div>
+
+<form class="composer" onSubmit="{{send}}" aria-label="Write a message">
+<div class="asrow" role="group" aria-label="Reply as">
+<span>Reply as</span>
+<sc-for list="{{asList}}" as="a" hint-placeholder-count="2"><button class="aschip" type="button" aria-pressed="{{a.on}}" onClick="{{a.pick}}">{{a.label}}</button></sc-for>
+</div>
+<div class="composer-in">
+<button class="{{attCls}}" type="button" onClick="{{attach}}" aria-label="Attach a file" aria-disabled="{{attDisabled}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" aria-hidden="true"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.5 3.5 0 0 1 5 5L10.5 18a2 2 0 0 1-3-3L15 7.5"></path></svg></button>
+<label style="flex: 1 1 auto; display: flex; min-width: 0;"><span class="vh">Message</span><input type="text" value="{{draft}}" onInput="{{typeDraft}}" placeholder="{{draftHint}}" ref="{{composerRef}}"></label>
+<button class="{{sendCls}}" type="submit" aria-disabled="{{sendDisabled}}">Send</button>
+</div>
+</form>
+</div>
+</main>
+
+<!-- REQUEST DETAILS -->
+<aside class="col-info panel" aria-label="Request details">
+<h2>The request</h2>
+<sc-if value="{{flagDue}}" hint-placeholder-val="{{ false }}"><p class="flag" style="box-shadow: inset 0 0 0 1.5px #a2a5a4;">Deposit due: [X%] from {{activeFirst}} to lock the&nbsp;night.</p></sc-if>
+<sc-if value="{{flagBooked}}" hint-placeholder-val="{{ false }}"><p class="flag flag-cream">Booked. Deposit&nbsp;paid.</p></sc-if>
+<dl class="facts">
+<sc-for list="{{factRows}}" as="r" hint-placeholder-count="5">
+<div><dt>{{r.k}}</dt><dd>{{r.v}}</dd></div>
+</sc-for>
+</dl>
+<sc-if value="{{changeOn}}" hint-placeholder-val="{{ true }}"><p class="small">Date or budget changed? Sort it out in the chat, or let Mara do&nbsp;it.</p></sc-if>
+<sc-if value="{{flagBooked}}" hint-placeholder-val="{{ false }}"><p class="small">Can't make it? <a href="{{cancelHref}}">Cancel the&nbsp;night</a></p></sc-if>
+<sc-if value="{{notTown}}" hint-placeholder-val="{{ false }}"><p class="small">Not in {{townCity}} yet? <a href="dashboard.html#dates">Add it to your&nbsp;dates</a></p></sc-if>
+<div class="infocard">
+<h3>Files</h3>
+<sc-for list="{{files}}" as="f" hint-placeholder-count="2">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{f.name}}</span><span style="font-size: 12px; color: #a2a5a4;">{{f.from}}</span></span>
+</sc-for>
+</div>
+<div class="infocard" id="rider" style="scroll-margin-top: 16px;">
+<h3>Your rider</h3>
+<dl class="rider">
+<dt>Decks</dt><dd>[Players and mixer]</dd>
+<dt>Room sound</dt><dd>[Booth monitors]</dd>
+<dt>A table</dt><dd>[Table]</dd>
+<dt>Arrival</dt><dd>[Arrival time]</dd>
+<dt>Hospitality</dt><dd>[Drinks, guest list]</dd>
+</dl>
+</div>
+<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. Dates are&nbsp;samples. <span style="white-space: nowrap;"><a href="mailto:[contact email]">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+</aside>
+
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+// InboxDJ6: the DJ's side of Inbox6, seen by Kaytran. Hosts ask; she (or Mara) accepts, declines or sends an offer.
+// Answers and dates are shared with DJ6 through sessionStorage ('bookd.dj'), so the two pages agree. A mockup: nothing leaves the browser.
+var DJI_KEY = 'bookd.dj';
+function djiLoad() { try { var o = JSON.parse(sessionStorage.getItem(DJI_KEY) || 'null'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function djiSave(patch) { try { var o = djiLoad(); for (var k in patch) o[k] = patch[k]; sessionStorage.setItem(DJI_KEY, JSON.stringify(o)); } catch (e) {} }
+
+var INBOX_DATES = [
+{ city: 'New York', from: '2026-11-13', to: '2026-11-15' },
+{ city: 'Boston', from: '2026-11-21', to: '2026-11-21' },
+{ city: 'Chicago', from: '2026-11-28', to: '2026-11-28' },
+{ city: 'Chicago', from: '2026-12-31', to: '2026-12-31' }
+];
+var INBOX_THREADS = [
+{ key: 'dani', name: 'Dani R.', first: 'Dani', ini: 'D', stage: 'sent', time: 'Oct 20', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', setTime: '10 PM to 2 AM', where: 'Private loft, Brooklyn, NY', guests: 'About 120', budget: '2,500', replyBy: 'Tue, Nov 3', file: 'Loft_floorplan.jpg', fileWhen: 'Oct 20',
+seed: [
+{ sys: 'Request sent · Tue, Oct 20, 4:12 PM' },
+{ from: 'host', time: '4:12 PM', text: 'Hi! Loft party in Bushwick for about 120 people, mostly my friends. Looking for something warm and dancey from 10 to 2.' },
+{ from: 'mara', time: '4:47 PM', text: "Thanks for reaching out. Kaytran's in New York that weekend, so there's no travel fee. She'll get back to you here." }
+] },
+{ key: 'theo', name: 'Theo M.', first: 'Theo', ini: 'T', stage: 'sent', time: 'Yesterday', date: 'Sat, Nov 21', iso: '2026-11-21', city: 'Boston', metro: 'Boston', setTime: '9 PM to 1 AM', where: 'Backyard tent, Boston, MA', guests: 'About 60', budget: '1,800', replyBy: 'Fri, Nov 6', file: '', fileWhen: '',
+seed: [
+{ sys: 'Request sent · Yesterday, 7:30 PM' },
+{ from: 'host', time: '7:30 PM', text: "I'm turning 40 and I refuse to be sad about it. Sixty friends, a tent, and a request for at least one Sade song." }
+] },
+{ key: 'priya', name: 'Priya S.', first: 'Priya', ini: 'P', stage: 'sent', time: 'Yesterday', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', setTime: '10 PM to 1 AM', where: 'Rooftop, Austin, TX', guests: 'About 80', budget: '3,000', replyBy: 'Tue, Nov 10', file: '', fileWhen: '',
+seed: [
+{ sys: 'Request sent · Yesterday, 2:05 PM' },
+{ from: 'host', time: '2:05 PM', text: "Wedding after party on a rooftop. The band stops at 10, then it's all you. Happy to cover travel if you can make it." }
+] },
+{ key: 'sam', name: 'Sam & Lou', first: 'Sam', role: 'The hosts', ini: 'S', stage: 'booked', fee: '1,500', time: 'Oct 12', date: 'Sat, Nov 7', iso: '2026-11-07', city: 'Atlanta', metro: 'Atlanta', home: true, setTime: '8 PM to 12 AM', where: 'Backyard, Atlanta, GA', guests: 'About 50', budget: '1,500', replyBy: '', file: 'Backyard_power.jpg', fileWhen: 'Oct 12',
+seed: [
+{ sys: 'Request sent · Mon, Oct 5' },
+{ from: 'host', time: 'Oct 5', text: "Ten years together, fifty people, one backyard. Please don't let my uncle near the aux." },
+{ from: 'mara', time: 'Oct 5', text: 'She loves a backyard. And the uncle is handled.' },
+{ from: 'host', time: 'Oct 12', text: 'Deposit paid. See you on the 7th!' }
+] },
+{ key: 'noor', name: 'Noor K.', first: 'Noor', ini: 'N', stage: 'booked', fee: '2,200', time: 'Oct 18', date: 'Thu, Dec 31', iso: '2026-12-31', city: 'Chicago', metro: 'Chicago', setTime: '9 PM to 1 AM', where: 'Studio space, Chicago, IL', guests: 'About 90', budget: '2,200', replyBy: '', file: '', fileWhen: '',
+seed: [
+{ sys: 'Request sent · Sat, Oct 10' },
+{ from: 'host', time: 'Oct 10', text: "Our studio's fifth birthday. Saw you're in Chicago that night. Please say yes." },
+{ from: 'you', time: 'Oct 11', text: "Yes. Already packing." },
+{ from: 'host', time: 'Oct 18', text: 'Deposit paid. We are so ready.' }
+] },
+{ key: 'jess', name: 'Jess T.', first: 'Jess', ini: 'J', stage: 'closed', time: 'Oct 2', date: 'Sat, Oct 31', iso: '2026-10-31', city: 'Miami', metro: 'Miami', setTime: '11 PM to 3 AM', where: 'House party, Miami, FL', guests: 'About 200', budget: '900', replyBy: '', file: '', fileWhen: '',
+seed: [
+{ sys: 'Request sent · Fri, Oct 2' },
+{ from: 'host', time: 'Oct 2', text: "Halloween house party, 200 people. Budget's small but the costumes are huge." },
+{ from: 'mara', time: 'Oct 2', text: "Thanks Jess. She's away that weekend, so we'll have to pass. Have a great night." }
+] }
+];
+var INBOX_FILTERS = [
+{ key: 'open', label: 'Open' },
+{ key: 'booked', label: 'Booked' },
+{ key: 'closed', label: 'Closed' }
+];
+var INBOX_EMPTY = {
+open: 'Nothing open. Enjoy the quiet.',
+booked: 'Nothing booked yet. Say yes to someone.',
+closed: 'Nothing closed. You like everyone.'
+};
+var INBOX_STEPS = ['Sent', 'Offer', 'Accepted', 'Booked'];
+// F72, F412: a night she called off on Cancel6 ('cancelled' in 'bookd.dj') leaves Booked and sits under Closed, as You called it off.
+// Repair: DECISIONS 1 and LEXICON 3, a cancelled night leaves InboxDJ6 like it leaves DJ6. inboxGone keeps it out of every list,
+// count and landing, so the 'cancelled' card below is never opened.
+function inboxGone(stage) { return stage === 'cancelled'; }
+// F209: 'countered' (the host came back with a number) waits on her; 'hostpassed' (the host said no) is closed.
+function inboxGroup(stage) { return stage === 'booked' ? 'booked' : (stage === 'closed' || stage === 'hostpassed' || stage === 'cancelled' ? 'closed' : 'open'); }
+// F209: the host's answer to her $2,400 offer, as review states opened by hash like #dani-offer (#dani-countered, #dani-passed).
+// Same numbers and words as Inbox6's Counter. They are never written to 'bookd.dj'; only what she does next is.
+// Every stage this page draws. Anything else found in 'bookd.dj' is ignored, so the thread shows its sample stage.
+var INBOX_STAGES = { sent: 1, offer: 1, countered: 1, accepted: 1, booked: 1, closed: 1, hostpassed: 1, cancelled: 1 };
+var INBOX_BASE = {
+countered: { stage: 'countered', fee: '2,400', ask: '2,200', lines: [
+{ kind: 'offer', from: 'you', time: 'Oct 20', text: 'I can do $2,400 for the night.' },
+{ kind: 'msg', from: 'host', time: 'Just now', text: 'Could you do $2,200? Same night, same hours.' }
+] },
+passed: { stage: 'hostpassed', fee: '2,400', lines: [
+{ kind: 'offer', from: 'you', time: 'Oct 20', text: 'I can do $2,400 for the night.' }
+] }
+};
+function inboxThread(key) { return INBOX_THREADS.filter(function (d) { return d.key === key; })[0]; }
+function inboxShort(iso) {
+var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+return m ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m[2] - 1] + ' ' + (+m[3]) : '';
+}
+function inboxRange(a, b) {
+if (a === b) return 'on ' + inboxShort(a);
+return a.slice(5, 7) === b.slice(5, 7) ? inboxShort(a) + ' to ' + (+b.slice(8)) : inboxShort(a) + ' to ' + inboxShort(b);
+}
+// Where she is on the night, from the dates on DJ6.
+function inboxTown(dates, t) {
+var hit = dates.filter(function (d) {
+var c = String(d.city || '').split(',')[0].trim().toLowerCase();
+return (c === t.metro.toLowerCase() || c === t.city.toLowerCase()) && d.from <= t.iso && d.to >= t.iso;
+})[0];
+return hit ? inboxRange(hit.from, hit.to) : '';
+}
+function inboxMoney(v) {
+var d = String(v || '').split('.')[0].replace(/\D/g, '').replace(/^0+/, '');
+return d ? d.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+}
+
+/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
+   Then three lines in the class (README step 4):
+     constructor, last line:         nav6Init(this);
+     componentWillUnmount, add:      nav6Off(this);
+     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
+   The nav keys come last, so they always win over any leftover old nav key in the page's object.
+   Settings (all optional, defaults below):
+     host:    inboxHref, curInbox, curAccount, waiting
+     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
+     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
+     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
+   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
+var NAV6_DEFAULTS = {
+  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
+  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+  waiting: 0, shell: ''
+};
+// Constructor: refs and stable handlers. Both menus start closed.
+function nav6Init(self) {
+  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+  if (!self.state) self.state = {};
+  self.state.menuOpen = false;
+  self.state.acctOpen = false;
+  n.btnRef = function (el) { n.btn = el; };
+  n.acctBtnRef = function (el) { n.acctBtn = el; };
+  n.acctWrapRef = function (el) { n.acctWrap = el; };
+  n.key = function (e) { nav6Key(self, e); };
+  n.focusIn = function (e) { nav6FocusIn(self, e); };
+  n.down = function (e) { nav6Down(self, e); };
+  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+  // pages that still call this.setMenu(true or false) keep working
+  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Set(self, patch) {
+  var st = self.state || {};
+  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+  nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+  var n = self.nav6;
+  if (!n || typeof document === 'undefined' || n.on === on) return;
+  n.on = on;
+  var f = on ? 'addEventListener' : 'removeEventListener';
+  document[f]('keydown', n.key);
+  document[f]('focusin', n.focusIn);
+  document[f]('pointerdown', n.down, true);
+}
+// componentWillUnmount
+function nav6Off(self) { nav6Listen(self, false); }
+// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Items(n) {
+  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
+function nav6Key(self, e) {
+  var n = self.nav6, st = self.state || {};
+  if (!e) return;
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+    return;
+  }
+  if (e.key !== 'Tab' || !st.menuOpen) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  var i = items.indexOf(document.activeElement);
+  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+  e.preventDefault();
+  items[j].focus();
+}
+// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
+// The YOU menu closes once focus leaves it.
+function nav6FocusIn(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+  var items = nav6Items(n);
+  if (!items) { nav6Set(self, { menuOpen: false }); return; }
+  items[0].focus();
+}
+// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
+// and closes the menu on click, so nothing under it gets the tap (F331).
+function nav6Down(self, e) {
+  var n = self.nav6, st = self.state || {}, t = e && e.target;
+  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+// renderVals: every key the four shells use.
+function nav6Vals(self, cfg) {
+  var n = self.nav6, st = self.state || {}, c = {}, k;
+  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  return {
+    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
+    outsideDown: undefined
+  };
+}
+/* ===== end nav shell ===== */
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+var saved = djiLoad();
+this.onHash = function () { if (self.state.newDj && typeof location !== 'undefined' && location.hash !== '#new' && typeof history !== 'undefined' && history.replaceState) { try { history.replaceState(history.state, '', location.pathname + location.search + '#new'); } catch (e) {} } };
+var stage0 = saved.stage || {};
+// F416: open on the first thread that still waits on her, else the first booked, else the first closed,
+// so the chat, the highlighted row and the chip agree after a trip to DJ6. With nothing saved it is Dani, as before.
+var start = null;
+['open', 'booked', 'closed'].some(function (g) {
+start = INBOX_THREADS.filter(function (d) { var s0 = (INBOX_STAGES[stage0[d.key]] ? stage0[d.key] : '') || d.stage; return !inboxGone(s0) && inboxGroup(s0) === g; })[0] || null;
+return !!start;
+});
+this.state = {
+active: start ? start.key : 'dani', filter: start ? inboxGroup((INBOX_STAGES[stage0[start.key]] ? stage0[start.key] : '') || start.stage) : 'open',
+stage: stage0, fee: saved.fee || {}, by: saved.by || {}, dates: saved.dates || INBOX_DATES, base: {}, newDj: '',
+who: 'you', draft: '', drafts: {}, sent: [], shared: {},
+offering: false, offerAmt: '', offerErr: false
+};
+this.composerEl = null;
+this.composerRef = function (el) { self.composerEl = el; };
+this.els = {};
+this.wantFocus = null;
+this.acceptRef = function (el) { self.els.accept = el; };
+this.offerBtnRef = function (el) { self.els.offerBtn = el; };
+this.offerRef = function (el) { self.els.offer = el; };
+this.boxRef = function (el) { self.els.box = el; };
+this.logEl = null;
+this.viewSig = '';
+this.alive = true;
+this.logRef = function (el) { self.logEl = el; };
+nav6Init(this);
+}
+stageOf(key) { var d = inboxThread(key); var b = this.state.base[key]; var s = this.state.stage[key]; return (INBOX_STAGES[s] ? s : '') || (b && b.stage) || d.stage; }
+// Where Undo goes back to: an unanswered request, or the review state the thread was opened in (#dani-countered).
+baseOf(key) { var b = this.state.base[key]; return b ? b.stage : 'sent'; }
+// Newest line in view where the log scrolls in its panel, and the card at the top of the log when a thread opens.
+// Same behaviour as Inbox6.
+syncView(force) {
+var st = this.state;
+var sig = st.active + ':' + st.filter + ':' + st.sent.length;
+if (!force && sig === this.viewSig) return;
+this.viewSig = sig;
+var log = this.logEl;
+var newLine = this.viewThread === st.active && st.sent.length > (this.viewSent || 0);
+var offer = log ? log.querySelector('.offer') : null;
+var lastLine = st.sent[st.sent.length - 1];
+var stay = newLine && offer && lastLine && lastLine.kind === 'sys';
+// after Accept or Pretend: the card's box, which says what happens next
+var bx = stay ? log.querySelector('.box') : null;
+var a = typeof document !== 'undefined' ? document.activeElement : null;
+var focusBox = log && a && a !== log && log.contains(a) ? (a.closest('.box') || a) : null;
+if (log && log.scrollHeight > log.clientHeight) {
+if (stay) {
+// F378: the log goes to its end so the new status line shows in full, then the box comes into view (it wins if both can't fit)
+log.scrollTop = log.scrollHeight;
+if (bx) bx.scrollIntoView({ block: 'nearest' });
+} else if (newLine || !offer || (st.base[st.active] && st.base[st.active].lines.length)) {
+log.scrollTop = log.scrollHeight;
+if (focusBox) focusBox.scrollIntoView({ block: 'nearest' });
+} else {
+var prev = offer.previousElementSibling;
+var lt = log.getBoundingClientRect().top;
+log.scrollTop += Math.ceil(prev ? prev.getBoundingClientRect().bottom - lt : offer.getBoundingClientRect().top - lt - 12);
+}
+} else if (log && newLine && log.lastElementChild && log.lastElementChild.scrollIntoView) {
+// F368: where the page scrolls (tablet, phone), the new line comes into view clear of the composer. After Accept or
+// Pretend, that line is the pill under the card, and the card's box with the next step stays in view too.
+log.lastElementChild.scrollIntoView({ block: 'nearest' });
+if (bx) bx.scrollIntoView({ block: 'nearest' });
+else if (focusBox) focusBox.scrollIntoView({ block: 'nearest' });
+}
+this.viewThread = st.active;
+this.viewSent = st.sent.length;
+}
+componentDidMount() {
+// V3: on #new a click on Requests or the skip link sets #main; put #new back so a reload stays on the new DJ (same guard as DJ6)
+if (typeof window !== 'undefined') window.addEventListener('hashchange', this.onHash);
+var hash = (typeof location !== 'undefined' && location.hash) ? location.hash.slice(1) : '';
+// DECISIONS 4: #new is a brand new DJ's first visit. The name comes from Build6's Go live ('bookd.newdj'),
+// else Soft Static, the applicant on Admin6. Kaytran's 'bookd.dj' is never read or written there.
+if (hash === 'new') {
+var nd = null;
+try { nd = JSON.parse(sessionStorage.getItem('bookd.newdj') || 'null'); } catch (e) { nd = null; }
+var nm = nd && (typeof nd.name === 'string' ? nd.name : (nd.profile && typeof nd.profile.name === 'string' ? nd.profile.name : ''));
+this.setState({ newDj: String(nm || '').trim() || 'Soft Static' });
+return;
+}
+// DJ6 links here: #dani opens the thread, #dani-offer also opens the offer box. Cancel6 sends #sam, #noor and the rest back.
+// F209: #dani-countered and #dani-passed open the host's answer to her offer.
+var parts = hash.split('-');
+var d = inboxThread(parts[0]);
+// Cancel6's done link sends #<key> back; a night she cancelled is gone, so the page opens on its default thread
+if (d && inboxGone(this.stageOf(d.key))) d = null;
+if (d) {
+var b = d.key === 'dani' && parts.length === 2 && Object.prototype.hasOwnProperty.call(INBOX_BASE, parts[1]) ? INBOX_BASE[parts[1]] : null;
+var next = { active: d.key, filter: inboxGroup(this.stageOf(d.key)) };
+if (b) {
+var base = {}; base[d.key] = b;
+// the review state wins over anything saved for that thread, in this view only (nothing is written)
+var s = {}, f = {}, w = {}, k;
+for (k in this.state.stage) if (k !== d.key) s[k] = this.state.stage[k];
+for (k in this.state.fee) if (k !== d.key) f[k] = this.state.fee[k];
+for (k in this.state.by) if (k !== d.key) w[k] = this.state.by[k];
+next.base = base; next.stage = s; next.fee = f; next.by = w; next.filter = inboxGroup(b.stage);
+} else if (parts[1] === 'offer' && this.stageOf(d.key) === 'sent') { next.offering = true; next.offerAmt = d.budget; this.wantFocus = 'offer'; }
+this.setState(next);
+}
+this.syncView();
+var self = this;
+if (typeof document !== 'undefined' && document.fonts && document.fonts.ready && document.fonts.ready.then) {
+document.fonts.ready.then(function () { if (self.alive) self.syncView(true); });
+}
+}
+componentDidUpdate() {
+this.syncView();
+var name = this.wantFocus;
+if (!name) return;
+this.wantFocus = null;
+var el = this.els[name];
+if (el && el.focus) {
+el.focus();
+// F383: the fee field opens with its number selected, so typing a new price replaces it
+if (name === 'offer' && el.select) el.select();
+var box = el.closest ? (el.closest('.box') || el) : el;
+if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest' });
+}
+}
+componentWillUnmount() {
+if (typeof window !== 'undefined') window.removeEventListener('hashchange', this.onHash);
+nav6Off(this);
+this.els = {};
+this.alive = false;
+}
+pickThread(key) {
+if (this.state.active === key) return;
+var drafts = {};
+for (var k in this.state.drafts) drafts[k] = this.state.drafts[k];
+drafts[this.state.active] = this.state.draft;
+this.setState({ active: key, drafts: drafts, draft: drafts[key] || '', offering: false, offerErr: false });
+}
+pickFilter(key) {
+if (this.state.filter === key) return;
+var self = this;
+var st = this.state;
+this.setState({ filter: key });
+if (inboxGroup(this.stageOf(st.active)) !== key) {
+var first = INBOX_THREADS.filter(function (d) { var s1 = self.stageOf(d.key); return !inboxGone(s1) && inboxGroup(s1) === key; })[0];
+if (first) this.pickThread(first.key);
+}
+}
+whoName() { return this.state.who === 'mara' ? 'Mara' : 'You'; }
+// Move the open thread to a new stage. Its base stage goes back to how it started: an unanswered request, or the
+// review state it was opened in. by (F273) is who said yes: 'you', 'mara' or 'host', shared with DJ6 through 'bookd.dj'.
+// F372: stepBack takes back only the last yes (the host's, after her offer). Her fee and her offer stay; the yes goes.
+setStage(stage, fee, line, focus, by, stepBack) {
+var key = this.state.active;
+var base = this.baseOf(key);
+var back = stage === base;
+var s = {}, f = {}, w = {}, k;
+for (k in this.state.stage) s[k] = this.state.stage[k];
+for (k in this.state.fee) f[k] = this.state.fee[k];
+for (k in this.state.by) w[k] = this.state.by[k];
+if (back && base !== 'sent') delete s[key]; else s[key] = stage;
+if (fee) f[key] = fee;
+if (back) { delete f[key]; delete w[key]; }
+if (stepBack) delete w[key];
+if (by) w[key] = by;
+// Only this thread changes in 'bookd.dj', so opening a review state never wipes what DJ6 saved for the others.
+var o = djiLoad(), os = {}, of = {}, ow = {};
+for (k in (o.stage || {})) os[k] = o.stage[k];
+for (k in (o.fee || {})) of[k] = o.fee[k];
+for (k in (o.by || {})) ow[k] = o.by[k];
+if (key in s) os[key] = s[key]; else delete os[key];
+if (key in f) of[key] = f[key]; else delete of[key];
+if (key in w) ow[key] = w[key]; else delete ow[key];
+djiSave({ stage: os, fee: of, by: ow });
+var next = { stage: s, fee: f, by: w, offering: false, offerErr: false, filter: inboxGroup(stage) };
+if (back) next.sent = this.state.sent.filter(function (m) { return !(m.thread === key && (m.kind === 'sys' || m.kind === 'offer')); });
+else if (stepBack) next.sent = this.state.sent.filter(function (m) { return !(m.thread === key && m.kind === 'sys'); });
+else if (line) next.sent = this.state.sent.concat([line]);
+this.wantFocus = focus;
+this.setState(next);
+}
+renderVals() {
+var self = this;
+var st = this.state;
+var active = st.active;
+var d = inboxThread(active);
+var stage = this.stageOf(active);
+var base = st.base[active] || null;
+var fee = st.fee[active] || (base && base.fee) || d.fee || '';
+var town = inboxTown(st.dates, d);
+var isHome = !!d.home;
+var free = !!town || isHome;
+var closed = inboxGroup(stage) === 'closed';
+// F277, F370: a thread that came closed in the sample (Jess, Oct 2) is over. Mara already told them, so nothing to undo.
+var past = stage === 'closed' && !st.stage[active];
+var dateNb = d.date.replace(/ (\d+)$/, '\u00a0$1');
+var factRows = [
+{ k: 'Date', v: d.date }, { k: 'Set time', v: d.setTime }, { k: 'Where', v: d.where }, { k: 'Guests', v: d.guests }, { k: 'Their budget', v: '$' + d.budget }
+];
+if (fee) factRows.push({ k: 'Your fee', v: fee.charAt(0) === '[' ? fee : '$' + fee });
+factRows = factRows.map(function (f) { return { key: f.k, k: f.k, v: f.v }; });
+
+var cur = { sent: 0, offer: 1, countered: 1, accepted: 2, booked: 3 }[stage];
+if (closed) cur = -1;
+var done = closed ? 1 : cur;
+var steps = INBOX_STEPS.map(function (label, i) {
+var on = i === cur;
+return { key: label, label: label, bar: on ? '#d31110' : (i < done ? '#000000' : '#a2a5a4'), text: on ? '#d31110' : (i < done ? '#000000' : '#6b6e6d'), current: on ? 'step' : 'false' };
+});
+
+var bubCls = { host: 'bub bub-them', you: 'bub bub-me', mara: 'bub bub-mara' };
+var bubHead = { host: d.first, you: 'You', mara: 'Mara, your agent' };
+var seed = d.seed.map(function (m, i) {
+if (m.sys) return { key: 's' + i, isSys: true, isBub: false, text: m.sys, cls: '', head: '' };
+return { key: 's' + i, isSys: false, isBub: true, text: m.text, cls: bubCls[m.from], head: bubHead[m.from] + ' · ' + m.time };
+});
+var sent = (base ? base.lines : []).concat(st.sent.filter(function (m) { return m.thread === active; })).map(function (m, i) {
+var sys = m.kind === 'sys';
+return { key: active + '-' + i, text: m.text, sys: sys, bub: !sys, cls: bubCls[m.from] || bubCls.you, head: (bubHead[m.from] || 'You') + ' · ' + m.time };
+});
+var draftBlank = !String(st.draft || '').trim();
+
+// the card in the chat
+// V5: a thread closed after her offer keeps the offer card, so the card agrees with the chat under it
+var priced = stage !== 'sent' && (stage !== 'closed' || !!fee);
+var money = fee.charAt(0) === '[' ? fee : '$' + fee;
+var ask = base && base.ask ? base.ask : '';
+var cardTitle = { sent: 'Request from ', offer: 'Your offer to ', countered: 'Your offer to ', accepted: 'Your night with ', booked: 'Your night with ', closed: fee ? 'Your offer to ' : 'Request from ', hostpassed: 'Your offer to ', cancelled: 'Your night with ' }[stage] + d.first;
+var cardTag = { sent: 'Waiting on you', offer: 'Waiting on ' + d.first, countered: d.first + ' countered', accepted: 'Deposit due', booked: 'Booked', closed: 'Passed', hostpassed: 'Passed', cancelled: 'Called off' }[stage];
+var cardTagColor = stage === 'sent' || stage === 'countered' ? '#d31110' : (stage === 'booked' ? '#000000' : '#4d504f');
+// F370: a closed card says what the number is and nothing more
+var cardSub = stage === 'closed' ? (fee ? 'Your fee for the night.' : 'Their budget for the night.') : (!priced ? 'Their budget for the night. Take it or name your price.' : (closed ? 'Your fee for the night.' : 'Your fee for the night. BOOKD keeps [X%].'));
+var travelLine = isHome ? 'Home game. No travel fee.' : (town ? "You're already in " + d.metro + '. No travel fee.' : 'You\'re not in ' + d.metro + ' yet. Travel is [$X].');
+var terms = [
+{ key: 'set', k: 'When', v: d.date + ', ' + d.setTime },
+{ key: 'guests', k: 'Guests', v: d.guests },
+{ key: 'travel', k: 'Travel', v: free ? '$0' : '[$X]' }
+];
+if (d.replyBy && (stage === 'sent' || stage === 'countered')) terms.push({ key: 'reply', k: 'Reply by', v: d.replyBy });
+var boxLine = '', boxCls = 'box box-col', canPretend = false, canUndo = false, pretendLabel = '';
+if (stage === 'offer') { boxLine = 'Offer sent at ' + money + '. It lands in ' + d.first + "'s chat."; canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' said yes'; }
+// F273: the box says who said yes. The host (Pretend after your offer), Mara (Reply as Mara) or you.
+if (stage === 'accepted') {
+var yes = st.by[active];
+boxLine = yes === 'host' ? d.first + ' said yes at ' + money + ' and owes a [X%] deposit to lock it.' : (yes === 'mara' ? 'Mara' : 'You') + ' said yes at ' + money + '. ' + d.first + ' owes a [X%] deposit to lock it.';
+canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' paid';
+}
+if (stage === 'booked') { boxLine = 'Booked. You play ' + d.date + '. The rest is paid after the party.'; }
+if (stage === 'closed') { boxLine = 'You passed on this one. Mara ' + (past ? 'let ' : 'will let ') + d.first + ' down gently.'; canUndo = !past; }
+if (stage === 'hostpassed') boxLine = d.first + ' passed on this one.';
+if (stage === 'cancelled') boxLine = 'It\'s off. BOOKD is finding ' + d.first + ' another DJ.';
+
+// thread list
+var statusText = { sent: 'Your move', offer: 'Offer sent · waiting on them', countered: 'Your move · counter in', accepted: 'Accepted · deposit due', booked: 'Booked', closed: 'You passed', cancelled: 'You called it off' };
+var statusColor = { sent: '#ff3b2f', offer: '#a2a5a4', countered: '#ff3b2f', accepted: '#a2a5a4', booked: '#ffffff', closed: '#a2a5a4', hostpassed: '#a2a5a4', cancelled: '#a2a5a4' };
+var counts = { open: 0, booked: 0, closed: 0 };
+var waiting = 0;
+var threads = [];
+INBOX_THREADS.forEach(function (t) {
+var s = self.stageOf(t.key);
+if (inboxGone(s)) return;
+var group = inboxGroup(s);
+var on = t.key === active;
+counts[group] += 1;
+if (s === 'sent' || s === 'countered') waiting += 1;
+if (group !== st.filter) return;
+var tb = st.base[t.key];
+var last = (tb ? tb.lines : []).concat(st.sent.filter(function (m) { return m.thread === t.key; })).filter(function (m) { return m.kind !== 'sys'; }).pop();
+var tail = t.seed[t.seed.length - 1];
+var previewName = { host: t.first, you: 'You', mara: 'Mara' };
+threads.push({
+key: t.key, name: t.name, ini: t.ini,
+time: last ? 'Just now' : t.time,
+date: t.date,
+status: s === 'hostpassed' ? t.first + ' passed' : statusText[s], statusColor: statusColor[s],
+preview: last ? previewName[last.from] + ': ' + last.text : previewName[tail.from] + ': ' + tail.text,
+current: on ? 'true' : 'false',
+cls: on ? 'thread on' : 'thread',
+nameColor: group === 'closed' ? '#a2a5a4' : '#ffffff',
+pick: function () { self.pickThread(t.key); }
+});
+});
+var filters = INBOX_FILTERS.map(function (f) {
+return { key: f.key, label: f.label, count: counts[f.key], on: f.key === st.filter ? 'true' : 'false', pick: function () { self.pickFilter(f.key); } };
+});
+var sendOfferFn = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var amt = inboxMoney(self.state.offerAmt);
+if (!amt) {
+// F378: focus waits for the error line, then componentDidUpdate brings the whole form into view
+self.wantFocus = 'offer';
+self.setState({ offerErr: true });
+return;
+}
+var mara = self.state.who === 'mara';
+var text = (mara ? 'Kaytran can do $' : 'I can do $') + amt + ' for the night.' + (free ? '' : ' Travel is [$X] on top.');
+self.setStage('offer', amt, { thread: active, kind: 'offer', from: self.state.who, text: text, time: 'Just now' }, 'box');
+};
+var sendMsgFn = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var text = String(self.state.draft || '').trim();
+if (!text) return;
+self.setState({ sent: self.state.sent.concat([{ thread: active, kind: 'msg', from: self.state.who, text: text, time: 'Just now' }]), draft: '' });
+if (self.composerEl && self.composerEl.focus) self.composerEl.focus();
+};
+var composing = function (e) { return !!e && (e.keyCode === 229 || !!(e.nativeEvent && e.nativeEvent.isComposing)); };
+var shared = !!st.shared[active];
+var files = [{ name: 'Kaytran_Rider.pdf', from: 'From Mara, ' + (d.time === 'Yesterday' ? 'yesterday' : d.time) }];
+if (d.file) files.push({ name: d.file, from: 'From ' + d.first + ', ' + d.fileWhen });
+// F273: the file is from whoever shared it
+if (shared) files.push({ name: '[Kaytran_Setlist.pdf]', from: (st.shared[active] === 'mara' ? 'From Mara' : 'From you') + ', just now' });
+files = files.map(function (f) { return { key: f.name, name: f.name, from: f.from }; });
+
+var isNew = !!st.newDj;
+return Object.assign({
+appCls: isNew ? 'app app-new' : 'app',
+isNew: isNew,
+appOn: !isNew,
+logRef: this.logRef,
+composerRef: this.composerRef,
+threads: threads,
+filters: filters,
+listEmpty: threads.length === 0,
+emptyText: INBOX_EMPTY[st.filter] || '',
+activeName: d.name,
+activeRole: d.role || 'The host',
+activeFirst: d.first,
+activeIni: d.ini,
+steps: steps,
+stepsOn: !closed,
+outcomeOn: closed,
+outcome: (stage === 'hostpassed' ? d.first + ' passed on ' : (stage === 'cancelled' ? 'You called off ' : 'You passed on ')) + dateNb + '.',
+seed: seed,
+sent: sent,
+factRows: factRows,
+files: files,
+flagDue: stage === 'accepted',
+flagBooked: stage === 'booked',
+notTown: !free && !closed,
+changeOn: !closed,
+cancelHref: 'cancel.html#dj-' + active,
+townCity: d.metro,
+cardTitle: cardTitle,
+cardTag: cardTag,
+cardTagColor: cardTagColor,
+cardPrice: priced ? money : '$' + d.budget,
+cardLine: travelLine,
+cardLineOn: !closed,
+cardLineCls: free ? 'cardyes' : 'cardno',
+cardSub: cardSub,
+skipText: st.newDj ? 'Skip to content' : 'Skip to the chat',
+terms: terms,
+showActions: stage === 'sent' && !st.offering,
+counterOn: stage === 'countered' && !st.offering,
+counterLine: d.first + ' asked for $' + ask + '.',
+acceptCounterLabel: 'Accept $' + ask,
+offering: (stage === 'sent' || stage === 'countered') && !!st.offering,
+showBox: stage !== 'sent' && stage !== 'countered',
+boxLine: boxLine,
+boxCls: boxCls,
+canPretend: canPretend,
+canUndo: canUndo,
+pretendLabel: pretendLabel,
+acceptRef: this.acceptRef,
+offerBtnRef: this.offerBtnRef,
+offerRef: this.offerRef,
+boxRef: this.boxRef,
+accept: function () {
+self.setStage('accepted', d.budget, { thread: active, kind: 'sys', text: (self.state.who === 'mara' ? 'Mara' : 'You') + ' accepted at $' + d.budget + ' · just now' }, 'box', self.state.who);
+},
+acceptCounter: function () {
+self.setStage('accepted', ask, { thread: active, kind: 'sys', text: (self.state.who === 'mara' ? 'Mara' : 'You') + ' accepted at $' + ask + ' · just now' }, 'box', self.state.who);
+},
+decline: function () { self.setStage('closed', null, null, 'box'); },
+// F372: after the host said yes to her offer, Undo steps back to that offer (the Pretend button stood in for the host)
+undo: function () {
+if (stage === 'accepted' && st.by[active] === 'host') self.setStage('offer', null, null, 'box', null, true);
+else self.setStage(self.baseOf(active), null, null, 'accept');
+},
+pretend: function () {
+if (stage === 'offer') self.setStage('accepted', null, { thread: active, kind: 'sys', text: d.first + ' accepted your offer · just now' }, 'box', 'host');
+else self.setStage('booked', null, { thread: active, kind: 'sys', text: d.first + " paid the deposit · you're booked" }, 'box');
+},
+startOffer: function () {
+self.wantFocus = 'offer';
+self.setState({ offering: true, offerAmt: stage === 'countered' ? fee : d.budget, offerErr: false });
+},
+typeOffer: function (e) {
+var v = (e && e.target && e.target.value) || '';
+var parts = String(v).replace(/[^\d,.]/g, '').split('.');
+self.setState({ offerAmt: parts[0] + (parts.length > 1 ? '.' + parts.slice(1).join('').replace(/,/g, '').slice(0, 2) : ''), offerErr: false });
+},
+cancelOffer: function () {
+self.wantFocus = 'offerBtn';
+self.setState({ offering: false, offerErr: false });
+},
+sendOffer: sendOfferFn,
+offerKey: function (e) {
+if (composing(e)) return;
+if (e.key === 'Escape') {
+e.preventDefault();
+self.wantFocus = 'offerBtn';
+self.setState({ offering: false, offerErr: false });
+}
+},
+offerAmt: st.offerAmt,
+offerErr: !!st.offerErr,
+offerInvalid: st.offerErr ? 'true' : 'false',
+offerDescribe: st.offerErr ? 'err-offer' : '',
+asList: [['you', 'Kaytran'], ['mara', 'Mara']].map(function (a) {
+return { key: a[0], label: a[1], on: st.who === a[0] ? 'true' : 'false', pick: function () { self.setState({ who: a[0] }); } };
+}),
+draft: st.draft,
+draftHint: 'Message ' + d.first,
+sendCls: draftBlank ? 'send send-off' : 'send',
+sendDisabled: draftBlank ? 'true' : 'false',
+typeDraft: function (e) {
+var v = (e && e.target && e.target.value) || '';
+self.setState({ draft: String(v) });
+},
+send: sendMsgFn,
+attCls: shared ? 'att att-off' : 'att',
+attDisabled: shared ? 'true' : 'false',
+attach: function () {
+if (self.state.shared[self.state.active]) return;
+var copy = {};
+for (var k in self.state.shared) copy[k] = self.state.shared[k];
+copy[self.state.active] = self.state.who;
+self.setState({ shared: copy, sent: self.state.sent.concat([{ thread: active, kind: 'msg', from: self.state.who, text: 'Shared a file: [Kaytran_Setlist.pdf]', time: 'Just now' }]) });
+}
+}, nav6Vals(this, isNew
+? { reqHref: '#main', curReq: 'page', dashHref: 'dashboard.html#new', signedIn: st.newDj, seeOn: false, waiting: 0 }
+: { reqHref: '#main', curReq: 'page', waiting: waiting }));
+}
+}
+</script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>
