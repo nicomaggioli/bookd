@@ -278,6 +278,9 @@ html{scroll-padding-top:88px}
 }
 @media (max-width:480px){.djadd{border-radius:24px}.field input[type="date"]{font-size:16px}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -486,11 +489,11 @@ html{scroll-padding-top:88px}
 </div>
 <dl class="k6ledger">
 <sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}">
-<div><dt>October</dt><dd>[$X]</dd></div>
-<div><dt>September</dt><dd>[$X]</dd></div>
+<div><dt>October</dt><dd>$3,150</dd></div>
+<div><dt>September</dt><dd>$1,980</dd></div>
 </sc-if>
-<div><dt>BOOKD's cut</dt><dd>[X%]</dd></div>
-<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}"><div><dt>Next payout</dt><dd>[Date]</dd></div></sc-if>
+<div><dt>BOOKD's cut</dt><dd>10%</dd></div>
+<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}"><div><dt>Next payout</dt><dd>Thu, Nov&nbsp;12</dd></div></sc-if>
 </dl>
 </div>
 </div>
@@ -502,8 +505,8 @@ html{scroll-padding-top:88px}
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
@@ -534,15 +537,15 @@ var DJ_RA = [
   { city: 'Detroit', from: '2026-12-19', to: '2026-12-19', sample: true }
 ];
 var DJ_PROFILE = {
-  name: 'Kaytran', sound: 'Afro / Amapiano', home: 'Atlanta, GA', fee: '[$X to $Y]', agent: 'Mara',
+  name: 'Kaytran', sound: 'Afro / Amapiano', home: 'Atlanta, GA', fee: '$1,500 to $3,000', agent: 'Mara',
   bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.",
-  sc: 'soundcloud.com/[kaytran]', mc: 'mixcloud.com/[kaytran]', yt: 'youtube.com/[kaytran]',
+  sc: 'soundcloud.com/kaytran', mc: 'mixcloud.com/kaytran', yt: 'youtube.com/kaytran',
   img: 'assets/ad370760271850c5893b948c9756c7a7.webp'
 };
 // DJ6#new opened on its own: Soft Static as Admin6's draft has them (no photo, bio or agent yet)
 var DJ_NEW = {
-  name: 'Soft Static', sound: 'House and disco', home: 'Portland, OR', fee: '[$X to $Y]', agent: '', bio: '',
-  sc: 'soundcloud.com/[soft-static]/warehouse-set', mc: 'mixcloud.com/[soft-static]/rooftop-set', yt: '', img: ''
+  name: 'Soft Static', sound: 'House and disco', home: 'Portland, OR', fee: '$800 to $1,500', agent: '', bio: '',
+  sc: 'soundcloud.com/soft-static/warehouse-set', mc: 'mixcloud.com/soft-static/rooftop-set', yt: '', img: ''
 };
 // the same requests as InboxDJ6; stage is 'sent' until she answers
 var DJ_REQS = [
@@ -871,7 +874,7 @@ class Component extends DCLogic {
       reqs.push({
         key: r.key, date: r.date, who: r.who, bits: r.meta.split(' · ').map(function (x, i) { return { key: 'b' + i, t: x }; }),
         cls: stage === 'closed' ? 'djr djr-off' : 'djr',
-        town: inTown ? 'You\'re in town' : 'Not in town. Travel is [$X].', townCls: inTown ? 'djtownyes' : 'djtownno',
+        town: inTown ? 'You\'re in town' : 'Not in town. Travel is $450.', townCls: inTown ? 'djtownyes' : 'djtownno',
         waiting: open, answered: !open, canUndo: stage !== 'countered', line: line,
         offerHref: 'requests.html#' + r.key + '-offer', chatHref: 'requests.html#' + r.key,
         acceptAria: 'Accept ' + r.who + ', ' + r.date, offerAria: 'Send ' + r.who + ' an offer', declineAria: 'Decline ' + r.who + ', ' + r.date,
@@ -1012,8 +1015,8 @@ class Component extends DCLogic {
       reqs: reqs, hasReqs: reqs.length > 0, reqHead: reqHead, reqNote: reqNote, showAll: !isNew,
       booked: bookedList, hasBooked: nb > 0, bookedHead: bookedHead,
       bookedNote: isNew ? 'Your first yes lands here.' : nb ? 'The address, the rider and the songs they begged for are all in the chat.' : 'Your next yes lands here.',
-      madePrice: isNew ? '$0' : '[$X]', hasMonths: !isNew,
-      madeNote: isNew ? 'Your first payout lands [X] days after your first party.' : 'Paid out so far this year. Money lands [X] days after each party.',
+      madePrice: isNew ? '$0' : '$14,620', hasMonths: !isNew,
+      madeNote: isNew ? 'Your first payout lands 5 days after your first party.' : 'Paid out so far this year. Money lands 5 days after each party.',
       p: {
         name: p.name, nameNb: djNb(p.name), sound: djOr(p.sound), home: p.home, fee: djOr(p.fee), agent: djOr(p.agent),
         bio: djNb(p.bio), hasBio: !!t(p.bio), sc: djUrl(p.sc), mc: djUrl(p.mc), yt: djUrl(p.yt),

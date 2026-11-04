@@ -661,6 +661,22 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
   .hc-q{align-self:flex-start}
 }
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+.mfoot{display:none}
+@media (max-width:759px){
+  footer.redfoot .morph,footer.redfoot .reveal{display:none !important}
+  footer.redfoot{background:#000000 !important}
+  .mfoot{display:block;padding:72px 16px 22px;background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.16) 120px,#000000 520px);color:#ff3b2f}
+  .mf-mark{display:block;width:100%;height:auto;fill:#d31110}
+  .mf-line{margin:24px 0 20px;font-size:28px;line-height:1.05;font-weight:700;letter-spacing:-0.05em;color:#fffde9}
+  .mf-go{width:100%}
+  .mf-row{display:flex;flex-direction:column;gap:12px;margin-top:40px;font-size:14px}
+  .mf-row nav{display:grid;grid-template-columns:repeat(2,max-content);gap:0 32px}
+  .mf-row a{display:inline-flex;align-items:center;min-height:44px;color:#ff3b2f;font-weight:700;text-decoration:none}
+  .mf-row .ft-decks{display:none !important}
+}
+</style>
 </helmet>
 
 <div onClick="{{leaveCheck}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; position: relative; overflow-x: clip;">
@@ -774,7 +790,7 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 <h3 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.06em; line-height: 1;">{{c.name}}</h3>
 <span style="display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;"><span style="color: #d31110;">{{c.genre}}</span><span>{{c.home}}</span></span>
 <span style="font-size: 13px; font-weight: 700; color: {{c.noteColor}};">{{c.note}}</span>
-<span style="font-size: 13px; color: #4d504f;">Fee [$X to $Y]</span>
+<span style="font-size: 13px; color: #4d504f;">Fee {{c.fee}}</span>
 <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 8px;">
 <a class="ghost btn btn-sm" href="{{c.setsHref}}" aria-label="{{c.hearAria}}" style="flex: 1 1 0; color: #000000;">Hear a set</a>
 <a class="go go-l btn btn-sm" href="{{c.reqHref}}" aria-label="{{c.reqAria}}" style="flex: 1 1 0;">Request</a>
@@ -804,7 +820,7 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 <div class="hc-calm">
 <div class="hc-in">
 <h2 id="hc-h" class="hc-h">Or you could just do&nbsp;this.</h2>
-<ol class="hc-steps"><li><span class="hc-t">Send a&nbsp;request.</span><span class="hc-d">Date, room, budget and the vibe. It goes to the DJ and their&nbsp;team.</span></li><li><span class="hc-t">Get an&nbsp;offer.</span><span class="hc-d">A price, set length and rider, right in the chat. No cousin, no ride from&nbsp;Jersey.</span></li><li><span class="hc-t">Pay the&nbsp;deposit.</span><span class="hc-d">One tap locks the date. The rest is due after the&nbsp;party.</span></li><li><span class="hc-t">Dance.</span><span class="hc-d">They show up, and nobody touches the&nbsp;aux.</span></li></ol>
+<ol class="hc-steps"><li><span class="hc-t">Send a&nbsp;request.</span><span class="hc-d">Date, room, budget and the vibe. It goes to the DJ and their&nbsp;team.</span></li><li><span class="hc-t">Get an&nbsp;offer.</span><span class="hc-d">A price, set length and rider, right in the chat. No cousin, no ride from&nbsp;Jersey.</span></li><li><span class="hc-t">Pay the&nbsp;deposit.</span><span class="hc-d">One tap locks the date. The rest is due 48 hours after the&nbsp;party.</span></li><li><span class="hc-t">Dance.</span><span class="hc-d">They show up, and nobody touches the&nbsp;aux.</span></li></ol>
 <div class="hc-end">
 <div class="hc-acts"><a class="go btn btn-lg" href="#find">Find my DJ</a><a class="hc-q" href="kaytran.html#request">Or request Kaytran</a></div>
 <div class="hc-last" aria-hidden="true"><img class="hc-av" src="assets/14758040895c5040c3e276ee03fdee88.jpg" alt="" decoding="async"><span class="hc-bt"><span class="hc-n">Maya</span>ok it's booked. you can all stop&nbsp;texting</span></div>
@@ -929,7 +945,7 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 <div class="artcopy">
 <p>Private parties pay well and book fast. Hosts send the date, the room and the budget before you say yes, and the deposit is paid before you show&nbsp;up.</p>
 <p>You get booked in the cities you're already touring, not just at&nbsp;home.</p>
-<p style="font-weight: 700;">Joining is free. BOOKD keeps [X%] of each booking and pays you [X] days after the&nbsp;party.</p>
+<p style="font-weight: 700;">Joining is free. BOOKD keeps 10% of each booking and pays you 5 days after the&nbsp;party.</p>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px;">
 <sc-if value="{{applyCtaOn}}" hint-placeholder-val="{{ true }}"><button type="button" class="ink btn btn-lg" onClick="{{openApply}}" aria-expanded="{{applyOpenAria}}" aria-controls="apply" style="border: 0; cursor: pointer;">Join the roster</button></sc-if>
@@ -944,12 +960,12 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 <label class="field ap-wide"><span class="field-l">Links to 2 or 3 sets</span><textarea rows="3" value="{{ap.links}}" onInput="{{apSet.links}}" aria-required="true" aria-invalid="{{apInv.links}}" aria-describedby="ap-err" placeholder="SoundCloud, Mixcloud or YouTube. One per&nbsp;line."></textarea></label>
 <label class="field"><span class="field-l">Home city</span><input type="text" value="{{ap.city}}" onInput="{{apSet.city}}" autocomplete="address-level2" placeholder="Atlanta, GA"></label>
 <label class="field"><span class="field-l">Where you're playing next</span><input type="text" value="{{ap.next}}" onInput="{{apSet.next}}" placeholder="New York, Nov 13 to 15"></label>
-<label class="field ap-wide"><span class="field-l">Fee range</span><input type="text" value="{{ap.fee}}" onInput="{{apSet.fee}}" placeholder="[$X to $Y]"></label>
+<label class="field ap-wide"><span class="field-l">Fee range</span><input type="text" value="{{ap.fee}}" onInput="{{apSet.fee}}" placeholder="Like $1,000 to $2,500"></label>
 <button type="button" class="go btn btn-lg ap-wide" onClick="{{sendApply}}">Send for review</button>
 <sc-if value="{{apErr}}" hint-placeholder-val="{{ false }}"><p id="ap-err" class="ferr ap-err" role="alert">Add your name, an email and at least one set&nbsp;link.</p></sc-if>
 </div>
 </sc-if>
-<sc-if value="{{applied}}" hint-placeholder-val="{{ false }}"><p role="status" tabindex="-1" ref="{{apDoneRef}}" style="margin: 24px 0 0; font-size: 20px; font-weight: 700; outline: none; text-wrap: balance; max-width: 24em;">Got it. The BOOKD team listens to every set and replies within [X] days.</p></sc-if>
+<sc-if value="{{applied}}" hint-placeholder-val="{{ false }}"><p role="status" tabindex="-1" ref="{{apDoneRef}}" style="margin: 24px 0 0; font-size: 20px; font-weight: 700; outline: none; text-wrap: balance; max-width: 24em;">Got it. The BOOKD team listens to every set and replies within 5&nbsp;days.</p></sc-if>
 </div>
 </div>
 </div>
@@ -958,6 +974,13 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 
 <!-- FOOTER -->
 <footer class="redfoot" style="background: linear-gradient(180deg, rgba(211,17,16,.14) 0px, #000000 640px); padding: 0;">
+<div class="mfoot">
+<svg class="mf-mark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<p class="mf-line">Less chasing. More&nbsp;booking.</p>
+<a class="btn btn-lg go mf-go" href="#find">Find my DJ</a>
+<div class="mf-row"><span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer, phone"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="sr">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav></div>
+</div>
 <div class="morph" aria-hidden="true"><span class="mg"><svg viewBox="1205.65 563.59 59.16 56.78" preserveAspectRatio="none" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path></svg></span><span class="mg"><svg viewBox="418.27 462.0 222.05 155.88" preserveAspectRatio="none" focusable="false"><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path></svg></span><span class="mg"><svg viewBox="636.3 462.0 222.05 155.88" preserveAspectRatio="none" focusable="false"><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path></svg></span><span class="mg"><svg viewBox="862.36 462.57 184.98 154.96" preserveAspectRatio="none" focusable="false"><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path></svg></span><span class="mg"><svg viewBox="1038.07 462.57 185.91 151.9" preserveAspectRatio="none" focusable="false"><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path></svg></span><span class="mg"><svg viewBox="85.18 460.3 349.89 160.48" preserveAspectRatio="none" focusable="false"><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></span></div>
 <div class="reveal" ref="{{revealRef}}">
 <div class="reveal-stage" style="--beat: {{wallBeat}};">
@@ -1109,8 +1132,8 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 </sc-for>
 <div class="props"><sc-if value="{{house}}" hint-placeholder-val="{{ false }}"><a class="sc-ticket" href="roster.html"><span class="tk-no" aria-hidden="true">0086</span><span class="tk-txt">Coat check. Yours is the black one.</span><span class="tk-go">Book the next party</span></a></sc-if><sc-if value="{{hasTape}}" hint-placeholder-val="{{ false }}"><div class="sleeve7" role="group" aria-label="Your test pressing"><span class="sl-disc" aria-hidden="true"></span><span class="sl-paper" aria-hidden="true"></span><span class="sl-stamp" aria-hidden="true">TEST PRESSING</span><span class="sl-len" aria-hidden="true">{{tapeLen}}</span><svg class="sl-wave" viewBox="0 0 160 40" preserveAspectRatio="none" aria-hidden="true"><path d="{{tapeWave}}" fill="#000000"></path></svg><span class="sl-cap">{{tapeCaption}}</span><span class="sl-btns"><button type="button" class="sl-btn" onClick="{{tapePlay}}">{{tapePlayLabel}}</button></span></div></sc-if><span class="ph-glow" style="opacity: {{phGlow}};" aria-hidden="true"></span><a class="{{phCls}}" href="requests.html" aria-label="Your phone. Open your BOOKD inbox"><span class="ph-btn ph-btn-a" aria-hidden="true"></span><span class="ph-btn ph-btn-b" aria-hidden="true"></span><div class="ph-scr"><img class="ph-wall" src="assets/594d1bda6dae4df5ff2f1da29a4cd81d.jpg" alt="" loading="lazy" decoding="async"><span class="ph-date" aria-hidden="true">{{phDate}}</span><span class="ph-time" aria-hidden="true">{{phTime}}</span><div class="ph-list" role="log" aria-live="polite" aria-label="Texts on your phone"><sc-for list="{{phTexts}}" as="tx" hint-placeholder-count="2"><div class="{{tx.cls}}"><span class="ph-from"><b>{{tx.who}}</b><i>{{tx.ago}}</i></span><span class="ph-msg">{{tx.msg}}</span></div></sc-for></div><span class="ph-glass" aria-hidden="true"></span></div></a></div></div>
 </div></div><div class="sc-foot"><div class="footmeta footrow">
-<span style="font-size: 13px; color: #ff3b2f;">© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 0 24px;"><a class="fl" href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="sr"> (opens in a new tab)</span></a><a class="fl" href="mailto:[contact email]">Contact</a><a class="fl" href="terms.html#terms">Terms</a><a class="fl" href="terms.html#privacy">Privacy</a></nav>
+<span style="font-size: 13px; color: #ff3b2f;">© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 0 24px;"><a class="fl" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="sr"> (opens in a new tab)</span></a><a class="fl" href="contact.html">Contact</a><a class="fl" href="terms.html#terms">Terms</a><a class="fl" href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div></div></div>
 </div>
@@ -1122,9 +1145,9 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8456}}'>
 var H4_ART = {
-  kaytran: { name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', alt: 'Kaytran DJing in a restaurant kitchen', href: 'kaytran.html' },
-  jude: { name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', alt: 'One half of Jude & Frank, bearded, in round tinted sunglasses', href: '', setsAt: '#booth-jude', reqAt: 'inbox.html#jude' },
-  dial: { name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', href: '', setsAt: '#booth-dial', reqAt: 'inbox.html#dial', grade: 'grayscale(1) contrast(1.8) brightness(.85)' }
+  kaytran: { fee: '$1,500 to $3,000', name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', alt: 'Kaytran DJing in a restaurant kitchen', href: 'kaytran.html' },
+  jude: { fee: '$1,200 to $2,500', name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', alt: 'One half of Jude & Frank, bearded, in round tinted sunglasses', href: '', setsAt: '#booth-jude', reqAt: 'inbox.html#jude' },
+  dial: { fee: '$1,800 to $3,500', name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', href: '', setsAt: '#booth-dial', reqAt: 'inbox.html#dial', grade: 'grayscale(1) contrast(1.8) brightness(.85)' }
 };
 /* 'in' rows carry r[3] and r[4]: first and last day in town (December counts as 30 + day) */
 var H4_CITIES = [
@@ -1148,7 +1171,7 @@ var H4_SLEEVES = ['assets/594d1bda6dae4df5ff2f1da29a4cd81d.jpg', 'assets/45bac82
 var H4_STEPS = [
   ['01', 'Send a request', 'Date, room, budget and the vibe. It goes straight to the artist and their own team.', 0],
   ['02', 'Get an offer', 'They reply with a price, set length and rider, right in the chat.', 2],
-  ['03', 'Accept and pay the deposit', 'One tap locks the date. The rest is due after the party.', 3],
+  ['03', 'Accept and pay the deposit', 'One tap locks the date. The rest is due 48 hours after the party.', 3],
   ['04', 'Dance', 'They show up. You never have to think about the music again.', 4]
 ];
 var H4_SCRIPT = [
@@ -2334,7 +2357,7 @@ class Component extends DCLogic {
         setsHref: a.href ? a.href + '#sets' : a.setsAt, reqHref: a.href ? a.href + '#request' : a.reqAt, hearAria: 'Hear a set by ' + a.name, reqAria: 'Request ' + a.name,
         tag: r[2], tagBg: lit ? '#d31110' : (atHome ? '#000000' : '#ffffff'), tagFg: lit || atHome ? '#ffffff' : '#000000', tagRing: lit || atHome ? 'none' : 'inset 0 0 0 1px #000000',
         note: !match ? 'Plays ' + lc(a.genre) + ', not\u00a0' + lc(snd).replace(/ /g, '\u00a0') + '.' : (lit ? 'Available ' + whenTxt + ' · no\u00a0travel\u00a0fee' : (away ? 'Not around ' + whenTxt + '. ' + ('In ' + away.city + ' ' + away.when).replace(/ /g, '\u00a0') + '.' : (atHome ? 'Local, so no travel fee' : (kind === 'in' ? 'Not around ' + whenTxt + '. ' + r[2].replace(/ /g, '\u00a0') + '.' : 'Can fly in · travel fee extra')))),
-        noteColor: match && fits ? '#d31110' : '#6b6e6d', imgOp: !match || (kind === 'in' && !fits) || away ? 0.8 : 1, imgFilter: a.grade || 'grayscale(1) contrast(1.3) brightness(.95)', fits: fits, match: match, idx: idx };
+        fee: a.fee, noteColor: match && fits ? '#d31110' : '#6b6e6d', imgOp: !match || (kind === 'in' && !fits) || away ? 0.8 : 1, imgFilter: a.grade || 'grayscale(1) contrast(1.3) brightness(.95)', fits: fits, match: match, idx: idx };
     }).sort(function (x, y) { return x.match !== y.match ? (x.match ? -1 : 1) : (x.fits === y.fits ? x.idx - y.idx : (x.fits ? -1 : 1)); }).map(function (c, i) { c.ry = ['9deg', '3deg', '-3deg'][i] || '0deg'; return c; });
     var locText = {
       idle: 'Showing ' + city.short + ' on ' + whenTxt + ". Use your location to see who's near you.",

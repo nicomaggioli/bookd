@@ -155,6 +155,9 @@ html{scroll-padding-top:88px}
 @media (max-width:760px){.ms-item{grid-template-columns:minmax(0,1fr)}.ms-text{grid-column:auto}}
 @media (max-width:480px){.ms-body .btn{width:100%;white-space:normal}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -198,7 +201,7 @@ html{scroll-padding-top:88px}
 <p class="ms-when">{{m.when}}</p>
 </div>
 <article class="ms-mail" aria-label="{{m.aria}}">
-<div class="ms-head"><b>Subject:</b> {{m.subject}}<br><b>From:</b> BOOKD &lt;[From address]&gt;</div>
+<div class="ms-head"><b>Subject:</b> {{m.subject}}<br><b>From:</b> BOOKD &lt;hello@bookd.co&gt;</div>
 <div class="ms-body">
 <svg class="ms-logo" viewBox="80 455 1190 170" aria-hidden="true" focusable="false"><use href="#ms-mark"></use></svg>
 <p class="ms-hl">{{m.headline}}</p>
@@ -228,8 +231,8 @@ html{scroll-padding-top:88px}
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
@@ -239,38 +242,38 @@ html{scroll-padding-top:88px}
 // Messages6: the copy for every email and text. Sample names and dates; anything unknown is in brackets.
 // nb() ties the last two words together so no line ends on a widow.
 function nb(t) { var i = t.lastIndexOf(' '); return i < 0 ? t : t.slice(0, i) + ' ' + t.slice(i + 1); }
-// tie() keeps a month with its day, a time with AM or PM, and [X hrs] or [X days] in one piece, so none of them splits across two lines on a phone.
+// tie() keeps a month with its day, and a time with AM or PM in one piece, so none of them splits across two lines on a phone.
 function tie(t) { return t.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d)/g, '$1\u00a0$2').replace(/(\d) (AM|PM)\b/g, '$1\u00a0$2').replace(/\[X (hrs|days)\]/g, '[X\u00a0$1]'); }
-var MS_FOOT = 'BOOKD, DJs for private parties. [Mailing address] · [Unsubscribe]';
-// need: true drops [Unsubscribe] from the emails nobody should be able to turn off: bookings, cancellations, the account and the application.
-var MS_FOOT_NEED = 'BOOKD, DJs for private parties. [Mailing address]';
+var MS_FOOT = 'BOOKD, DJs for private parties. P.O. Box 2214, Brooklyn, NY 11202 · Unsubscribe';
+// need: true drops Unsubscribe from the emails nobody should be able to turn off: bookings, cancellations, the account and the application.
+var MS_FOOT_NEED = 'BOOKD, DJs for private parties. P.O. Box 2214, Brooklyn, NY 11202';
 // The booking ones first, in the order they happen. Then the DJ's application, the monthly reminder and the password.
 var MS = [
   { title: 'New request', who: 'Goes to the DJ', when: 'When a host sends a request.',
     subject: 'New request for Sat, Nov 14', headline: 'Someone wants you in Brooklyn.',
-    body: "Loft party on Sat, Nov 14, about 120 people, 10 PM to 2 AM. Their budget is $2,500. You're already in New York that weekend, so no travel. Reply by Tue, Nov 3.",
+    body: "Loft party on Sat, Nov 14, about 120 people, 10 PM to 2 AM. Their budget is $2,500. You're already in New York that weekend, so no travel. Reply by Tue, Nov 10.",
     button: 'See the request', href: 'requests.html#dani',
-    text: 'BOOKD: New request for Sat, Nov 14 in Brooklyn, about 120 people. See it: [Short link]' },
+    text: 'BOOKD: New request for Sat, Nov 14 in Brooklyn, about 120 people. See it: bookd.co/r/K14q' },
   { title: 'New message', who: 'Goes to whoever is in the chat', when: 'When someone writes in a chat.',
     subject: 'Mara sent you a message', headline: 'Mara sent you a message.',
     body: '"Thanks for reaching out. Kaytran\'s in New York that weekend, so there\'s no travel fee. She\'ll get back to you here."',
     button: 'Open the chat', href: 'inbox.html',
-    text: 'BOOKD: Mara sent you a message. Read it: [Short link]' },
+    text: 'BOOKD: Mara sent you a message. Read it: bookd.co/r/M7rd' },
   { title: 'Offer received', who: 'Goes to the host', when: 'When a DJ or agent sends an offer.',
     subject: 'Kaytran sent you an offer', headline: "Kaytran's in. Are you?",
-    body: "Her offer for Sat, Nov 14 in Brooklyn is $2,400, [Booking fee] included, with no travel fee. It's good until Tue, Nov 3.",
+    body: "Her offer for Sat, Nov 14 in Brooklyn is $2,400, booking fee included, with no travel fee. It's good until Tue, Nov 10.",
     button: 'See the offer', href: 'booking.html',
-    text: "BOOKD: Kaytran sent you an offer for Sat, Nov 14. It's good until Tue, Nov 3: [Short link]" },
+    text: "BOOKD: Kaytran sent you an offer for Sat, Nov 14. It's good until Tue, Nov 10: bookd.co/r/Of24" },
   { title: 'Request accepted', who: 'Goes to the host', when: "When a DJ or agent says yes to the host's budget.",
     subject: 'Kaytran said yes', headline: 'Kaytran said yes.',
-    body: "She'll play Sat, Nov 14 in Brooklyn for $2,500, your budget. Read the contract, pay the [X%] deposit and the date is yours.",
+    body: "She'll play Sat, Nov 14 in Brooklyn for $2,500, your budget. Read the contract, pay the 50% deposit and the date is yours.",
     button: 'Read the contract', href: 'booking.html#contract',
-    text: 'BOOKD: Kaytran said yes for Sat, Nov 14. Lock it with the deposit: [Short link]' },
+    text: 'BOOKD: Kaytran said yes for Sat, Nov 14. Lock it with the deposit: bookd.co/r/Ye5k' },
   { title: 'Counter received', who: 'Goes to the DJ', when: 'When a host counters an offer.',
     subject: 'Dani came back with $2,200', headline: 'Dani came back with $2,200.',
     body: 'For Sat, Nov 14 in Brooklyn. Take it, send a new offer or decline.',
     button: 'See the counter', href: 'requests.html#dani-countered',
-    text: 'BOOKD: Dani countered at $2,200 for Sat, Nov 14. Reply: [Short link]' },
+    text: 'BOOKD: Dani countered at $2,200 for Sat, Nov 14. Reply: bookd.co/r/Dc22' },
   { title: 'Offer turned down', who: 'Goes to the DJ', when: 'When a host passes on an offer.',
     subject: 'Dani passed on your offer', headline: 'Dani passed on this one.',
     body: 'No hard feelings. Sat, Nov 14 is still free.',
@@ -278,49 +281,49 @@ var MS = [
     noText: 'Email only. No text for this one.' },
   { title: 'Booking confirmed, host', who: 'Goes to the host', when: 'When the deposit goes through.',
     subject: "It's booked: Kaytran, Sat, Nov 14", headline: "It's booked.",
-    body: 'Kaytran is yours on Sat, Nov 14 in Brooklyn. Your [X%] deposit of [$X] went through on [Card brand] ending in\u00a00000, receipt [Receipt number]. The rest is due after the party, by [Balance due date]. Mara will say hi in your inbox.',
+    body: 'Kaytran is yours on Sat, Nov 14 in Brooklyn. Your 50% deposit of $1,200 went through on Visa ending in\u00a04242, receipt BK-26-0482. The rest is due after the party, by Mon, Nov 16. Mara will say hi in your inbox.',
     button: 'See my booking', href: 'booking.html#booked', need: true,
-    text: "BOOKD: It's booked. Kaytran plays your party on Sat, Nov 14. Details: [Short link]" },
+    text: "BOOKD: It's booked. Kaytran plays your party on Sat, Nov 14. Details: bookd.co/r/Bk8x" },
   { title: 'Booking confirmed, DJ', who: 'Goes to the DJ', when: 'When the deposit goes through.',
     subject: "You're booked: Brooklyn, Sat, Nov 14", headline: "You're booked.",
     body: 'Sat, Nov 14 in Brooklyn, 10 PM to 2 AM. The deposit is in, so the night is yours. Say hi to your host in the chat.',
     button: 'Open the chat', href: 'login.html#dj', need: true,
-    text: "BOOKD: You're booked for Sat, Nov 14 in Brooklyn. Deposit is in. Chat: [Short link]" },
-  { title: 'Balance reminder', who: 'Goes to the host', when: 'After the party, [X days] before the balance is due.',
-    subject: 'Your balance is due [Balance due date]', headline: 'Good party. One last thing.',
-    body: "The rest of Kaytran's fee is due [Balance due date]. Pay it now and it's one less thing on your list.",
+    text: "BOOKD: You're booked for Sat, Nov 14 in Brooklyn. Deposit is in. Chat: bookd.co/r/Dj9p" },
+  { title: 'Balance reminder', who: 'Goes to the host', when: 'After the party, 1 day before the balance is due.',
+    subject: 'Your balance is due Mon, Nov 16', headline: 'Good party. One last thing.',
+    body: "The rest, $1,200, is due Mon, Nov 16. Pay it now and it's one less thing on your list.",
     button: 'Pay the balance', href: 'inbox.html#kaytran-paid',
-    text: 'BOOKD: Your balance for Kaytran is due [Balance due date]. Pay it here: [Short link]' },
+    text: 'BOOKD: Your $1,200 balance for Kaytran is due Mon, Nov 16. Pay it here: bookd.co/r/Pay6' },
   { title: 'Host cancels, to the host', who: 'Goes to the host', when: 'When a host cancels a booking.',
     subject: "It's off: Kaytran, Sat, Nov 14", headline: "It's off.",
-    body: "Your booking with Kaytran on Sat, Nov 14 is cancelled and she knows. [Refund amount] goes back to your card in [X days]. You don't owe the rest.",
+    body: "Your booking with Kaytran on Sat, Nov 14 is cancelled and she knows. $600, half your deposit, goes back to your card in 5 to 10 business days. You don't owe the rest.",
     button: 'Find another DJ', href: 'roster.html', need: true,
-    text: 'BOOKD: Your booking with Kaytran on Sat, Nov 14 is cancelled. [Refund amount] is on its way back: [Short link]' },
+    text: 'BOOKD: Your booking with Kaytran on Sat, Nov 14 is cancelled. $600 is on its way back: bookd.co/r/Cx3h' },
   { title: 'Host cancels, to the DJ', who: 'Goes to the DJ', when: 'When a host cancels a booking.',
     subject: 'Sat, Nov 14 is off', headline: 'That night just opened up.',
-    body: "Your host called off Sat, Nov 14 in Brooklyn, so the date is open again. [Their note, if they left one] What you're owed: [Host cancellation terms].",
+    body: "Your host called off Sat, Nov 14 in Brooklyn, so the date is open again. Their note: Landlord found out. So sorry, we were looking forward to it. What you're owed: half the deposit, $600, since they called it off 10 days out.",
     button: 'Open my dashboard', href: 'login.html#dj', need: true,
-    text: 'BOOKD: Your host cancelled Sat, Nov 14 in Brooklyn. The date is open again: [Short link]' },
+    text: 'BOOKD: Your host cancelled Sat, Nov 14 in Brooklyn. The date is open again: bookd.co/r/Op7n' },
   { title: 'DJ cancels, to the host', who: 'Goes to the host', when: 'When a DJ cancels a booking.',
     subject: "Kaytran can't make Sat, Nov 14", headline: "Kaytran can't make it.",
-    body: "Sorry, we know that stings. [Kaytran's note, if she left one] Your deposit: [DJ cancellation terms]. We'll send you DJs who are free that night within [X hrs].",
+    body: "Sorry, we know that stings. Her note: I'm so sorry, I can't make the 14th anymore. Your deposit: all $1,200 comes back to your card in 5 to 10 business days, booking fee included. We'll send you DJs who are free that night within 24 hrs.",
     button: 'See what happens next', href: 'cancel.html#dj-out', need: true,
-    text: "BOOKD: Kaytran can't make Sat, Nov 14. We'll send you DJs who are free that night within [X hrs]: [Short link]" },
+    text: "BOOKD: Kaytran can't make Sat, Nov 14. We'll send you DJs who are free that night within 24 hrs: bookd.co/r/Dc1m" },
   { title: 'DJ cancels, to the DJ', who: 'Goes to the DJ', when: 'When a DJ cancels a booking.',
     subject: 'You cancelled Sat, Nov 14', headline: "It's off.",
-    body: 'You called off Sat, Nov 14 in Brooklyn, so the date is open again. Your host and BOOKD know. Your fee: [DJ cancellation terms].',
+    body: 'You called off Sat, Nov 14 in Brooklyn, so the date is open again. Your host and BOOKD know. Your fee: nothing for this night. Cancel twice in a year and your profile comes off the roster.',
     button: 'Open my dashboard', href: 'login.html#dj', need: true,
-    text: 'BOOKD: You cancelled Sat, Nov 14 in Brooklyn. Your host knows: [Short link]' },
+    text: 'BOOKD: You cancelled Sat, Nov 14 in Brooklyn. Your host knows: bookd.co/r/Ro5t' },
   { title: 'Application received', who: 'Goes to the DJ', when: 'When a DJ sends in their sets.',
     subject: 'We got your sets', headline: 'We got your sets.',
-    body: 'A real person on the BOOKD team listens to every one. You hear back within [X] days either way.',
+    body: 'A real person on the BOOKD team listens to every one. You hear back within 5 days either way.',
     button: 'See the roster', href: 'roster.html', need: true,
     noText: 'Email only. No text for this one.' },
   { title: 'Application approved', who: 'Goes to the DJ', when: 'When Erika approves an application.',
     subject: "You're on the roster", headline: "You're on the roster.",
     body: "We listened and you're in. Pick a password, build your profile and add your tour dates, and hosts in those cities can find you.",
     button: 'Build my profile', href: 'login.html#dj-new-password', need: true,
-    text: "BOOKD: You're on the roster. Build your profile and add your tour dates so hosts can find you: [Short link]" },
+    text: "BOOKD: You're on the roster. Build your profile and add your tour dates so hosts can find you: bookd.co/r/Mo1n" },
   { title: 'Application turned down', who: 'Goes to the DJ', when: 'When Erika passes on an application.',
     subject: 'About your sets', headline: 'Not this time.',
     body: "A real person listened to every set you sent. It's not a fit for the roster right now, and that can change. Send new ones whenever you like.",
@@ -330,10 +333,10 @@ var MS = [
     subject: 'Where are you playing next?', headline: 'Where are you playing next?',
     body: "First Monday of the month, so it's time to check your dates. Hosts can only skip the travel fee if they know you're in town.",
     button: 'Update my dates', href: 'login.html#dj',
-    text: 'BOOKD: First Monday of the month. Where are you playing next? Update your dates: [Short link]' },
+    text: 'BOOKD: First Monday of the month. Where are you playing next? Update your dates: bookd.co/r/Pw4z' },
   { title: 'Password reset', who: 'Goes to whoever asked, host or DJ', when: 'When someone taps Forgot your password.',
     subject: 'Reset your password', headline: 'Happens to the best of us.',
-    body: "Tap the button to pick a new password. The link works for [X\u00a0hrs]. Didn't ask for this? Ignore it and nothing changes.",
+    body: "Tap the button to pick a new password. The link works for 2\u00a0hrs. Didn't ask for this? Ignore it and nothing changes.",
     button: 'Pick a new password', href: 'login.html#new-password', need: true,
     noText: 'Email only. No text for this one.' }
 ];

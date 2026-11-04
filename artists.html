@@ -264,6 +264,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:359px){.jp-rows{gap:2.4cqw}.jt-date,.jt-city{font-size:27px}.jt-row{column-gap:10px}}
 @media (prefers-reduced-motion: reduce){.jp-hang{will-change:auto}.jt-on .jt-what{animation:none}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -317,8 +320,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <span><span class="jp-l">Good in</span><span class="jp-v">Any city you're already&nbsp;touring</span></span>
 <span><span class="jp-l">Before you say yes</span><span class="jp-v">Date, room and&nbsp;budget</span></span>
 <span><span class="jp-l">Before you show up</span><span class="jp-v">Deposit&nbsp;paid</span></span>
-<span><span class="jp-l">To join</span><span class="jp-v">Free. BOOKD keeps&nbsp;[X%]</span></span>
-<span><span class="jp-l">Payday</span><span class="jp-v">[X] days after the&nbsp;party</span></span>
+<span><span class="jp-l">To join</span><span class="jp-v">Free. BOOKD keeps&nbsp;10%</span></span>
+<span><span class="jp-l">Payday</span><span class="jp-v">5 days after the&nbsp;party</span></span>
 </span>
 <span class="jp-foot"><span class="jp-bar"></span><span class="jp-no">{{passNo}}</span></span>
 </span>
@@ -363,7 +366,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <dl class="jd-ledger jd-need">
 <div><dt>The night</dt><dd>Sat, Nov 14, 10 PM to 2&nbsp;AM</dd></div>
 <div><dt>The room</dt><dd>A loft in Brooklyn, about 120&nbsp;people</dd></div>
-<div><dt>The party</dt><dd>Her sister's 30th. Afro house, no&nbsp;EDM.</dd></div>
+<div><dt>The party</dt><dd>Their sister's 30th. Afro house, no&nbsp;EDM.</dd></div>
 <div><dt>Room sound</dt><dd>Real speakers, or a Bluetooth speaker and a&nbsp;prayer</dd></div>
 <div><dt>Budget</dt><dd>$2,500</dd></div>
 </dl>
@@ -372,7 +375,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="jd-col">
 <div class="jd-colhead">
 <h2 class="h2 jd-h">Joining is&nbsp;free.</h2>
-<p class="jd-price">[X%]</p>
+<p class="jd-price">10%</p>
 <p class="jd-note">That's what BOOKD keeps, and only when you get&nbsp;booked.</p>
 </div>
 <dl class="jd-ledger">
@@ -380,7 +383,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div><dt>Every month</dt><dd>$0</dd></div>
 <div><dt>You set your fee</dt><dd>Always</dd></div>
 <div><dt>Deposit</dt><dd>Paid before you show up</dd></div>
-<div><dt>Payday</dt><dd>[X] days after the&nbsp;party</dd></div>
+<div><dt>Payday</dt><dd>5 days after the&nbsp;party</dd></div>
 </dl>
 <p class="jd-foot">Nobody chases anybody for cash at 2&nbsp;AM.</p>
 </div>
@@ -393,7 +396,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <dl class="jq-list">
 <div><dt>Can my agent handle&nbsp;it?</dt><dd>Yes. Requests go to you both, and agents log in on the DJ side. Whoever's awake&nbsp;answers.</dd></div>
 <div><dt>Who sets the&nbsp;price?</dt><dd>You do. Hosts see your fee range before they&nbsp;ask.</dd></div>
-<div><dt>What if a host&nbsp;cancels?</dt><dd>[Cancellation policy]. The long version is in the <a href="terms.html#t-cancel">terms</a>.</dd></div>
+<div><dt>What if a host&nbsp;cancels?</dt><dd>14 days out or more, they get the deposit back. 7 to 13 days, you keep half. Inside 7 days, you keep all of it. The long version is in the <a href="terms.html#t-cancel">terms</a>.</dd></div>
 </dl>
 </div>
 </section>
@@ -404,7 +407,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="ja-copy">
 <h2 id="ja-h" class="h2 ja-h">{{applyHead}}</h2>
 <sc-if value="{{formOn}}" hint-placeholder-val="{{ true }}">
-<p class="lede ja-lede">A person on the BOOKD team listens to every one. Not an algorithm, not an intern with a skip button. You hear back within [X] days either&nbsp;way.</p>
+<p class="lede ja-lede">A person on the BOOKD team listens to every one. Not an algorithm, not an intern with a skip button. You hear back within 5 days either&nbsp;way.</p>
 </sc-if>
 </div>
 <div class="ja-card">
@@ -415,7 +418,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="ja-f ja-wide"><label class="field"><span class="field-l">Links to 2 or 3 sets</span><textarea rows="3" value="{{ap.links}}" onInput="{{apSet.links}}" ref="{{apRef.links}}" aria-required="true" aria-invalid="{{apInv.links}}" aria-describedby="err-links" placeholder="SoundCloud, Mixcloud or YouTube. One per line. No demo CDs, please."></textarea></label><sc-if value="{{apErrOn.links}}" hint-placeholder-val="{{ false }}"><span id="err-links" class="ferr" role="alert">Add links to 2&nbsp;or&nbsp;3&nbsp;sets.</span></sc-if></div>
 <label class="field"><span class="field-l">Home city</span><input type="text" value="{{ap.city}}" onInput="{{apSet.city}}" autocomplete="address-level2" placeholder="Atlanta, GA"></label>
 <label class="field"><span class="field-l">Where you're playing next</span><input type="text" value="{{ap.next}}" onInput="{{apSet.next}}" placeholder="New York, Nov 13 to 15"></label>
-<label class="field ja-wide"><span class="field-l">Fee range</span><input type="text" value="{{ap.fee}}" onInput="{{apSet.fee}}" placeholder="[$X to $Y]"></label>
+<label class="field ja-wide"><span class="field-l">Fee range</span><input type="text" value="{{ap.fee}}" onInput="{{apSet.fee}}" placeholder="Like $1,000 to $2,500"></label>
 <div class="ja-send"><button type="button" class="btn btn-lg go" onClick="{{sendApply}}">Send for review</button></div>
 <p class="ja-login">Already on the roster? <a href="login.html#dj">Log&nbsp;in</a></p>
 <p class="ja-fine">Sending this means you agree to the <a href="terms.html#terms">terms</a> and the <a href="terms.html#privacy">privacy&nbsp;policy</a>.</p>
@@ -424,7 +427,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <sc-if value="{{applied}}" hint-placeholder-val="{{ false }}">
 <div class="ja-done" role="status" tabindex="-1" ref="{{apDoneRef}}">
 <p class="ja-done-h">Got it, {{apName}}.</p>
-<p class="ja-done-p">The BOOKD team listens to every set and replies within [X] days. Keep an eye on {{apEmail}}. Your name's on the pass, pending&nbsp;review.</p>
+<p class="ja-done-p">The BOOKD team listens to every set and replies within 5 days. Keep an eye on {{apEmail}}. Your name's on the pass, pending&nbsp;review.</p>
 <div class="ja-done-acts"><button type="button" class="btn btn-lg go" onClick="{{seePass}}">See my pass</button><a class="btn btn-lg ghost" href="roster.html">See the roster</a></div>
 </div>
 </sc-if>
@@ -437,8 +440,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>

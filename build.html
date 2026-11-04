@@ -480,6 +480,9 @@ label.k6rec{position:relative}
 .bdgap{height:72px}
 }
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -659,9 +662,9 @@ label.k6rec{position:relative}
 <sc-if value="{{hosts}}" hint-placeholder-val="{{ false }}">
 <dl class="k6ledger">
 <div><dt>Travel when flying in</dt><dd>{{travelShown}}</dd></div>
-<div><dt>BOOKD booking fee</dt><dd>[Booking fee]</dd></div>
-<div><dt>Deposit to lock the date</dt><dd>[X%]</dd></div>
-<div><dt>The rest</dt><dd>After the party</dd></div>
+<div><dt>BOOKD booking fee</dt><dd>10%, already in the&nbsp;price</dd></div>
+<div><dt>Deposit to lock the date</dt><dd>50%</dd></div>
+<div><dt>The rest</dt><dd>Within 48 hrs of the&nbsp;party</dd></div>
 </dl>
 </sc-if>
 </div>
@@ -708,8 +711,8 @@ label.k6rec{position:relative}
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
@@ -1232,7 +1235,7 @@ class Component extends DCLogic {
       needHead: s.hosts ? 'What the booth\u00a0needs.' : 'What you\u00a0need.',
       needNote: s.hosts ? 'The rider in plain words. The full one comes in the chat once you\u00a0ask.' : 'Say it now and nobody finds out at the door. All of this is\u00a0optional.',
       needFoot: agent ? 'Questions about the room? Ask ' + agent + ' in the\u00a0chat.' : '', hasNeedFoot: !!agent,
-      songList: songs.length ? songs : [{ num: '1', title: '[Song title]', meta: '' }],
+      songList: songs.length ? songs : [{ num: '1', title: 'Your first set', meta: '' }],
       // Remove only while editing; hosts see the night to ask for, as on Kaytran6 (F315)
       dates: s.dates.map(function (d, i) {
         var when = bdRange(d.from, d.to), city = bdCity(d.city), aria = 'Remove ' + city + ', ' + when;
@@ -1247,7 +1250,7 @@ class Component extends DCLogic {
         };
       }),
       // home weekends are always on the list, so Not touring? Skip this. never leaves an empty one (F316)
-      homeCls: 'k6drow djdrow' + (s.hosts ? '' : ' djhome'), homeShort: bdCity(f.home) || '[Home city]', homeAsk: s.hosts ? 'Ask for a date at home' : 'Home',
+      homeCls: 'k6drow djdrow' + (s.hosts ? '' : ' djhome'), homeShort: bdCity(f.home) || 'Your city', homeAsk: s.hosts ? 'Ask for a date at home' : 'Home',
       nd: s.nd, ndSet: this.ndSet,
       ndInv: { city: s.ndBad.city ? 'true' : 'false', from: s.ndBad.from ? 'true' : 'false', to: s.ndBad.to ? 'true' : 'false' },
       ndDescribe: s.ndErr ? 'err-nd' : '', ndEmpty: { from: s.nd.from ? 'false' : 'true', to: s.nd.to ? 'false' : 'true' },
@@ -1257,7 +1260,7 @@ class Component extends DCLogic {
       raIdle: !hasSample, pullRa: function () { self.pullRa(); },
       stat: s.stat, canUndo: !!s.prev, statRef: this.statRef,
       undoDates: function () { var to = self.undoTo; self.undoTo = ''; self.setDates(self.state.prev || self.state.dates, '', null, function () { self.focusBack(to); }); },
-      feeShown: low && high ? low + ' to ' + high : '[$X to $Y]',
+      feeShown: low && high ? low + ' to ' + high : 'Your fee range',
       travelShown: bdMoney(f.travel) || 'Comes in the chat', needs: needs.length ? needs : [{ k: 'Rider', v: 'Comes in the chat' }],
       // the lede already says You're live once they are, so the bar keeps its count (LEXICON 0: say it once per view)
       doneLine: done + ' of ' + checks.length + ' done.',

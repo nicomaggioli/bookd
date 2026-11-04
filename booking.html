@@ -229,6 +229,9 @@ html{scroll-padding-top:88px}
 .bk-out{display:flex;width:max-content;margin-top:8px;color:#fffde9}
 @media (hover: hover) and (pointer: fine){.bk-out:hover{color:#000000}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -287,7 +290,7 @@ html{scroll-padding-top:88px}
 <h1 class="bk-h" tabindex="-1" ref="{{headRef}}"><span class="bk-hl">Kaytran's in.</span> <span class="bk-hl">Are&nbsp;you?</span></h1>
 <div class="bk-priceblock">
 <p class="bk-price">$2,400</p>
-<p class="bk-note">Her offer for Sat, Nov&nbsp;14 in Brooklyn. No travel fee, she's in New York&nbsp;anyway. Good until Tue, Nov&nbsp;3.</p>
+<p class="bk-note">Her offer for Sat, Nov&nbsp;14 in Brooklyn. No travel fee, she's in New York&nbsp;anyway. Good until Tue, Nov&nbsp;10.</p>
 </div>
 <div class="bk-acts">
 <button class="btn btn-lg go" type="button" onClick="{{accept}}">Accept offer</button>
@@ -301,8 +304,8 @@ html{scroll-padding-top:88px}
 <div><dt>When</dt><dd>Sat, Nov&nbsp;14, 10&nbsp;PM to 2&nbsp;AM</dd></div>
 <div><dt>Where</dt><dd>Private loft, Brooklyn</dd></div>
 <div><dt>Travel fee</dt><dd>None</dd></div>
-<div><dt>BOOKD booking&nbsp;fee</dt><dd>[Booking fee], included</dd></div>
-<div><dt>Deposit</dt><dd>[X%] when you&nbsp;accept</dd></div>
+<div><dt>BOOKD booking&nbsp;fee</dt><dd>$240, included</dd></div>
+<div><dt>Deposit</dt><dd>50% when you&nbsp;accept</dd></div>
 <div><dt>Rider</dt><dd><a href="kaytran.html#needs">See her&nbsp;rider</a></dd></div>
 </dl>
 </div>
@@ -314,18 +317,18 @@ html{scroll-padding-top:88px}
 <div class="bk-grid bk-grid-c">
 <div class="bk-left">
 <h1 class="bk-h" tabindex="-1" ref="{{headRef}}">The deal, in plain&nbsp;words.</h1>
-<p class="bk-note" style="margin-top: 24px;">No fine print tricks. The bits in brackets are still with the lawyers. Want it all? Read the <a href="terms.html#t-booking">[Full contract]</a>.</p>
+<p class="bk-note" style="margin-top: 24px;">No fine print tricks. Want it all? Read the <a href="terms.html#t-booking">full&nbsp;terms</a>.</p>
 </div>
 <form class="bk-right" onSubmit="{{agreeGo}}" novalidate="">
 <dl class="bk-clauses">
-<div><dt>The night</dt><dd>Kaytran plays [Set length] on Sat, Nov&nbsp;14 at [Venue address], Brooklyn.</dd></div>
-<div><dt>The money</dt><dd>You pay [X%] now and the balance by [Balance due date]. [Payment terms]</dd></div>
-<div><dt>If you cancel</dt><dd>[Host cancellation terms]</dd></div>
-<div><dt>If she can't make it</dt><dd>[DJ cancellation terms]</dd></div>
-<div><dt>The room</dt><dd>You sort out <a href="kaytran.html#needs">her rider</a> before she gets there. [Rider terms]</dd></div>
-<div><dt>Everything else</dt><dd>[Liability, damage and insurance terms]</dd></div>
+<div><dt>The night</dt><dd>Kaytran plays 10 PM to 2 AM on Sat, Nov&nbsp;14 at 214 Jefferson Street, Brooklyn.</dd></div>
+<div><dt>The money</dt><dd>You pay 50% now and the balance by Mon, Nov&nbsp;16. Both payments go through Stripe, and your card is only charged when you tap&nbsp;Pay.</dd></div>
+<div><dt>If you cancel</dt><dd>14 days out or more, the whole deposit comes back. 7 to 13 days, half of it does. Inside 7 days, it goes to Kaytran for holding the&nbsp;date.</dd></div>
+<div><dt>If she can't make it</dt><dd>You get every dollar back, booking fee included, and we send you DJs who are free that night within 24&nbsp;hours.</dd></div>
+<div><dt>The room</dt><dd>You sort out <a href="kaytran.html#needs">her rider</a> before she gets there. If something on it is missing, tell her before the night so she can bring&nbsp;it.</dd></div>
+<div><dt>Everything else</dt><dd>You look after the room and your guests. She looks after her set and her gear. If anything gets broken, you sort it out together, and BOOKD steps in if you&nbsp;can't.</dd></div>
 </dl>
-<label class="{{agreeCls}}"><input type="checkbox" checked="{{agreed}}" onChange="{{toggleAgree}}" ref="{{agreeRef}}" aria-invalid="{{agreeInv}}" aria-describedby="{{agreeDesc}}"><span>I've read this and I agree to the&nbsp;[Contract&nbsp;name].</span></label>
+<label class="{{agreeCls}}"><input type="checkbox" checked="{{agreed}}" onChange="{{toggleAgree}}" ref="{{agreeRef}}" aria-invalid="{{agreeInv}}" aria-describedby="{{agreeDesc}}"><span>I've read this and I agree to the BOOKD booking&nbsp;agreement.</span></label>
 <sc-if value="{{agreeErr}}" hint-placeholder-val="{{ false }}"><span id="bk-err-agree" class="ferr" role="alert">Check the box first. We know, nobody likes&nbsp;boxes.</span></sc-if>
 <div class="bk-acts">
 <button class="btn btn-lg go" type="submit">Agree and keep going</button>
@@ -340,8 +343,8 @@ html{scroll-padding-top:88px}
 <div class="bk-grid bk-grid-d">
 <div class="bk-left">
 <h1 class="bk-h" tabindex="-1" ref="{{headRef}}">Lock the&nbsp;date.</h1>
-<p class="bk-big">[X%]</p>
-<p class="bk-note">That's [$X] of the $2,400, and it holds Sat, Nov&nbsp;14 for you. The balance is due [Balance due&nbsp;date].</p>
+<p class="bk-big">50%</p>
+<p class="bk-note">That's $1,200 of the $2,400, and it holds Sat, Nov&nbsp;14 for you. The balance is due Mon, Nov&nbsp;16.</p>
 </div>
 <div class="bk-right">
 <div class="bk-card">
@@ -368,7 +371,7 @@ html{scroll-padding-top:88px}
 <sc-if value="{{zipErr}}" hint-placeholder-val="{{ false }}"><span id="bk-err-zip" class="ferr" role="alert">{{errZip}}</span></sc-if>
 </div>
 </div>
-<button class="btn go bk-pay" type="submit">Pay [X%] deposit</button>
+<button class="btn go bk-pay" type="submit">Pay 50% deposit</button>
 <p class="bk-fine">Sample page. Nothing is charged and nothing is saved, so please don't use a real card. All zeros is&nbsp;perfect.</p>
 </form>
 </div>
@@ -391,7 +394,7 @@ html{scroll-padding-top:88px}
 <div class="bk-after">
 <div>
 <p class="bk-lede">Kaytran is yours on Sat, Nov&nbsp;14. Brooklyn has been&nbsp;warned.</p>
-<p class="bk-sub">Your [$X] deposit is in and a receipt is on its way to your&nbsp;email.</p>
+<p class="bk-sub">Your $1,200 deposit is in and a receipt is on its way to your&nbsp;email.</p>
 <a class="btn btn-lg ink" href="inbox.html#kaytran-paid">Back to my inbox</a>
 <a class="bk-quiet bk-out" href="cancel.html">Need to cancel?</a>
 </div>
@@ -399,7 +402,7 @@ html{scroll-padding-top:88px}
 <li><span class="bk-when">Today</span><span class="bk-what">Mara says hi in your inbox to sort out the room and the&nbsp;rider.</span></li>
 <li><span class="bk-when">This week</span><span class="bk-what">Send Kaytran a few songs you love. She'll work them&nbsp;in.</span></li>
 <li><span class="bk-when">Sat, Nov&nbsp;14</span><span class="bk-what">She plays. You dance. Nobody touches the&nbsp;aux.</span></li>
-<li><span class="bk-when">After the&nbsp;party</span><span class="bk-what">The rest is due by [Balance due date]. We'll remind you, no&nbsp;stress.</span></li>
+<li><span class="bk-when">After the&nbsp;party</span><span class="bk-what">The rest is due by Mon, Nov&nbsp;16. We'll remind you, no&nbsp;stress.</span></li>
 </ol>
 </div>
 </div>
@@ -412,8 +415,8 @@ html{scroll-padding-top:88px}
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>

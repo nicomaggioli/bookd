@@ -238,6 +238,9 @@ html:has(.foot-on){scroll-padding-bottom:130px}
 }
 @media (max-width:480px){.field input[type="date"]{font-size:16px}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
@@ -374,7 +377,7 @@ html:has(.foot-on){scroll-padding-bottom:130px}
 <label class="field"><span class="field-l">DJ name</span><input type="text" value="{{e.name}}" onInput="{{set.name}}" ref="{{nameRef}}" aria-invalid="{{inv.name}}" aria-describedby="{{desc.name}}" placeholder="What goes on the flyer"></label>
 <label class="field"><span class="field-l">Home city</span><input type="text" value="{{e.home}}" onInput="{{set.home}}" aria-invalid="{{inv.home}}" aria-describedby="{{desc.home}}" placeholder="Where they live"></label>
 <label class="field"><span class="field-l">Sound</span><input type="text" value="{{e.genres}}" onInput="{{set.genres}}" aria-invalid="{{inv.genres}}" aria-describedby="{{desc.genres}}" placeholder="Afro, house"></label>
-<label class="field"><span class="field-l">Fee range</span><input type="text" value="{{e.fee}}" onInput="{{set.fee}}" aria-invalid="{{inv.fee}}" aria-describedby="{{desc.fee}}" placeholder="[$X to $Y]"></label>
+<label class="field"><span class="field-l">Fee range</span><input type="text" value="{{e.fee}}" onInput="{{set.fee}}" aria-invalid="{{inv.fee}}" aria-describedby="{{desc.fee}}" placeholder="Like $1,000 to $2,500"></label>
 <label class="field"><span class="field-l">SoundCloud</span><input type="url" value="{{e.sc}}" onInput="{{set.sc}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="soundcloud.com/..."></label>
 <label class="field"><span class="field-l">Mixcloud</span><input type="url" value="{{e.mc}}" onInput="{{set.mc}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="mixcloud.com/..."></label>
 <label class="field"><span class="field-l">YouTube</span><input type="url" value="{{e.yt}}" onInput="{{set.yt}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="youtube.com/..."></label>
@@ -431,32 +434,32 @@ html:has(.foot-on){scroll-padding-bottom:130px}
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
-<span>© 2026 BOOKD. DJs for private parties. Dates are&nbsp;samples.</span>
-<nav aria-label="Footer"><a href="index.html#booth">Take the decks</a><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="mailto:[contact email]">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2243}}'>
 var AD_DJS = [
-  { key: 'kaytran', name: 'Kaytran', home: 'Atlanta, GA', genres: 'Afro / Amapiano', fee: '[$X to $Y]', email: 'kaytran@example.com', agent: 'Mara', agentEmail: '[agent email]', sc: 'soundcloud.com/[kaytran]', mc: 'mixcloud.com/[kaytran]', yt: 'youtube.com/[kaytran]', bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.", img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', live: true,
+  { key: 'kaytran', name: 'Kaytran', home: 'Atlanta, GA', genres: 'Afro / Amapiano', fee: '$1,500 to $3,000', email: 'kaytran@example.com', agent: 'Mara', agentEmail: 'mara@example.com', sc: 'soundcloud.com/kaytran', mc: 'mixcloud.com/kaytran', yt: 'youtube.com/kaytran', bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.", img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', live: true,
     dates: [{ city: 'New York, NY', from: '2026-11-13', to: '2026-11-15' }, { city: 'Boston, MA', from: '2026-11-21', to: '2026-11-21' }, { city: 'Chicago, IL', from: '2026-11-28', to: '2026-11-28' }] },
-  { key: 'jude', name: 'Jude & Frank', home: 'Brooklyn / Rome', genres: 'House / Tech house', fee: '[$X to $Y]', email: 'judeandfrank@example.com', agent: '[Agent name]', agentEmail: '', sc: 'soundcloud.com/[judeandfrank]', mc: '', yt: '', bio: 'Two friends, one booth, zero arguments about the next track. Allegedly.', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', live: true, dates: [{ city: 'Atlanta, GA', from: '2026-11-21', to: '2026-11-21' }, { city: 'Chicago, IL', from: '2026-12-05', to: '2026-12-05' }] },
-  { key: 'dial', name: 'Dial Tone', home: 'Chicago, IL', genres: 'Techno / EBM', fee: '[$X to $Y]', email: 'dialtone@example.com', agent: '[Agent name]', agentEmail: '', sc: 'soundcloud.com/[dial-tone]', mc: '', yt: '', bio: '', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', grade: 'grayscale(1) brightness(.7) contrast(2.6)', pos: '38% 18%', live: true,
+  { key: 'jude', name: 'Jude & Frank', home: 'Brooklyn / Rome', genres: 'House / Tech house', fee: '$1,200 to $2,500', email: 'judeandfrank@example.com', agent: 'Leo Marchetti', agentEmail: '', sc: 'soundcloud.com/judeandfrank', mc: '', yt: '', bio: 'Two friends, one booth, zero arguments about the next track. Allegedly.', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', live: true, dates: [{ city: 'Atlanta, GA', from: '2026-11-21', to: '2026-11-21' }, { city: 'Chicago, IL', from: '2026-12-05', to: '2026-12-05' }] },
+  { key: 'dial', name: 'Dial Tone', home: 'Chicago, IL', genres: 'Techno / EBM', fee: '$1,800 to $3,500', email: 'dialtone@example.com', agent: 'Ines Park', agentEmail: '', sc: 'soundcloud.com/dial-tone', mc: '', yt: '', bio: '', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', grade: 'grayscale(1) brightness(.7) contrast(2.6)', pos: '38% 18%', live: true,
     dates: [{ city: 'Boston, MA', from: '2026-11-06', to: '2026-11-08' }, { city: 'New York, NY', from: '2026-11-20', to: '2026-11-20' }] }
 ];
-var AD_RA = [{ city: 'Chicago, IL', venue: '[Club name]', from: '2026-12-12', to: '2026-12-12' }, { city: 'Detroit, MI', venue: '[Club name]', from: '2026-12-19', to: '2026-12-19' }];
+var AD_RA = [{ city: 'Chicago, IL', venue: 'Smart Bar', from: '2026-12-12', to: '2026-12-12' }, { city: 'Detroit, MI', venue: 'TV Lounge', from: '2026-12-19', to: '2026-12-19' }];
 // Sample applications, in the shape the For artists form sends them. Set links are bracketed placeholders until real ones come in.
 var AD_APPS = [
-  { key: 'soft', name: 'Soft Static', city: 'Portland, OR', sound: 'House and disco', fee: '[$X to $Y]', email: 'softstatic@example.com', sent: 'Sent today', next: 'New York, Nov 20 to 21',
+  { key: 'soft', name: 'Soft Static', city: 'Portland, OR', sound: 'House and disco', fee: '$800 to $1,500', email: 'softstatic@example.com', sent: 'Sent today', next: 'New York, Nov 20 to 21',
     dates: [{ city: 'New York, NY', from: '2026-11-20', to: '2026-11-21' }],
-    sets: [{ label: 'Warehouse set on SoundCloud', url: 'soundcloud.com/[soft-static]/warehouse-set' }, { label: 'Rooftop set on Mixcloud', url: 'mixcloud.com/[soft-static]/rooftop-set' }] },
-  { key: 'tamarind', name: 'Tamarind', city: 'Houston, TX', sound: 'Afro house and baile funk', fee: '[$X to $Y]', email: 'tamarind@example.com', sent: 'Sent yesterday', next: 'Los Angeles, Nov 27 to 28',
+    sets: [{ label: 'Warehouse set on SoundCloud', url: 'soundcloud.com/soft-static/warehouse-set' }, { label: 'Rooftop set on Mixcloud', url: 'mixcloud.com/soft-static/rooftop-set' }] },
+  { key: 'tamarind', name: 'Tamarind', city: 'Houston, TX', sound: 'Afro house and baile funk', fee: '$1,000 to $2,000', email: 'tamarind@example.com', sent: 'Sent yesterday', next: 'Los Angeles, Nov 27 to 28',
     dates: [{ city: 'Los Angeles, CA', from: '2026-11-27', to: '2026-11-28' }],
-    sets: [{ label: 'Block party set on SoundCloud', url: 'soundcloud.com/[tamarind]/block-party' }, { label: 'Live in Houston on YouTube', url: 'youtube.com/[tamarind]/live-in-houston' }, { label: 'Late night mix on SoundCloud', url: 'soundcloud.com/[tamarind]/late-night-mix' }] },
-  { key: 'odd', name: 'Odd Hours', city: 'Philadelphia, PA', sound: 'Garage and UK bass', fee: '[$X to $Y]', email: 'oddhours@example.com', sent: 'Sent Fri, Oct 30', next: 'Boston, Dec 4',
+    sets: [{ label: 'Block party set on SoundCloud', url: 'soundcloud.com/tamarind/block-party' }, { label: 'Live in Houston on YouTube', url: 'youtube.com/tamarind/live-in-houston' }, { label: 'Late night mix on SoundCloud', url: 'soundcloud.com/tamarind/late-night-mix' }] },
+  { key: 'odd', name: 'Odd Hours', city: 'Philadelphia, PA', sound: 'Garage and UK bass', fee: '$900 to $1,800', email: 'oddhours@example.com', sent: 'Sent Fri, Oct 30', next: 'Boston, Dec 4',
     dates: [{ city: 'Boston, MA', from: '2026-12-04', to: '2026-12-04' }],
-    sets: [{ label: 'Basement set on SoundCloud', url: 'soundcloud.com/[odd-hours]/basement-set' }, { label: 'Radio hour on Mixcloud', url: 'mixcloud.com/[odd-hours]/radio-hour' }] }
+    sets: [{ label: 'Basement set on SoundCloud', url: 'soundcloud.com/odd-hours/basement-set' }, { label: 'Radio hour on Mixcloud', url: 'mixcloud.com/odd-hours/radio-hour' }] }
 ];
 var AD_COUNT = ['Nobody', 'One', 'Two', 'Three', 'Four', 'Five'];
 var AD_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

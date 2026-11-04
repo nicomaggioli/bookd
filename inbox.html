@@ -281,6 +281,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 /* QA7 final: small phones, 'Message Jude & Frank' fits the field instead of being cut mid word */
 @media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 
 <div class="app" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
@@ -417,13 +420,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <div style="display: flex; flex-direction: column; gap: 6px;">
 <div class="price">$2,400</div>
 <span style="font-size: 14px; line-height: 1.35; font-weight: 700; color: {{offerNoteColor}};">{{offerNote}}</span>
-<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">Total for the night. [Booking fee]&nbsp;included.</span>
+<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">Total for the night. 10% booking fee&nbsp;included.</span>
 </div>
 <dl class="terms">
 <dt>When</dt><dd>Sat, Nov&nbsp;14, 10&nbsp;PM to 2&nbsp;AM</dd>
-<dt>Deposit</dt><dd>[X%] when you accept, the rest after the&nbsp;party</dd>
+<dt>Deposit</dt><dd>50% when you accept, the rest after the&nbsp;party</dd>
 <dt>Rider</dt><dd><a href="#rider">See her rider</a></dd>
-<dt>Good until</dt><dd>Tue, Nov&nbsp;3</dd>
+<dt>Good until</dt><dd>Tue, Nov&nbsp;10</dd>
 </dl>
 <sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -460,10 +463,10 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 </sc-if>
 <sc-if value="{{depositDue}}" hint-placeholder-val="{{ false }}">
 <div class="box box-col" role="status" tabindex="-1" ref="{{dueRef}}">
-<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Accepted. Lock the date with a [X%]&nbsp;deposit.</span>
-<a class="btn btn-red btn-lg" href="booking.html#contract">Pay [X%] deposit</a>
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Accepted. Lock the date with a 50%&nbsp;deposit.</span>
+<a class="btn btn-red btn-lg" href="booking.html#contract">Pay 50% deposit</a>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
-<span style="flex: 1 1 220px; min-width: 0; font-size: 13px; line-height: 1.4; color: #4d504f;">Sample flow. You'll see the contract before any money&nbsp;moves.</span>
+<span style="flex: 1 1 220px; min-width: 0; font-size: 13px; line-height: 1.4; color: #4d504f;">You'll see the contract before any money&nbsp;moves.</span>
 <button class="decl" type="button" onClick="{{undo}}">Undo</button>
 </div>
 <a class="decl" href="booking.html#contract" style="align-self: flex-start;">Read the contract</a>
@@ -472,7 +475,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
 <div class="box box-col" role="status" tabindex="-1" ref="{{paidRef}}" style="gap: 6px;">
 <span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Booked. Kaytran is yours on Sat, Nov&nbsp;14.</span>
-<span style="font-size: 13px; line-height: 1.4; color: #4d504f;">Deposit [X%] paid. The rest is due after the&nbsp;party.</span>
+<span style="font-size: 13px; line-height: 1.4; color: #4d504f;">Deposit 50% paid. The rest is due after the&nbsp;party.</span>
 <a class="btn btn-red btn-lg" href="booking.html#booked" style="margin-top: 8px;">See my booking</a>
 <a class="decl" href="cancel.html" style="align-self: flex-start;">Need to cancel?</a>
 </div>
@@ -500,27 +503,27 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <sc-if value="{{isKaytranFresh}}" hint-placeholder-val="{{ false }}">
 <div class="sysline">Request sent · Just now</div>
 <div class="bub bub-me"><strong>You · Just now</strong>{{freshText}}</div>
-<div class="note">Kaytran or Mara usually replies in [X&nbsp;hrs]. The&nbsp;offer lands right&nbsp;here.</div>
+<div class="note">Kaytran or Mara usually replies in 6&nbsp;hrs. The&nbsp;offer lands right&nbsp;here.</div>
 <button class="btn btn-ghost btn-sm" type="button" onClick="{{showSample}}" style="align-self: center;">See a sample offer</button>
 </sc-if>
 
 <sc-if value="{{isJude}}" hint-placeholder-val="{{ false }}">
 <div class="sysline">Request sent · Yesterday</div>
 <div class="bub bub-me"><strong>You · Yesterday</strong>Loft party in Bushwick for about 120 people, mostly my friends. Looking for something housey from 10 to&nbsp;2.</div>
-<div class="note">Seen. Usually replies in [X&nbsp;hrs].</div>
+<div class="note">Seen. Usually replies in 6&nbsp;hrs.</div>
 </sc-if>
 
 <sc-if value="{{isDial}}" hint-placeholder-val="{{ false }}">
 <div class="sysline">Request sent · Yesterday</div>
 <div class="bub bub-me"><strong>You · Yesterday</strong>Hi! Loft party in Bushwick on Sat, Nov 14, about 120 people, mostly my friends. Up for some techno from 10 to&nbsp;2?</div>
-<div class="note">Sent. Usually replies in [X&nbsp;hrs].</div>
+<div class="note">Sent. Usually replies in 6&nbsp;hrs.</div>
 </sc-if>
 
 <!-- F74: #jude and #dial with the request the host just wrote on Roster6 (bookd.req.jude, bookd.req.dial) -->
 <sc-if value="{{isOwnReq}}" hint-placeholder-val="{{ false }}">
 <div class="sysline">Request sent · Just now</div>
 <div class="bub bub-me"><strong>You · Just now</strong>{{ownReqText}}</div>
-<div class="note">Sent. Usually replies in [X&nbsp;hrs].</div>
+<div class="note">Sent. Usually replies in 6&nbsp;hrs.</div>
 </sc-if>
 
 <sc-if value="{{isPast}}" hint-placeholder-val="{{ false }}">
@@ -555,7 +558,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <h2>{{infoTitle}}</h2>
 <sc-if value="{{isKaytran}}" hint-placeholder-val="{{ true }}">
 <sc-if value="{{depositDue}}" hint-placeholder-val="{{ false }}">
-<p class="flag flag-red">Deposit due: [X%] to lock Nov&nbsp;14.</p>
+<p class="flag flag-red">Deposit due: 50% to lock Nov&nbsp;14.</p>
 </sc-if>
 <sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
 <p class="flag flag-cream">Booked. Deposit&nbsp;paid.</p>
@@ -574,22 +577,22 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">Kaytran_Rider.pdf</span><span style="font-size: 12px; color: #a2a5a4;">From Mara, Oct&nbsp;20</span></span>
 <span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">Loft_floorplan.jpg</span><span style="font-size: 12px; color: #a2a5a4;">From you, Oct&nbsp;20</span></span>
 <sc-if value="{{kShared}}" hint-placeholder-val="{{ false }}">
-<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">[Host_songs.pdf]</span><span style="font-size: 12px; color: #a2a5a4;">From you, just&nbsp;now</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">Dani_must_plays.pdf</span><span style="font-size: 12px; color: #a2a5a4;">From you, just&nbsp;now</span></span>
 </sc-if>
 </div>
 </sc-if>
 <div class="infocard" id="rider" style="scroll-margin-top: 16px;">
 <h3>Rider</h3>
 <dl class="rider">
-<dt>Decks</dt><dd>[Players and mixer]</dd>
-<dt>Room sound</dt><dd>[Booth monitors]</dd>
-<dt>A table</dt><dd>[Table]</dd>
-<dt>Arrival</dt><dd>[Arrival time]</dd>
-<dt>Hospitality</dt><dd>[Drinks, guest list]</dd>
+<dt>Decks</dt><dd>Two Pioneer CDJs and a Pioneer DJM&nbsp;mixer</dd>
+<dt>Room sound</dt><dd>One powered monitor in the booth</dd>
+<dt>A table</dt><dd>Sturdy, waist high, about 6&nbsp;ft</dd>
+<dt>Arrival</dt><dd>1 hour before the set</dd>
+<dt>Hospitality</dt><dd>Drinks, water and 2 on the guest list</dd>
 </dl>
 </div>
 </sc-if>
-<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. Dates are&nbsp;samples. <span style="white-space: nowrap;"><a href="mailto:[contact email]">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 </aside>
 
 </div>
@@ -604,7 +607,7 @@ var INBOX_THREADS = [
 // Past conversations: every request a host ever made stays in the inbox, whole chat included, so they can scroll back or pick it up again.
 var INBOX_PAST = [
 { key: 'jude-sep', group: 'booked', name: 'Jude & Frank', photo: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', time: 'Sep 20', date: 'Sat, Sep 19', status: 'Played',
-  preview: 'Jude & Frank: Jude says the neighbors called twice, which he counts as a review.', outcome: 'They played your rooftop on Sat, Sep\u00a019.', withWho: '[Agent name], their agent',
+  preview: 'Jude & Frank: Jude says the neighbors called twice, which he counts as a review.', outcome: 'They played your rooftop on Sat, Sep\u00a019.', withWho: 'Leo, their agent',
   facts: [{ k: 'Date', v: 'Sat, Sep 19' }, { k: 'Set time', v: '8 PM to midnight' }, { k: 'Where', v: 'Rooftop, Dumbo' }, { k: 'Guests', v: 'About 50' }, { k: 'You paid', v: '$1,900' }],
   log: [
     { sys: 'Request sent · Mon, Aug 24' },
@@ -620,14 +623,14 @@ var INBOX_PAST = [
   facts: [{ k: 'Date', v: 'Sat, Jun 6' }, { k: 'Set time', v: '9 PM to 1 AM' }, { k: 'Where', v: 'Restaurant buyout,\u00a0Harlem' }, { k: 'Guests', v: 'About 80' }, { k: 'You paid', v: '$2,200' }],
   log: [
     { sys: 'Request sent · Wed, May 6' },
-    { me: "My sister's engagement party in Harlem, about 80 people. Her fiance's family will be there, so nothing too filthy.", time: '7:30 PM' },
+    { me: "My sister's engagement party in Harlem, about 80 people. Her fiancé's family will be there, so nothing too filthy.", time: '7:30 PM' },
     { who: "Mara, Kaytran's agent", them: "Kaytran's in town that weekend. $2,200, no travel fee. Family friendly until the aunties go home.", time: '8:12 PM' },
     { sys: 'Offer accepted · deposit paid' },
     { sys: 'Played Sat, Jun 6' },
     { who: 'Kaytran', them: "Tell your sister congrats again. That room was a good one.", time: 'Jun 8, 2:20 PM' }
   ] },
 { key: 'dial-oct', group: 'closed', name: 'Dial Tone', photo: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', grade: 'grayscale(1) brightness(.7) contrast(2.6)', pos: '38% 18%', time: 'Sep 30', date: 'Sat, Oct 10', status: 'They were busy',
-  preview: "Dial Tone: Already playing Detroit that night. Ask me again for the next one.", outcome: "They couldn't do Sat, Oct\u00a010.", withWho: '[Agent name], their agent',
+  preview: "Dial Tone: Already playing Detroit that night. Ask me again for the next one.", outcome: "They couldn't do Sat, Oct\u00a010.", withWho: 'Ines, their agent',
   facts: [{ k: 'Date', v: 'Sat, Oct 10' }, { k: 'Where', v: 'Warehouse, Bushwick' }, { k: 'Guests', v: 'About 150' }, { k: 'Your budget', v: '$2,000' }],
   log: [
     { sys: 'Request sent · Tue, Sep 29' },
@@ -636,7 +639,7 @@ var INBOX_PAST = [
     { sys: 'Closed · Sep 30' }
   ] },
 { key: 'jude-jul', group: 'closed', name: 'Jude & Frank', photo: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', time: 'Jul 9', date: 'Fri, Jul 17', status: 'You called it off',
-  preview: "You: The party's off, the landlord found out. Thanks anyway.", outcome: 'You called off Fri, Jul\u00a017 before any money moved.', withWho: '[Agent name], their agent',
+  preview: "You: The party's off, the landlord found out. Thanks anyway.", outcome: 'You called off Fri, Jul\u00a017 before any money moved.', withWho: 'Leo, their agent',
   facts: [{ k: 'Date', v: 'Fri, Jul 17' }, { k: 'Where', v: 'Backyard, Greenpoint' }, { k: 'Guests', v: 'About 40' }, { k: 'Your budget', v: '$1,500' }],
   log: [
     { sys: 'Request sent · Thu, Jul 2' },
@@ -709,8 +712,8 @@ try { return typeof matchMedia === 'function' && matchMedia('(pointer: coarse)')
 // IB: chat header per thread.
 var INBOX_CHAT = {
 kaytran: { withWho: 'Mara, her agent', profile: 'kaytran.html' },
-jude: { withWho: '[Agent name], their agent' },
-dial: { withWho: '[Agent name], their agent' }
+jude: { withWho: 'Leo, their agent' },
+dial: { withWho: 'Ines, their agent' }
 };
 
 // QA7: the request Kaytran6 just sent (sessionStorage 'bookd.req.kaytran'), cleaned up for the thread.
@@ -1395,7 +1398,7 @@ undo: function () {
 self.wantFocus = 'accept';
 self.setState({ stage: 'offer', sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
 },
-// DECISIONS 3: Pay [X%] deposit is a link to booking.html#contract (contract, then deposit, then It's booked,
+// DECISIONS 3: Pay 50% deposit is a link to booking.html#contract (contract, then deposit, then It's booked,
 // then back here on #kaytran-paid). Nothing is paid or booked on this page.
 startCounter: function () {
 self.wantFocus = 'counter';
@@ -1463,7 +1466,7 @@ if (cur[self.state.active]) return;
 var copy = {};
 for (var k in cur) copy[k] = cur[k];
 copy[self.state.active] = true;
-self.addSent('Shared a file: [Host_songs.pdf]', { shared: copy });
+self.addSent('Shared a file: Dani_must_plays.pdf', { shared: copy });
 }
 // Shell README 6.4: the red 1 is Kaytran's offer waiting on you. It is 0 once you sent a request, paid, countered or passed,
 // and on #kaytran-off and #kaytran-out (ended), where her thread is Closed and nothing waits on you.

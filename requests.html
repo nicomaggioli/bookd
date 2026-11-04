@@ -318,6 +318,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 @media (max-width:480px){.in-acts,.in-acts .btn{width:100%}.in-next li{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion: reduce){.in-spin{animation:none}}
 </style>
+<style>/* phones skip the decks (Nov 4) */
+@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
 </helmet>
 
 <div class="{{appCls}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
@@ -376,7 +379,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <li><b>Your answer</b><span>Say yes, say no or name your&nbsp;price.</span></li>
 <li><b>The chat</b><span>You and the host. No email&nbsp;chains.</span></li>
 </ol>
-<p class="in-fine">© 2026 BOOKD. Dates are&nbsp;samples. <span style="white-space: nowrap;"><a href="mailto:[contact email]">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+<p class="in-fine">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 </div>
 <span class="in-disc" aria-hidden="true"><span class="in-spin"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg viewBox="0 0 200 200" focusable="false"><defs><path id="inarc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs><text x="100" y="88" text-anchor="middle" font-size="9.5" letter-spacing="-0.4">Next up</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#inarc" textLength="170">BOOKD RECORDS · BEST PLAYED LOUD · BOOKD RECORDS · BEST PLAYED LOUD · </textPath></text></svg></span></span>
 </section>
@@ -529,7 +532,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <!-- REQUEST DETAILS -->
 <aside class="col-info panel" aria-label="Request details">
 <h2>The request</h2>
-<sc-if value="{{flagDue}}" hint-placeholder-val="{{ false }}"><p class="flag" style="box-shadow: inset 0 0 0 1.5px #a2a5a4;">Deposit due: [X%] from {{activeFirst}} to lock the&nbsp;night.</p></sc-if>
+<sc-if value="{{flagDue}}" hint-placeholder-val="{{ false }}"><p class="flag" style="box-shadow: inset 0 0 0 1.5px #a2a5a4;">Deposit due: 50% from {{activeFirst}} to lock the&nbsp;night.</p></sc-if>
 <sc-if value="{{flagBooked}}" hint-placeholder-val="{{ false }}"><p class="flag flag-cream">Booked. Deposit&nbsp;paid.</p></sc-if>
 <dl class="facts">
 <sc-for list="{{factRows}}" as="r" hint-placeholder-count="5">
@@ -548,14 +551,14 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <div class="infocard" id="rider" style="scroll-margin-top: 16px;">
 <h3>Your rider</h3>
 <dl class="rider">
-<dt>Decks</dt><dd>[Players and mixer]</dd>
-<dt>Room sound</dt><dd>[Booth monitors]</dd>
-<dt>A table</dt><dd>[Table]</dd>
-<dt>Arrival</dt><dd>[Arrival time]</dd>
-<dt>Hospitality</dt><dd>[Drinks, guest list]</dd>
+<dt>Decks</dt><dd>Two Pioneer CDJs and a Pioneer DJM&nbsp;mixer</dd>
+<dt>Room sound</dt><dd>One powered monitor in the booth</dd>
+<dt>A table</dt><dd>Sturdy, waist high, about 6&nbsp;ft</dd>
+<dt>Arrival</dt><dd>1 hour before the set</dd>
+<dt>Hospitality</dt><dd>Drinks, water and 2 on the guest list</dd>
 </dl>
 </div>
-<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. Dates are&nbsp;samples. <span style="white-space: nowrap;"><a href="mailto:[contact email]">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 </aside>
 
 </div>
@@ -576,7 +579,7 @@ var INBOX_DATES = [
 { city: 'Chicago', from: '2026-12-31', to: '2026-12-31' }
 ];
 var INBOX_THREADS = [
-{ key: 'dani', name: 'Dani R.', first: 'Dani', ini: 'D', stage: 'sent', time: 'Oct 20', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', setTime: '10 PM to 2 AM', where: 'Private loft, Brooklyn, NY', guests: 'About 120', budget: '2,500', replyBy: 'Tue, Nov 3', file: 'Loft_floorplan.jpg', fileWhen: 'Oct 20',
+{ key: 'dani', name: 'Dani R.', first: 'Dani', ini: 'D', stage: 'sent', time: 'Oct 20', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', setTime: '10 PM to 2 AM', where: 'Private loft, Brooklyn, NY', guests: 'About 120', budget: '2,500', replyBy: 'Tue, Nov 10', file: 'Loft_floorplan.jpg', fileWhen: 'Oct 20',
 seed: [
 { sys: 'Request sent · Tue, Oct 20, 4:12 PM' },
 { from: 'host', time: '4:12 PM', text: 'Hi! Loft party in Bushwick for about 120 people, mostly my friends. Looking for something warm and dancey from 10 to 2.' },
@@ -1018,23 +1021,24 @@ var cardTitle = { sent: 'Request from ', offer: 'Your offer to ', countered: 'Yo
 var cardTag = { sent: 'Waiting on you', offer: 'Waiting on ' + d.first, countered: d.first + ' countered', accepted: 'Deposit due', booked: 'Booked', closed: 'Passed', hostpassed: 'Passed', cancelled: 'Called off' }[stage];
 var cardTagColor = stage === 'sent' || stage === 'countered' ? '#d31110' : (stage === 'booked' ? '#000000' : '#4d504f');
 // F370: a closed card says what the number is and nothing more
-var cardSub = stage === 'closed' ? (fee ? 'Your fee for the night.' : 'Their budget for the night.') : (!priced ? 'Their budget for the night. Take it or name your price.' : (closed ? 'Your fee for the night.' : 'Your fee for the night. BOOKD keeps [X%].'));
-var travelLine = isHome ? 'Home game. No travel fee.' : (town ? "You're already in " + d.metro + '. No travel fee.' : 'You\'re not in ' + d.metro + ' yet. Travel is [$X].');
+var cardSub = stage === 'closed' ? (fee ? 'Your fee for the night.' : 'Their budget for the night.') : (!priced ? 'Their budget for the night. Take it or name your price.' : (closed ? 'Your fee for the night.' : 'Your fee for the night. BOOKD keeps 10%.'));
+var travelLine = isHome ? 'Home game. No travel fee.' : (town ? "You're already in " + d.metro + '. No travel fee.' : 'You\'re not in ' + d.metro + ' yet. Travel is $450.');
 var terms = [
 { key: 'set', k: 'When', v: d.date + ', ' + d.setTime },
 { key: 'guests', k: 'Guests', v: d.guests },
-{ key: 'travel', k: 'Travel', v: free ? '$0' : '[$X]' }
+{ key: 'travel', k: 'Travel', v: free ? '$0' : '$450' }
 ];
 if (d.replyBy && (stage === 'sent' || stage === 'countered')) terms.push({ key: 'reply', k: 'Reply by', v: d.replyBy });
+var moneyT = money + (free ? '' : ' plus $450 travel');
 var boxLine = '', boxCls = 'box box-col', canPretend = false, canUndo = false, pretendLabel = '';
-if (stage === 'offer') { boxLine = 'Offer sent at ' + money + '. It lands in ' + d.first + "'s chat."; canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' said yes'; }
+if (stage === 'offer') { boxLine = 'Offer sent at ' + moneyT + '. It lands in ' + d.first + "'s chat."; canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' said yes'; }
 // F273: the box says who said yes. The host (Pretend after your offer), Mara (Reply as Mara) or you.
 if (stage === 'accepted') {
 var yes = st.by[active];
-boxLine = yes === 'host' ? d.first + ' said yes at ' + money + ' and owes a [X%] deposit to lock it.' : (yes === 'mara' ? 'Mara' : 'You') + ' said yes at ' + money + '. ' + d.first + ' owes a [X%] deposit to lock it.';
+boxLine = yes === 'host' ? d.first + ' said yes at ' + moneyT + ' and owes a 50% deposit to lock it.' : (yes === 'mara' ? 'Mara' : 'You') + ' said yes at ' + moneyT + '. ' + d.first + ' owes a 50% deposit to lock it.';
 canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' paid';
 }
-if (stage === 'booked') { boxLine = 'Booked. You play ' + d.date + '. The rest is paid after the party.'; }
+if (stage === 'booked') { boxLine = 'Booked. You play ' + d.date + '. ' + d.first + ' pays the rest within 48 hrs, and you get paid 5 days after the party.'; }
 if (stage === 'closed') { boxLine = 'You passed on this one. Mara ' + (past ? 'let ' : 'will let ') + d.first + ' down gently.'; canUndo = !past; }
 if (stage === 'hostpassed') boxLine = d.first + ' passed on this one.';
 if (stage === 'cancelled') boxLine = 'It\'s off. BOOKD is finding ' + d.first + ' another DJ.';
@@ -1082,7 +1086,7 @@ self.setState({ offerErr: true });
 return;
 }
 var mara = self.state.who === 'mara';
-var text = (mara ? 'Kaytran can do $' : 'I can do $') + amt + ' for the night.' + (free ? '' : ' Travel is [$X] on top.');
+var text = (mara ? 'Kaytran can do $' : 'I can do $') + amt + ' for the night.' + (free ? '' : ' Travel is $450 on top.');
 self.setStage('offer', amt, { thread: active, kind: 'offer', from: self.state.who, text: text, time: 'Just now' }, 'box');
 };
 var sendMsgFn = function (e) {
@@ -1097,7 +1101,7 @@ var shared = !!st.shared[active];
 var files = [{ name: 'Kaytran_Rider.pdf', from: 'From Mara, ' + (d.time === 'Yesterday' ? 'yesterday' : d.time) }];
 if (d.file) files.push({ name: d.file, from: 'From ' + d.first + ', ' + d.fileWhen });
 // F273: the file is from whoever shared it
-if (shared) files.push({ name: '[Kaytran_Setlist.pdf]', from: (st.shared[active] === 'mara' ? 'From Mara' : 'From you') + ', just now' });
+if (shared) files.push({ name: 'Kaytran_Setlist.pdf', from: (st.shared[active] === 'mara' ? 'From Mara' : 'From you') + ', just now' });
 files = files.map(function (f) { return { key: f.name, name: f.name, from: f.from }; });
 
 var isNew = !!st.newDj;
@@ -1215,7 +1219,7 @@ if (self.state.shared[self.state.active]) return;
 var copy = {};
 for (var k in self.state.shared) copy[k] = self.state.shared[k];
 copy[self.state.active] = self.state.who;
-self.setState({ shared: copy, sent: self.state.sent.concat([{ thread: active, kind: 'msg', from: self.state.who, text: 'Shared a file: [Kaytran_Setlist.pdf]', time: 'Just now' }]) });
+self.setState({ shared: copy, sent: self.state.sent.concat([{ thread: active, kind: 'msg', from: self.state.who, text: 'Shared a file: Kaytran_Setlist.pdf', time: 'Just now' }]) });
 }
 }, nav6Vals(this, isNew
 ? { reqHref: '#main', curReq: 'page', dashHref: 'dashboard.html#new', signedIn: st.newDj, seeOn: false, waiting: 0 }
