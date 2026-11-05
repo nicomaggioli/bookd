@@ -188,7 +188,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .act-do{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,calc(2.6 * var(--vw)),36px)}
 .act-page{font-size:15px;font-weight:700;color:#fffde9;text-decoration:underline;text-underline-offset:4px;padding:12px 0}
 /* billing: the smaller names */
-.bill-subs{display:grid;border-top:2px solid #000000}
+.bill-subs{display:grid}
 .bill-with{margin:0;padding:24px 0 12px;font-size:clamp(20px,calc(2 * var(--vw)),28px);line-height:1.1;font-weight:700;letter-spacing:-0.04em;color:#000000}
 .sub{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1fr) auto;gap:14px clamp(24px,calc(3 * var(--vw)),48px);align-items:center;padding:28px 0;border-bottom:1px solid rgba(0,0,0,.35)}
 /* the last row has no rule of its own: the black rule over the open slot closes the list */
@@ -211,7 +211,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .empty-copy{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;max-width:34em}
 .empty-do{display:flex;flex-wrap:wrap;gap:8px}
 /* the open slot */
-.bill-you{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:12px clamp(20px,calc(3 * var(--vw)),48px);padding-top:clamp(20px,calc(2.4 * var(--vw)),32px);border-top:2px solid #000000;color:#000000;text-decoration:none}
+.bill-you{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:12px clamp(20px,calc(3 * var(--vw)),48px);padding-top:clamp(20px,calc(2.4 * var(--vw)),32px);color:#000000;text-decoration:none}
 .you-line{display:flex;align-items:baseline;gap:.25em}
 .you-and{font-size:clamp(28px,calc(3 * var(--vw)),48px);font-weight:700;letter-spacing:-0.05em;color:#fffde9}
 .you-big{font-size:clamp(110px,calc(19 * var(--vw)),320px);line-height:.78;font-weight:700;letter-spacing:-0.085em;color:#000000;transition:color .2s}
@@ -285,7 +285,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 @media (prefers-reduced-motion: reduce){.bill-pop > .bill-flash{animation:none}}
 /* ===== the whole roster (Nov 4): an agency board of portraits, five across, names in caps underneath ===== */
-.rg-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-top:clamp(8px,calc(1 * var(--vw)),16px);margin-bottom:clamp(20px,calc(2.4 * var(--vw)),32px);border-top:2px solid #d31110}
+.rg-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-top:clamp(8px,calc(1 * var(--vw)),16px);margin-bottom:clamp(20px,calc(2.4 * var(--vw)),32px)}
 .rg-h{margin:clamp(16px,calc(2 * var(--vw)),28px) 0 0;font-size:clamp(30px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9;outline:none}
 .rg-clear{color:#fffde9}
 .rg-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(24px,calc(2.6 * var(--vw)),40px) clamp(12px,calc(1.2 * var(--vw)),18px)}
@@ -401,14 +401,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 </section>
 
-<!-- ROSTER: back to the party -->
-<section class="r6-close" aria-labelledby="r6-close-h">
-<div class="wrap r6-close-in">
-<h2 id="r6-close-h" class="h2">Can't pick? Go play the party&nbsp;yourself.</h2>
-<p class="r6-close-p">The decks on the homepage are open. Ten minutes in, you'll want to book&nbsp;someone.</p>
-<a class="btn btn-lg go" href="index.html#booth">Take the decks</a>
-</div>
-</section>
 </main>
 <!-- FOOTER -->
 <footer class="foot6">
