@@ -220,6 +220,9 @@ html{scroll-padding-top:88px}
 .cn-why{margin-top:clamp(20px,calc(2 * var(--vw)),28px)}
 .cn-why.field{background:#ffffff}
 .cn-who{margin:0 0 clamp(14px,calc(1.4 * var(--vw)),20px);font-size:15px;font-weight:700;color:#2f2f31}
+/* fields stand out on the cream page (Nov 5): white boxes with a light grey outline, like the Contact form, and a red ring when you type */
+.cn-why.field{background:#ffffff;box-shadow:inset 0 0 0 1px #d9d9d4}
+.cn-why.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
