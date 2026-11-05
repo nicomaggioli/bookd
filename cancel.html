@@ -563,7 +563,7 @@ class Component extends DCLogic {
       whyLabel: dj ? 'Tell ' + n.first + ' why' : 'Tell Kaytran why', why: s.why,
       setWhy: function (e) { self.setState({ why: e.target.value }); },
       confirmLabel: dj ? 'Cancel the night' : 'Cancel the booking',
-      keepHref: dj ? 'requests.html#' + key : 'booking.html#booked',
+      keepHref: dj ? 'requests.html#' + key : 'inbox.html#kaytran-paid',
       confirm: function () {
         if (dj) cnCancelNight(key);
         self.wantHead = true;

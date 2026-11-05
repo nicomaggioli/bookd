@@ -281,6 +281,16 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 /* QA7 final: small phones, 'Message Jude & Frank' fits the field instead of being cut mid word */
 @media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
 </style>
+<style>/* Nov 5: sign and pay inside the chat */
+.lock{margin:0;padding:0;list-style:none;display:flex;gap:6px}
+.lock li{flex:1 1 0;display:flex;align-items:center;gap:8px;min-width:0;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.05);font-size:13px;font-weight:700;color:#6b6e6d}
+.lock .lock-n{flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.1);font-size:11px}
+.lock .lock-on{background:#000000;color:#ffffff}.lock .lock-on .lock-n{background:#d31110;color:#ffffff}
+.lock .lock-done{color:#000000}.lock .lock-done .lock-n{background:#000000;color:#ffffff}
+.terms.deal{padding-top:0;border-top:0}
+.payline{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 14px;border-radius:var(--r-bar);background:#f2f2f0;font-size:14px;font-weight:700}
+.payline strong{font-size:28px;letter-spacing:-0.05em;font-variant-numeric:tabular-nums}
+</style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
@@ -463,20 +473,42 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 </sc-if>
 <sc-if value="{{depositDue}}" hint-placeholder-val="{{ false }}">
 <div class="box box-col" role="status" tabindex="-1" ref="{{dueRef}}">
-<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Accepted. Lock the date with a 50%&nbsp;deposit.</span>
-<a class="btn btn-red btn-lg" href="booking.html#contract">Pay 50% deposit</a>
+<!-- Nov 5: the contract and the deposit happen right here in the chat (Booking6 is gone) -->
+<ol class="lock" aria-label="Lock the date">
+<li class="{{lockStep1}}"><span class="lock-n">1</span>Sign the&nbsp;contract</li>
+<li class="{{lockStep2}}"><span class="lock-n">2</span>Pay the&nbsp;deposit</li>
+</ol>
+<sc-if value="{{needSign}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Accepted. Here's the deal in plain&nbsp;words.</span>
+<dl class="terms deal">
+<dt>Who</dt><dd>Kaytran plays your party, with Mara as her&nbsp;agent</dd>
+<dt>When</dt><dd>Sat, Nov&nbsp;14, 10&nbsp;PM to 2&nbsp;AM, private loft in&nbsp;Brooklyn</dd>
+<dt>Total</dt><dd>$2,400, 10% booking fee&nbsp;included</dd>
+<dt>Deposit</dt><dd>$1,200 now. The other $1,200 by Mon, Nov&nbsp;16</dd>
+<dt>If you cancel</dt><dd>14+ days out, deposit back. 7 to 13 days, half back. Under 7, she keeps&nbsp;it.</dd>
+<dt>If she cancels</dt><dd>All your money back, and replacement DJs within 24&nbsp;hrs</dd>
+</dl>
+<button class="btn btn-red btn-lg" type="button" onClick="{{sign}}">I agree. Sign the&nbsp;contract</button>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
-<span style="flex: 1 1 220px; min-width: 0; font-size: 13px; line-height: 1.4; color: #4d504f;">You'll see the contract before any money&nbsp;moves.</span>
+<a class="decl" href="terms.html#t-booking">Read the full&nbsp;terms</a>
 <button class="decl" type="button" onClick="{{undo}}">Undo</button>
 </div>
-<a class="decl" href="booking.html#contract" style="align-self: flex-start;">Read the contract</a>
+</sc-if>
+<sc-if value="{{signed}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Signed. Pay the 50% deposit and the 14th is&nbsp;yours.</span>
+<div class="payline"><span>Deposit due now</span><strong>$1,200</strong></div>
+<button class="btn btn-red btn-lg" type="button" onClick="{{payDeposit}}">Pay $1,200&nbsp;deposit</button>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+<span style="flex: 1 1 220px; min-width: 0; font-size: 13px; line-height: 1.4; color: #4d504f;">Secure checkout opens, then brings you right back to this&nbsp;chat.</span>
+<button class="decl" type="button" onClick="{{unsign}}">Undo</button>
+</div>
+</sc-if>
 </div>
 </sc-if>
 <sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
 <div class="box box-col" role="status" tabindex="-1" ref="{{paidRef}}" style="gap: 6px;">
 <span style="font-size: 15px; font-weight: 700; line-height: 1.35;">Booked. Kaytran is yours on Sat, Nov&nbsp;14.</span>
-<span style="font-size: 13px; line-height: 1.4; color: #4d504f;">Deposit 50% paid. The rest is due after the&nbsp;party.</span>
-<a class="btn btn-red btn-lg" href="booking.html#booked" style="margin-top: 8px;">See my booking</a>
+<span style="font-size: 13px; line-height: 1.4; color: #4d504f;">Contract signed. $1,200 deposit paid. The other $1,200 is due by Mon, Nov&nbsp;16.</span>
 <a class="decl" href="cancel.html" style="align-self: flex-start;">Need to cancel?</a>
 </div>
 </sc-if>
@@ -485,7 +517,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 
 <div class="bub bub-them"><strong style="color: #d31110;">Kaytran · 5:02 PM</strong>Can't wait. Send me a few songs you love and I'll work them in.</div>
 
-<!-- #kaytran-paid: paid on Booking6, then back here. Mara says hi, as Booking6's It's booked promises. -->
+<!-- #kaytran-paid: signed and paid right here in the chat. Mara says hi. -->
 <sc-if value="{{paid}}" hint-placeholder-val="{{ false }}">
 <div class="sysline red">Booking confirmed · deposit paid</div>
 <div class="bub bub-them"><strong>Mara, Kaytran's agent · Just now</strong>Hi, it's Mara. Your deposit's in, so the 14th is yours. Tell me about the room and we'll sort out the&nbsp;rider.</div>
@@ -1051,7 +1083,8 @@ this.viewSent = st.sent.length;
 componentDidMount() {
 // DECISIONS 4, the hash contract. No hash: the designed default (Kaytran's open offer).
 //   #kaytran, #jude, #dial   open that thread; with bookd.req.<key> it shows the request the host just wrote
-//   #kaytran-paid            booked and paid on Booking6, under Booked, with Mara's hi
+//   #kaytran-accepted        offer accepted, contract and deposit waiting in the chat (from the emails)
+//   #kaytran-paid            signed and paid in the chat, under Booked, with Mara's hi
 //   #kaytran-off             you called it off (Cancel6), under Closed
 //   #kaytran-out             she can't make it (Cancel6#dj-out), under Closed, with her note
 //   #jude-sep, #kaytran-jun  past chats from Account6, under Booked (any past thread's key works)
@@ -1065,6 +1098,8 @@ if (r && key === 'kaytran') next.req = r;
 else if (r) { next.reqs = {}; next.reqs[key] = r; }
 } else if (key === 'kaytran-paid') {
 next = { active: 'kaytran', stage: 'paid' };
+} else if (key === 'kaytran-accepted') {
+next = { active: 'kaytran', stage: 'accepted', signed: false };
 } else if (key === 'kaytran-off' || key === 'kaytran-out') {
 next = { active: 'kaytran', ended: key.slice(8) };
 } else if (INBOX_PAST_BY[key]) {
@@ -1371,6 +1406,10 @@ open: offerOpen && !st.countering && !st.countered && !st.declined,
 accepted: accepted,
 depositDue: depositDue,
 paid: paid,
+needSign: depositDue && !st.signed,
+signed: depositDue && !!st.signed,
+lockStep1: st.signed ? 'lock-done' : 'lock-on',
+lockStep2: st.signed ? 'lock-on' : '',
 countering: offerOpen && !!st.countering,
 countered: offerOpen && !!st.countered,
 declined: declined,
@@ -1392,14 +1431,27 @@ dueRef: this.dueRef,
 paidRef: this.paidRef,
 accept: function () {
 self.wantFocus = 'due';
-self.addSent('You accepted the offer · just now', { stage: 'accepted' }, 'kaytran', 'accepted');
+self.addSent('You accepted the offer · just now', { stage: 'accepted', signed: false }, 'kaytran', 'accepted');
 },
 undo: function () {
 self.wantFocus = 'accept';
-self.setState({ stage: 'offer', sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
+self.setState({ stage: 'offer', signed: false, sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
 },
-// DECISIONS 3: Pay 50% deposit is a link to booking.html#contract (contract, then deposit, then It's booked,
-// then back here on #kaytran-paid). Nothing is paid or booked on this page.
+// Nov 5, DECISIONS 3 replaced: the contract and the deposit happen in the chat. Sign, then pay, then Booked.
+// A mockup: nothing is signed or charged. In the real build Pay opens the payment provider's checkout and returns on #kaytran-paid.
+sign: function () {
+self.wantFocus = 'due';
+self.setState({ signed: true });
+},
+unsign: function () {
+self.wantFocus = 'due';
+self.setState({ signed: false });
+},
+payDeposit: function () {
+self.wantFocus = 'paid';
+// the red Booking confirmed line takes over from the accepted line, so the log reads in order
+self.setState({ stage: 'paid', filter: 'booked', sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
+},
 startCounter: function () {
 self.wantFocus = 'counter';
 self.setState({ countering: true });
