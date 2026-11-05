@@ -284,6 +284,37 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}
 }
 @media (prefers-reduced-motion: reduce){.bill-pop > .bill-flash{animation:none}}
+/* ===== the whole roster (Nov 4): an agency board of portraits, five across, names in caps underneath ===== */
+.rg-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-top:clamp(8px,calc(1 * var(--vw)),16px);margin-bottom:clamp(20px,calc(2.4 * var(--vw)),32px);border-top:2px solid #d31110}
+.rg-h{margin:clamp(16px,calc(2 * var(--vw)),28px) 0 0;font-size:clamp(30px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9;outline:none}
+.rg-clear{color:#fffde9}
+.rg-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(24px,calc(2.6 * var(--vw)),40px) clamp(12px,calc(1.2 * var(--vw)),18px)}
+.rt{display:flex;flex-direction:column;min-width:0;color:#fffde9}
+.rt-shot{position:relative;display:block;aspect-ratio:4 / 5;overflow:hidden;background:#111112;color:inherit}
+.rt-photo{position:absolute;inset:0;height:100%}
+.rt-photo img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.rt-badge{position:absolute;left:8px;top:8px;z-index:2;padding:5px 8px;font-size:12px;font-weight:700;line-height:1;background:#d31110;color:#ffffff}
+.rt-badge-home{background:#fffde9;color:#000000}
+.rt-name{margin:12px 0 0;font-size:clamp(15px,calc(1.15 * var(--vw)),18px);line-height:1.15;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.rt-name a{color:inherit;text-decoration:none}
+.rt-meta{margin:4px 0 0;font-size:13px;line-height:1.4;color:#a2a5a4}
+.rt-note{margin:6px 0 0;font-size:13px;line-height:1.35;font-weight:700;color:#ff3b2f}
+.rt-fee{margin:4px 0 0;font-size:13px;line-height:1.35;color:#fffde9}
+.rt-you{aspect-ratio:4 / 5;align-self:start;justify-content:flex-end;gap:6px;padding:clamp(14px,calc(1.4 * var(--vw)),22px);background:#d31110;color:#fffde9;text-decoration:none;box-sizing:border-box}
+.rt-and{font-size:clamp(18px,calc(1.5 * var(--vw)),24px);font-weight:700;letter-spacing:-0.04em}
+.rt-big{font-size:clamp(56px,calc(5.6 * var(--vw)),88px);line-height:.84;font-weight:700;letter-spacing:-0.075em;color:#000000}
+.rt-youp{margin-top:6px;font-size:14px;line-height:1.35;font-weight:700}
+.rt-youbtn{align-self:flex-start;margin-top:8px}
+.rg-empty{flex-direction:column;align-items:flex-start;gap:14px;padding:clamp(28px,calc(4 * var(--vw)),56px) 0}
+.rg-emptyh{margin:0;font-size:clamp(28px,calc(3 * var(--vw)),44px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9}
+.rg-emptyp{margin:0;font-size:17px;line-height:1.45;color:#a2a5a4;max-width:30em}
+.rg-fine{margin:clamp(32px,calc(4 * var(--vw)),56px) 0 0;max-width:46em;font-size:13px;line-height:1.5;color:#a2a5a4}
+.r6-wall :focus-visible{outline-color:#ffffff}
+@media (hover: hover) and (pointer: fine){.rt-shot:hover img{transform:scale(1.035)}.rt-name a:hover{color:#ff3b2f}.rt-you:hover .rt-big{color:#fffde9}.rg-clear:hover{background:#fffde9;color:#000000;box-shadow:none}}
+@media (max-width:1180px){.rg-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:900px){.rg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.rg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}.rt-big{font-size:56px}.rt-youp{font-size:13px}}
+@media (prefers-reduced-motion: reduce){.rt-photo img{transition:none}}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
@@ -322,14 +353,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="wrap r6-top" aria-labelledby="r6-h">
 <div class="r6-head">
 <h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1>
-<p class="lede">Tell us where and when. Whoever's already in town that night gets top billing, and you skip the travel&nbsp;fee.</p>
+<p class="lede">Everyone on BOOKD, in one place. Add where and when, and it narrows to the DJs who are already in town, so you skip the travel&nbsp;fee.</p>
 </div>
 <form class="r6-find" id="find" aria-label="Filter the roster" onSubmit="{{noSubmit}}" onKeyDown="{{findKey}}">
 <label class="field r6-where"><span class="field-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
 <label class="field"><span class="field-l">When</span><input type="text" value="{{when}}" onInput="{{setWhen}}" placeholder="Sat, Nov 14"></label>
 <label class="field"><span class="field-l">Budget</span><input type="text" value="{{budget}}" onInput="{{setBudget}}" inputmode="numeric" placeholder="$3,000"></label>
 <label class="field"><span class="field-l">Sound</span><select value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label>
-<button class="btn btn-lg go r6-go" type="button" onClick="{{showLineup}}">Show the lineup</button>
+<button class="btn btn-lg go r6-go" type="button" onClick="{{showLineup}}">See who's around</button>
 </form>
 <div class="r6-under">
 <div class="r6-chips" role="group" aria-label="Pick a city">
@@ -339,82 +370,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 </section>
 
-<!-- ROSTER: the lineup poster. In town that night is the headliner, lives here comes next, everyone else gets the small print. -->
-<section id="lineup" class="r6-wall" aria-labelledby="bill-h">
+<!-- ROSTER: the whole roster, like an agency board. The filters above narrow it to the DJs who fit. -->
+<section id="lineup" class="r6-wall" aria-labelledby="rg-h">
 <div class="wrap">
-<div class="bill" ref="{{billRef}}">
-<span class="bill-grain" aria-hidden="true"></span>
-<span class="bill-flash" aria-hidden="true"></span>
-
-<div class="bill-top">
-<svg class="bill-mark" viewBox="80 455 1190 170" aria-hidden="true" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
-<h2 id="bill-h" class="bill-date" tabindex="-1" ref="{{billHRef}}"><span class="vh">The lineup for </span>{{billDate}}</h2>
-<p class="bill-city">{{billCity}}</p>
-<p class="bill-note">{{billNote}}</p>
+<div class="rg-head">
+<h2 id="rg-h" class="rg-h" tabindex="-1" ref="{{billHRef}}">{{gridHead}}</h2>
+<sc-if value="{{filtered}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
 </div>
-
-<div class="bill-tops" style="display: {{topsDisplay}};">
-<sc-for list="{{tops}}" as="t" hint-placeholder-count="2">
-<article class="{{t.cls}}">
-<div class="act-shot">
-<span class="dflash act-photo"><img src="{{t.img}}" alt="{{t.alt}}" loading="lazy" decoding="async" style="filter: {{t.grade}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
-</div>
-<div class="act-copy">
-<h3 class="act-name">{{t.name}}</h3>
-<p class="act-sound">{{t.genre}} <span class="act-from">{{t.home}}</span></p>
-<p class="act-when">{{t.note}}</p>
-<p class="act-fee">{{t.fee}}</p>
-<div class="act-do">
-<a class="btn ghost" href="{{t.setsHref}}" aria-label="{{t.hearAria}}">Hear a set</a>
-<a class="btn ink" href="{{t.reqHref}}" aria-label="{{t.reqAria}}" onClick="{{t.reqGo}}">Request</a>
-<sc-if value="{{t.hasPage}}" hint-placeholder-val="{{ true }}"><a class="act-page" href="{{t.pageHref}}">{{t.pageText}}</a></sc-if>
-</div>
-</div>
-</article>
-</sc-for>
-</div>
-
-<div class="bill-subs" style="display: {{subsDisplay}}; border-top-width: {{subsRule}};">
-<p class="bill-with">{{withLine}}</p>
-<sc-for list="{{subs}}" as="u" hint-placeholder-count="1">
-<article class="{{u.cls}}">
-<span class="dflash sub-photo"><img src="{{u.img}}" alt="{{u.alt}}" loading="lazy" decoding="async" style="filter: {{u.grade}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
-<div>
-<h3 class="sub-name">{{u.name}}</h3>
-<p class="sub-sound">{{u.genre}}</p>
-</div>
-<div class="sub-facts"><p class="act-when">{{u.note}}</p><p class="act-fee">{{u.fee}}</p></div>
-<div class="sub-do">
-<sc-if value="{{u.hasTry}}" hint-placeholder-val="{{ true }}"><button class="btn btn-sm paper" type="button" onClick="{{u.tryIt}}" aria-label="{{u.tryAria}}">{{u.tryLabel}}</button></sc-if>
-<a class="btn btn-sm ghost" href="{{u.setsHref}}" aria-label="{{u.hearAria}}">Hear a set</a>
-<a class="btn btn-sm ink" href="{{u.reqHref}}" aria-label="{{u.reqAria}}" onClick="{{u.reqGo}}">Request</a>
-</div>
-</article>
-</sc-for>
-</div>
-
-<div class="bill-empty" style="display: {{emptyDisplay}};">
-<h3 class="empty-big">Nobody's on the bill&nbsp;yet.</h3>
-<p class="empty-copy">{{emptyLine}}</p>
-<div class="empty-do" role="group" aria-label="Pick a city" style="display: {{emptyCityDisplay}};">
-<sc-for list="{{emptyChips}}" as="ec" hint-placeholder-count="4"><button class="chip" type="button" onClick="{{ec.pick}}">{{ec.label}}</button></sc-for>
-<a class="btn btn-sm ghost" href="mailto:hello@bookd.co">Tell us where</a>
-</div>
-<div class="empty-do" style="display: {{emptySoundDisplay}};">
-<button class="btn paper" type="button" onClick="{{clearSound}}">Show every sound</button>
-</div>
-</div>
-
-<a class="bill-you" href="artists.html">
-<span class="you-line"><span class="you-and">and</span><span class="you-big">You?</span></span>
-<span class="you-side"><span class="you-copy">{{youLine}}</span><span class="btn ink you-btn">Join the roster</span></span>
+<div class="rg-grid" ref="{{billRef}}">
+<sc-for list="{{tiles}}" as="d" hint-placeholder-count="15">
+<article class="rt">
+<a class="rt-shot" href="{{d.href}}" aria-label="{{d.linkAria}}">
+<span class="dflash rt-photo"><img src="{{d.img}}" alt="{{d.alt}}" loading="lazy" decoding="async" style="filter: {{d.grade}}; object-position: {{d.pos}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
+<sc-if value="{{d.hasBadge}}" hint-placeholder-val="{{ false }}"><span class="{{d.badgeCls}}">{{d.badge}}</span></sc-if>
 </a>
-
-<div class="bill-fine">
-<p>{{fineBudget}}</p>
-<p>Doors whenever you say. No travel fee for anyone already in town. Fees run $1,200 to $3,500, plus travel for anyone flying in. Strictly no "can you play something we&nbsp;know".</p>
+<h3 class="rt-name"><a href="{{d.href}}">{{d.name}}</a></h3>
+<p class="rt-meta">{{d.genre}}<br>{{d.home}}</p>
+<sc-if value="{{d.hasNote}}" hint-placeholder-val="{{ false }}"><p class="rt-note">{{d.note}}</p></sc-if>
+<p class="rt-fee">{{d.fee}}</p>
+</article>
+</sc-for>
+<a class="rt rt-you" href="artists.html"><span class="rt-and">and</span><span class="rt-big">You?</span><span class="rt-youp">DJs, there's room on the&nbsp;board.</span><span class="btn ink rt-youbtn">Join the roster</span></a>
 </div>
+<div class="rg-empty" style="display: {{emptyDisplay}};">
+<p class="rg-emptyh">Nobody fits that&nbsp;yet.</p>
+<p class="rg-emptyp">{{emptyLine}}</p>
+<button class="btn paper" type="button" onClick="{{clearAll}}">Show the whole roster</button>
 </div>
+<p class="rg-fine">Doors whenever you say. No travel fee for anyone already in town. Fees run $800 to $4,000, plus travel for anyone flying in. Strictly no "can you play something we&nbsp;know".</p>
 </div>
 </section>
 
@@ -439,7 +422,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3773}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3512}}'>
 /* Roster6 data, copied from Home6 (H4_ART, H4_CITIES, H4_ALIAS, H4_MATCH). Only Kaytran has a profile page; the other two request through the inbox and their sets play in the Home6 booth. */
 var H4_ART = {
   kaytran: { fee: '$1,500 to\u00a0$3,000', name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', alt: 'Kaytran DJing in a restaurant kitchen', page: 'kaytran.html', pageText: 'See her profile', req: 'kaytran.html#request', sets: 'kaytran.html#sets' },
@@ -454,6 +437,29 @@ var H4_CITIES = [
   { key: 'atl', label: 'Atlanta', name: 'Atlanta, GA', short: 'Atlanta', list: [['kaytran', 'home', 'Lives here'], ['jude', 'in', 'In town Nov 21', 21, 21], ['dial', 'travel', 'Travels from Chicago']] },
   { key: 'chi', label: 'Chicago', name: 'Chicago, IL', short: 'Chicago', list: [['dial', 'home', 'Lives here'], ['kaytran', 'in', 'In town Nov 28', 28, 28], ['jude', 'in', 'In town Dec 5', 35, 35]] }
 ];
+/* The whole roster (Nov 4). home: the H4_CITIES key a DJ lives in ('' for somewhere else). dates: [city key, first day, last day] in town, December as 30 + day.
+   Kaytran, Jude & Frank and Dial Tone keep the dates in H4_CITIES. The other twelve are sample DJs on free Unsplash photos until the real roster signs. */
+var R6_SOUNDS = { kaytran: 'Afro / Amapiano', jude: 'House / Tech house', dial: 'Techno / EBM' };
+var R6_ROSTER = [
+  { key: 'kaytran', name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', homeKey: 'atl', lo: 1500, fee: '$1,500 to $3,000', img: 'assets/ad370760271850c5893b948c9756c7a7.webp', alt: 'Kaytran in sunglasses and headphones, in a Sade shirt', href: 'kaytran.html', dates: [['nyc', 13, 15], ['bos', 21, 21], ['chi', 28, 28]] },
+  { key: 'jude', name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', homeKey: 'nyc', lo: 1200, fee: '$1,200 to $2,500', img: 'assets/f6c99dbbd7b9aec6e71cac8e714b9240.webp', alt: 'One half of Jude & Frank, bearded, in round sunglasses', href: 'inbox.html#jude', plural: true, dates: [['atl', 21, 21], ['chi', 35, 35]] },
+  { key: 'dial', name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', homeKey: 'chi', lo: 1800, fee: '$1,800 to $3,500', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', href: 'inbox.html#dial', plural: true, grade: 'grayscale(1) brightness(.8) contrast(2.1)', dates: [['nyc', 20, 20], ['bos', 6, 8]] },
+  { key: 'nova', name: 'Nova Rae', genre: 'Rap', home: 'Brooklyn, NY', homeKey: 'nyc', lo: 1000, fee: '$1,000 to $2,200', img: 'assets/6546cdc668aa96ccd5553177197b78d9.jpg', alt: 'Nova Rae in a cap, headphones around her neck', dates: [['atl', 27, 28]] },
+  { key: 'mona', name: 'Mona Vee', genre: 'Disco', home: 'Miami, FL', homeKey: '', lo: 1000, fee: '$1,000 to $2,000', img: 'assets/f9fd0bec2761d1a16ba4dfec8ff13125.jpg', alt: 'Mona Vee in a leopard coat and a hat, laughing behind the decks', dates: [['nyc', 20, 21], ['atl', 13, 14]] },
+  { key: 'vincent', name: 'Vincent Gold', genre: 'Disco', home: 'Chicago, IL', homeKey: 'chi', lo: 1500, fee: '$1,500 to $3,000', img: 'assets/970c9b2f9816bd38d3deed98b4447e7f.jpg', alt: 'Vincent Gold, grey beard and dark glasses, holding his headphones', dates: [['nyc', 27, 28]] },
+  { key: 'kid', name: 'Kid Rotary', genre: 'House / Tech house', home: 'Boston, MA', homeKey: 'bos', lo: 800, fee: '$800 to $1,600', img: 'assets/7b7a060423fa57bfc7f40e5e4230b12f.jpg', alt: 'Kid Rotary, curly hair, headphones on, mixing outdoors', dates: [['nyc', 13, 14]] },
+  { key: 'sable', name: 'Sable', genre: 'Techno / EBM', home: 'Chicago, IL', homeKey: 'chi', lo: 1500, fee: '$1,500 to $2,800', img: 'assets/582c23d971a6f4c05fc221d481c7cf2a.jpg', alt: 'Sable at the decks in a dark club', dates: [['nyc', 27, 28]] },
+  { key: 'bella', name: 'Bella Nuit', genre: 'R&B', home: 'Atlanta, GA', homeKey: 'atl', lo: 1200, fee: '$1,200 to $2,400', img: 'assets/fbc0787a191b7fd8dbaa20a8c815e959.jpg', alt: 'Bella Nuit smiling behind the decks, one hand on her headphones', dates: [['chi', 20, 21]] },
+  { key: 'sal', name: 'Big Sal', genre: 'Disco', home: 'Queens, NY', homeKey: 'nyc', lo: 900, fee: '$900 to $1,800', img: 'assets/a5da0b4ef6cde258eda90ac47c29c23a.jpg', alt: 'Big Sal in headphones, mixing in front of a lit-up wall', dates: [['bos', 14, 14]] },
+  { key: 'hana', name: 'Hana Haze', genre: 'Techno / EBM', home: 'Los Angeles, CA', homeKey: '', lo: 2000, fee: '$2,000 to $4,000', img: 'assets/6e378d859ffcf8911f604b1df9231c4d.jpg', alt: 'Hana Haze in sunglasses, one arm up, on a stage full of light', dates: [['nyc', 6, 8], ['chi', 13, 14]] },
+  { key: 'rui', name: 'Rui Costa', genre: 'House / Tech house', home: 'Boston, MA', homeKey: 'bos', lo: 1200, fee: '$1,200 to $2,200', img: 'assets/ff2f045c45d4e4a27c09a8f989e0886d.jpg', alt: 'Rui Costa in headphones, reaching across the mixer', dates: [['atl', 13, 14]] },
+  { key: 'kassette', name: 'Miss Kassette', genre: 'R&B', home: 'Houston, TX', homeKey: '', lo: 900, fee: '$900 to $1,800', img: 'assets/723eb099c5b7d6a274fe73bec7f24809.jpg', alt: 'Miss Kassette in a leather jacket and sunglasses, one hand on her headphones', dates: [['atl', 20, 21], ['bos', 27, 28]] },
+  { key: 'low', name: 'Low Rider', genre: 'Techno / EBM', home: 'Detroit, MI', homeKey: '', lo: 1400, fee: '$1,400 to $2,600', img: 'assets/fdcdd6aef070057b1b876a1881277d1d.jpg', alt: 'Low Rider leaning over the decks in the dark', dates: [['chi', 6, 7], ['nyc', 13, 15]] },
+  { key: 'petra', name: 'Petra Lux', genre: 'House / Tech house', home: 'Atlanta, GA', homeKey: 'atl', lo: 1000, fee: '$1,000 to $2,000', img: 'assets/fc7d763b83da849210a753981b9e93a6.jpg', alt: 'Petra Lux, eyes closed, holding her headphones to one ear', dates: [['nyc', 14, 15]] }
+];
+var R6_CITYKEY = ['nyc', 'bos', 'atl', 'chi'];
+function R6_SPAN(a, b) { var l = function (d) { return d > 30 ? 'Dec ' + (d - 30) : 'Nov ' + d; }; return a === b ? l(a) : l(a) + (((a > 30) === (b > 30)) ? ' to ' + (b > 30 ? b - 30 : b) : ' to ' + l(b)); }
+function R6_BUDGET(v) { var n = parseInt(String(v || '').replace(/[^0-9]/g, ''), 10); return n > 0 ? n : 0; }
 /* a DJ who lives here or flies in is not free on a night another city has them in town (F8). Returns that city and its dates, or null. */
 function H4_AWAY(id, day, here) { for (var i = 0; i < H4_CITIES.length; i++) { if (i === here) continue; var l = H4_CITIES[i].list; for (var j = 0; j < l.length; j++) { var r = l[j]; if (r[0] === id && r[1] === 'in' && day >= r[3] && day <= r[4]) return { city: H4_CITIES[i].short, when: r[2].replace('In town ', '') }; } } return null; }
 /* typed city to H4_CITIES index (same order: nyc, bos, atl, chi); -1 when nothing matches */
@@ -521,7 +527,7 @@ function R6_DATE(txt) {
 function R6_PICK(a, b) { for (var d = a; d <= b; d++) { if ((d - 1) % 7 === 6) return d; } return a; }
 /* no widows: the last two words stay together */
 function R6_NB(t) { var i = t.lastIndexOf(' '); return i > 0 ? t.slice(0, i) + '\u00a0' + t.slice(i + 1) : t; }
-var R6_GRADE = 'grayscale(1) brightness(1.12) contrast(1.5)';
+var R6_GRADE = 'grayscale(1) brightness(1.04) contrast(1.22)';
 var R6_BADGE = ['In town', 'Lives here', 'Flies in', 'Not around'];
 var R6_BCLS = ['in', 'home', 'fly', 'out'];
 function R6_NOTE(rank, r) {
@@ -656,7 +662,7 @@ class Component extends DCLogic {
     var self = this;
     this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     /* lastDay: the last date the parser could read, so a When it can't read never goes on the poster. out: a DJ who cancelled Sat, Nov 14 (#kaytran-out), empty by default */
-    this.state = { where: 'Brooklyn, NY', when: 'Sat, Nov 14', lastDay: 14, sound: '', budget: '', city: 0, miss: false, crowdPaused: this.reduce, out: '' };
+    this.state = { where: '', when: '', lastDay: 0, sound: '', budget: '', city: -1, miss: false, crowdPaused: this.reduce, out: '' };
     this.crowdOff = this.reduce;
     this.billRef = function (el) { self.billEl = el; };
     this.billHRef = function (el) { self.billHEl = el; };
@@ -682,7 +688,7 @@ class Component extends DCLogic {
      #lineup (See it the way hosts do, on Erika's dashboard) lands on the poster. The page draws after load, so the browser's own jump never finds it; this scrolls through the ref, with no flash. */
   componentDidMount() {
     var self = this, h = typeof location !== 'undefined' ? location.hash : '';
-    if (h === '#kaytran-out') this.setState({ out: 'kaytran' });
+    if (h === '#kaytran-out') this.setState({ out: 'kaytran', where: 'Brooklyn, NY', city: 0, when: 'Sat, Nov 14', lastDay: 14 });
     if (h === '#lineup') this.hashT = setTimeout(function () {
       self.hashT = null;
       var t = self.billEl && self.billEl.closest ? self.billEl.closest('.r6-wall') : null;
@@ -718,6 +724,7 @@ class Component extends DCLogic {
   focusBill() { var h = this.billHEl; if (!h || !h.focus) return; try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
   /* on a phone the poster is below the fold, so a chip goes to it like Try does; wider screens flash it in place. A chip inside the empty poster also goes to it when the poster's date has scrolled out of view, since focus lands on that date. */
   pickCity(i, fromBill) {
+    if (i === this.state.city && !this.state.miss) { this.setState({ city: -1, where: '' }); return; }
     this.setState({ city: i, where: H4_CITIES[i].name, miss: false });
     var h = this.billHEl, top = h && h.getBoundingClientRect ? h.getBoundingClientRect().top : 0;
     var phone = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
@@ -726,66 +733,49 @@ class Component extends DCLogic {
   tryDate(day) { if (!day) return; this.setState({ when: R6_LABEL(day), lastDay: day }); this.show(); this.focusBill(); }
 
   renderVals() {
-    var self = this, s = this.state, city = H4_CITIES[s.city], d = R6_DATE(s.when), bad = d.day < 0;
-    if (bad) d = { day: s.lastDay, label: R6_LABEL(s.lastDay) };
-    /* the sound in running text: lower case, except R&B and EBM */
+    var self = this, s = this.state, hasWhen = !!String(s.when || '').trim(), d = hasWhen ? R6_DATE(s.when) : { day: 0, label: '' }, bad = d.day < 0;
+    if (bad) d = s.lastDay ? { day: s.lastDay, label: R6_LABEL(s.lastDay) } : { day: 0, label: '' };
+    var ci = s.miss ? -1 : s.city, ck = ci >= 0 ? R6_CITYKEY[ci] : '', city = ci >= 0 ? H4_CITIES[ci] : null, day = d.day, budget = R6_BUDGET(s.budget);
     var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
-    var whereShow = R6_PLACE(s.where, city), short = city.short, dateShow = R6_NB(d.label);
-    var billCity = s.miss || R6_NAMED(s.where) >= 0 ? whereShow : city.name;
-    /* a town matched only by its state code ("Albany, NY", "Savannah, GA") keeps the covered city's poster, but the count line makes it no travel promise */
-    var wWords = (s.where || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim().split(' ');
-    var viaState = !s.miss && H4_MATCH(s.where) >= 0 && R6_NAMED(s.where) < 0 && wWords.some(function (x) { return x && R6_STATES.indexOf(' ' + x + ' ') < 0; });
-    /* rank: 0 in town that night, 1 lives here, 2 travels in, 3 not around (in another city that night counts as not around). Sound filters, rank sorts, list order breaks ties.
-       A DJ who cancelled Sat, Nov 14 (#kaytran-out) is left off that night only. */
-    var rows = s.miss ? [] : city.list.filter(function (r) { return !(r[0] === s.out && d.day === 14); }).map(function (r, idx) {
-      var k = r[1], now = k === 'in' && d.day >= r[3] && d.day <= r[4], away = k === 'in' ? null : H4_AWAY(r[0], d.day, s.city);
-      return { r: r, a: H4_ART[r[0]], idx: idx, away: away, rank: now ? 0 : (away ? 3 : (k === 'home' ? 1 : (k === 'travel' ? 2 : 3))) };
-    }).filter(function (x) { return !s.sound || x.a.genre === s.sound; }).sort(function (x, y) { return (x.rank - y.rank) || (x.idx - y.idx); });
-    /* Request on Jude & Frank or Dial Tone opens their chat (Inbox6#jude, #dial) and takes the search along: the poster's night and place (or the town typed, when only its state
-       matched) and the budget, in the same shape Kaytran6 gives 'bookd.req.kaytran', so the chat starts from the host's own search. Kaytran's Request opens her own form on Kaytran6#request
-       and leaves the same search in 'bookd.ask.kaytran', a draft Kaytran6 reads only on #request to prefill the night, the place and the budget (it falls back to Sat, Nov 14 without it). */
-    var reqWhere = viaState ? whereShow : billCity;
-    var reqGo = function (id) {
-      return function () {
-        if (id !== 'jude' && id !== 'dial' && id !== 'kaytran') return;
-        var key = id === 'kaytran' ? 'bookd.ask.kaytran' : 'bookd.req.' + id;
-        try { sessionStorage.setItem(key, JSON.stringify({ date: d.label, where: reqWhere, guests: '', budget: String(s.budget || '').trim(), msg: '' })); } catch (err) {}
-      };
-    };
-    var has0 = rows.some(function (x) { return x.rank === 0; }), has1 = rows.some(function (x) { return x.rank <= 1; });
-    var tops = [], subs = [];
-    rows.forEach(function (x) {
-      /* billing size: in town is the headliner. Lives here headlines when nobody is visiting. A travelling act only goes big when nobody local can play. */
-      var size = x.rank === 0 ? 'xl' : (x.rank === 1 ? (has0 ? 'l' : 'xl') : (x.rank === 2 && !has1 ? 'l' : 's'));
-      /* Try suggests a night inside an in-town window. Never for a DJ who is in another city that night, and never the night a DJ cancelled.
-         With no Try to press, the cancelled DJ's line only says when they're in town, without "Move the party?". The away line keeps its dates in one piece ("Nov 13 to 15"). */
-      var a = x.a, r = x.r, tryDay = x.rank === 3 && !x.away ? R6_PICK(r[3], r[4]) : 0, gone = tryDay === 14 && r[0] === s.out;
-      if (gone) tryDay = 0;
-      var v = { name: R6_NB(a.name), genre: a.genre, home: ('from ' + a.home).replace(/ /g, '\u00a0'), img: a.img, alt: a.alt, grade: a.grade || R6_GRADE,
-        badge: R6_BADGE[x.rank], badgeCls: 'badge badge-' + R6_BCLS[x.rank], note: x.away ? 'In ' + x.away.city + ' ' + x.away.when.replace(/ /g, '\u00a0') + '.' : R6_NB(gone ? r[2] + '.' : R6_NOTE(x.rank, r)), free: x.rank <= 1,
-        fee: 'Fee ' + a.fee + (x.rank === 2 ? ' plus\u00a0travel' : ''), feeVal: a.fee + (x.rank === 2 ? ' plus\u00a0travel' : ''),
-        reqHref: a.req, reqGo: reqGo(r[0]), hearAria: 'Hear a set by ' + a.name, reqAria: 'Request ' + a.name, setsHref: a.sets,
-        hasPage: !!a.page, pageHref: a.page || 'roster.html', pageText: a.pageText || '',
-        hasTry: !!tryDay, tryLabel: tryDay ? 'Try ' + R6_LABEL(tryDay) : '', tryAria: tryDay ? 'Try ' + R6_LABEL(tryDay) + ', when ' + a.name + (a.plural ? ' are' : ' is') + ' in town' : '', tryIt: function () { self.tryDate(tryDay); } };
-      if (size === 's') { v.cls = x.rank === 3 ? 'sub sub-out' : 'sub'; subs.push(v); }
-      else { v.cls = 'act act-' + size; tops.push(v); }
+    var filtered = !!(city || s.miss || day || s.sound || budget);
+    /* who fits: in town in the picked city (that night, or any night with no date), or lives there and isn't away that night. Sound and budget narrow it further. */
+    var rows = [];
+    R6_ROSTER.forEach(function (a, idx) {
+      if (s.out && a.key === s.out && day === 14) return;
+      if (s.sound && a.genre !== s.sound) return;
+      if (budget && a.lo > budget) return;
+      var rank = 2, note = '';
+      var inAt = function (k, dd) { for (var i = 0; i < a.dates.length; i++) { var w = a.dates[i]; if (w[0] === k && (!dd || (dd >= w[1] && dd <= w[2]))) return w; } return null; };
+      var awayOn = function (dd) { for (var i = 0; i < a.dates.length; i++) { var w = a.dates[i]; if (w[0] !== a.homeKey && dd >= w[1] && dd <= w[2]) return w; } return null; };
+      if (s.miss) return;
+      if (ck) {
+        var w = inAt(ck, day);
+        if (w) { rank = 0; note = 'In town ' + R6_SPAN(w[1], w[2]) + '. No travel fee.'; }
+        else if (a.homeKey === ck && !(day && awayOn(day))) { rank = 1; note = 'Lives here. No travel fee.'; }
+        else return;
+      } else if (day) {
+        var aw = awayOn(day), c2 = aw ? H4_CITIES[R6_CITYKEY.indexOf(aw[0])] : null;
+        note = c2 ? 'In ' + c2.label + ' on ' + R6_NB(R6_LABEL(day)) + '.' : (a.homeKey ? 'Home in ' + H4_CITIES[R6_CITYKEY.indexOf(a.homeKey)].label + ' that night.' : '');
+      }
+      rows.push({ a: a, idx: idx, rank: rank, note: note });
     });
-    var freeN = rows.filter(function (x) { return x.rank <= 1; }).length, fly = rows.filter(function (x) { return x.rank === 2; });
-    var subFly = subs.some(function (u) { return u.cls === 'sub'; }), subOut = subs.some(function (u) { return u.cls !== 'sub'; });
-    var countLine = s.miss ? "We're not in " + whereShow + ' yet. Pick a city and we\'ll show you who\'s\u00a0around.'
-      : (!rows.length ? 'Nobody on the roster plays ' + snd + '\u00a0yet.'
-      : bad ? "That date's not on our calendar yet, so here's " + R6_NB(d.label) + '.'
-      : (freeN ? (freeN === 1 ? '1 DJ is' : freeN + ' DJs are') + ' around ' + short + ' on ' + dateShow + (viaState ? '.' : ', no travel\u00a0fee.')
-      : (s.sound ? 'No ' + snd : "Nobody's") + ' around ' + short + ' on ' + dateShow + '. ' + (fly.length ? fly[0].a.name + ' can fly\u00a0in.' : 'Try another\u00a0date.')));
-    var withLine = !tops.length ? (s.sound ? 'No ' + snd + ' that night. Close,\u00a0though.' : "Nobody's around that night. Close,\u00a0though.")
-      : (subFly && subOut ? 'Also on the roster. They can fly in, or play another\u00a0night.'
-      : (subFly ? 'Also on the roster. They can fly in, travel fee\u00a0extra.' : 'Also on the roster. Just not around that\u00a0night.'));
-    var emptySound = !s.miss && !rows.length;
-    /* the count line up top already says what is missing, so the empty card only says what to do next */
-    var emptyLine = s.miss ? "Right now it's New York, Boston, Atlanta and Chicago. Pick one, or tell us where to go\u00a0next."
-      : 'Open it up to every sound, or wait for the right DJ to sign\u00a0up.';
-    var youLine = emptySound ? 'Play ' + snd + '? Then the top of this bill is\u00a0yours.'
-      : (s.miss ? 'DJ in ' + whereShow + '? Be the first name on the\u00a0bill.' : "There's room at the bottom of the bill. For now. DJs, put your name on the\u00a0roster.");
+    rows.sort(function (x, y) { return (x.rank - y.rank) || (x.idx - y.idx); });
+    var tiles = rows.map(function (x) {
+      var a = x.a, link = a.href || '';
+      return { name: a.name, genre: a.genre, home: a.home, img: a.img, alt: a.alt, grade: a.grade || R6_GRADE, pos: a.pos || '50% 30%',
+        href: link || '#lineup', linkAria: link ? (a.key === 'kaytran' ? 'See Kaytran\'s profile' : 'Request ' + a.name) : a.name,
+        hasBadge: x.rank <= 1, badge: x.rank === 0 ? 'In town' : 'Lives here', badgeCls: x.rank === 0 ? 'rt-badge' : 'rt-badge rt-badge-home',
+        hasNote: !!x.note, note: x.note, fee: 'Fee ' + a.fee };
+    });
+    var n = rows.length, place = city ? city.label : '', when = day ? R6_NB(R6_LABEL(day)) : '';
+    var gridHead = !filtered ? 'The whole roster.'
+      : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
+    var countLine = s.miss ? "We're not in " + R6_PLACE(s.where, H4_CITIES[0]) + ' yet. Right now it\'s New York, Boston, Atlanta and Chicago.'
+      : !filtered ? R6_ROSTER.length + ' DJs on the roster. Add a city or a date to see who\'s around.'
+      : bad ? "That date's not on our calendar yet. Try a night in November or December."
+      : (n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (budget ? ' within $' + budget.toLocaleString('en-US') : '') + (place ? ', no travel fee.' : '.');
+    var emptyLine = s.miss ? 'Pick New York, Boston, Atlanta or Chicago, or tell us where to go next.'
+      : 'Try another night, every sound or a bigger budget. The roster grows every month.';
     /* Book a DJ on the roster: the search is right here, so it goes to the form and puts the cursor in Where (no reload, the picks stay) */
     var bookNow = function (e) {
       if (e && e.preventDefault) e.preventDefault();
@@ -803,7 +793,7 @@ class Component extends DCLogic {
     return Object.assign({
       whereRef: this.whereRef,
       where: s.where, when: s.when, sound: s.sound, budget: s.budget,
-      setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState({ where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
+      setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState(!v.trim() ? { where: v, city: -1, miss: false } : { where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
       setWhen: function (e) { var v = e.target.value, wd = R6_DATE(v); self.setState(wd.day > 0 ? { when: v, lastDay: wd.day } : { when: v }); },
       setSound: function (e) { self.setState({ sound: e.target.value }); },
       setBudget: function (e) { self.setState({ budget: e.target.value }); },
@@ -814,7 +804,9 @@ class Component extends DCLogic {
       cityChips: H4_CITIES.map(function (c, i) { var on = i === s.city && !s.miss; return { label: c.label, on: on ? 'true' : 'false', pick: function () { self.pickCity(i); } }; }),
       /* the same chips inside the empty poster; they vanish once picked, so focus moves to the new bill */
       emptyChips: H4_CITIES.map(function (c, i) { return { label: c.label, pick: function () { self.pickCity(i, true); self.focusBill(); } }; }),
-      countLine: countLine,
+      countLine: countLine, gridHead: gridHead, filtered: filtered, tiles: tiles,
+      emptyDisplay: rows.length ? 'none' : 'flex', emptyLine: emptyLine,
+      clearAll: function () { self.setState({ where: '', when: '', lastDay: 0, sound: '', budget: '', city: -1, miss: false }); self.focusBill(); },
       billRef: this.billRef, billHRef: this.billHRef, crowdRef: this.crowdRef,
       /* the crowd's video toggle: pausing keeps the frame (or the poster, before it ever played) */
       vidLabel: s.crowdPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
@@ -824,15 +816,6 @@ class Component extends DCLogic {
         if (p) { if (v.pause) v.pause(); }
         else if (self.crowdVis !== false && v.play) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
       },
-      billDate: dateShow, billCity: billCity,
-      billNote: 'Private party, address on the guest list. ' + (s.sound ? s.sound + ' all\u00a0night.' : 'Anything good, all\u00a0night.'),
-      tops: tops, subs: subs, withLine: withLine,
-      topsDisplay: tops.length ? 'flex' : 'none', subsDisplay: subs.length ? 'grid' : 'none', subsRule: tops.length ? '2px' : '0px',
-      emptyDisplay: rows.length ? 'none' : 'flex', emptyLine: emptyLine,
-      emptyCityDisplay: s.miss ? 'flex' : 'none', emptySoundDisplay: emptySound ? 'flex' : 'none',
-      clearSound: function () { self.setState({ sound: '' }); self.pop(); self.focusBill(); },
-      youLine: youLine,
-      fineBudget: 'Put your budget in your request and nobody wastes a\u00a0reply.'
     }, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
   }
 }
