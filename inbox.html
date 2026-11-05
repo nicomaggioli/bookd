@@ -486,7 +486,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <dt>Total</dt><dd>$2,400, 10% booking fee&nbsp;included</dd>
 <dt>Deposit</dt><dd>$1,200 now. The other $1,200 by Mon, Nov&nbsp;16</dd>
 <dt>If you cancel</dt><dd>14+ days out, deposit back. 7 to 13 days, half back. Under 7, she keeps&nbsp;it.</dd>
-<dt>If she cancels</dt><dd>All your money back, and replacement DJs within 24&nbsp;hrs</dd>
+<dt>If she cancels</dt><dd>All your money back, booking fee&nbsp;included</dd>
 </dl>
 <button class="btn btn-red btn-lg" type="button" onClick="{{sign}}">I agree. Sign the&nbsp;contract</button>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
@@ -526,7 +526,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <sc-if value="{{kEnded}}" hint-placeholder-val="{{ false }}">
 <div class="sysline">Booking confirmed · deposit paid</div>
 <sc-if value="{{kOut}}" hint-placeholder-val="{{ false }}">
-<div class="bub bub-them"><strong style="color: #d31110;">Kaytran · Just now</strong>I'm so sorry, I can't make the 14th anymore. BOOKD is already finding you someone free that&nbsp;night.</div>
+<div class="bub bub-them"><strong style="color: #d31110;">Kaytran · Just now</strong>I'm so sorry, I can't make the 14th anymore. You’ll get every dollar back, and the roster shows who else is free that&nbsp;night.</div>
 </sc-if>
 <div class="sysline">Closed · just now</div>
 </sc-if>
@@ -729,8 +729,8 @@ return 'open';
 // DECISIONS 4: the words for the two ways Kaytran's booking can end (FACTS section 3).
 var INBOX_ENDED = {
 off: { status: 'You called it off', outcome: 'You called off Sat, Nov\u00a014.' },
-out: { status: 'She can\'t make it', outcome: 'She can\'t make Sat, Nov\u00a014. We\'re finding you DJs who are free that\u00a0night.',
-  preview: 'Kaytran: I\'m so sorry, I can\'t make the 14th anymore. BOOKD is already finding you someone free that night.' }
+out: { status: 'She can\'t make it', outcome: 'She can\'t make Sat, Nov\u00a014. Your money\'s on its way back. The roster shows who else is free that\u00a0night.',
+  preview: 'Kaytran: I\'m so sorry, I can\'t make the 14th anymore. You\'ll get every dollar back, and the roster shows who else is free that night.' }
 };
 var INBOX_PAID_PREVIEW = 'Mara: Hi, it\'s Mara. Your deposit\'s in, so the 14th is yours. Tell me about the room and we\'ll sort out the rider.';
 // F189: the line in the chat head once you pass on her offer (LEXICON 5, Inbox6)

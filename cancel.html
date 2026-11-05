@@ -533,12 +533,12 @@ class Component extends DCLogic {
     var self = this, s = this.state, dj = s.who === 'dj', out = s.who === 'out';
     var key = cnNight(s.night), n = CN_NIGHTS[key];
     var done = dj ? {
-      head: "It's off.", note: n.first + ' and BOOKD know, and the details are on their way to your email. We\'ll send them DJs who are free that night within 24 hrs.',
+      head: "It's off.", note: n.first + ' and BOOKD know, and the details are on their way to your email. The roster shows them who else is free that\u00a0night.',
       rows: [{ k: 'Your date', v: n.date + ' is open again.' }, { k: 'Your fee', v: 'Nothing for this night. Cancel twice in a year and your profile comes off the roster.' }],
       next: 'Back to my dashboard', nextHref: 'dashboard.html', back: 'See my requests', backHref: 'requests.html#' + key
     } : out ? {
       head: "Kaytran can't make it.", note: 'Sorry, we know that stings. Your party is still ours to save.',
-      rows: [{ k: 'Your deposit', v: 'All $1,200 comes back to your card in 5 to 10 business days, booking fee included.' }, { k: 'What we do', v: 'Within 24 hrs, we send you DJs who are free on Sat, Nov 14.' }],
+      rows: [{ k: 'Your deposit', v: 'All $1,200 comes back to your card in 5 to 10 business days, booking fee included.' }, { k: 'What\'s next', v: 'The roster shows who else is free on Sat, Nov\u00a014. You\u00a0pick.' }],
       next: 'Find another DJ', nextHref: 'roster.html#kaytran-out', back: 'Back to my inbox', backHref: 'inbox.html#kaytran-out'
     } : {
       head: "It's off.", note: 'Kaytran and Mara know, and the details are on their way to your email. No hard feelings.',
@@ -554,7 +554,7 @@ class Component extends DCLogic {
       clauses: dj ? [
         { k: 'Your fee', v: 'Nothing for this night. Cancel twice in a year and your profile comes off the roster.' },
         { k: n.role, v: n.first + ' hears right away and gets every dollar back, booking fee included.' },
-        { k: 'BOOKD', v: 'We send them DJs who are free that night within 24 hrs.' }
+        { k: 'Next', v: 'The roster shows them who else is free that\u00a0night.' }
       ] : [
         { k: 'Your deposit', v: 'Half of it, $600, comes back. The party is only 10 days out. A full refund needs 14 or more.' },
         { k: 'The balance', v: "You won't owe the rest." },
