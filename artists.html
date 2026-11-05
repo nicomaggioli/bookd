@@ -333,28 +333,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 </section>
 
-<!-- TOUR: your dates as booked, then with the empty nights filled -->
-<section id="tour" class="jt" aria-labelledby="jt-h">
-<div class="wrap">
-<div class="jt-head">
-<h2 id="jt-h" class="h2">You're in town anyway. Might as well&nbsp;play.</h2>
-<div class="jt-side">
-<p class="jt-note">Add your tour and you come up in every city you're playing, with no travel fee for the&nbsp;host.</p>
-<div class="jt-chips" role="group" aria-label="Show the tour">
-<button type="button" class="chip" aria-pressed="{{tourOffPressed}}" onClick="{{showBooked}}">As booked</button>
-<button type="button" class="chip" aria-pressed="{{tourOnPressed}}" onClick="{{showBookd}}">With BOOKD</button>
-</div>
-</div>
-</div>
-<ol class="jt-list" ref="{{tourRef}}">
-<sc-for list="{{tourRows}}" as="tr" hint-placeholder-count="7">
-<li class="{{tr.cls}}" style="--d: {{tr.delay}};"><span class="jt-date">{{tr.date}}</span><span class="jt-city">{{tr.city}}</span><span class="jt-what">{{tr.what}}</span></li>
-</sc-for>
-</ol>
-<p class="jt-sum" aria-live="polite">{{tourSum}}</p>
-</div>
-</section>
-
 <!-- DEAL: two plain lists, same rows as Kaytran's cost and rider -->
 <section id="deal" class="jd" aria-label="What you see before you say yes, and what it costs">
 <div class="wrap jd-grid">
@@ -447,7 +425,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4963}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3560}}'>
 /* Join6: For artists. Sample tour and the application. Dates are samples. */
 var JN_TOUR = [
   { date: 'Fri 13', city: 'New York', club: 'Club night in Manhattan' },

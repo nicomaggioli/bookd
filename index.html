@@ -677,6 +677,10 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
   .mf-row .ft-decks{display:none !important}
 }
 </style>
+<style>/* no sharp corners anywhere (Nov 5) */
+.art-photo{border-radius:var(--r-card);overflow:hidden;margin:16px 0 16px 16px}
+@media (max-width:1000px){.art-photo{margin:16px 16px 0}}
+</style>
 </helmet>
 
 <div onClick="{{leaveCheck}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; position: relative; overflow-x: clip;">

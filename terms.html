@@ -137,8 +137,15 @@ html{scroll-padding-top:68px}
 /* placeholders are just bold red words, so the page doesn't break out in pills */
 .ph{color:#d31110;font-weight:700}
 /* top: the title and the clip, nothing else */
-.lgl-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,440px);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:center;padding-top:clamp(48px,calc(6 * var(--vw)),88px);padding-bottom:clamp(56px,calc(7 * var(--vw)),104px)}
-.lgl-head{display:flex;flex-direction:column;gap:28px;min-width:0}
+/* Nov 5: the video fills the whole top, edge to edge, like the Home6 hero; the title sits on it, bottom left */
+.lgl-top{position:relative;overflow:hidden;box-sizing:border-box;display:flex;align-items:flex-end;min-height:clamp(560px,calc(calc(100 * var(--svh)) - 68px),880px);padding:104px 0 clamp(40px,calc(5 * var(--vw)),72px);background:#000000}
+.lgl-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.lgl-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#000000}
+.lgl-scrim{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 42%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.92)),linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 55%)}
+.lgl-head{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:22px;min-width:0}
+.lgl-head .h1,.lgl-head .lede,.lgl-cap{text-shadow:0 1px 2px rgba(0,0,0,.45),0 2px 30px rgba(0,0,0,.45)}
+.lgl-cap{margin:0;font-size:15px;line-height:1.45;color:#a2a5a4}
+@media (max-width:1044px){.lgl-scrim{background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.5) 28%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.8) 72%,rgba(0,0,0,.92))}}
 .lgl-h1{font-size:clamp(60px,calc(9.6 * var(--vw)),140px);line-height:.86;letter-spacing:-0.07em}
 .lgl-head .ph{color:#ff3b2f}
 /* a clip off the digicam: black and white with a little grain, straight and square, no flash oval (moving footage under a fixed hotspot left a grey disc). Tap it, or the toggle under the caption, to pause. */
@@ -206,10 +213,6 @@ html{scroll-padding-top:68px}
 .lgl-open .lgl-p-terms{order:1}.lgl-open::after{content:"";flex-basis:100%;order:2}.lgl-open .lgl-p-privacy{order:3}.lgl-open .lgl-more{order:4}
 }
 /* one column hero up to 900, so the title never runs under the clip, and the clip starts on the text edge */
-@media (max-width:900px){
-.lgl-top{grid-template-columns:minmax(0,1fr)}
-.lgl-reel{justify-self:start}
-}
 @media (max-width:760px){
 .lgl-dl div{grid-template-columns:minmax(0,1fr)}
 .lgl-sec h3{gap:10px}
@@ -250,17 +253,16 @@ html{scroll-padding-top:68px}
 </header>
 <main id="main" style="flex: 1 1 auto;">
 <!-- top: the title, and a clip from the night -->
-<section class="wrap lgl-top" aria-labelledby="lgl-h">
-<div class="lgl-head">
+<section class="lgl-top" aria-labelledby="lgl-h">
+<div class="lgl-bg" aria-hidden="true">
+<video class="lgl-vid" ref="{{reelRef}}" src="assets/2adbf24c2f04367c5717064439cc6f83.mp4" poster="assets/90dfc74f310d5ca4434b94623379e0d2.jpg" muted="" loop="" playsinline="" preload="metadata"></video>
+<div class="lgl-scrim"></div>
+</div>
+<div class="wrap lgl-head">
 <h1 id="lgl-h" class="h1 lgl-h1">The rules of the&nbsp;party.</h1>
 <p class="lede">Terms and privacy, on one page, in plain&nbsp;words.</p>
-</div>
-<div class="lgl-reel">
-<figure class="lgl-fig">
-<button type="button" class="lgl-reelbtn" onClick="{{toggleReel}}" aria-label="{{reelLabel}}" tabindex="-1"><span class="dflash lgl-clip"><video ref="{{reelRef}}" src="assets/2adbf24c2f04367c5717064439cc6f83.mp4" poster="assets/90dfc74f310d5ca4434b94623379e0d2.jpg" muted="" loop="" playsinline="" preload="metadata" aria-hidden="true"></video><span class="dgrain" aria-hidden="true"></span></span></button>
-<figcaption>Everyone in this video read the terms.&nbsp;Probably.</figcaption>
-</figure>
-<button type="button" class="lgl-reeltoggle" onClick="{{toggleReel}}">{{reelText}}</button>
+<p class="lgl-cap">Everyone in this video read the terms.&nbsp;Probably.</p>
+<button type="button" class="lgl-reeltoggle" onClick="{{toggleReel}}" aria-label="{{reelLabel}}">{{reelText}}</button>
 </div>
 </section>
 
@@ -468,7 +470,7 @@ html{scroll-padding-top:68px}
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8466}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8750}}'>
 // Legal6: the list of sections follows your scroll (a passive scroll listener, one read per frame), nothing else moves.
 var LGL_TOC = [
   { id: 'terms', label: 'Terms', part: 'terms', big: true },
