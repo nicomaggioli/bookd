@@ -537,7 +537,7 @@ class Component extends DCLogic {
       rows: [{ k: 'Your date', v: n.date + ' is open again.' }, { k: 'Your fee', v: 'Nothing for this night. Cancel twice in a year and your profile comes off the roster.' }],
       next: 'Back to my dashboard', nextHref: 'dashboard.html', back: 'See my requests', backHref: 'requests.html#' + key
     } : out ? {
-      head: "Kaytran can't make it.", note: 'Sorry, we know that stings. Your party is still ours to save.',
+      head: "Kaytran can't make it.", note: 'Sorry, we know that stings. Your date is still open, and the roster shows who else is free that\u00a0night.',
       rows: [{ k: 'Your deposit', v: 'All $1,200 comes back to your card in 5 to 10 business days, booking fee included.' }, { k: 'What\'s next', v: 'The roster shows who else is free on Sat, Nov\u00a014. You\u00a0pick.' }],
       next: 'Find another DJ', nextHref: 'roster.html#kaytran-out', back: 'Back to my inbox', backHref: 'inbox.html#kaytran-out'
     } : {

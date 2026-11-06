@@ -554,7 +554,7 @@ var DJ_NEW = {
 var DJ_REQS = [
   { key: 'dani', who: 'Dani R.', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', meta: 'Brooklyn · Loft party · About 120 · Budget $2,500', budget: '2,500', stage: 'sent' },
   { key: 'theo', who: 'Theo M.', date: 'Sat, Nov 21', iso: '2026-11-21', city: 'Boston', metro: 'Boston', meta: 'Boston · 40th birthday · About 60 · Budget $1,800', budget: '1,800', stage: 'sent' },
-  { key: 'priya', who: 'Priya S.', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', meta: 'Austin · Wedding after party · About 80 · Budget $3,000', budget: '3,000', stage: 'sent' }
+  { key: 'priya', who: 'Priya S.', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', meta: 'Austin · Wedding afterparty · About 80 · Budget $3,000', budget: '3,000', stage: 'sent' }
 ];
 var DJ_BOOKED = [
   { key: 'sam', who: 'Sam & Lou', date: 'Sat, Nov 7', iso: '2026-11-07', city: 'Atlanta', fee: '1,500' },
@@ -890,7 +890,7 @@ class Component extends DCLogic {
     });
     var reqHead = isNew ? 'Quiet for now.' : waiting === 0 ? 'You\'re all caught up.' : waiting === 1 ? 'One host is waiting.' : DJ_WORDS[waiting] + ' hosts are waiting.';
     var reqNote = isNew ? 'Add your dates and hosts in those cities can find you.'
-      : waiting ? 'Say yes, say no or name your price. Mara can answer too, she\'s in every chat.'
+      : waiting ? 'Say yes, say no or name your price. Mara can answer too. Mara\'s in every chat.'
       : 'Nobody\'s waiting on you. Go enjoy your coffee. We\'ll text you when someone new asks.';
 
     var bookedList = isNew ? [] : DJ_BOOKED.filter(function (b) { return s.stage[b.key] !== 'cancelled'; })

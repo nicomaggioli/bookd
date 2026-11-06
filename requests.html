@@ -593,7 +593,7 @@ seed: [
 { key: 'priya', name: 'Priya S.', first: 'Priya', ini: 'P', stage: 'sent', time: 'Yesterday', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', setTime: '10 PM to 1 AM', where: 'Rooftop, Austin, TX', guests: 'About 80', budget: '3,000', replyBy: 'Tue, Nov 10', file: '', fileWhen: '',
 seed: [
 { sys: 'Request sent · Yesterday, 2:05 PM' },
-{ from: 'host', time: '2:05 PM', text: "Wedding after party on a rooftop. The band stops at 10, then it's all you. Happy to cover travel if you can make it." }
+{ from: 'host', time: '2:05 PM', text: "Wedding afterparty on a rooftop. The band stops at 10, then it's all you. Happy to cover travel if you can make it." }
 ] },
 { key: 'sam', name: 'Sam & Lou', first: 'Sam', role: 'The hosts', ini: 'S', stage: 'booked', fee: '1,500', time: 'Oct 12', date: 'Sat, Nov 7', iso: '2026-11-07', city: 'Atlanta', metro: 'Atlanta', home: true, setTime: '8 PM to 12 AM', where: 'Backyard, Atlanta, GA', guests: 'About 50', budget: '1,500', replyBy: '', file: 'Backyard_power.jpg', fileWhen: 'Oct 12',
 seed: [
@@ -1041,7 +1041,7 @@ canPretend = true; canUndo = true; pretendLabel = 'Pretend ' + d.first + ' paid'
 if (stage === 'booked') { boxLine = 'Booked. You play ' + d.date + '. ' + d.first + ' pays the rest within 48 hrs, and you get paid 5 days after the party.'; }
 if (stage === 'closed') { boxLine = 'You passed on this one. Mara ' + (past ? 'let ' : 'will let ') + d.first + ' down gently.'; canUndo = !past; }
 if (stage === 'hostpassed') boxLine = d.first + ' passed on this one.';
-if (stage === 'cancelled') boxLine = 'It\'s off. BOOKD is finding ' + d.first + ' another DJ.';
+if (stage === 'cancelled') boxLine = 'It\'s off. ' + d.first + ' can pick another DJ from the roster.';
 
 // thread list
 var statusText = { sent: 'Your move', offer: 'Offer sent · waiting on them', countered: 'Your move · counter in', accepted: 'Accepted · deposit due', booked: 'Booked', closed: 'You passed', cancelled: 'You called it off' };

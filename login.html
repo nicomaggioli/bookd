@@ -458,7 +458,7 @@ function lgDone(role, mode, name) {
   };
   return {
     title: "You're\u00a0in.",
-    line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a03.",
+    line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
     next: 'Open my inbox', nextHref: 'inbox.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
   };
 }
@@ -477,7 +477,7 @@ function lgDjWaiting() {
 
 // One message per field (F148). A new password needs 8 characters, as on Account6 (F151).
 function lgErr(bad, mode) {
-  if (bad === 'name') return "Add your name so your DJ knows who's\u00a0asking.";
+  if (bad === 'name') return "Add your name so DJs know who's\u00a0asking.";
   if (bad === 'emailEmpty') return mode === 'signup' ? 'Add an email we can reach you\u00a0at.' : 'Add your email so we can find your\u00a0account.';
   if (bad === 'email') return 'That email looks a little off. Mind checking\u00a0it?';
   if (bad === 'pw') return mode === 'signup' || mode === 'newpw' ? 'Pick a password to finish\u00a0up.' : "Add your password and you're\u00a0in.";
