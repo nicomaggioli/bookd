@@ -5,6 +5,7 @@
 <title>Requests · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -321,6 +322,34 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* InboxDJ6-1: a label stays on one line, so a long pair (Accept $2,200, Send a new offer) stacks into two pills instead of wrapping inside them. Same as the shell .btn */
+.btn{white-space:nowrap}
+/* InboxDJ6-3, Site-8: the Open, Booked, Closed chips are 44px tall at every width, as on Inbox6 and InboxNew6 (they were 40px); the Pretend buttons reach 44px on touch screens and phones */
+.chip{min-height:44px}
+@media (pointer:coarse),(max-width:760px){.btn-sm{min-height:44px}}
+/* InboxDJ6-3: Undo was 43px wide */
+.decl{min-width:44px;justify-content:center}
+/* InboxDJ6-3: the small links under The request get a 44px tall hit area (the link box is 16px, so 14px each way) */
+.col-info .small a::after{left:-5px;right:-5px;top:-14px;bottom:-14px}
+/* InboxDJ6-3: the same hit area for the Contact, Terms and Privacy links on #new, which had none */
+.in-fine a{position:relative}
+.in-fine a::after{content:"";position:absolute;left:-5px;right:-5px;top:-14px;bottom:-14px}
+/* InboxDJ6-7: on a narrow phone the card header wraps as whole lines (title, then tag) instead of leaving one word alone on a line */
+.offerbar{flex-wrap:wrap;gap:4px 10px}
+.offerbar > span{white-space:nowrap}
+/* InboxDJ6-2: desktop, the details panel fades out over its 28px bottom padding while a row is really cut by the edge (the cut class, set in the script), so it reads as more to scroll.
+   A last line that is fully on screen stays crisp. Scrolled to the end, the last line sits clear of the fade, and the scroll padding makes a link focused near the edge scroll up clear of it */
+@media (min-width:1200px){.col-info{scroll-padding-bottom:28px}.col-info.cut{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}}
+/* InboxDJ6-3 follow up: the spinning record on #new is decoration, so taps go through it to the Contact, Terms and Privacy links it sweeps past on phones */
+.in-disc{pointer-events:none}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Legal6-3: the app still lines up under the nav (F106). Its 1536px cap matched the old nav width; the nav is 1440px wide now */
+@media (min-width:761px){.inbox{max-width:1440px}}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+</style>
 </helmet>
 
 <div class="{{appCls}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
@@ -530,7 +559,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 </main>
 
 <!-- REQUEST DETAILS -->
-<aside class="col-info panel" aria-label="Request details">
+<aside class="col-info panel" aria-label="Request details" ref="{{infoRef}}">
 <h2>The request</h2>
 <sc-if value="{{flagDue}}" hint-placeholder-val="{{ false }}"><p class="flag" style="box-shadow: inset 0 0 0 1.5px #a2a5a4;">Deposit due: 50% from {{activeFirst}} to lock the&nbsp;night.</p></sc-if>
 <sc-if value="{{flagBooked}}" hint-placeholder-val="{{ false }}"><p class="flag flag-cream">Booked. Deposit&nbsp;paid.</p></sc-if>
@@ -818,6 +847,14 @@ this.logEl = null;
 this.viewSig = '';
 this.alive = true;
 this.logRef = function (el) { self.logEl = el; };
+// QA pass Nov 6 (InboxDJ6-2): The request column fades at its bottom edge only while a row is really cut there, that is while
+// more than its 28px bottom padding is still below the edge. Checked on mount, on its scroll, on resize and after every update.
+this.infoCut = function () { var el = self.infoEl; if (el && el.classList) el.classList.toggle('cut', el.scrollHeight - el.clientHeight - el.scrollTop > 28); };
+this.infoRef = function (el) {
+if (self.infoEl && self.infoEl !== el) self.infoEl.removeEventListener('scroll', self.infoCut);
+self.infoEl = el;
+if (el) { el.addEventListener('scroll', self.infoCut, { passive: true }); self.infoCut(); }
+};
 nav6Init(this);
 }
 stageOf(key) { var d = inboxThread(key); var b = this.state.base[key]; var s = this.state.stage[key]; return (INBOX_STAGES[s] ? s : '') || (b && b.stage) || d.stage; }
@@ -865,6 +902,8 @@ this.viewSent = st.sent.length;
 componentDidMount() {
 // V3: on #new a click on Requests or the skip link sets #main; put #new back so a reload stays on the new DJ (same guard as DJ6)
 if (typeof window !== 'undefined') window.addEventListener('hashchange', this.onHash);
+if (typeof window !== 'undefined') window.addEventListener('resize', this.infoCut);
+if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) document.fonts.ready.then(this.infoCut);
 var hash = (typeof location !== 'undefined' && location.hash) ? location.hash.slice(1) : '';
 // DECISIONS 4: #new is a brand new DJ's first visit. The name comes from Build6's Go live ('bookd.newdj'),
 // else Soft Static, the applicant on Admin6. Kaytran's 'bookd.dj' is never read or written there.
@@ -898,11 +937,14 @@ this.setState(next);
 this.syncView();
 var self = this;
 if (typeof document !== 'undefined' && document.fonts && document.fonts.ready && document.fonts.ready.then) {
-document.fonts.ready.then(function () { if (self.alive) self.syncView(true); });
+// QA pass Nov 6 (InboxDJ6-10): on a cold load Inter swaps in after the fee form was scrolled into view and pushes Send offer
+// under the sticky composer (tablet). Once the font is in, the open form comes back into view, only while its field still has focus.
+document.fonts.ready.then(function () { if (!self.alive) return; self.syncView(true); var o = self.els.offer; if (self.state.offering && o && document.activeElement === o && o.closest) { var b = o.closest('.box'); if (b && b.scrollIntoView) b.scrollIntoView({ block: 'nearest' }); } });
 }
 }
 componentDidUpdate() {
 this.syncView();
+this.infoCut();
 var name = this.wantFocus;
 if (!name) return;
 this.wantFocus = null;
@@ -917,6 +959,9 @@ if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest' });
 }
 componentWillUnmount() {
 if (typeof window !== 'undefined') window.removeEventListener('hashchange', this.onHash);
+if (typeof window !== 'undefined') window.removeEventListener('resize', this.infoCut);
+if (this.infoEl) this.infoEl.removeEventListener('scroll', this.infoCut);
+this.infoEl = null;
 nav6Off(this);
 this.els = {};
 this.alive = false;
@@ -1110,6 +1155,7 @@ appCls: isNew ? 'app app-new' : 'app',
 isNew: isNew,
 appOn: !isNew,
 logRef: this.logRef,
+infoRef: this.infoRef,
 composerRef: this.composerRef,
 threads: threads,
 filters: filters,

@@ -5,6 +5,7 @@
 <title>Emails and texts · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -158,6 +159,18 @@ html{scroll-padding-top:88px}
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* Messages6-r2a: both email footers break after 'P.O. Box 2214,' at every width, in any browser; the address and Unsubscribe are tied, so no line ends on one word */
+.ms-foot{text-wrap:wrap}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -244,9 +257,9 @@ html{scroll-padding-top:88px}
 function nb(t) { var i = t.lastIndexOf(' '); return i < 0 ? t : t.slice(0, i) + ' ' + t.slice(i + 1); }
 // tie() keeps a month with its day, and a time with AM or PM in one piece, so none of them splits across two lines on a phone.
 function tie(t) { return t.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d)/g, '$1\u00a0$2').replace(/(\d) (AM|PM)\b/g, '$1\u00a0$2').replace(/\[X (hrs|days)\]/g, '[X\u00a0$1]'); }
-var MS_FOOT = 'BOOKD, DJs for private parties. P.O. Box 2214, Brooklyn, NY 11202 · Unsubscribe';
+var MS_FOOT = 'BOOKD, DJs for private parties. P.O.\u00a0Box\u00a02214, Brooklyn,\u00a0NY\u00a011202\u00a0· Unsubscribe';
 // need: true drops Unsubscribe from the emails nobody should be able to turn off: bookings, cancellations, the account and the application.
-var MS_FOOT_NEED = 'BOOKD, DJs for private parties. P.O. Box 2214, Brooklyn, NY 11202';
+var MS_FOOT_NEED = 'BOOKD, DJs for private parties. P.O.\u00a0Box\u00a02214, Brooklyn,\u00a0NY\u00a011202';
 // The booking ones first, in the order they happen. Then the DJ's application, the monthly reminder and the password.
 var MS = [
   { title: 'New request', who: 'Goes to the DJ', when: 'When a host sends a request.',
@@ -260,7 +273,7 @@ var MS = [
     button: 'Open the chat', href: 'inbox.html',
     text: 'BOOKD: Mara sent you a message. Read it: bookd.co/r/M7rd' },
   { title: 'Offer received', who: 'Goes to the host', when: 'When a DJ or agent sends an offer.',
-    subject: 'Kaytran sent you an offer', headline: "Kaytran's in. Are you?",
+    subject: 'Kaytran sent you an offer', headline: "Kaytran's\u00a0in. Are you?",
     body: "Her offer for Sat, Nov 14 in Brooklyn is $2,400, booking fee included, with no travel fee. It's good until Tue, Nov 10.",
     button: 'See the offer', href: 'inbox.html#kaytran',
     text: "BOOKD: Kaytran sent you an offer for Sat, Nov 14. It's good until Tue, Nov 10: bookd.co/r/Of24" },
@@ -281,7 +294,7 @@ var MS = [
     noText: 'Email only. No text for this one.' },
   { title: 'Booking confirmed, host', who: 'Goes to the host', when: 'When the deposit goes through.',
     subject: "It's booked: Kaytran, Sat, Nov 14", headline: "It's booked.",
-    body: 'Kaytran is yours on Sat, Nov 14 in Brooklyn. Your 50% deposit of $1,200 went through on Visa ending in\u00a04242, receipt BK-26-0482. The rest is due after the party, by Mon, Nov 16. Mara will say hi in your inbox.',
+    body: 'Kaytran is yours on Sat, Nov 14 in Brooklyn. Your 50% deposit of $1,200 went through on Visa ending in\u00a04242, receipt BK\u201126\u20110482. The rest is due after the party, by Mon, Nov 16. Mara will say hi in your inbox.',
     button: 'See my booking', href: 'inbox.html#kaytran-paid', need: true,
     text: "BOOKD: It's booked. Kaytran plays your party on Sat, Nov 14. Details: bookd.co/r/Bk8x" },
   { title: 'Booking confirmed, DJ', who: 'Goes to the DJ', when: 'When the deposit goes through.',
@@ -476,7 +489,8 @@ class Component extends DCLogic {
           // a two word title may break between its words; a longer one keeps its last two together
           title: m.title.split(' ').length > 2 ? nb(m.title) : m.title, who: nb(m.who), when: nb(tie(m.when)), aria: 'Email: ' + m.title,
           subject: tie(m.subject), headline: nb(tie(m.headline)), body: nb(tie(m.body)), button: m.button, href: m.href,
-          foot: nb(m.need ? MS_FOOT_NEED : MS_FOOT),
+          // the footer without Unsubscribe already ties its address, so nb() would glue all of it to the line before (Messages6-r2a)
+          foot: m.need ? MS_FOOT_NEED : nb(MS_FOOT),
           hasText: !!m.text, text: m.text ? nb(tie(m.text)) : '', noText: !m.text, noTextWhy: m.noText ? nb(m.noText) : ''
         };
       })

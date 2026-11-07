@@ -5,6 +5,7 @@
 <title>Build your profile · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -486,6 +487,30 @@ label.k6rec{position:relative}
 <style>/* no sharp corners anywhere (Nov 5) */
 .k6sleeve{border-radius:var(--r-card);overflow:hidden}
 </style>
+<style>/* QA pass Nov 6 */
+/* fee and rider fields on cream: white with a light grey outline and a red ring on focus, like Account6 and Contact6 (Build6-1) */
+.bdcosts .field{box-shadow:inset 0 0 0 1px #d9d9d4}
+.bdcosts .field:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+/* the home row stays dimmed, but its small Home label is full strength so it can be read, as on DJ6 (Build6-2, F341) */
+.djhome{opacity:1}
+.djhome .k6dwhen,.djhome .k6dcity{opacity:.72}
+/* the Sample tag is a small cream outline pill after Remove, so it reads as a tag and every Remove lines up (Build6-4) */
+.djsample{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;box-shadow:inset 0 0 0 1px currentColor;color:#fffde9;font-size:12px;letter-spacing:.04em}
+/* the smallest phones stack From and To, so the date hint is not cut into the calendar icon (Build6-6) */
+@media (max-width:360px){.djaddrow{grid-template-columns:minmax(0,1fr)}}
+/* Added or Removed, with its Undo, gets its own line under Pull from Resident Advisor and its note (Build6-10). Only while it says something: the empty status line takes no room, so the red band stays the same height as on DJ6 */
+.djra .djstat:not(:has(> .sc-interp:empty)){flex-basis:100%}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+/* Site-10: the profile card and the add a date card take the card token, 20px, at every width (they were 30px, and 24px on phones) */
+.k6card,.djadd{border-radius:var(--r-card)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -575,7 +600,7 @@ label.k6rec{position:relative}
 <span class="k6vinyl" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">BOOKD RECORDS · BEST PLAYED LOUD · BOOKD RECORDS · BEST PLAYED LOUD · </textPath></text></svg><span class="bdlblw"><span class="{{lblCls}}" style="font-size: {{lblSize}};">{{labelName}}</span></span></span><span class="k6sheen"></span></span>
 <span class="k6sleeve">
 <sc-if value="{{hasCover}}" hint-placeholder-val="{{ false }}"><img src="{{cover}}" alt=""></sc-if>
-<sc-if value="{{noCover}}" hint-placeholder-val="{{ true }}"><span class="bdempty">Add your cover</span></sc-if>
+<sc-if value="{{noCover}}" hint-placeholder-val="{{ true }}"><span class="bdempty">Add your&nbsp;cover</span></sc-if>
 </span>
 </span>
 </label>
@@ -594,10 +619,10 @@ label.k6rec{position:relative}
 <sc-if value="{{editing}}" hint-placeholder-val="{{ true }}">
 <p class="lede">Your top four. SoundCloud, Mixcloud and YouTube links all&nbsp;work.</p>
 <ol class="bdrows">
-<li class="bdrow"><span class="k6tid" aria-hidden="true">1</span><label class="field"><span class="field-l">Song 1 title</span><input id="f-t0" type="text" value="{{f.t0}}" onInput="{{set.t0}}" maxlength="60" autocomplete="off" aria-invalid="{{inv.t0}}" aria-describedby="{{desc.t0}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 1 </span>Link</span><input id="f-u0" type="text" value="{{f.u0}}" onInput="{{set.u0}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u0}}" aria-describedby="{{desc.u0}}"></label></li>
-<li class="bdrow"><span class="k6tid" aria-hidden="true">2</span><label class="field"><span class="field-l">Song 2 title</span><input id="f-t1" type="text" value="{{f.t1}}" onInput="{{set.t1}}" maxlength="60" autocomplete="off" aria-invalid="{{inv.t1}}" aria-describedby="{{desc.t1}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 2 </span>Link</span><input id="f-u1" type="text" value="{{f.u1}}" onInput="{{set.u1}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u1}}" aria-describedby="{{desc.u1}}"></label></li>
-<li class="bdrow"><span class="k6tid" aria-hidden="true">3</span><label class="field"><span class="field-l">Song 3 title</span><input id="f-t2" type="text" value="{{f.t2}}" onInput="{{set.t2}}" maxlength="60" autocomplete="off" aria-invalid="{{inv.t2}}" aria-describedby="{{desc.t2}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 3 </span>Link</span><input id="f-u2" type="text" value="{{f.u2}}" onInput="{{set.u2}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u2}}" aria-describedby="{{desc.u2}}"></label></li>
-<li class="bdrow"><span class="k6tid" aria-hidden="true">4</span><label class="field"><span class="field-l">Song 4 title</span><input id="f-t3" type="text" value="{{f.t3}}" onInput="{{set.t3}}" maxlength="60" autocomplete="off" aria-invalid="{{inv.t3}}" aria-describedby="{{desc.t3}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 4 </span>Link</span><input id="f-u3" type="text" value="{{f.u3}}" onInput="{{set.u3}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u3}}" aria-describedby="{{desc.u3}}"></label></li>
+<li class="bdrow"><span class="k6tid" aria-hidden="true">1</span><label class="field"><span class="field-l">Song 1 title</span><input id="f-t0" type="text" value="{{f.t0}}" onInput="{{set.t0}}" maxlength="60" autocomplete="off" placeholder="Track or set name" aria-invalid="{{inv.t0}}" aria-describedby="{{desc.t0}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 1 </span>Link</span><input id="f-u0" type="text" value="{{f.u0}}" onInput="{{set.u0}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u0}}" aria-describedby="{{desc.u0}}"></label></li>
+<li class="bdrow"><span class="k6tid" aria-hidden="true">2</span><label class="field"><span class="field-l">Song 2 title</span><input id="f-t1" type="text" value="{{f.t1}}" onInput="{{set.t1}}" maxlength="60" autocomplete="off" placeholder="Track or set name" aria-invalid="{{inv.t1}}" aria-describedby="{{desc.t1}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 2 </span>Link</span><input id="f-u1" type="text" value="{{f.u1}}" onInput="{{set.u1}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u1}}" aria-describedby="{{desc.u1}}"></label></li>
+<li class="bdrow"><span class="k6tid" aria-hidden="true">3</span><label class="field"><span class="field-l">Song 3 title</span><input id="f-t2" type="text" value="{{f.t2}}" onInput="{{set.t2}}" maxlength="60" autocomplete="off" placeholder="Track or set name" aria-invalid="{{inv.t2}}" aria-describedby="{{desc.t2}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 3 </span>Link</span><input id="f-u2" type="text" value="{{f.u2}}" onInput="{{set.u2}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u2}}" aria-describedby="{{desc.u2}}"></label></li>
+<li class="bdrow"><span class="k6tid" aria-hidden="true">4</span><label class="field"><span class="field-l">Song 4 title</span><input id="f-t3" type="text" value="{{f.t3}}" onInput="{{set.t3}}" maxlength="60" autocomplete="off" placeholder="Track or set name" aria-invalid="{{inv.t3}}" aria-describedby="{{desc.t3}}"></label><label class="field bdlink"><span class="field-l"><span class="vh">Song 4 </span>Link</span><input id="f-u3" type="text" value="{{f.u3}}" onInput="{{set.u3}}" placeholder="Paste a link" autocomplete="off" aria-invalid="{{inv.u3}}" aria-describedby="{{desc.u3}}"></label></li>
 </ol>
 <p class="bdopt">One is enough to go live. Four gets you more&nbsp;requests.</p>
 </sc-if>
@@ -617,7 +642,7 @@ label.k6rec{position:relative}
 </div>
 <ul class="k6dates">
 <sc-for list="{{dates}}" as="d" hint-placeholder-count="0">
-<li><div class="k6drow djdrow"><span class="k6dwhen">{{d.when}}</span><span class="k6dcity">{{d.city}}</span><span class="djend"><sc-if value="{{d.edit}}" hint-placeholder-val="{{ true }}"><sc-if value="{{d.sample}}" hint-placeholder-val="{{ false }}"><span class="djsample">Sample</span></sc-if><button class="djlink" type="button" onClick="{{d.remove}}" aria-label="{{d.removeAria}}">Remove</button></sc-if><sc-if value="{{d.host}}" hint-placeholder-val="{{ false }}"><span class="k6dask">{{d.ask}}</span></sc-if></span></div></li>
+<li><div class="k6drow djdrow"><span class="k6dwhen">{{d.when}}</span><span class="k6dcity">{{d.city}}</span><span class="djend"><sc-if value="{{d.edit}}" hint-placeholder-val="{{ true }}"><button class="djlink" type="button" onClick="{{d.remove}}" aria-label="{{d.removeAria}}">Remove</button><sc-if value="{{d.sample}}" hint-placeholder-val="{{ false }}"><span class="djsample">Sample</span></sc-if></sc-if><sc-if value="{{d.host}}" hint-placeholder-val="{{ false }}"><span class="k6dask">{{d.ask}}</span></sc-if></span></div></li>
 </sc-for>
 <li><div class="{{homeCls}}"><span class="k6dwhen">Most weekends</span><span class="k6dcity">{{homeShort}}</span><span class="k6dask">{{homeAsk}}</span></div></li>
 </ul>

@@ -5,6 +5,7 @@
 <title>Log in · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -200,6 +201,22 @@ html{scroll-padding-top:88px}
 <style>/* no sharp corners anywhere (Nov 5) */
 .lg-stage{border-radius:var(--r-card)}
 </style>
+<style>/* QA pass Nov 6 */
+/* the white card uses the 20px card radius, so it matches the video stage beside it (was 30px) */
+.lg-card{border-radius:var(--r-card)}
+/* phone tap size: the Show and Hide password pill is 44px tall (was 40px) */
+.lg-show{min-height:44px}
+/* phone tap size: Make an account, Log in and Apply to the roster are 45px tall (were 43px) */
+.lg-link{padding:13px 2px}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -323,7 +340,7 @@ html{scroll-padding-top:88px}
 <div class="{{passCls}}">
 <span class="lg-strap"><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg></span>
 <span class="lg-clip"><span class="lg-ring"></span><span class="lg-hook"></span></span>
-<span class="lg-lam"><img src="assets/778e44ad8c582395dbeb58c17bb47d48.webp" alt="" decoding="async"></span>
+<span class="lg-lam"><img src="assets/16d13c7371270004167b97ad5756e937.webp" alt="" width="600" height="950" decoding="async"></span>
 </div>
 
 </div>
@@ -721,7 +738,7 @@ class Component extends DCLogic {
       },
 
       // card: form
-      inCls: isNewPw ? 'lg-in lg-mid' : 'lg-in',
+      inCls: (isNewPw || isReset) ? 'lg-in lg-mid' : 'lg-in',
       formOn: !s.done, switchOn: !isReset && !isNewPw,
       knobX: isDJ ? '100%' : '0%', hostPressed: isDJ ? 'false' : 'true', djPressed: isDJ ? 'true' : 'false',
       // F258: back on Host from the DJ side, a sign up comes back as it was; a sign up password never rides into a log in field

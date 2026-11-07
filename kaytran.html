@@ -5,6 +5,7 @@
 <title>Kaytran · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -313,6 +314,27 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <style>/* no sharp corners anywhere (Nov 5) */
 .k6sleeve{border-radius:var(--r-card);overflow:hidden}
 </style>
+<style>/* QA pass Nov 6 */
+/* Kaytran6-1: the New York row's Ask link reads cream on red (5.3:1); black on red was 3.9:1 */
+.k6drow-ny .k6dask{color:#fffde9}
+/* Kaytran6-2: cost ledger labels keep one line and the long values wrap right aligned, so nothing collides on narrow phones (the rider list keeps its own columns) */
+.k6ledger:not(.k6need) div{grid-template-columns:minmax(max-content,1fr) auto}
+.k6ledger:not(.k6need) dd{text-align:right}
+/* Kaytran6-3: on phones the hero glow sits behind the right of the record, away from the small copy (the note under the record too, while a set plays), so the cream text stays above 4.5:1 and the red keeps its depth */
+@media (max-width:760px){.k6room{background:radial-gradient(ellipse 60% 32% at 90% 32%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+/* Kaytran6-4: the price stays on one line on narrow phones, sized to fit, so $3,000 never sits alone */
+@media (max-width:480px){.k6price{white-space:nowrap;font-size:clamp(32px,calc(11 * var(--vw)),44px)}}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+/* Site-10: the request card takes the card token, 20px, at every width (it was 30px, and 24px on phones) */
+.k6card{border-radius:var(--r-card)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -524,13 +546,13 @@ var K6_PAUSE = 'M5 4 H8.5 V16 H5 Z M11.5 4 H15 V16 H11.5 Z';
 // Kaytran6: her sets. Titles, venues and links are placeholders until she sends them.
 // Each play runs a stand-in loop in that set's style (16 steps a bar, same voices as the Home6 decks). It never claims to be her mix.
 var K6_SETS = [
-  { id: 'A1', title: 'Late Checkout, Live in Atlanta', meta: '1:02:14 · on SoundCloud', style: 'Amapiano', bpm: 112, root: 55, prog: [0, 0, -4, -2], minor: true, chordLen: 0.9,
+  { id: 'A1', title: 'Late Checkout, Live in\u00a0Atlanta', meta: '1:02:14 · on SoundCloud', style: 'Amapiano', bpm: 112, root: 55, prog: [0, 0, -4, -2], minor: true, chordLen: 0.9,
     p: { kick: 'x.......x.......', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', log: '...x..x...xx..x.', chord: 'x...............', perc: '.h......h..h....' } },
-  { id: 'A2', title: 'Log Drum Diaries', meta: '58:40 · on Mixcloud', style: 'Afro house', bpm: 122, root: 49, prog: [0, 0, 3, -2], minor: true, chordLen: 0.22,
+  { id: 'A2', title: 'Log Drum\u00a0Diaries', meta: '58:40 · on Mixcloud', style: 'Afro house', bpm: 122, root: 49, prog: [0, 0, 3, -2], minor: true, chordLen: 0.22,
     p: { kick: 'x...x...x...x...', hat: '..x...x...x...x.', shk: 'x.xxx.xxx.xxx.xx', perc: 'h..l..h...l.h.l.', bass: 'x..x..x...x..x..', chord: '...x.......x....' } },
-  { id: 'B1', title: 'Sade at 2 AM', meta: '1:15:03 · on YouTube', style: 'Afrobeats', bpm: 104, root: 46, prog: [0, 0, 3, 5], minor: true, chordLen: 0.3,
+  { id: 'B1', title: 'Sade at 2\u00a0AM', meta: '1:15:03 · on YouTube', style: 'Afrobeats', bpm: 104, root: 46, prog: [0, 0, 3, 5], minor: true, chordLen: 0.3,
     p: { kick: 'x..x....x..x....', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', perc: 'h.lh..l.h.l..hl.', bass: 'x..x....x..x..x.', chord: '..x.......x.....' } },
-  { id: 'B2', title: 'Back Porch House', meta: '47:22 · on SoundCloud', style: 'Soulful house', bpm: 120, root: 52, prog: [0, -2, 3, 5], minor: true, chordLen: 0.34,
+  { id: 'B2', title: 'Back Porch\u00a0House', meta: '47:22 · on SoundCloud', style: 'Soulful house', bpm: 120, root: 52, prog: [0, -2, 3, 5], minor: true, chordLen: 0.34,
     p: { kick: 'x...x...x...x...', hat: '..x...x...x...x.', shk: 'x.xxx.xxx.xxx.xx', clap: '....x.......x...', bass: 'x.....x...x.....', chord: '..x....x..x.....' } }
 ];
 // 16 bar loop: two bars of drums, the full groove, then two bars of breakdown

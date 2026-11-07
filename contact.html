@@ -5,6 +5,7 @@
 <title>Contact · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -155,6 +156,43 @@ html{scroll-padding-top:88px}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
+<style>/* QA pass Nov 6 */
+/* a focused field gets the red ring: .ct-form .field (white box, grey hairline) outranked the shared .field:focus-within ring, so focus showed nothing */
+.ct-form .field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110}
+/* after Send it, each field that needs fixing gets a red label and a thin red line; the field you are in keeps the thick red ring, so focus and errors no longer look the same (Message is a textarea, so not input only) */
+.ct-form .field:has([aria-invalid="true"]){box-shadow:inset 0 0 0 1px #d31110}
+.ct-form .field:has([aria-invalid="true"]) .field-l{color:#d31110}
+.ct-form .field:has([aria-invalid="true"]):focus-within{box-shadow:inset 0 0 0 2px #d31110}
+/* I'm a reads as a choice: the same chevron as the Roster6 selects, since the native arrow is turned off */
+.ct-form select{padding-right:24px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 8 L10 13 L15 8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 0 center;background-size:18px 18px}
+/* 901 to 1199px the form column is narrow: Name and Email stack, so the email box no longer cuts off its own placeholder */
+@media (min-width:901px) and (max-width:1199px){.ct-two{grid-template-columns:minmax(0,1fr)}}
+/* Got it card: a long email wraps inside the card instead of pushing the card and the page sideways */
+.ct-done{grid-template-columns:minmax(0,1fr)}
+.ct-done p{overflow-wrap:anywhere}
+/* phones under 360px: real person. at 56px fits the screen (at the 64px minimum it ran 10px past a 320px screen) */
+@media (max-width:359px){.ct-h{font-size:56px}}
+/* phones under 360px: the I'm a select shows all of Host planning a party clear of the chevron (at 20px it ran 5px into the chevron padding at 320) */
+@media (max-width:359px){.ct-form .field input,.ct-form .field select{font-size:18px}}
+/* phones: each contact link gets a 44px tall tap area without moving its row, and the focus ring stays around the words */
+@media (max-width:760px){.ct-list a{position:relative}.ct-list a::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
+/* See who's in town on the cream card: hover goes black like the other light cards; white on cream nearly vanished */
+@media (hover:hover) and (pointer:fine){.ct-done .ghost:hover{background:#000000;color:#ffffff}}
+/* the cream card takes the card token, 20px (28px was a one off) */
+.ct-form{border-radius:var(--r-card)}
+/* red text on black uses the bright red */
+.ct-h span{color:#ff3b2f}
+/* keyboard focus inside the cream card is red; the white ring from .ct :focus-visible vanished on cream. The card's own ring stays white on black */
+.ct-form :focus-visible{outline-color:#d31110}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -383,7 +421,7 @@ class Component extends DCLogic {
       first: (s.name.trim().split(/\s+/)[0]) || 'thanks',
       emailBad: s.tried && !emailOk ? 'true' : 'false', msgBad: s.tried && !msgOk ? 'true' : 'false',
       showErr: s.tried && (!emailOk || !msgOk),
-      errText: !emailOk ? 'Add an email we can reply to.' : 'Add a message, even a short one.'
+      errText: !emailOk && !msgOk ? 'Add an email we can reply to and a short\u00a0message.' : !emailOk ? 'Add an email we can reply to.' : 'Add a message, even a short one.'
     }, nav6Vals(this, {}));
   }
 }

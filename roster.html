@@ -5,6 +5,7 @@
 <title>The roster · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -319,6 +320,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* Roster6-1: nobody fits, so the board is hidden and the empty note sits right under the heading, spaced like the board would be */
+.rg-empty{padding:0}
+/* Roster6-2: on phones under 381px the "and You?" card fits its words instead of cropping them and its button fits inside the tile. Under 369px the words also sit a little tighter so the card stays as tall as the photo beside it */
+@media (max-width:380px){.rt-you{overflow:visible;padding:12px}.rt-youbtn{align-self:stretch;padding:0 8px;font-size:14px}}
+@media (max-width:368px){.rt-you{gap:4px}.rt-big{font-size:44px}.rt-youp,.rt-youbtn{margin-top:0}}
+/* Roster6-5: phone tap targets at least 44px tall: the city chips, Show the whole roster, and the DJ names under the photos (a 44px hit area around each name, so nothing moves and the focus ring stays around the name) */
+@media (max-width:760px){.r6-chips .chip,.rg-clear{min-height:44px}.rt-name a{position:relative}.rt-name a::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+/* Site-10: the filter card takes the card token, 20px, at every width (it was 30px, and 24px under 600px) */
+.r6-find{border-radius:var(--r-card)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -375,9 +395,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="wrap">
 <div class="rg-head">
 <h2 id="rg-h" class="rg-h" tabindex="-1" ref="{{billHRef}}">{{gridHead}}</h2>
-<sc-if value="{{filtered}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
+<sc-if value="{{showClear}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
 </div>
-<div class="rg-grid" ref="{{billRef}}">
+<div class="rg-grid" ref="{{billRef}}" style="display: {{gridDisplay}};">
 <sc-for list="{{tiles}}" as="d" hint-placeholder-count="15">
 <article class="rt">
 <a class="rt-shot" href="{{d.href}}" aria-label="{{d.linkAria}}">
@@ -393,7 +413,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <a class="rt rt-you" href="artists.html"><span class="rt-and">and</span><span class="rt-big">You?</span><span class="rt-youp">DJs, there's room on the&nbsp;board.</span><span class="btn ink rt-youbtn">Join the roster</span></a>
 </div>
 <div class="rg-empty" style="display: {{emptyDisplay}};">
-<p class="rg-emptyh">Nobody fits that&nbsp;yet.</p>
 <p class="rg-emptyp">{{emptyLine}}</p>
 <button class="btn paper" type="button" onClick="{{clearAll}}">Show the whole roster</button>
 </div>
@@ -761,11 +780,11 @@ class Component extends DCLogic {
     });
     var n = rows.length, place = city ? city.label : '', when = day ? R6_NB(R6_LABEL(day)) : '';
     var gridHead = !filtered ? 'The whole roster.'
-      : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
+      : (!n ? 'Nobody fits that\u00a0yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
     var countLine = s.miss ? "We're not in " + R6_PLACE(s.where, H4_CITIES[0]) + ' yet. Right now it\'s New York, Boston, Atlanta and Chicago.'
       : !filtered ? R6_ROSTER.length + ' DJs on the roster. Add a city or a date to see who\'s around.'
       : bad ? "That date's not on our calendar yet. Try a night in November or December."
-      : (n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (budget ? ' within $' + budget.toLocaleString('en-US') : '') + (place ? ', no travel fee.' : '.');
+      : (n === 0 ? 'No DJs' : n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (budget ? ' within $' + budget.toLocaleString('en-US') : '') + (place && n ? ', no travel fee.' : '.');
     var emptyLine = s.miss ? 'Pick New York, Boston, Atlanta or Chicago, or tell us where to go next.'
       : 'Try another night, every sound or a bigger budget. The roster grows every month.';
     /* Book a DJ on the roster: the search is right here, so it goes to the form and puts the cursor in Where (no reload, the picks stay) */
@@ -797,6 +816,8 @@ class Component extends DCLogic {
       /* the same chips inside the empty poster; they vanish once picked, so focus moves to the new bill */
       emptyChips: H4_CITIES.map(function (c, i) { return { label: c.label, pick: function () { self.pickCity(i, true); self.focusBill(); } }; }),
       countLine: countLine, gridHead: gridHead, filtered: filtered, tiles: tiles,
+      /* nobody fits: the heading and the empty note say it once, with one Show the whole roster button, and the board (with the join card) steps aside */
+      showClear: filtered && rows.length > 0, gridDisplay: rows.length ? 'grid' : 'none',
       emptyDisplay: rows.length ? 'none' : 'flex', emptyLine: emptyLine,
       clearAll: function () { self.setState({ where: '', when: '', lastDay: 0, sound: '', budget: '', city: -1, miss: false }); self.focusBill(); },
       billRef: this.billRef, billHRef: this.billHRef, crowdRef: this.crowdRef,

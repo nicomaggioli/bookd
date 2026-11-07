@@ -5,6 +5,7 @@
 <title>Inbox · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -294,6 +295,31 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* Inbox6-3: the Open, Booked and Closed chips reach the 44px phone tap target (they were 40px tall) */
+.chip{min-height:44px}
+/* Inbox6-5: on 320px phones the Accepted step label fits its column instead of being cut to Accep... */
+@media (max-width:359px){.steps{gap:4px}.steplbl{font-size:10px}}
+/* Inbox6-6: on 320px phones the offer bar tag drops whole to its own line instead of leaving one word alone */
+.offerbar{flex-wrap:wrap}
+.offerbar > span{white-space:nowrap}
+/* Inbox6-8: See profile, See her rider, Contact, Terms and Privacy get a 44px tall tap area, and Undo a 44px wide one */
+.metaline a::after,.terms a::after{top:-14px;bottom:-14px}
+.col-info .small a::after{top:-14px;bottom:-14px;left:-4px;right:-4px}
+.decl{min-width:44px;justify-content:center}
+/* Inbox6-9: the counter field uses the field radius token (it was 18px) */
+.field{border-radius:var(--r-field)}
+/* Inbox6-15: tablet portrait, past chats with four facts sit 2 and 2 instead of 3 and 1 */
+@media (min-width:761px) and (max-width:900px){.facts:has(> div:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Inbox6-16: the upcoming step number (the 2 in Pay the deposit) reads at better than 4.5:1 on its grey circle */
+.lock .lock-n{color:#4d504f}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Legal6-3: the app still lines up under the nav (F106). Its 1536px cap matched the old nav width; the nav is 1440px wide now */
+@media (min-width:761px){.inbox{max-width:1440px}}
+/* Inbox6-v2: on desktop, when the whole signed offer fits, it sits one 12px gap under the chat head instead of flush against it */
+@media (min-width:1200px){.log .offer{scroll-margin-top:12px}}
+</style>
 </helmet>
 
 <div class="app" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
@@ -528,7 +554,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 <sc-if value="{{kOut}}" hint-placeholder-val="{{ false }}">
 <div class="bub bub-them"><strong style="color: #d31110;">Kaytran · Just now</strong>I'm so sorry, I can't make the 14th anymore. You'll get every dollar back, and the roster shows who else is free that&nbsp;night.</div>
 </sc-if>
-<div class="sysline">Closed · just now</div>
+<div class="sysline">Closed · Just now</div>
 </sc-if>
 </sc-if>
 
@@ -833,6 +859,72 @@ var room = Math.floor(lt - above - 0.5);
 log.scrollTop -= Math.max(hidden, Math.min(hidden + 4, room));
 }
 
+// QA pass Nov 6 (Inbox6-v1): #kaytran-accepted lifts the box with the Sign button to the log's bottom edge. When that leaves a
+// line cut by the chat head ($2,400 at 1440x900, 1536x864 and 1512x865), the log scrolls on a pixel at a time to the first spot
+// where no line is cut at either edge and the top line sits 4px clear of the head, never past the box's own divider 12px under
+// the head. If there is no such spot it stays where it is.
+// Above 1920px the page zooms <html>, so rect distances are divided by z to match scrollTop (Inbox6-r2c).
+function inboxClearTop(log, box) {
+if (!log || !box || typeof document === 'undefined' || !document.createTreeWalker || !document.createRange) return;
+var LR = log.getBoundingClientRect(), lt = LR.top, z = Math.round(LR.height / log.offsetHeight * 1000) / 1000 || 1, s = log.scrollTop, h = log.clientHeight;
+var hi = Math.min(log.scrollHeight - h, Math.floor((box.getBoundingClientRect().top - lt) / z + s - 12));
+var lines = [], rg = document.createRange(), tw = document.createTreeWalker(log, 4), n, rs, i, t;
+while ((n = tw.nextNode())) {
+if (!/\S/.test(n.nodeValue || '')) continue;
+rg.selectNodeContents(n);
+rs = rg.getClientRects();
+for (i = 0; i < rs.length; i++) if (rs[i].width > 0 && rs[i].height > 0) lines.push([(rs[i].top - lt) / z + s, (rs[i].bottom - lt) / z + s]);
+}
+var bad = function (y) { return lines.some(function (r) { return (r[1] > y + 0.5 && r[0] < y + 4) || (r[0] < y + h - 0.5 && r[1] > y + h + 0.5); }); };
+for (t = s; t <= hi && bad(t); t += 1 / z);
+if (t > s && t <= hi) log.scrollTop = t;
+}
+
+// QA pass Nov 6 (Inbox6-v2): after Sign, or Undo after signing, the offer can be taller than the log (1536x864, 1512x865,
+// 1280x720, Undo at 1440x900 and 1200x900), and keeping to the box leaves a text line above it sliced under the chat head.
+// The log scrolls on until that line is fully out of view, as long as the box stays whole. If the log cannot scroll that far,
+// the line comes down into full view instead, as long as the box still clears the composer.
+function inboxHideCut(log, box) {
+if (!log || !box || typeof document === 'undefined' || !document.createTreeWalker || !document.createRange) return;
+var L = log.getBoundingClientRect(), B = box.getBoundingClientRect(), z = Math.round(L.height / log.offsetHeight * 1000) / 1000 || 1;
+var rg = document.createRange(), tw = document.createTreeWalker(log, 4), n, rs, i, top = Infinity, bot = -Infinity;
+while ((n = tw.nextNode())) {
+if (!/\S/.test(n.nodeValue || '')) continue;
+rg.selectNodeContents(n); rs = rg.getClientRects();
+for (i = 0; i < rs.length; i++) if (rs[i].width > 0 && rs[i].top < L.top - 0.5 && rs[i].bottom > L.top + 0.5) { top = Math.min(top, rs[i].top); bot = Math.max(bot, rs[i].bottom); }
+}
+if (bot === -Infinity) return;
+var down = Math.ceil((bot - L.top) / z), up = Math.ceil((L.top - top) / z);
+if (down * z <= B.top - L.top && log.scrollTop + down <= log.scrollHeight - log.clientHeight) log.scrollTop += down;
+else if (B.bottom + up * z <= L.bottom) log.scrollTop -= up;
+}
+
+// Inbox6-v2 follow-up (Inbox6-r2b): after Sign or Undo the log can end with a text line cut at the composer edge (1680x938,
+// 1920x940, Undo at 1440x910). The log moves the fewest pixels to a spot where no text line is cut at either edge and the offer
+// (or the box, when the offer is taller than the log) stays whole. When the whole offer is kept it never goes more than its 12px
+// gap under the head, so the bubble before it stays fully scrolled out (QA7). If there is no such spot it stays where it is.
+// Above 1920px it steps one device pixel (1/z) at a time, like inboxClearTop (Inbox6-r3a).
+function inboxClearEdges(log, keep) {
+if (!log || !keep || typeof document === 'undefined' || !document.createTreeWalker || !document.createRange) return;
+var LR = log.getBoundingClientRect(), lt = LR.top, z = Math.round(LR.height / log.offsetHeight * 1000) / 1000 || 1, s = log.scrollTop, h = log.clientHeight, max = log.scrollHeight - h;
+var kt = (keep.getBoundingClientRect().top - lt) / z + s, kb = kt + keep.offsetHeight;
+var pv = keep.classList && keep.classList.contains('offer') ? keep.previousElementSibling : null;
+var lines = [], rg = document.createRange(), tw = document.createTreeWalker(log, 4), n, rs, i, d, y;
+while ((n = tw.nextNode())) {
+if (!/\S/.test(n.nodeValue || '')) continue;
+rg.selectNodeContents(n); rs = rg.getClientRects();
+for (i = 0; i < rs.length; i++) if (rs[i].width > 0 && rs[i].height > 0) lines.push([(rs[i].top - lt) / z + s, (rs[i].bottom - lt) / z + s]);
+}
+var bad = function (y) { return lines.some(function (r) { return (r[0] < y - 0.5 && r[1] > y + 0.5) || (r[0] < y + h - 0.5 && r[1] > y + h + 0.5); }); };
+if (!bad(s)) return;
+var lo = Math.max(0, kb - h - 0.5), hi = Math.min(max, kt + 0.5);
+if (pv) lo = Math.max(lo, (pv.getBoundingClientRect().bottom - lt) / z + s - 0.5);
+for (d = 1; s - d / z >= lo || s + d / z <= hi; d++) for (i = -1; i <= 1; i += 2) {
+y = s + i * d / z;
+if (y >= lo && y <= hi && !bad(y)) { log.scrollTop = y; return; }
+}
+}
+
 // IB: '2200', '2,200' or '02200' becomes '2,200'; '$2,250.00' drops the cents; no digits gives ''.
 function inboxMoney(v) {
 var d = String(v || '').split('.')[0].replace(/\D/g, '').replace(/^0+/, '');
@@ -974,6 +1066,8 @@ this.composerRef = function (el) { self.composerEl = el; };
 this.els = {};
 this.wantFocus = null;
 this.focusMoved = false;
+// QA pass Nov 6: set by Sign and Undo after signing, so revealFocus brings the whole offer into view
+this.revealOffer = false;
 this.acceptRef = inboxFocusRef(this, 'accept');
 this.counterBtnRef = inboxFocusRef(this, 'counterBtn');
 this.counterRef = inboxFocusRef(this, 'counter');
@@ -1070,6 +1164,14 @@ var cut = [].filter.call(log.children, function (c) { var r = c.getBoundingClien
 var px = cut ? Math.ceil(lt - cut.getBoundingClientRect().top) : 0;
 if (px > 0 && px < 16) log.scrollTop = max - (px + 6);
 }
+// QA pass Nov 6: with the deal terms in it the accepted offer is taller than the log, so the box with the Sign button
+// comes up into view instead of being cut by the composer (#kaytran-accepted at 1440x900 and 1366x768)
+var deal = st.stage === 'accepted' ? log.querySelector('.offer .box-col') : null;
+if (deal && deal.getBoundingClientRect().bottom > log.getBoundingClientRect().bottom) {
+deal.scrollIntoView({ block: 'nearest' });
+// and no line is left sliced under the chat head (Inbox6-v1)
+if (deal.offsetHeight <= log.clientHeight) inboxClearTop(log, deal);
+}
 }
 } else if (log && newLine && !stay && log.lastElementChild && log.lastElementChild.scrollIntoView) {
 // QA7 final: tablet and phone scroll the page and the composer sticks to the bottom of the screen,
@@ -1126,11 +1228,22 @@ this.revealFocus();
 revealFocus() {
 if (!this.focusMoved) return;
 this.focusMoved = false;
+var whole = !!this.revealOffer;
+this.revealOffer = false;
 var log = this.logEl;
 var a = typeof document !== 'undefined' ? document.activeElement : null;
 if (!log || !a || a === log || !log.contains(a)) return;
 var box = a.closest('.box') || a;
-if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest' });
+// QA pass Nov 6: after Sign, or Undo after signing, where the log scrolls inside its panel (desktop) and the whole offer fits,
+// the whole offer comes into view so the price is not left sliced under the chat head. Every other move keeps to the box,
+// so Pay and Counter still leave the newest message in view (1366x768, 1440x900).
+var off = whole ? box.closest('.offer') : null;
+var t = off && log.scrollHeight > log.clientHeight && off.offsetHeight <= log.clientHeight ? off : box;
+if (t.scrollIntoView) t.scrollIntoView({ block: 'nearest' });
+// the offer did not fit: the box stays whole and no line above it is left sliced under the chat head (Inbox6-v2)
+if (off && t === box && log.scrollHeight > log.clientHeight) inboxHideCut(log, box);
+// and no text line is left cut at the composer edge either (Inbox6-r2b)
+if (off && log.scrollHeight > log.clientHeight) inboxClearEdges(log, t);
 }
 componentWillUnmount() {
 nav6Off(this);
@@ -1431,23 +1544,33 @@ dueRef: this.dueRef,
 paidRef: this.paidRef,
 accept: function () {
 self.wantFocus = 'due';
-self.addSent('You accepted the offer · just now', { stage: 'accepted', signed: false }, 'kaytran', 'accepted');
+self.addSent('You accepted the offer · Just now', { stage: 'accepted', signed: false }, 'kaytran', 'accepted');
 },
-undo: function () {
+undo: function (e) {
+// a quick second press on the signed step's Undo lands here once the box turns back into the Sign step, so only a press of its own undoes (Inbox6-r3b)
+if (e && e.detail > 1) return;
 self.wantFocus = 'accept';
 self.setState({ stage: 'offer', signed: false, sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
 },
 // Nov 5, DECISIONS 3 replaced: the contract and the deposit happen in the chat. Sign, then pay, then Booked.
 // A mockup: nothing is signed or charged. In the real build Pay opens the payment provider's checkout and returns on #kaytran-paid.
-sign: function () {
-self.wantFocus = 'due';
+// QA pass Nov 6: the box stays mounted, so its ref never runs again. Focus moves to it now, before the button you
+// pressed goes away, and revealFocus brings the new step into view.
+sign: function (e) {
+// a quick second press on Accept lands here once the box turns into the Sign step, so only a press of its own signs
+if (e && e.detail > 1) return;
+var b = self.els.due;
+if (b && b.focus) { b.focus({ preventScroll: true }); self.focusMoved = true; self.revealOffer = true; }
 self.setState({ signed: true });
 },
 unsign: function () {
-self.wantFocus = 'due';
+var b = self.els.due;
+if (b && b.focus) { b.focus({ preventScroll: true }); self.focusMoved = true; self.revealOffer = true; }
 self.setState({ signed: false });
 },
-payDeposit: function () {
+payDeposit: function (e) {
+// a quick second press on Sign lands here once the box turns into the Pay step, so only a press of its own pays (Inbox6-r2a)
+if (e && e.detail > 1) return;
 self.wantFocus = 'paid';
 // the red Booking confirmed line takes over from the accepted line, so the log reads in order
 self.setState({ stage: 'paid', filter: 'booked', sent: self.state.sent.filter(function (m) { return m.kind !== 'accepted'; }) });
@@ -1495,7 +1618,9 @@ self.setState({ declined: false, filter: 'open' });
 // IB: composer
 sent: sent,
 draft: st.draft,
-draftHint: 'Message ' + (activeName || 'Kaytran'),
+// QA pass Nov 6: the hint drops the name only where it does not fit the empty field: Jude & Frank under 375px ('Message Jude & Franl'
+// at 360), every name under 360px. Message Kaytran and Message Dial Tone still fit at 360.
+draftHint: (function () { var full = 'Message ' + (activeName || 'Kaytran'), mm = typeof matchMedia === 'function'; return full.length > (mm && matchMedia('(max-width:359px)').matches ? 7 : mm && matchMedia('(max-width:374px)').matches ? 17 : 99) ? 'Message' : full; })(),
 sendCls: draftBlank ? 'send send-off' : 'send',
 sendDisabled: draftBlank ? 'true' : 'false',
 typeDraft: function (e) {

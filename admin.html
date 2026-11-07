@@ -5,6 +5,7 @@
 <title>Dashboard · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -240,6 +241,28 @@ html:has(.foot-on){scroll-padding-bottom:130px}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
+<style>/* QA pass Nov 6 */
+/* white fields on the cream editor get the light grey outline Account6, Cancel6 and Contact6 use (Admin6-2) */
+.ed .field{box-shadow:inset 0 0 0 1px #d9d9d4}
+/* the outline above must not cover the red ring on focus or on a field that needs fixing (Admin6-2) */
+.ed .field:focus-within,.ed .field:has(input[aria-invalid="true"]),.ed .field:has(textarea[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+/* phones: chips, the Draft and Live switch and the small buttons reach 44px; the email link in an application gets a 44px tap area without moving its row, and its focus ring stays around the address; set links untouched (Admin6-3) */
+@media (max-width:760px){.chip,.seg button,.btn-sm{min-height:44px}.ap-facts dd > a{position:relative}.ap-facts dd > a::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
+/* iPad landscape and small laptops: beside the list the editor is too narrow for two columns of fields, so long links were cut off (Admin6-4) */
+@media (min-width:981px) and (max-width:1180px){.fields{grid-template-columns:minmax(0,1fr)}}
+/* the disabled Save changes label and the blank avatar initials reach 4.5:1 on #e4e3d6 (Admin6-6) */
+.btn-off,.edav-blank{color:#4d504f}
+/* room under the big title so the descenders in Nobody waiting. clear the lede (Admin6-10) */
+.ap-head .lede{margin-top:clamp(20px,calc(2.2 * var(--vw)),32px)}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
 </style>
 </helmet>
 

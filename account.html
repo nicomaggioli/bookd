@@ -5,6 +5,7 @@
 <title>Your account · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -181,6 +182,22 @@ html{scroll-padding-top:88px}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
+<style>/* QA pass Nov 6 */
+/* one line under Past bookings: the last row drops its rule so it no longer doubles the Delete account divider */
+.ac-past li:last-child{border-bottom:0}
+/* Show and Hide pills: 44px phone tap target, and one width for both words so the pill stops jumping when it toggles */
+.ac-show{min-height:44px;min-width:64px;right:9px}
+/* around 1024px the 560px cap stopped the column about 8px short of the dividers; up to 1100px it fills its column */
+@media (max-width:1100px){.ac-body{max-width:none}}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">

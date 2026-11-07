@@ -5,6 +5,7 @@
 <title>For artists · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -267,6 +268,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* phones: the two success buttons go full width, like the Login6 success card, instead of stacking left aligned at their own widths */
+@media (max-width:480px){.ja-done-acts .btn{flex:1 1 100%}}
+/* after a failed send, the first field to fix scrolls in with the card edge and its heading clear of the nav, not jammed under it */
+.ja-f{scroll-margin-top:20px}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+/* Site-10: the application card takes the card token, 20px, at every width (it was 30px, and 24px under 640px) */
+.ja-card{border-radius:var(--r-card)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -342,7 +359,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <p class="jd-note">You get all of this before you say yes. Not your thing? Pass. No hard&nbsp;feelings.</p>
 </div>
 <dl class="jd-ledger jd-need">
-<div><dt>The night</dt><dd>Sat, Nov 14, 10 PM to 2&nbsp;AM</dd></div>
+<div><dt>The night</dt><dd>Sat, Nov&nbsp;14, 10&nbsp;PM to 2&nbsp;AM</dd></div>
 <div><dt>The room</dt><dd>A loft in Brooklyn, about 120&nbsp;people</dd></div>
 <div><dt>The party</dt><dd>Their sister's 30th. Afro house, no&nbsp;EDM.</dd></div>
 <div><dt>Room sound</dt><dd>Real speakers, or a Bluetooth speaker and a&nbsp;prayer</dd></div>
@@ -601,7 +618,7 @@ class Component extends DCLogic {
       }
     };
     this.apFocus = false;
-    this.apDoneRef = function (el) { if (el && self.apFocus && el.focus) { self.apFocus = false; el.focus(); } };
+    this.apDoneRef = function (el) { if (el && self.apFocus && el.focus) { self.apFocus = false; el.focus({ preventScroll: true }); var h = document.getElementById('ja-h'); if (h && h.getBoundingClientRect().top < 88) document.getElementById('apply').scrollIntoView({ block: 'start' }); } };
     /* the required fields, so a failed send can put the cursor in the first one that needs fixing */
     this.apEls = {}; this.errT = 0;
     this.apRef = {
@@ -687,7 +704,7 @@ class Component extends DCLogic {
       first = m.name ? 'name' : (m.email ? 'email' : 'links');
       this.setState({ apErr: true });
       clearTimeout(this.errT);
-      this.errT = setTimeout(function () { self.errT = 0; var el = self.apEls[first]; if (el && el.focus) el.focus(); }, 0);
+      this.errT = setTimeout(function () { self.errT = 0; var el = self.apEls[first]; if (!el || !el.focus) return; el.focus({ preventScroll: true }); var f = el.closest ? el.closest('.ja-f') : null; if (f) f.scrollIntoView({ block: 'nearest', behavior: self.reduce ? 'auto' : 'smooth' }); }, 0);
       return;
     }
     this.apFocus = true;

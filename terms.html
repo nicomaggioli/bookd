@@ -5,6 +5,7 @@
 <title>Terms and privacy · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -222,6 +223,19 @@ html{scroll-padding-top:68px}
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
+<style>/* QA pass Nov 6 */
+/* one column widths (phones, touch tablets): with All sections open every section link is a full 44px tap target; they were 40px tall and Kids was 31px wide.
+   7px of padding each side, cancelled by -7px margins, widens each tap box (Kids 45px) while the words keep their 20px gaps, their wrapping and their left edge */
+@media (max-width:1100px){.lgl-sub{min-height:44px;min-width:44px;justify-content:center;padding:0 7px;margin:0 -7px}}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -301,7 +315,7 @@ html{scroll-padding-top:68px}
 
 <section id="t-who" class="lgl-sec" data-sec="">
 <h3><span class="lgl-n" aria-hidden="true">1</span><span>Who we&nbsp;are</span></h3>
-<p>BOOKD is run by BOOKD LLC, a limited liability company registered in New York, with its mailing address at P.O. Box 2214, Brooklyn, NY&nbsp;11202. When this page says "we" or "us", that's who it&nbsp;means.</p>
+<p>BOOKD is run by BOOKD LLC, a limited liability company registered in New York, with its mailing address at P.O.&nbsp;Box&nbsp;2214, Brooklyn, NY&nbsp;11202. When this page says "we" or "us", that's who it&nbsp;means.</p>
 </section>
 
 <section id="t-what" class="lgl-sec" data-sec="">
@@ -445,8 +459,8 @@ html{scroll-padding-top:68px}
 
 <section id="p-talk" class="lgl-sec" data-sec="">
 <h3><span class="lgl-n" aria-hidden="true">9</span><span>Talk to&nbsp;us</span></h3>
-<p>Questions about this page, or anything else? Write to privacy@bookd.co or P.O. Box 2214, Brooklyn, NY&nbsp;11202. A real person on the team reads every&nbsp;one.</p>
-<p class="lgl-mail"><a class="btn go" href="mailto:hello@bookd.co">Email us</a></p>
+<p>Questions about this page, or anything else? Write to privacy@bookd.co or P.O.&nbsp;Box&nbsp;2214, Brooklyn, NY&nbsp;11202. A real person on the team reads every&nbsp;one.</p>
+<p class="lgl-mail"><a class="btn go" href="mailto:privacy@bookd.co">Email us</a></p>
 </section>
 </article>
 

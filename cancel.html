@@ -5,6 +5,7 @@
 <title>Cancel a booking · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -226,6 +227,19 @@ html{scroll-padding-top:88px}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
+</style>
+<style>/* QA pass Nov 6 */
+/* short confirmation states: the cream block fills main down to the footer, so no black band opens above it (same as Account6) */
+#main{display:flex;flex-direction:column}
+.bk{flex:1 0 auto}
+/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+.footrow a{min-width:44px}
+/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+.navgrid{box-sizing:border-box}
+/* Site-9: fields use the field radius token, 14px (they were 18px) */
+.field{border-radius:var(--r-field)}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -537,12 +551,12 @@ class Component extends DCLogic {
       rows: [{ k: 'Your date', v: n.date + ' is open again.' }, { k: 'Your fee', v: 'Nothing for this night. Cancel twice in a year and your profile comes off the roster.' }],
       next: 'Back to my dashboard', nextHref: 'dashboard.html', back: 'See my requests', backHref: 'requests.html#' + key
     } : out ? {
-      head: "Kaytran can't make it.", note: 'Sorry, we know that stings. Your date is still open, and the roster shows who else is free that\u00a0night.',
-      rows: [{ k: 'Your deposit', v: 'All $1,200 comes back to your card in 5 to 10 business days, booking fee included.' }, { k: 'What\'s next', v: 'The roster shows who else is free on Sat, Nov\u00a014. You\u00a0pick.' }],
+      head: "Kaytran can't make it.", note: 'Sorry, we know that stings. Your date is still\u00a0open.',
+      rows: [{ k: 'Your deposit', v: 'All $1,200 comes back to your card in 5\u00a0to\u00a010 business days, booking fee included.' }, { k: 'What\'s next', v: 'The roster shows who else is free on Sat,\u00a0Nov\u00a014. You\u00a0pick.' }],
       next: 'Find another DJ', nextHref: 'roster.html#kaytran-out', back: 'Back to my inbox', backHref: 'inbox.html#kaytran-out'
     } : {
       head: "It's off.", note: 'Kaytran and Mara know, and the details are on their way to your email. No hard feelings.',
-      rows: [{ k: 'Your deposit', v: '$600, half of it, goes back to your card in 5 to 10 business days.' }, { k: 'The balance', v: "You don't owe the rest." }],
+      rows: [{ k: 'Your deposit', v: '$600, half of it, goes back to your card in 5\u00a0to\u00a010 business days.' }, { k: 'The balance', v: "You don't owe the rest." }],
       next: 'Find another DJ', nextHref: 'roster.html', back: 'Back to my inbox', backHref: 'inbox.html#kaytran-off'
     };
     return Object.assign({
