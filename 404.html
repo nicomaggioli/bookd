@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>/* 404 at any depth: deeper than the site root, links and the page script load from the root (the repo folder on github.io, / on a custom domain), and the skip link stays on this page */
+(function () {
+  var p = location.pathname, root = /\.github\.io$/.test(location.hostname) ? '/' + (p.split('/')[1] || '') + '/' : '/';
+  if (p.slice(0, p.lastIndexOf('/') + 1) === root) return;
+  var b = document.createElement('base'); b.href = root; document.head.appendChild(b);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (a) { e.preventDefault(); location.hash = a.getAttribute('href'); }
+  }, true);
+})();
+</script>
 <title>Page not found · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
