@@ -5,7 +5,9 @@
 <title>Log in · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -34,11 +36,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
 <style>
-/* big screens (bigscreen.py) */
+/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
+   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
+   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
 :root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
-@media (min-width:1921px){
-  html{zoom:calc(100vw / 1920px)}
-  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+  html{zoom:var(--bz)}
+}
 }
 
 /* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
@@ -150,11 +156,22 @@ html{scroll-padding-top:88px}
 .lg-pass.lg-on{transform:rotate(-5deg)}
 .lg-strap{display:flex;flex-direction:column;align-items:center;overflow:hidden;width:30px;height:clamp(50px,calc(6 * var(--vw)),96px);background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,0) 18%,rgba(255,255,255,.08) 50%,rgba(0,0,0,0) 82%,rgba(0,0,0,.28)),#d31110;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25),0 4px 10px rgba(0,0,0,.4)}
 .lg-strap svg{flex:none;display:block;width:80px;height:auto;margin:52px 0;fill:#000000;opacity:.9;transform:rotate(90deg)}
-.lg-clip{position:relative;z-index:2;display:block;width:30px;height:46px;margin-top:-4px}
-.lg-ring{position:absolute;left:3px;top:0;width:24px;height:16px;box-sizing:border-box;border-radius:6px;border:3px solid #a2a5a4;box-shadow:0 2px 3px rgba(0,0,0,.5)}
-.lg-hook{position:absolute;left:9px;top:12px;width:12px;height:36px;border-radius:6px 6px 8px 8px;background:linear-gradient(90deg,#6b6e6d,#ffffff 45%,#a2a5a4 60%,#4d504f);box-shadow:0 3px 5px rgba(0,0,0,.55)}
-.lg-lam{position:relative;display:block;width:100%;margin-top:-16px}
-.lg-lam img{display:block;width:100%;height:auto;border-radius:6%/3.8%;box-shadow:0 26px 40px rgba(0,0,0,.55)}
+/* The lanyard hardware (the same on the home, artists and log in pages; made by site-build/tools-media/hook.py).
+   Drawn after a real swivel hook, the standard one on event lanyards: the strap folds through a wire bail, a swivel hangs from the bail, and a long narrow hook with a ribbed spring gate hangs from the swivel's ring.
+   --k is the hardware's width as a share of the pass width. Everything else follows from it, so it lines up with the slot at every size.
+   The hook is drawn twice. .hk-b sits UNDER the pass: the pass hides the leg that goes behind it, and the bend shows through the slot, which is a real hole in the pass image.
+   .hk-f sits OVER the pass and is cut down to the one leg that comes down in front of it. So the hook reads as threaded through the slot, not laid on top.
+   The slot's top edge is 5.34% of the pass width below the top of the pass and its bottom edge 9.48%; the hook hangs 7.91% down, a little way into the slot. */
+.hk{position:relative;display:block;flex:none;width:calc(var(--k,.225) * 100%);aspect-ratio:48 / 67;margin-top:calc(var(--k,.225) * -16.67%);pointer-events:none}
+.hk svg{position:absolute;left:0;top:0;display:block;width:100%;height:100%;overflow:visible}
+.hk-b{z-index:1;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.55))}
+.hk-f{z-index:3;filter:drop-shadow(1px 1px 1px rgba(0,0,0,.6));clip-path:inset(calc(100% - 100% * 0.0791 / (var(--k,.225) * 1.3958)) 0 calc(100% * 0.0257 / (var(--k,.225) * 1.3958)) 50%)}
+.lg-hang{--k:.27}
+.lg-strap{position:relative;z-index:4}
+.lg-hang .lg-strap{width:calc(var(--k,.225) * 52%)}
+.lg-strap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:15px;pointer-events:none;background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)) 0 0/100% 1px no-repeat,repeating-linear-gradient(90deg,rgba(255,226,220,.8) 0 3px,rgba(0,0,0,0) 3px 6px) 4px 4px/calc(100% - 8px) 1px no-repeat,repeating-linear-gradient(90deg,rgba(255,226,220,.8) 0 3px,rgba(0,0,0,0) 3px 6px) 4px 9px/calc(100% - 8px) 1px no-repeat,linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.24))}
+.lg-lam{position:relative;z-index:2;display:block;width:100%;margin-top:-7.91%}
+.lg-lam img{display:block;width:100%;height:auto;filter:drop-shadow(0 22px 30px rgba(0,0,0,.55))}
 /* card */
 .lg-card{min-width:0;display:flex;flex-direction:column;justify-content:flex-start;box-sizing:border-box;padding:clamp(32px,calc(6 * var(--vh)),64px) clamp(20px,calc(3 * var(--vw)),52px) clamp(24px,calc(3.4 * var(--vw)),56px);border-radius:30px;background:#ffffff;color:#000000}
 .lg-in{width:100%;max-width:420px;margin:0 auto}
@@ -181,6 +198,7 @@ html{scroll-padding-top:88px}
 .lg-link{display:inline-block;min-height:0;padding:12px 2px;border:0;background:none;color:#000000;font:700 15px 'Inter',sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .lg-fine{margin:0;font-size:13px;line-height:1.45;color:#636665}
 .lg-fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+.lg-soon{text-align:center}
 .lg-done{align-items:flex-start;outline:none}
 .lg-done:focus,.lg-done:focus-visible{outline:none}
 .lg-next{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-top:6px}
@@ -190,8 +208,8 @@ html{scroll-padding-top:88px}
 /* short laptop screens: the stage gets shorter, so the pass gets smaller and stays clear of the big line, and the card tightens so sign up still fits */
 @media (min-width:961px) and (max-height:820px){.lg-hang{width:clamp(130px,calc(11 * var(--vw)),170px)}.lg-card{padding-block:28px}.lg-title{font-size:40px}.lg-switch{margin-bottom:12px}}
 @media (max-width:960px){.lg-grid{grid-template-columns:minmax(0,1fr);min-height:0}.lg-stage{min-height:460px}}
-@media (min-width:561px) and (max-width:960px) and (max-height:500px){.lg-stage{min-height:200px}.lg-hang{width:84px}.lg-strap{height:20px;width:19px}.lg-clip{transform:scale(.62);transform-origin:50% 0}.lg-lam{margin-top:-23px}}
-@media (max-width:560px){.lg{padding-top:0}.lg-grid{gap:8px}.lg-stage{min-height:280px}.lg-h{font-size:clamp(38px,calc(11.7 * var(--vw)),44px);max-width:100%}.lg-hang{right:20px;width:84px}.lg-strap{height:20px;width:19px}.lg-clip{transform:scale(.62);transform-origin:50% 0}.lg-lam{margin-top:-23px}.lg-card{padding:28px 20px 24px}.lg-title{font-size:32px}}
+@media (min-width:561px) and (max-width:960px) and (max-height:500px){.lg-stage{min-height:200px}.lg-hang{width:84px}.lg-strap{height:20px;width:19px}.lg-hang{--k:.34}}
+@media (max-width:560px){.lg{padding-top:0}.lg-grid{gap:8px}.lg-stage{min-height:280px}.lg-h{font-size:clamp(38px,calc(11.7 * var(--vw)),44px);max-width:100%}.lg-hang{right:20px;width:84px}.lg-strap{height:20px;width:19px}.lg-hang{--k:.34}.lg-card{padding:28px 20px 24px}.lg-title{font-size:32px}}
 @media (max-width:359px){.lg-h{font-size:34px}}
 @media (prefers-reduced-motion: reduce){.lg-hang,.lg-obj,.lg-knob,.lg-sw{transition:none}}
 </style>
@@ -232,7 +250,7 @@ html{scroll-padding-top:88px}
 <a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
 </nav>
 <div class="navend">
-<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">Log in</a>
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">{{loginText}}</a>
 <button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
 <a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
 </div>
@@ -243,7 +261,7 @@ html{scroll-padding-top:88px}
 <a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
-<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">Log in</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
 </nav>
 </sc-if>
 </header>
@@ -268,7 +286,7 @@ html{scroll-padding-top:88px}
 <sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
 <div class="acctmenu">
 <span class="acctwho">Signed in as <strong>Dani Rivera</strong></span>
-<a href="account.html" aria-current="{{curAccount}}">Your account</a>
+<a href="login.html" aria-current="{{curAccount}}">Your account</a>
 <a href="index.html">Log out</a>
 </div>
 </sc-if>
@@ -282,7 +300,7 @@ html{scroll-padding-top:88px}
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
 <a class="nl nlc" href="{{inboxHref}}" aria-current="{{curInbox}}" onClick="{{closeMenu}}">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
-<a class="nl" href="account.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="login.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
 </nav>
 </sc-if>
 </header>
@@ -332,15 +350,15 @@ html{scroll-padding-top:88px}
 <!-- the bold side: the party through the door -->
 <section class="lg-stage" ref="{{stageRef}}" onPointerMove="{{tilt}}" onPointerLeave="{{untilt}}" aria-labelledby="lg-h">
 <div class="lg-media" aria-hidden="true">
-<video class="lg-vid" ref="{{vidRef}}" src="assets/2adbf24c2f04367c5717064439cc6f83.mp4" poster="assets/90dfc74f310d5ca4434b94623379e0d2.jpg" muted="" loop="" playsinline="" preload="none"></video>
+<video class="lg-vid" ref="{{vidRef}}" src="assets/7657d0ca3fb3da837431490c61ef7c68.mp4" poster="assets/1299c2db359fcff26688b123d16ba3d6.jpg" muted="" loop="" playsinline="" preload="none"></video>
 <span class="lg-scrim"></span>
 </div>
 <button class="vidbtn lg-vidbtn" type="button" onClick="{{toggleVid}}">{{vidLabel}}</button>
 <div class="lg-hang" ref="{{hangRef}}" aria-hidden="true">
 <div class="{{passCls}}">
 <span class="lg-strap"><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg></span>
-<span class="lg-clip"><span class="lg-ring"></span><span class="lg-hook"></span></span>
-<span class="lg-lam"><img src="assets/16d13c7371270004167b97ad5756e937.webp" alt="" width="600" height="950" decoding="async"></span>
+<span class="hk" aria-hidden="true"><svg class="hk-b" viewBox="0 0 48 67" aria-hidden="true" focusable="false"><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.60"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.40"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.29"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.95"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#18191b" stroke-width="4.40"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.20"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.22"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.90"></path><rect x="20.3" y="12.3" width="7.4" height="4.6" rx="1.6" fill="#c9ccd0" stroke="#18191b" stroke-width=".8"></rect><rect x="20.9" y="12.9" width="6.2" height="1.1" rx=".5" fill="#ffffff" opacity=".85"></rect><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.20"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.00"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.14"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.84"></circle><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#18191b" stroke-width="3.40"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="2.20"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="0.84"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.62"></path><path d="M21.42 33.4 L20.6 44.6" fill="none" stroke="#4d5055" stroke-width="2.2" stroke-dasharray=".55 1.25"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.80"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.60"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.37"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="1.01"></path></svg><svg class="hk-f" viewBox="0 0 48 67" aria-hidden="true" focusable="false"><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.80"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.60"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.37"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="1.01"></path></svg></span>
+<span class="lg-lam"><img src="assets/da7e0978b50e9cdb278c918fe5e02310.webp" alt="" width="800" height="1185" decoding="async"></span>
 </div>
 
 </div>
@@ -383,6 +401,7 @@ html{scroll-padding-top:88px}
 </sc-if>
 </div>
 <button class="btn go lg-go" type="submit">{{goLabel}}</button>
+<sc-if value="{{soonOn}}" hint-placeholder-val="{{ false }}"><p class="lg-fine lg-soon">Accounts open soon. Nothing gets saved&nbsp;yet.</p></sc-if>
 <sc-if value="{{isLogin}}" hint-placeholder-val="{{ true }}"><button class="lg-quiet" type="button" onClick="{{toForgot}}">Forgot your password?</button></sc-if>
 <sc-if value="{{backOn}}" hint-placeholder-val="{{ false }}"><button class="lg-quiet" type="button" onClick="{{toLogin}}">Back to log in</button></sc-if>
 <sc-if value="{{swapOn}}" hint-placeholder-val="{{ true }}"><p class="lg-swap">{{swapLead}} <button class="lg-link" type="button" onClick="{{swap}}">{{swapLabel}}</button></p></sc-if>
@@ -401,12 +420,19 @@ html{scroll-padding-top:88px}
 <sc-if value="{{altOn}}" hint-placeholder-val="{{ true }}"><a class="btn btn-lg ghost" href="{{altHref}}">{{altLabel}}</a></sc-if>
 </div>
 <div class="lg-quiets">
-<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="lg-quiet" href="account.html" style="display: inline-flex; align-items: center;">Your account</a></sc-if>
+<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="lg-quiet" href="login.html" style="display: inline-flex; align-items: center;">Your account</a></sc-if>
 <button class="lg-quiet" type="button" onClick="{{startOver}}">{{overLabel}}</button>
 </div>
 </sc-if>
 <sc-if value="{{doneReset}}" hint-placeholder-val="{{ false }}">
 <button class="btn btn-lg go lg-go" type="button" onClick="{{toLogin}}">Back to log in</button>
+</sc-if>
+<sc-if value="{{doneSoon}}" hint-placeholder-val="{{ false }}">
+<div class="lg-next">
+<a class="btn btn-lg go" href="roster.html">See the roster</a>
+<a class="btn btn-lg ghost" href="contact.html">Contact BOOKD</a>
+</div>
+<div class="lg-quiets"><button class="lg-quiet" type="button" onClick="{{toLogin}}">Back to log in</button></div>
 </sc-if>
 </div>
 </sc-if>
@@ -430,7 +456,9 @@ html{scroll-padding-top:88px}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1282}}'>
-// Login6: a mockup. Nothing here talks to a server or stores anything: submit only swaps the card.
+// Login6. On the design canvas, and on the site while no backend is set up, this is a mockup: submit only swaps the card.
+// When the site loads bookd-api.js with a filled in config (window.BOOKD.ready), the same card logs in, signs up,
+// sends the reset email and saves a new password for real. lgLive() is the only switch between the two.
 // Hashes (DECISIONS 4): #dj and #agent open the DJ side. #reset opens Forgot your password? (Account6).
 // #new-password (the reset email) and #dj-new-password (the approved DJ email, Messages6) pick a password.
 var LG_STAGE = {
@@ -456,27 +484,37 @@ function lgName(role, name) {
 
 // What the card says once you're in, and where you go next. DJs only ever log in here: signing up is the application on Join6.
 // A DJ Erika just approved picks a password here (#dj-new-password), then builds the profile hosts see.
-function lgDone(role, mode, name) {
+function lgDone(role, mode, name, live) {
+  if (live === 'admin') return {
+    title: "You're\u00a0in.",
+    line: 'The roster, applications and notes are on your\u00a0dashboard.',
+    next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+  };
   if (role === 'dj' && mode === 'newpw') return {
     title: "You're\u00a0in.",
     line: 'Next up is your profile. It\'s what hosts see when you\'re in\u00a0town.',
-    next: 'Build my profile', nextHref: 'build.html', alt: '', altHref: '', over: 'Not you? Log out'
+    next: 'Build my profile', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
   };
   if (role === 'dj') return {
     title: "You're\u00a0in.",
     line: "Your requests, offers and tour dates are all on your\u00a0dashboard.",
-    next: 'Open my dashboard', nextHref: 'dashboard.html', alt: '', altHref: '', over: 'Not you? Log out'
+    next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
   };
   var who = lgName(role, name);
+  if (live && mode !== 'signup') return {
+    title: "You're\u00a0in.",
+    line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
+    next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
+  };
   if (mode === 'signup') return {
     title: "You're on the list,\u00a0" + who + '.',
     line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
-    next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'inbox-new.html', over: 'Not you? Log out'
+    next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
   };
   return {
     title: "You're\u00a0in.",
     line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
-    next: 'Open my inbox', nextHref: 'inbox.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
+    next: 'Open my inbox', nextHref: 'login.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
   };
 }
 
@@ -499,7 +537,30 @@ function lgErr(bad, mode) {
   if (bad === 'email') return 'That email looks a little off. Mind checking\u00a0it?';
   if (bad === 'pw') return mode === 'signup' || mode === 'newpw' ? 'Pick a password to finish\u00a0up.' : "Add your password and you're\u00a0in.";
   if (bad === 'pwShort') return 'Make it at least 8\u00a0characters.';
+  // answers from the backend (live site only)
+  if (bad === 'badLogin') return "That email and password don't match. Try\u00a0again?";
+  if (bad === 'unconfirmed') return 'Confirm your email first. The link is in your\u00a0inbox.';
+  if (bad === 'taken') return "There's already an account with that email. Log in\u00a0instead?";
+  if (bad === 'weak') return 'Pick a stronger password. Longer is\u00a0better.';
+  if (bad === 'samePw') return "That's your old password. Pick a new\u00a0one.";
+  if (bad === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
+  if (bad === 'expired') return 'That link ran out. Send yourself a fresh\u00a0one.';
+  if (bad === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+  if (bad) return 'Something went wrong on our side. Try\u00a0again.';
   return '';
+}
+
+// The backend, when this is the live site with its config filled in. Null on the canvas and in the preview.
+function lgLive() {
+  var b = typeof window !== 'undefined' ? window.BOOKD : null;
+  return b && b.ready && b.auth ? b.auth : null;
+}
+// The built site can leave out the made-up logged-in screens (bookd-config.js, demo: false). Then, while no backend is
+// set up, this card does not pretend to sign anyone in: it says accounts are not open yet. The canvas has no config,
+// so it keeps the mockup.
+function lgSoon() {
+  var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
+  return !!(c && c.demo === false) && !lgLive();
 }
 
 /* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
@@ -515,9 +576,9 @@ function lgErr(bad, mode) {
      switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
    curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
 var NAV6_DEFAULTS = {
-  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
-  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
-  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
+  seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
   curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
   waiting: 0, shell: ''
 };
@@ -597,12 +658,21 @@ function nav6Down(self, e) {
   var n = self.nav6, st = self.state || {}, t = e && e.target;
   if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
 }
+// On the live site, someone who is already signed in gets their own link where Log in was.
+// window.BOOKD.who is only set there (bookd-api.js), so the canvas and the preview always say Log in.
+function nav6Who() {
+  var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+  if (!w) return null;
+  if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+  if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+  return { href: 'login.html', text: 'Your inbox' };
+}
 // renderVals: every key the four shells use.
 function nav6Vals(self, cfg) {
   var n = self.nav6, st = self.state || {}, c = {}, k;
   for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
   if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
-  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
   return {
     menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
     menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
@@ -612,7 +682,7 @@ function nav6Vals(self, cfg) {
     dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
     seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
     navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
-    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
     bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
     pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
     // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
@@ -627,7 +697,8 @@ class Component extends DCLogic {
     this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     this.state = {
       role: 'host', mode: 'login', name: '', email: '', pw: '', showPw: false,
-      badName: '', badEmail: '', badPw: '', done: '', hostMode: '', vidPaused: this.reduce
+      badName: '', badEmail: '', badPw: '', done: '', hostMode: '', vidPaused: this.reduce,
+      busy: false, liveRole: ''
     };
     this.stageEl = null; this.vid = null; this.hangEl = null; this.io = null; this.onScreen = false;
     this.raf = 0; this.px = 0; this.py = 0;
@@ -697,6 +768,19 @@ class Component extends DCLogic {
     else if (h === '#reset') this.setMode('reset');
     else if (h === '#new-password') this.setMode('newpw');
     else if (h === '#dj-new-password') { this.setState({ role: 'dj' }); this.setMode('newpw'); }
+    // Live site: an email link (reset or invite) opens Pick a password; someone already signed in sees You're in.
+    var self = this, api = lgLive();
+    if (!api) return;
+    var arrived = window.BOOKD.arrived;
+    if (arrived === 'recovery' || arrived === 'invite') this.setMode('newpw');
+    else if (arrived === 'expired') { this.setMode('reset'); this.setState({ badEmail: 'expired' }); }
+    api.current().then(function (r) {
+      var u = r && r.ok ? r.user : null;
+      if (!u || self.state.done) return;
+      var who = { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || '' };
+      if (self.state.mode === 'newpw') { self.setState(who); return; }
+      self.setState(Object.assign(who, { mode: 'login', done: 'in' }));
+    });
   }
   setMode(mode) {
     this.setState({ mode: mode, badName: '', badEmail: '', badPw: '', hostMode: '', showPw: false, pw: '' });
@@ -717,7 +801,7 @@ class Component extends DCLogic {
     var stage = LG_STAGE[role][mode] || LG_STAGE[role].login;
     var card = LG_CARD[mode] || LG_CARD.login;
     var isSignup = mode === 'signup', isLogin = mode === 'login', isReset = mode === 'reset', isNewPw = mode === 'newpw';
-    var done = s.done ? lgDone(role, mode, s.name) : null;
+    var done = s.done ? lgDone(role, mode, s.name, s.liveRole) : null;
     var isDJ = role === 'dj';
     // a DJ Erika just approved (#dj-new-password): no profile yet, and the name is the newest applicant's (DECISIONS 4)
     var newDj = isDJ && isNewPw;
@@ -765,10 +849,10 @@ class Component extends DCLogic {
       pwErrOn: !!s.badPw, pwDesc: s.badPw ? 'lg-err-pw' : '', pwErr: lgErr(s.badPw, mode),
       pwLabel: isNewPw ? 'New password' : 'Password',
       pwType: s.showPw ? 'text' : 'password', pwAuto: isSignup || isNewPw ? 'new-password' : 'current-password',
-      setPw: function (e) { var v = e.target.value, b = self.state.badPw; self.setState((b === 'pw' && v) || (b === 'pwShort' && v.length >= 8) ? { pw: v, badPw: '' } : { pw: v }); },
+      setPw: function (e) { var v = e.target.value, b = self.state.badPw; self.setState((b === 'pw' && v) || (b === 'pwShort' && v.length >= 8) || (b && b !== 'pw' && b !== 'pwShort') ? { pw: v, badPw: '' } : { pw: v }); },
       showLabel: s.showPw ? 'Hide' : 'Show',
       toggleShow: function () { self.setState({ showPw: !self.state.showPw }); },
-      goLabel: card.go,
+      goLabel: s.busy ? 'One sec' : card.go,
       swapOn: (isLogin || isSignup) && !isDJ, applyOn: isLogin && isDJ, swapLead: card.lead, swapLabel: card.swap,
       // F343: focus follows the card, to Your name when it appears and back to Email when it goes
       swap: function () {
@@ -792,36 +876,64 @@ class Component extends DCLogic {
           if (el && el.focus) el.focus();
           return;
         }
-        self.wantDone = true;
-        self.setState(Object.assign({ done: m === 'reset' ? 'reset' : 'in', pw: '', showPw: false }, noBad));
+        var api = lgLive();
+        if (!api) {
+          self.wantDone = true;
+          self.setState(Object.assign({ done: lgSoon() ? 'soon' : (m === 'reset' ? 'reset' : 'in'), pw: '', showPw: false }, noBad));
+          return;
+        }
+        // Live site: ask the backend, then show its answer on the field it is about.
+        if (st.busy) return;
+        self.setState(Object.assign({ busy: true }, noBad));
+        var call = m === 'signup' ? api.signUp({ name: st.name.trim(), email: em, password: st.pw })
+          : (m === 'login' ? api.signIn({ email: em, password: st.pw })
+          : (m === 'reset' ? api.sendReset(em) : api.setPassword(st.pw)));
+        call.then(function (r) {
+          if (!r || !r.ok) {
+            var c = (r && r.code) || 'unknown';
+            var onEmail = m === 'reset' || ((c === 'taken' || c === 'unconfirmed') && m !== 'newpw');
+            self.setState(onEmail ? { busy: false, badEmail: c } : { busy: false, badPw: c });
+            var el = onEmail ? self.emailEl : self.pwEl;
+            if (el && el.focus) el.focus();
+            return;
+          }
+          var u = r.user;
+          self.wantDone = true;
+          self.setState(Object.assign(
+            { busy: false, pw: '', showPw: false, done: m === 'reset' ? 'reset' : (r.needsConfirm ? 'confirm' : 'in') },
+            u ? { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || st.name } : {}, noBad));
+        });
       },
 
       // card: done
       doneOn: !!s.done, doneRef: this.doneRef,
-      doneIn: s.done === 'in', doneReset: s.done === 'reset',
-      doneTitle: s.done === 'reset' ? 'Check your\u00a0email.' : (done ? done.title : ''),
-      doneLine: s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
-      nextHref: done ? done.nextHref : 'inbox.html', nextLabel: done ? done.next : '',
+      doneIn: s.done === 'in', doneReset: s.done === 'reset' || s.done === 'confirm', doneSoon: s.done === 'soon', soonOn: lgSoon(),
+      doneTitle: s.done === 'soon' ? 'Not open\u00a0yet.' : s.done === 'reset' || s.done === 'confirm' ? 'Check your\u00a0email.' : (done ? done.title : ''),
+      doneLine: s.done === 'soon' ? 'BOOKD accounts are not open yet, so nothing was saved and nobody was signed\u00a0in.' : s.done === 'confirm' ? ('We sent a link to ' + s.email.trim() + ". Tap it to confirm your email and you're in. Check spam too, it likes to hide there.") : s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
+      nextHref: done ? done.nextHref : 'login.html', nextLabel: done ? done.next : '',
       altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
       acctOn: !isDJ,
       overLabel: done ? done.over : 'Not you? Log out',
       // F253: every log out lands on an empty Log in card, with Email in focus
-      startOver: function () { self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '' }, noBad)); }
+      startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false }, noBad)); }
     }, nav6Vals(this, {
       curLogin: 'page',
       // F71: once you're in, the bar is the host or DJ bar (shell README 6.8). A new host's Inbox is the empty one.
       shell: s.done === 'in' ? (isDJ ? 'dj' : 'host') : 'public',
-      inboxHref: isSignup ? 'inbox-new.html' : 'inbox.html',
-      signedIn: newDj ? 'Soft Static' : 'Kaytran',
+      inboxHref: isSignup ? 'login.html' : 'login.html',
+      signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
       // the red count (DECISIONS 2): Kaytran's open offer for a host back in, the DJ6 count for a DJ, nothing for a new account or a new DJ
-      waiting: s.done !== 'in' || isSignup || newDj ? 0 : (isDJ ? lgDjWaiting() : 1),
+      waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
       seeOn: !newDj,
-      dashHref: newDj ? 'dashboard.html#new' : 'dashboard.html',
-      reqHref: newDj ? 'requests.html#new' : 'requests.html'
+      dashHref: newDj ? 'login.html' : 'login.html',
+      reqHref: newDj ? 'login.html' : 'login.html'
     }));
   }
 }
 </script>
+<script src="bookd-config.js"></script>
+<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
+<script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>
 </html>

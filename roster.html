@@ -5,7 +5,9 @@
 <title>The roster · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -34,11 +36,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
 <style>
-/* big screens (bigscreen.py) */
+/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
+   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
+   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
 :root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
-@media (min-width:1921px){
-  html{zoom:calc(100vw / 1920px)}
-  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+  html{zoom:var(--bz)}
+}
 }
 
 /* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
@@ -108,6 +114,28 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
 .field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
 .field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+/* Nov 11: a calendar on the When field, so a date can be clicked (Erika asked). The same calendar as the homepage's. Here it opens below the field: round day buttons, the chosen day in red.
+   Typing a date still works. On touch screens the keyboard stays down while it is open, so the calendar is not covered. */
+.qf-when{position:relative;min-width:0;display:flex}
+.qf-when>.field{flex:1 1 auto}
+.qf-cal{position:absolute;left:0;top:calc(100% + 8px);z-index:30;width:300px;max-width:calc(100 * var(--vw) - 52px);box-sizing:border-box;padding:14px;border-radius:var(--r-card);background:#ffffff;color:#000000;box-shadow:0 24px 60px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.25);animation:qfcal .16s ease-out;outline:none}
+@keyframes qfcal{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.qf-cal-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.qf-cal-t{font:700 17px 'Inter',sans-serif;letter-spacing:-0.03em;padding-left:8px}
+.qf-cal-n{display:flex;gap:6px}
+.qf-cal-b{width:40px;height:40px;padding:0;border:0;border-radius:999px;background:#f2f2f0;color:#000000;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+.qf-cal-b svg{width:16px;height:16px;display:block}
+.qf-cal-b[aria-disabled="true"]{opacity:.35;cursor:default}
+.qf-cal-w,.qf-cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
+.qf-cal-w span{font:700 12px 'Inter',sans-serif;color:#4d504f;text-align:center;padding:6px 0 4px}
+.qf-day{aspect-ratio:1;min-width:0;padding:0;border:0;border-radius:999px;background:transparent;color:#000000;font:700 15px 'Inter',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .12s}
+.qf-day-today{box-shadow:inset 0 0 0 2px #000000}
+.qf-day-on{background:#d31110;color:#ffffff;box-shadow:none}
+.qf-day[aria-disabled="true"]{color:#a2a5a4;font-weight:400;cursor:default}
+.qf-blank{visibility:hidden}
+@media (hover: hover) and (pointer: fine){.qf-cal-b:not([aria-disabled="true"]):hover{background:#ebebe8}.qf-day:not([aria-disabled="true"]):not(.qf-day-on):hover{background:#f2f2f0}}
+@media (pointer: coarse){.qf-cal{width:344px}}
+@media (prefers-reduced-motion: reduce){.qf-cal{animation:none}.qf-cal-b,.qf-day{transition:none}}
 .card{border-radius:var(--r-card);overflow:hidden}
 .card-cream{background:#fffde9;color:#000000}
 .card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
@@ -131,10 +159,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
 
 /* ===== Roster6: the roster as a club flyer lineup poster ===== */
-/* search desk: plain fields, red pill, city chips. Fields go Where, When, Budget, Sound, the same order as the Home6 search. */
+/* search desk: plain fields, red pill, city chips. Fields go Where, When, Sound. No budget field and no fee on a tile: artist rates are not shown in public (client, Nov 11). */
 .r6-top{padding-top:clamp(40px,calc(6 * var(--vw)),88px);padding-bottom:clamp(32px,calc(4 * var(--vw)),52px);display:flex;flex-direction:column;gap:clamp(24px,calc(3 * var(--vw)),36px)}
 .r6-head{display:grid;grid-template-columns:minmax(min-content,1.3fr) minmax(0,1fr);gap:18px 56px;align-items:end}
-.r6-find{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,1.25fr) auto;gap:8px;margin:0;padding:10px;border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.r6-find{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.25fr) auto;gap:8px;margin:0;padding:10px;border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
 .r6-find .field{transition:background .15s,box-shadow .15s}
 .r6-find select{cursor:pointer;padding-right:24px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 8 L10 13 L15 8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 0 center;background-size:18px 18px}
 .r6-go{align-self:stretch;min-height:58px;padding:0 30px;font-size:18px;letter-spacing:-0.02em}
@@ -232,7 +260,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:380px){.r6-head .h1{font-size:clamp(40px,calc(14 * var(--vw)),48px)}}
 @media (max-width:1240px){
   .r6-find{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .r6-where{grid-column:1 / -1}
+  .r6-where,.r6-go{grid-column:1 / -1}
 }
 @media (max-width:1100px){
   .sub{grid-template-columns:80px minmax(0,1fr)}
@@ -290,17 +318,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .rg-h{margin:clamp(16px,calc(2 * var(--vw)),28px) 0 0;font-size:clamp(30px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9;outline:none}
 .rg-clear{color:#fffde9}
 .rg-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(24px,calc(2.6 * var(--vw)),40px) clamp(12px,calc(1.2 * var(--vw)),18px)}
-.rt{display:flex;flex-direction:column;min-width:0;color:#fffde9}
+.rt{position:relative;display:flex;flex-direction:column;min-width:0;color:#fffde9}
 .rt-shot{position:relative;display:block;aspect-ratio:4 / 5;overflow:hidden;border-radius:var(--r-card);background:#111112;color:inherit}
 .rt-photo{position:absolute;inset:0;height:100%}
 .rt-photo img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .rt-badge{position:absolute;left:10px;top:10px;z-index:2;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;line-height:1;background:#d31110;color:#ffffff}
 .rt-badge-home{background:#fffde9;color:#000000}
 .rt-name{margin:12px 0 0;font-size:clamp(15px,calc(1.15 * var(--vw)),18px);line-height:1.15;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+/* The whole tile opens the profile: the name is the one link and it is stretched over the tile. */
 .rt-name a{color:inherit;text-decoration:none}
+.rt-name a::after{content:"";position:absolute;inset:0;z-index:1}
+.rt-name a:focus-visible{outline:none}
+.rt:has(.rt-name a:focus-visible) .rt-shot{outline:2px solid #ff3b2f;outline-offset:3px}
 .rt-meta{margin:4px 0 0;font-size:13px;line-height:1.4;color:#a2a5a4}
 .rt-note{margin:6px 0 0;font-size:13px;line-height:1.35;font-weight:700;color:#ff3b2f}
-.rt-fee{margin:4px 0 0;font-size:13px;line-height:1.35;color:#fffde9}
 .rt-you{aspect-ratio:4 / 5;border-radius:var(--r-card);overflow:hidden;align-self:start;justify-content:flex-end;gap:6px;padding:clamp(14px,calc(1.4 * var(--vw)),22px);background:#d31110;color:#fffde9;text-decoration:none;box-sizing:border-box}
 .rt-and{font-size:clamp(18px,calc(1.5 * var(--vw)),24px);font-weight:700;letter-spacing:-0.04em}
 .rt-big{font-size:clamp(56px,calc(5.6 * var(--vw)),88px);line-height:.84;font-weight:700;letter-spacing:-0.075em;color:#000000}
@@ -311,7 +342,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .rg-emptyp{margin:0;font-size:17px;line-height:1.45;color:#a2a5a4;max-width:30em}
 .rg-fine{margin:clamp(32px,calc(4 * var(--vw)),56px) 0 0;max-width:46em;font-size:13px;line-height:1.5;color:#a2a5a4}
 .r6-wall :focus-visible{outline-color:#ffffff}
-@media (hover: hover) and (pointer: fine){.rt-shot:hover img{transform:scale(1.035)}.rt-name a:hover{color:#ff3b2f}.rt-you:hover .rt-big{color:#fffde9}.rg-clear:hover{background:#fffde9;color:#000000;box-shadow:none}}
+@media (hover: hover) and (pointer: fine){.rt:hover .rt-photo img{transform:scale(1.035)}.rt:hover .rt-name a{color:#ff3b2f}.rt-you:hover .rt-big{color:#fffde9}.rg-clear:hover{background:#fffde9;color:#000000;box-shadow:none}}
+/* Nov 11: with the real roster there are four cards for now (three artists and You?). Four across fills the row; a fifth card brings back five across. */
+/* four or fewer tiles fill the row on wide screens. Only there: this rule outranks the narrower ones below, and once left phones at four across. */
+@media (min-width:1181px){.rg-grid:not(:has(> :nth-child(5))){grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:1180px){.rg-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:900px){.rg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:600px){.rg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}.rt-big{font-size:56px}.rt-youp{font-size:13px}}
@@ -327,7 +361,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:380px){.rt-you{overflow:visible;padding:12px}.rt-youbtn{align-self:stretch;padding:0 8px;font-size:14px}}
 @media (max-width:368px){.rt-you{gap:4px}.rt-big{font-size:44px}.rt-youp,.rt-youbtn{margin-top:0}}
 /* Roster6-5: phone tap targets at least 44px tall: the city chips, Show the whole roster, and the DJ names under the photos (a 44px hit area around each name, so nothing moves and the focus ring stays around the name) */
-@media (max-width:760px){.r6-chips .chip,.rg-clear{min-height:44px}.rt-name a{position:relative}.rt-name a::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
+@media (max-width:760px){.r6-chips .chip,.rg-clear{min-height:44px}}
 /* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
 @media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
 /* Site-2: every footer link is at least 44px wide (Terms was 43px) */
@@ -353,7 +387,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
 </nav>
 <div class="navend">
-<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">Log in</a>
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">{{loginText}}</a>
 <button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
 <a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
 </div>
@@ -364,28 +398,27 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
-<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">Log in</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
 </nav>
 </sc-if>
 </header>
 <main id="main" style="flex: 1 1 auto;">
-<!-- ROSTER: the search desk. Typing filters and re-sorts the poster live; the red pill jumps to it. -->
+<!-- ROSTER: the search desk. Typing filters the board live; the red pill jumps to it. -->
 <section class="wrap r6-top" aria-labelledby="r6-h">
 <div class="r6-head">
 <h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1>
-<p class="lede">Everyone on BOOKD, in one place. Add where and when, and it narrows to the DJs who are already in town, so you skip the travel&nbsp;fee.</p>
+<p class="lede">Everyone on BOOKD, in one place. Add where the party is and it narrows to the DJs who are already there, so you skip the travel&nbsp;fee.</p>
 </div>
 <form class="r6-find" id="find" aria-label="Filter the roster" onSubmit="{{noSubmit}}" onKeyDown="{{findKey}}">
 <label class="field r6-where"><span class="field-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
-<label class="field"><span class="field-l">When</span><input type="text" value="{{when}}" onInput="{{setWhen}}" placeholder="Sat, Nov 14"></label>
-<label class="field"><span class="field-l">Budget</span><input type="text" value="{{budget}}" onInput="{{setBudget}}" inputmode="numeric" placeholder="$3,000"></label>
+<div class="qf-when" onBlur="{{calBlur}}"><label class="field"><span class="field-l">When</span><input type="text" id="qfwhen" value="{{when}}" onInput="{{setWhen}}" onFocus="{{calIn}}" onClick="{{calShow}}" onKeyDown="{{whenKey}}" inputmode="{{whenMode}}" placeholder="Sat, Nov 14" aria-haspopup="dialog" aria-expanded="{{calExp}}"></label><sc-if value="{{calOpen}}"><div class="qf-cal" id="qfcal" role="dialog" aria-label="Choose a date" tabindex="-1" onPointerDown="{{calHold}}" onKeyDown="{{calKey}}"><div class="qf-cal-h"><span class="qf-cal-t" aria-live="polite">{{calTitle}}</span><span class="qf-cal-n"><button type="button" class="qf-cal-b" aria-label="Previous month" aria-disabled="{{calPrevOff}}" onClick="{{calPrev}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.5 4.5 L7 10 L12.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button type="button" class="qf-cal-b" aria-label="Next month" onClick="{{calNext}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.5 4.5 L13 10 L7.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></span></div><div class="qf-cal-w" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div><div class="qf-cal-g"><sc-for list="{{calDays}}" as="d"><button type="button" class="{{d.cls}}" data-d="{{d.key}}" tabindex="{{d.tab}}" aria-label="{{d.lab}}" aria-pressed="{{d.on}}" aria-disabled="{{d.off}}" aria-hidden="{{d.hide}}" onClick="{{d.pick}}">{{d.n}}</button></sc-for></div></div></sc-if></div>
 <label class="field"><span class="field-l">Sound</span><select value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label>
 <button class="btn btn-lg go r6-go" type="button" onClick="{{showLineup}}">See who's around</button>
 </form>
 <div class="r6-under">
-<div class="r6-chips" role="group" aria-label="Pick a city">
-<sc-for list="{{cityChips}}" as="cc" hint-placeholder-count="4"><button class="chip" type="button" onClick="{{cc.pick}}" aria-pressed="{{cc.on}}">{{cc.label}}</button></sc-for>
-</div>
+<sc-if value="{{hasChips}}" hint-placeholder-val="{{ false }}"><div class="r6-chips" role="group" aria-label="Pick a city">
+<sc-for list="{{cityChips}}" as="cc" hint-placeholder-count="2"><button class="chip" type="button" onClick="{{cc.pick}}" aria-pressed="{{cc.on}}">{{cc.label}}</button></sc-for>
+</div></sc-if>
 <p class="r6-count" aria-live="polite">{{countLine}}</p>
 </div>
 </section>
@@ -398,16 +431,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <sc-if value="{{showClear}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
 </div>
 <div class="rg-grid" ref="{{billRef}}" style="display: {{gridDisplay}};">
-<sc-for list="{{tiles}}" as="d" hint-placeholder-count="15">
+<sc-for list="{{tiles}}" as="d" hint-placeholder-count="3">
 <article class="rt">
-<a class="rt-shot" href="{{d.href}}" aria-label="{{d.linkAria}}">
+<span class="rt-shot">
 <span class="dflash rt-photo"><img src="{{d.img}}" alt="{{d.alt}}" loading="lazy" decoding="async" style="filter: {{d.grade}}; object-position: {{d.pos}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span>
 <sc-if value="{{d.hasBadge}}" hint-placeholder-val="{{ false }}"><span class="{{d.badgeCls}}">{{d.badge}}</span></sc-if>
-</a>
+</span>
 <h3 class="rt-name"><a href="{{d.href}}">{{d.name}}</a></h3>
 <p class="rt-meta">{{d.genre}}<br>{{d.home}}</p>
 <sc-if value="{{d.hasNote}}" hint-placeholder-val="{{ false }}"><p class="rt-note">{{d.note}}</p></sc-if>
-<p class="rt-fee">{{d.fee}}</p>
 </article>
 </sc-for>
 <a class="rt rt-you" href="artists.html"><span class="rt-and">and</span><span class="rt-big">You?</span><span class="rt-youp">DJs, there's room on the&nbsp;board.</span><span class="btn ink rt-youbtn">Join the roster</span></a>
@@ -416,7 +448,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <p class="rg-emptyp">{{emptyLine}}</p>
 <button class="btn paper" type="button" onClick="{{clearAll}}">Show the whole roster</button>
 </div>
-<p class="rg-fine">Doors whenever you say. No travel fee for anyone already in town. Fees run $800 to $4,000, plus travel for anyone flying in. Strictly no "can you play something we&nbsp;know".</p>
+<p class="rg-fine">Doors whenever you say. No travel fee for anyone already in town. Strictly no "can you play something we&nbsp;know".</p>
 </div>
 </section>
 
@@ -434,46 +466,158 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3512}}'>
-/* Roster6 data, copied from Home6 (H4_ART, H4_CITIES, H4_ALIAS, H4_MATCH). Only Kaytran has a profile page; the other two request through the inbox and their sets play in the Home6 booth. */
-var H4_ART = {
-  kaytran: { fee: '$1,500 to\u00a0$3,000', name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', alt: 'Kaytran DJing in a restaurant kitchen', page: 'kaytran.html', pageText: 'See her profile', req: 'kaytran.html#request', sets: 'kaytran.html#sets' },
-  jude: { fee: '$1,200 to\u00a0$2,500', name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', alt: 'One half of Jude & Frank, bearded, in round tinted sunglasses', page: '', pageText: '', req: 'inbox.html#jude', sets: 'index.html#booth-jude', plural: true },
-  dial: { fee: '$1,800 to\u00a0$3,500', name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', page: '', pageText: '', req: 'inbox.html#dial', sets: 'index.html#booth-dial', grade: 'grayscale(1) brightness(.8) contrast(2.1)' }
-};
-/* Dial Tone's photo is overexposed. Home6's grade (contrast 1.8, brightness .85) goes milky under this page's flash glow, so the poster gives it more contrast instead: the whites stay white and the shadows stay deep, level with the other two. */
-/* 'in' rows carry r[3] and r[4]: first and last day in town (December counts as 30 + day) */
-var H4_CITIES = [
-  { key: 'nyc', label: 'New York', name: 'Brooklyn, NY', short: 'New\u00a0York', list: [['kaytran', 'in', 'In town Nov 13 to 15', 13, 15], ['jude', 'home', 'Lives here'], ['dial', 'in', 'In town Nov 20', 20, 20]] },
-  { key: 'bos', label: 'Boston', name: 'Boston, MA', short: 'Boston', list: [['dial', 'in', 'In town Nov 6 to 8', 6, 8], ['kaytran', 'in', 'In town Nov 21', 21, 21], ['jude', 'travel', 'Travels from Brooklyn']] },
-  { key: 'atl', label: 'Atlanta', name: 'Atlanta, GA', short: 'Atlanta', list: [['kaytran', 'home', 'Lives here'], ['jude', 'in', 'In town Nov 21', 21, 21], ['dial', 'travel', 'Travels from Chicago']] },
-  { key: 'chi', label: 'Chicago', name: 'Chicago, IL', short: 'Chicago', list: [['dial', 'home', 'Lives here'], ['kaytran', 'in', 'In town Nov 28', 28, 28], ['jude', 'in', 'In town Dec 5', 35, 35]] }
+/* ROSTER:BEGIN the real roster, written from roster/djs.json. Change the facts there, not here. Nothing in it is made up: no fee and no tour dates were given, so none are shown. */
+var BOOKD_DJS = [
+ {
+  "slug": "julian-gjaci",
+  "name": "Julian Gjaci",
+  "first": "Julian",
+  "tag": "Afro house",
+  "genres": [
+   "Afro / Amapiano",
+   "House / Tech house"
+  ],
+  "home": "New York, NY",
+  "homeKey": "nyc",
+  "img": "assets/0bdf09346142fcf1c2a65dd06ddbee41.webp",
+  "alt": "Julian Gjaci in a red denim jacket and white sunglasses, headphones round his neck, both hands up",
+  "pos": "50% 22%",
+  "bio": [
+   "Julian Gjaci is a New York City-based DJ and music producer of Albanian origin, known for his distinctive fusion of Afro House, melodic rhythms, tribal percussion, and hypnotic grooves.",
+   "With a sound that balances sophistication and raw dance-floor energy, Julian creates immersive musical journeys that move seamlessly between intimate luxury venues and high-energy nightlife experiences.",
+   "His performances have taken him to some of New York City's most recognized nightlife destinations, including Zuma New York, Chez Margaux, Nebula, Somewhere Nowhere, The Ned, and Submercer.",
+   "Driven by a passion for musical storytelling, Julian's signature sound combines deep emotion, infectious rhythms, and refined underground influences."
+  ],
+  "sets": [],
+  "find": {
+   "label": "Find Julian on SoundCloud",
+   "url": "https://soundcloud.com/search/sounds?q=Julian%20Gjaci"
+  },
+  "links": [],
+  "rider": [
+   "3 x Pioneer CDJ-3000",
+   "Pioneer DJM-A9 or DJM-V10 mixer",
+   "Professional booth monitors",
+   "A properly configured sound system",
+   "USB-compatible setup"
+  ],
+  "riderNote": "",
+  "riderLink": ""
+ },
+ {
+  "slug": "kozlow",
+  "name": "Kozlow",
+  "first": "Kozlow",
+  "tag": "Indie house, live violin",
+  "genres": [
+   "House / Tech house"
+  ],
+  "home": "Brooklyn, NY",
+  "homeKey": "nyc",
+  "img": "assets/22e9880e3fad66734077380759757c18.webp",
+  "alt": "Kozlow, curly hair and a moustache, in a dark blazer with headphones on",
+  "pos": "50% 18%",
+  "bio": [
+   "Grant Kozlow Gardner is a Brooklyn-based DJ, producer, electronic violinist and founder of ANTHR FCKNG PARTY. Classically trained from age four, he began with the violin before moving into club music.",
+   "His sets pull from indie-leaning house, left-field dance music and records built for New York rooms. Live violin appears selectively, as part of the arrangement, not a standalone trick, alongside the sequencing, tension and release that let the room shape where a set goes next.",
+   "Kozlow's artist project and ANTHR FCKNG PARTY are two sides of the same practice. The party grew into a label centered on dancefloor-tested records, working New York DJs and nights built around the people on the floor, while Kozlow continues to release original productions and translate them into a flexible live performance language."
+  ],
+  "sets": [
+   {
+    "title": "Loco Paraiso mix",
+    "url": "https://soundcloud.com/locoparaiso/kozlow-loco-paraiso-garbicz"
+   }
+  ],
+  "find": null,
+  "links": [
+   {
+    "label": "SoundCloud",
+    "url": "https://soundcloud.com/grant-gardner-mp3"
+   },
+   {
+    "label": "Spotify",
+    "url": "https://open.spotify.com/artist/1Ms8hcf17jkqevIIRI0YkH"
+   },
+   {
+    "label": "Apple Music",
+    "url": "https://music.apple.com/us/artist/kozlow/1841645633"
+   },
+   {
+    "label": "Bandcamp",
+    "url": "https://kozlow.bandcamp.com/"
+   },
+   {
+    "label": "Instagram",
+    "url": "https://www.instagram.com/kozlow"
+   },
+   {
+    "label": "ANTHR FCKNG PARTY",
+    "url": "https://www.anthrfckngparty.com/kozlow"
+   }
+  ],
+  "rider": [],
+  "riderNote": "Rider on request.",
+  "riderLink": ""
+ },
+ {
+  "slug": "schloss",
+  "name": "Schloss",
+  "first": "Schloss",
+  "tag": "House, deep cuts",
+  "genres": [
+   "House / Tech house"
+  ],
+  "home": "New York, NY",
+  "homeKey": "nyc",
+  "img": "assets/49ebfbf8a8ad11de483b2adf16534760.webp",
+  "alt": "Schloss in a cap behind the decks on a rooftop, the skyline behind him",
+  "pos": "50% 50%",
+  "bio": [
+   "Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.",
+   "His sets blend technical precision with a selector's taste for forward sounds that give each experience its own identity. Shaped by his time living in Spain and years immersed in nightlife and music culture, Schloss plays across the house spectrum, emphasizing deep cuts and unique energy.",
+   "Schloss is represented by Proper Rhythm Creative, an artist-focused collective supporting talent across bookings, branding, and development."
+  ],
+  "sets": [
+   {
+    "title": "Outer Heaven Extended Set",
+    "url": "https://soundcloud.com/maxschlossberg/schloss-outer-heaven-8-14-26"
+   },
+   {
+    "title": "Direct Support for AVÖ, Unveiled",
+    "url": "https://soundcloud.com/maxschlossberg/schloss-direct-support-for"
+   },
+   {
+    "title": "Those Nights at Arlo Sunset",
+    "url": "https://soundcloud.com/maxschlossberg/schloss-sunset-arlo-5-29-26"
+   }
+  ],
+  "find": null,
+  "links": [
+   {
+    "label": "SoundCloud",
+    "url": "https://soundcloud.com/maxschlossberg"
+   }
+  ],
+  "rider": [],
+  "riderNote": "Rider on the way.",
+  "riderLink": ""
+ }
 ];
-/* The whole roster (Nov 4). home: the H4_CITIES key a DJ lives in ('' for somewhere else). dates: [city key, first day, last day] in town, December as 30 + day.
-   Kaytran, Jude & Frank and Dial Tone keep the dates in H4_CITIES. The other twelve are sample DJs on free Unsplash photos until the real roster signs. */
-var R6_SOUNDS = { kaytran: 'Afro / Amapiano', jude: 'House / Tech house', dial: 'Techno / EBM' };
-var R6_ROSTER = [
-  { key: 'kaytran', name: 'Kaytran', genre: 'Afro / Amapiano', home: 'Atlanta, GA', homeKey: 'atl', lo: 1500, fee: '$1,500 to $3,000', img: 'assets/ad370760271850c5893b948c9756c7a7.webp', alt: 'Kaytran in sunglasses and headphones, in a Sade shirt', href: 'kaytran.html', dates: [['nyc', 13, 15], ['bos', 21, 21], ['chi', 28, 28]] },
-  { key: 'jude', name: 'Jude & Frank', genre: 'House / Tech house', home: 'Brooklyn / Rome', homeKey: 'nyc', lo: 1200, fee: '$1,200 to $2,500', img: 'assets/f6c99dbbd7b9aec6e71cac8e714b9240.webp', alt: 'One half of Jude & Frank, bearded, in round sunglasses', href: 'inbox.html#jude', plural: true, dates: [['atl', 21, 21], ['chi', 35, 35]] },
-  { key: 'dial', name: 'Dial Tone', genre: 'Techno / EBM', home: 'Chicago, IL', homeKey: 'chi', lo: 1800, fee: '$1,800 to $3,500', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', alt: 'Dial Tone dancing in front of a graffiti wall', href: 'inbox.html#dial', plural: true, grade: 'grayscale(1) brightness(.8) contrast(2.1)', dates: [['nyc', 20, 20], ['bos', 6, 8]] },
-  { key: 'nova', name: 'Nova Rae', genre: 'Rap', home: 'Brooklyn, NY', homeKey: 'nyc', lo: 1000, fee: '$1,000 to $2,200', img: 'assets/6546cdc668aa96ccd5553177197b78d9.jpg', alt: 'Nova Rae in a cap, headphones around their neck', dates: [['atl', 27, 28]] },
-  { key: 'mona', name: 'Mona Vee', genre: 'Disco', home: 'Miami, FL', homeKey: '', lo: 1000, fee: '$1,000 to $2,000', img: 'assets/f9fd0bec2761d1a16ba4dfec8ff13125.jpg', alt: 'Mona Vee in a leopard coat and a hat, laughing behind the decks', dates: [['nyc', 20, 21], ['atl', 13, 14]] },
-  { key: 'vincent', name: 'Vincent Gold', genre: 'Disco', home: 'Chicago, IL', homeKey: 'chi', lo: 1500, fee: '$1,500 to $3,000', img: 'assets/970c9b2f9816bd38d3deed98b4447e7f.jpg', alt: 'Vincent Gold, grey beard and dark glasses, holding their headphones', dates: [['nyc', 27, 28]] },
-  { key: 'kid', name: 'Kid Rotary', genre: 'House / Tech house', home: 'Boston, MA', homeKey: 'bos', lo: 800, fee: '$800 to $1,600', img: 'assets/7b7a060423fa57bfc7f40e5e4230b12f.jpg', alt: 'Kid Rotary, curly hair, headphones on, mixing outdoors', dates: [['nyc', 13, 14]] },
-  { key: 'sable', name: 'Sable', genre: 'Techno / EBM', home: 'Chicago, IL', homeKey: 'chi', lo: 1500, fee: '$1,500 to $2,800', img: 'assets/582c23d971a6f4c05fc221d481c7cf2a.jpg', alt: 'Sable at the decks in a dark club', dates: [['nyc', 27, 28]] },
-  { key: 'bella', name: 'Bella Nuit', genre: 'R&B', home: 'Atlanta, GA', homeKey: 'atl', lo: 1200, fee: '$1,200 to $2,400', img: 'assets/fbc0787a191b7fd8dbaa20a8c815e959.jpg', alt: 'Bella Nuit smiling behind the decks, one hand on their headphones', dates: [['chi', 20, 21]] },
-  { key: 'sal', name: 'Big Sal', genre: 'Disco', home: 'Queens, NY', homeKey: 'nyc', lo: 900, fee: '$900 to $1,800', img: 'assets/a5da0b4ef6cde258eda90ac47c29c23a.jpg', alt: 'Big Sal in headphones, mixing in front of a lit-up wall', dates: [['bos', 14, 14]] },
-  { key: 'hana', name: 'Hana Haze', genre: 'Techno / EBM', home: 'Los Angeles, CA', homeKey: '', lo: 2000, fee: '$2,000 to $4,000', img: 'assets/6e378d859ffcf8911f604b1df9231c4d.jpg', alt: 'Hana Haze in sunglasses, one arm up, on a stage full of light', dates: [['nyc', 6, 8], ['chi', 13, 14]] },
-  { key: 'rui', name: 'Rui Costa', genre: 'House / Tech house', home: 'Boston, MA', homeKey: 'bos', lo: 1200, fee: '$1,200 to $2,200', img: 'assets/ff2f045c45d4e4a27c09a8f989e0886d.jpg', alt: 'Rui Costa in headphones, reaching across the mixer', dates: [['atl', 13, 14]] },
-  { key: 'kassette', name: 'Miss Kassette', genre: 'R&B', home: 'Houston, TX', homeKey: '', lo: 900, fee: '$900 to $1,800', img: 'assets/723eb099c5b7d6a274fe73bec7f24809.jpg', alt: 'Miss Kassette in a leather jacket and sunglasses, one hand on their headphones', dates: [['atl', 20, 21], ['bos', 27, 28]] },
-  { key: 'low', name: 'Low Rider', genre: 'Techno / EBM', home: 'Detroit, MI', homeKey: '', lo: 1400, fee: '$1,400 to $2,600', img: 'assets/fdcdd6aef070057b1b876a1881277d1d.jpg', alt: 'Low Rider leaning over the decks in the dark', dates: [['chi', 6, 7], ['nyc', 13, 15]] },
-  { key: 'petra', name: 'Petra Lux', genre: 'House / Tech house', home: 'Atlanta, GA', homeKey: 'atl', lo: 1000, fee: '$1,000 to $2,000', img: 'assets/fc7d763b83da849210a753981b9e93a6.jpg', alt: 'Petra Lux, eyes closed, holding their headphones to one ear', dates: [['nyc', 14, 15]] }
-];
-var R6_CITYKEY = ['nyc', 'bos', 'atl', 'chi'];
-function R6_SPAN(a, b) { var l = function (d) { return d > 30 ? 'Dec ' + (d - 30) : 'Nov ' + d; }; return a === b ? l(a) : l(a) + (((a > 30) === (b > 30)) ? ' to ' + (b > 30 ? b - 30 : b) : ' to ' + l(b)); }
-function R6_BUDGET(v) { var n = parseInt(String(v || '').replace(/[^0-9]/g, ''), 10); return n > 0 ? n : 0; }
-/* a DJ who lives here or flies in is not free on a night another city has them in town (F8). Returns that city and its dates, or null. */
-function H4_AWAY(id, day, here) { for (var i = 0; i < H4_CITIES.length; i++) { if (i === here) continue; var l = H4_CITIES[i].list; for (var j = 0; j < l.length; j++) { var r = l[j]; if (r[0] === id && r[1] === 'in' && day >= r[3] && day <= r[4]) return { city: H4_CITIES[i].short, when: r[2].replace('In town ', '') }; } } return null; }
-/* typed city to H4_CITIES index (same order: nyc, bos, atl, chi); -1 when nothing matches */
+/* ROSTER:END */
+/* Roster6 preview data. The roster is BOOKD_DJS above: the three real artists the client sent on Nov 11. Nothing here adds a fact to it.
+   It always shows in name order. BOOKD never ranks or recommends anyone.
+   Artist rates are not shown in public (client, Nov 11): no fee on a tile, no budget field.
+   No tour dates were given, so a date never changes who shows. The one place fact is where each artist lives (homeKey), so the one badge is Lives here.
+   Until Nov 11 this page ran on fifteen sample DJs (Kaytran, Jude & Frank, Dial Tone and twelve more) with sample fees and sample November and December dates. All of that is gone. */
+var R6_LIST = BOOKD_DJS.slice().sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'en', { sensitivity: 'base' }); });
+/* the places the page knows by name, in the same order as H4_ALIAS below. One of them is a city on this roster (a chip, a Lives here badge) only while somebody in R6_LIST lives there. */
+var R6_PLACES = [{ key: 'nyc', label: 'New York' }, { key: 'bos', label: 'Boston' }, { key: 'atl', label: 'Atlanta' }, { key: 'chi', label: 'Chicago' }];
+/* R6_HOMES: the R6_PLACES indexes where somebody on the roster lives. Today that is New York alone. */
+var R6_HOMES = [];
+R6_PLACES.forEach(function (p, i) { if (R6_LIST.some(function (a) { return a.homeKey === p.key; })) R6_HOMES.push(i); });
+/* a list in words: "New York", "New York and Boston", "New York, Boston and Atlanta" */
+function R6_AND(list) { return list.length < 2 ? (list[0] || '') : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1]; }
+/* typed city to an R6_PLACES index (same order: nyc, bos, atl, chi); -1 when nothing matches. The live site reads the same groups (r6Terms), so all four stay. */
 var H4_ALIAS = [['new york', 'nyc', 'ny', 'brooklyn', 'manhattan', 'queens', 'bronx', 'bushwick', 'williamsburg', 'greenpoint', 'bed stuy', 'harlem', 'soho', 'tribeca', 'astoria'], ['boston', 'ma', 'cambridge', 'somerville', 'allston', 'brookline'], ['atlanta', 'atl', 'ga', 'decatur', 'buckhead'], ['chicago', 'chi', 'il', 'evanston', 'wicker park', 'logan square']];
 function H4_MATCH(q) {
   q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
@@ -508,46 +652,115 @@ function R6_PLACE(q, city) {
     return p.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/(\S\s+)([A-Za-z]{2})$/, function (m, a, b) { return R6_STATES.indexOf(' ' + b.toLowerCase() + ' ') >= 0 ? a + b.toUpperCase() : m; });
   }).filter(function (p) { return p; }).join(', ');
 }
-/* dates: the sample year is 2026 and Nov 1 is a Sunday. Same day logic as Home6: times are dropped first (8pm, at 9, 10:30), then the number right after Nov or Dec is the day, else the last 1 or 2 digit number. December counts as 30 + day. */
+/* day names for the live site's date labels. The preview has no sample calendar any more: it reads a typed date with the live site's r6When, only to tell whether it is a date. */
 var R6_DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-var R6_OTHER = /\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sept?(ember)?|oct(ober)?)\b/;
-function R6_LABEL(day) { var dec = day > 30, d = dec ? day - 30 : day; return R6_DOW[(day - 1) % 7] + ', ' + (dec ? 'Dec ' : 'Nov ') + d; }
-function R6_DATE(txt) {
-  var t = (txt || '').trim(), w = t.toLowerCase(), bad = { day: -1, label: t };
-  if (!t) return { day: 14, label: R6_LABEL(14) };
-  w = w.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ').replace(/\bat\s+\d{1,2}\b/g, ' ');
-  var dec = w.indexOf('dec') >= 0, n;
-  /* with no month name typed, 12/5 or 11/14/26 read month first (14/11 works too), so a short year is never taken for the day. Other months are outside the sample dates. */
-  var md = !dec && w.indexOf('nov') < 0 ? w.match(/\b(\d{1,2})\s*\/\s*(\d{1,2})\b/) : null;
-  if (md) {
-    var a = parseInt(md[1], 10), b = parseInt(md[2], 10), mo = a > 12 ? b : a;
-    n = a > 12 ? a : b;
-    if (mo !== 11 && mo !== 12) return bad;
-    dec = mo === 12;
-  } else {
-    if (!dec && w.indexOf('nov') < 0 && R6_OTHER.test(w)) return bad;
-    var nums = w.replace(/\d{3,}/g, ' ').match(/\d{1,2}/g);
-    var mm = w.match(/\b(nov|dec)[a-z]*\.?\s*(\d{1,2})(st|nd|rd|th)?\b/);
-    n = mm ? parseInt(mm[2], 10) : (nums ? parseInt(nums[nums.length - 1], 10) : 14);
-  }
-  if (n < 1 || n > (dec ? 31 : 30)) return bad;
-  var day = n + (dec ? 30 : 0);
-  return { day: day, label: R6_LABEL(day) };
-}
-/* a Saturday inside an in-town window, or its first day */
-function R6_PICK(a, b) { for (var d = a; d <= b; d++) { if ((d - 1) % 7 === 6) return d; } return a; }
 /* no widows: the last two words stay together */
 function R6_NB(t) { var i = t.lastIndexOf(' '); return i > 0 ? t.slice(0, i) + '\u00a0' + t.slice(i + 1) : t; }
 var R6_GRADE = 'grayscale(1) brightness(1.04) contrast(1.22)';
-var R6_BADGE = ['In town', 'Lives here', 'Flies in', 'Not around'];
-var R6_BCLS = ['in', 'home', 'fly', 'out'];
-function R6_NOTE(rank, r) {
-  if (rank === 0) return 'Here ' + r[2].replace('In town ', '') + ', so no travel fee.';
-  if (rank === 1) return 'Local, so no travel fee.';
-  /* the fee line under it already says plus travel, so this one only says where they come from */
-  if (rank === 2) return r[2].replace('Travels from', 'Coming from') + '.';
-  return r[2] + '. Move the party?';
+
+/* ===== the live site =====
+   On the canvas and in the preview the roster is BOOKD_DJS at the top: the three real artists, all living in New York, with no fees and no tour dates.
+   On the live site (window.BOOKD.ready) the roster comes from the database through bookd-api.js: any city, any date.
+   It stays in name order. BOOKD never ranks or recommends anyone. */
+var R6_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var R6_BLANK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%23000'/%3E%3C/svg%3E";
+function r6Live() { var b = typeof window !== 'undefined' ? window.BOOKD : null; return b && b.ready && b.roster ? b.roster : null; }
+function r6Today() { var t = new Date(); return t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2); }
+function r6Iso(y, m, d) { var t = new Date(Date.UTC(y, m, d)); return (m < 0 || m > 11 || d < 1 || t.getUTCMonth() !== m || t.getUTCDate() !== d) ? '' : t.toISOString().slice(0, 10); }
+function r6Day(iso) { var t = new Date(iso + 'T00:00:00Z'); return R6_MON[t.getUTCMonth()] + ' ' + t.getUTCDate(); }
+function r6Label(iso) { return R6_DOW[new Date(iso + 'T00:00:00Z').getUTCDay()] + ', ' + r6Day(iso); }
+function r6Span(a, b) { return a === b ? r6Day(a) : (a.slice(0, 7) === b.slice(0, 7) ? r6Day(a) + ' to ' + (+b.slice(8)) : r6Day(a) + ' to ' + r6Day(b)); }
+/* a typed date to a real one: "Sat, Nov 14", "14 nov", "11/14", "12/5/27", "2026-11-14". With no year it is the next time that day comes around. Empty text is { iso: '' }, unreadable text is null. */
+function r6When(txt, today) {
+  var w = (txt || '').toLowerCase().trim(), y = 0, m = -1, d = 0, x, i, iso;
+  if (!w) return { iso: '', label: '' };
+  w = w.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ').replace(/\bat\s+\d{1,2}\b/g, ' ');
+  if ((x = w.match(/\b(\d{4})-(\d{1,2})-(\d{1,2})\b/))) { y = +x[1]; m = +x[2] - 1; d = +x[3]; }
+  else if ((x = w.match(/\b(\d{1,2})\s*\/\s*(\d{1,2})(?:\s*\/\s*(\d{2,4}))?\b/))) {
+    m = +x[1] - 1; d = +x[2];
+    if (m > 11) { m = +x[2] - 1; d = +x[1]; }
+    if (x[3]) y = +x[3] < 100 ? 2000 + (+x[3]) : +x[3];
+  } else {
+    for (i = 0; i < 12 && m < 0; i++) if (new RegExp('\\b' + R6_MON[i].toLowerCase()).test(w)) m = i;
+    if (m < 0) return null;
+    x = w.match(new RegExp('\\b' + R6_MON[m].toLowerCase() + '[a-z]*\\.?\\s*(\\d{1,2})(?!\\d)')) || w.match(new RegExp('(\\d{1,2})(?:st|nd|rd|th)?\\s*(?:of\\s+)?' + R6_MON[m].toLowerCase()));
+    if (!x) return null;
+    d = +x[1];
+    if ((x = w.match(/\b(20\d{2})\b/))) y = +x[1];
+  }
+  if (y) iso = r6Iso(y, m, d);
+  else { y = +today.slice(0, 4); iso = r6Iso(y, m, d); if (iso && iso < today) iso = r6Iso(y + 1, m, d); }
+  return iso ? { iso: iso, label: r6Label(iso) } : null;
 }
+function r6Town(city) { return String(city || '').split(',')[0].split('/')[0].trim(); }
+/* a typed place to the words that count as that place: Brooklyn, Queens and Manhattan are all New York (the H4_ALIAS groups), anything else is just what was typed */
+function r6Terms(q) { var i = R6_NAMED(q); return i < 0 ? [q] : H4_ALIAS[i].filter(function (a) { return a.length > 2; }).concat([q]); }
+function r6Has(text, terms) { var t = String(text || '').toLowerCase(); for (var i = 0; i < terms.length; i++) if (t.indexOf(terms[i]) >= 0) return true; return false; }
+/* Everything on the page that depends on who is on the roster, worked out from the real DJs. self.djs is null until they arrive. */
+function r6LiveVals(self) {
+  var s = self.state, djs = self.djs, today = r6Today();
+  var q = s.where.toLowerCase().replace(/\s+/g, ' ').trim(); if (q.length < 2) q = '';
+  var wd = r6When(s.when, today), bad = !wd, iso = wd ? wd.iso : (s.lastIso || '');
+  var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
+  var filtered = !!(q || iso || s.sound), rows = [], towns = {}, terms = q ? r6Terms(q) : [];
+  var seen = function (c) { c = r6Town(c); if (c) towns[c] = (towns[c] || 0) + 1; };
+  (djs || []).forEach(function (a) {
+    seen(a.home);
+    a.dates.forEach(function (w) { if (w.to >= today) seen(w.city); });
+    if (s.sound && a.genres.indexOf(s.sound) < 0 && a.sound !== s.sound) return;
+    var covers = function (w) { return iso ? (iso >= w.from && iso <= w.to) : w.to >= today; };
+    var here = null, away = null, rank = 2, note = '';
+    a.dates.forEach(function (w) {
+      if (!covers(w)) return;
+      if (q && r6Has(w.city, terms)) { if (!here) here = w; } else if (iso && !away) away = w;
+    });
+    if (q) {
+      if (here) { rank = 0; note = 'In town ' + r6Span(here.from, here.to) + '. No travel fee.'; }
+      else if (r6Has(a.home, terms) && !away) { rank = 1; note = 'Lives here. No travel fee.'; }
+      else return;
+    } else if (iso) {
+      note = away ? 'In ' + r6Town(away.city) + ' on ' + R6_NB(r6Label(iso)) + '.' : (r6Town(a.home) ? 'Home in ' + r6Town(a.home) + ' that night.' : '');
+    }
+    rows.push({ a: a, rank: rank, note: note });
+  });
+  var tiles = rows.map(function (x) {
+    // a live tile opens the shared profile page when that artist has one (the page reads BOOKD_DJS), never a made-up profile
+    var a = x.a, page = BOOKD_DJS.some(function (d) { return d.slug === a.slug; }) ? 'artist.html#' + a.slug : '';
+    return { name: a.name, genre: a.sound || a.genres.join(' / '), home: a.home, img: a.photo || R6_BLANK, alt: a.photo ? a.name : '', grade: R6_GRADE, pos: '50% 30%',
+      href: page || '#lineup', linkAria: page ? 'See ' + a.name + "'s profile" : a.name,
+      hasBadge: x.rank <= 1, badge: x.rank === 0 ? 'In town' : 'Lives here', badgeCls: x.rank === 0 ? 'rt-badge' : 'rt-badge rt-badge-home',
+      hasNote: !!x.note, note: x.note };
+  });
+  var n = rows.length, total = djs ? djs.length : 0, place = q ? R6_PLACE(s.where, { name: s.where.trim() }) : '', when = iso ? R6_NB(r6Label(iso)) : '';
+  /* the chips are the six places with the most DJs living there or passing through, then A to Z */
+  var chips = Object.keys(towns).sort(function (x, y) { return (towns[y] - towns[x]) || (x < y ? -1 : 1); }).slice(0, 6).sort();
+  var pick = function (label, jump) {
+    return function () {
+      var on = s.where.trim().toLowerCase() === label.toLowerCase();
+      self.setState({ where: on ? '' : label, city: -1, miss: false });
+      if (jump) { self.show(); self.focusBill(); } else self.pop();
+    };
+  };
+  var waiting = !djs && !s.loadFail;
+  return {
+    setWhere: function (e) { self.setState({ where: e.target.value, city: -1, miss: false }); },
+    setWhen: function (e) { var v = e.target.value, r = r6When(v, r6Today()); self.setState(r && r.iso ? { when: v, lastIso: r.iso } : (v.trim() ? { when: v } : { when: v, lastIso: '' })); },
+    clearAll: function () { self.setState({ where: '', when: '', lastDay: 0, lastIso: '', sound: '', city: -1, miss: false }); self.focusBill(); },
+    cityChips: chips.map(function (c) { return { label: c, on: s.where.trim().toLowerCase() === c.toLowerCase() ? 'true' : 'false', pick: pick(c, false) }; }),
+    emptyChips: chips.map(function (c) { return { label: c, pick: pick(c, true) }; }),
+    filtered: filtered, tiles: tiles,
+    gridHead: waiting ? 'The whole roster.' : s.loadFail ? "The roster didn't load." : !total ? 'The roster is filling up.' : !filtered ? 'The whole roster.' : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.')),
+    countLine: waiting ? 'One sec, getting the roster.'
+      : s.loadFail ? (s.loadFail === 'offline' ? "We couldn't reach BOOKD. Check your connection and refresh." : 'Something went wrong on our side. Refresh to try again.')
+      : !total ? 'No DJs are on the roster yet. Check back soon.'
+      : bad ? "We couldn't read that date. Try something like Sat, Nov 14."
+      : !filtered ? (total === 1 ? '1 DJ' : total + ' DJs') + " on the roster. Add a city or a date to see who's around."
+      : (n === 0 ? 'No DJs' : n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (place && n ? ', no travel fee.' : '.'),
+    showClear: filtered && n > 0, gridDisplay: n || waiting || !total ? 'grid' : 'none', emptyDisplay: n || waiting || !total ? 'none' : 'flex',
+    emptyLine: 'Try another city, another night or every sound. The roster grows every month.'
+  };
+}
+/* ===== end the live site ===== */
 
 /* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
    Then three lines in the class (README step 4):
@@ -562,9 +775,9 @@ function R6_NOTE(rank, r) {
      switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
    curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
 var NAV6_DEFAULTS = {
-  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
-  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
-  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
+  seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
   curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
   waiting: 0, shell: ''
 };
@@ -644,12 +857,74 @@ function nav6Down(self, e) {
   var n = self.nav6, st = self.state || {}, t = e && e.target;
   if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
 }
+// On the live site, someone who is already signed in gets their own link where Log in was.
+// window.BOOKD.who is only set there (bookd-api.js), so the canvas and the preview always say Log in.
+function nav6Who() {
+  var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+  if (!w) return null;
+  if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+  if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+  return { href: 'login.html', text: 'Your inbox' };
+}
 // renderVals: every key the four shells use.
+/* the When field's calendar. H6_WHENDATE reads what is typed ("Sat, Nov 14", "Nov 14", "11/14", "December 5, 2026") as a date, the next one coming if no year is given.
+   H6_WHENTEXT writes a date back the way the field shows it. */
+var H6_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var H6_WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function H6_WHENDATE(txt, now) {
+  var w = String(txt || '').toLowerCase().replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ');
+  var yr = (w.match(/\b(20\d{2})\b/) || [])[1]; w = w.replace(/\d{3,}/g, ' ');
+  var mm = w.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})\b/), dm = w.match(/\b(\d{1,2})\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/), sl = w.match(/\b(\d{1,2})\/(\d{1,2})\b/);
+  var names = 'janfebmaraprmayjunjulaugsepoctnovdec', mo, dd;
+  if (mm) { mo = names.indexOf(mm[1]) / 3; dd = +mm[2]; } else if (dm) { mo = names.indexOf(dm[2]) / 3; dd = +dm[1]; } else if (sl) { mo = +sl[1] - 1; dd = +sl[2]; } else return null;
+  if (mo < 0 || mo > 11 || dd < 1 || dd > 31) return null;
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()), d = new Date(yr ? +yr : today.getFullYear(), mo, dd);
+  if (d.getMonth() !== mo) return null;
+  if (!yr && d < today) d = new Date(today.getFullYear() + 1, mo, dd);
+  return d;
+}
+function H6_WHENTEXT(d, now) { return H6_WD[d.getDay()].slice(0, 3) + ', ' + H6_MON[d.getMonth()].slice(0, 3) + ' ' + d.getDate() + (d.getFullYear() !== now.getFullYear() ? ', ' + d.getFullYear() : ''); }
+/* everything the When calendar needs from renderVals. setWhen is the page's own handler, so a clicked day goes through exactly what a typed one does. */
+function r6CalVals(self, setWhen) {
+  var s = self.state, cal = { y: s.calY, m: s.calM, days: [], first: true };
+  self.calSet = setWhen;
+  if (s.calOpen) {
+    var cNow = new Date(), cMin = new Date(cNow.getFullYear(), cNow.getMonth(), cNow.getDate()), cSel = H6_WHENDATE(s.when, cNow), cLead = new Date(s.calY, s.calM, 1).getDay(), cLen = new Date(s.calY, s.calM + 1, 0).getDate(), cTab = 0, ci;
+    cal.first = s.calY === cNow.getFullYear() && s.calM === cNow.getMonth();
+    for (ci = 0; ci < cLead; ci++) cal.days.push({ n: '', cls: 'qf-day qf-blank', key: 'b' + ci, tab: '-1', lab: '', on: 'false', off: 'true', hide: 'true', pick: function () {} });
+    for (ci = 1; ci <= cLen; ci++) (function (dd) {
+      var d = new Date(s.calY, s.calM, dd), off = d < cMin, on = !!cSel && +cSel === +d, today = +d === +cMin;
+      cal.days.push({ n: dd, cls: 'qf-day' + (on ? ' qf-day-on' : (today ? ' qf-day-today' : '')), key: s.calY + '-' + (s.calM + 1) + '-' + dd, tab: '-1', on: on ? 'true' : 'false', off: off ? 'true' : 'false', hide: 'false',
+        lab: H6_WD[d.getDay()] + ', ' + H6_MON[s.calM] + ' ' + dd + ', ' + s.calY + (today ? ', today' : '') + (off ? ', past' : ''), pick: function () { if (!off) self.calPick(d); } });
+    })(ci);
+    cal.days.forEach(function (x, i) { if (x.on === 'true') cTab = i; });
+    if (!cTab) cal.days.some(function (x, i) { if (x.off === 'false') { cTab = i; return true; } return false; });
+    if (cal.days[cTab]) cal.days[cTab].tab = '0';
+  }
+  return {
+    calOpen: s.calOpen, calExp: s.calOpen ? 'true' : 'false', calTitle: H6_MON[cal.m] + ' ' + cal.y, calDays: cal.days, calPrevOff: cal.first ? 'true' : 'false',
+    whenMode: window.matchMedia && window.matchMedia('(pointer: coarse)').matches ? 'none' : 'text',
+    calIn: function () { if (self.calSkip) { self.calSkip = false; return; } self.calShow(); }, calShow: function () { self.calShow(); },
+    calHold: function (e) { if (!e.pointerType || e.pointerType === 'mouse') e.preventDefault(); },
+    calBlur: function (e) { var to = e.relatedTarget, box = e.currentTarget; if (!to || !box || !box.contains(to)) self.calHide(); },
+    whenKey: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); self.calGo(H6_WHENDATE(self.state.when, new Date()) || new Date()); } else if (e.key === 'Escape' && self.state.calOpen) { e.preventDefault(); e.stopPropagation(); self.calHide(); } },
+    calPrev: function () { if (cal.first) return; var m = s.calM - 1, y = s.calY; if (m < 0) { m = 11; y--; } self.setState({ calY: y, calM: m }); },
+    calNext: function () { var m = s.calM + 1, y = s.calY; if (m > 11) { m = 0; y++; } self.setState({ calY: y, calM: m }); },
+    calKey: function (e) {
+      var k = e.key, el = e.target, at = el && el.getAttribute && el.getAttribute('data-d'), step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[k];
+      if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); self.calHide(true); return; }
+      if (!at) return;
+      var p = at.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+      if (step) { e.preventDefault(); d.setDate(d.getDate() + step); self.calGo(d); }
+      else if (k === 'PageDown' || k === 'PageUp') { e.preventDefault(); var dd = d.getDate(); d = new Date(d.getFullYear(), d.getMonth() + (k === 'PageDown' ? 1 : -1), 1); d.setDate(Math.min(dd, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate())); self.calGo(d); }
+    }
+  };
+}
 function nav6Vals(self, cfg) {
   var n = self.nav6, st = self.state || {}, c = {}, k;
   for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
   if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
-  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
   return {
     menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
     menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
@@ -659,7 +934,7 @@ function nav6Vals(self, cfg) {
     dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
     seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
     navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
-    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
     bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
     pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
     // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
@@ -672,8 +947,10 @@ class Component extends DCLogic {
     super(props);
     var self = this;
     this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    /* lastDay: the last date the parser could read, so a When it can't read never goes on the poster. out: a DJ who cancelled Sat, Nov 14 (#kaytran-out), empty by default */
-    this.state = { where: '', when: '', lastDay: 0, sound: '', budget: '', city: -1, miss: false, crowdPaused: this.reduce, out: '' };
+    /* city: an R6_PLACES index, -1 for none. miss: a place was typed that the page does not know. lastIso, loadFail and got are the live site's. */
+    this.state = { calOpen: false, calY: 0, calM: 0, where: '', when: '', sound: '', city: -1, miss: false, crowdPaused: this.reduce, lastIso: '', loadFail: '', got: 0 };
+    /* the live site: the real DJs, null until they arrive */
+    this.djs = null;
     this.crowdOff = this.reduce;
     this.billRef = function (el) { self.billEl = el; };
     this.billHRef = function (el) { self.billHEl = el; };
@@ -695,11 +972,15 @@ class Component extends DCLogic {
     };
     nav6Init(this);
   }
-  /* Find another DJ on Cancel6#dj-out opens roster.html#kaytran-out: Kaytran can't make Sat, Nov 14 any more, so that night's poster leaves her off. With no hash the poster is the usual sample.
-     #lineup (See it the way hosts do, on Erika's dashboard) lands on the poster. The page draws after load, so the browser's own jump never finds it; this scrolls through the ref, with no flash. */
+  /* #lineup (See it the way hosts do, on Erika's dashboard) lands on the board. The page draws after load, so the browser's own jump never finds it; this scrolls through the ref, with no flash.
+     The old #kaytran-out address (a sample DJ who dropped out of a sample night) went with the sample roster. Cancel6 and Inbox6 may still link to it; it now opens the whole roster like any other visit. */
   componentDidMount() {
-    var self = this, h = typeof location !== 'undefined' ? location.hash : '';
-    if (h === '#kaytran-out') this.setState({ out: 'kaytran', where: 'Brooklyn, NY', city: 0, when: 'Sat, Nov 14', lastDay: 14 });
+    var self = this, h = typeof location !== 'undefined' ? location.hash : '', api = r6Live();
+    if (api) api.list().then(function (r) {
+      if (self.gone) return;
+      if (r && r.ok) { self.djs = r.djs; self.setState({ got: Date.now(), loadFail: '' }); }
+      else self.setState({ loadFail: (r && r.code) || 'unknown' });
+    });
     if (h === '#lineup') this.hashT = setTimeout(function () {
       self.hashT = null;
       var t = self.billEl && self.billEl.closest ? self.billEl.closest('.r6-wall') : null;
@@ -707,6 +988,8 @@ class Component extends DCLogic {
     }, 80);
   }
   componentWillUnmount() {
+    if (this.calDoc) document.removeEventListener('pointerdown', this.calDoc, true);
+    this.gone = true;
     if (this.crowdIO) { this.crowdIO.disconnect(); this.crowdIO = null; }
     if (this.crowdEl && this.crowdEl.pause) this.crowdEl.pause();
     clearTimeout(this.popT); this.popT = null;
@@ -731,62 +1014,95 @@ class Component extends DCLogic {
     if (t && t.scrollIntoView) t.scrollIntoView({ behavior: this.reduce ? 'auto' : 'smooth', block: 'start' });
     this.pop(t && !this.reduce ? 320 : 0);
   }
-  /* the button that was pressed disappears with the old bill, so keyboard focus lands on the poster's date instead of the page top */
+  /* the button that was pressed can disappear with the old board, so keyboard focus lands on the board's heading instead of the page top */
   focusBill() { var h = this.billHEl; if (!h || !h.focus) return; try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
-  /* on a phone the poster is below the fold, so a chip goes to it like Try does; wider screens flash it in place. A chip inside the empty poster also goes to it when the poster's date has scrolled out of view, since focus lands on that date. */
+  /* on a phone the board is below the fold, so a chip goes to it; wider screens flash it in place. fromBill: the pick came from inside the board, so it also goes there when the heading has scrolled out of view, since focus lands on that heading. */
   pickCity(i, fromBill) {
     if (i === this.state.city && !this.state.miss) { this.setState({ city: -1, where: '' }); return; }
-    this.setState({ city: i, where: H4_CITIES[i].name, miss: false });
+    this.setState({ city: i, where: R6_PLACES[i].label, miss: false });
     var h = this.billHEl, top = h && h.getBoundingClientRect ? h.getBoundingClientRect().top : 0;
     var phone = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
     if (phone || (fromBill && (top < 88 || top > (window.innerHeight || 800) - 120))) this.show(); else this.pop();
   }
-  tryDate(day) { if (!day) return; this.setState({ when: R6_LABEL(day), lastDay: day }); this.show(); this.focusBill(); }
+
+  /* ---------- the When calendar ---------- */
+  calShow() {
+    if (this.state.calOpen) return;
+    var now = new Date(), d = H6_WHENDATE(this.state.when, now) || now;
+    if (d < new Date(now.getFullYear(), now.getMonth(), 1)) d = now;
+    this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() });
+    this.calWatch(true);
+  }
+  /* while it is open, a press anywhere else on the page closes it (a phone does not always blur the field when you tap away) */
+  calWatch(on) {
+    var self = this;
+    if (!this.calDoc) this.calDoc = function (e) { var box = document.querySelector('.qf-when'); if (box && !box.contains(e.target)) self.calHide(); };
+    document.removeEventListener('pointerdown', this.calDoc, true);
+    if (on) document.addEventListener('pointerdown', this.calDoc, true);
+  }
+  calHide(back) {
+    this.calWatch(false);
+    if (this.state.calOpen) this.setState({ calOpen: false });
+    if (back) { var el = document.getElementById('qfwhen'); if (el) { this.calSkip = true; el.focus(); } }
+  }
+  /* put the keyboard on one day of the grid, turning the page to its month first if needed */
+  calGo(d) {
+    var now = new Date(), min = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (d < min) d = min;
+    if (d.getFullYear() !== this.state.calY || d.getMonth() !== this.state.calM || !this.state.calOpen) { this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() }); this.calWatch(true); }
+    var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    setTimeout(function () { var el = document.querySelector('#qfcal [data-d="' + key + '"]'); if (el) el.focus(); }, 30);
+  }
+  calPick(d) {
+    this.calWatch(false);
+    this.setState({ calOpen: false });
+    if (this.calSet) this.calSet({ target: { value: H6_WHENTEXT(d, new Date()) } });
+    var el = document.getElementById('qfwhen'); if (el && document.activeElement !== el) { this.calSkip = true; el.focus(); }
+  }
 
   renderVals() {
-    var self = this, s = this.state, hasWhen = !!String(s.when || '').trim(), d = hasWhen ? R6_DATE(s.when) : { day: 0, label: '' }, bad = d.day < 0;
-    if (bad) d = s.lastDay ? { day: s.lastDay, label: R6_LABEL(s.lastDay) } : { day: 0, label: '' };
-    var ci = s.miss ? -1 : s.city, ck = ci >= 0 ? R6_CITYKEY[ci] : '', city = ci >= 0 ? H4_CITIES[ci] : null, day = d.day, budget = R6_BUDGET(s.budget);
+    var self = this, s = this.state;
+    /* The preview: the three real artists in R6_LIST, in name order. Where narrows the board to who lives there, and Sound to who plays it.
+       A date is read but never narrows anything: no tour dates were given, and the line under the search says so. */
+    var wd = r6When(s.when, r6Today()), bad = !wd, dated = !!(wd && wd.iso);
+    var ci = s.miss ? -1 : s.city, spot = ci >= 0 ? R6_PLACES[ci] : null;
+    /* a place with nobody on the roster: one the page does not know (miss), or one it knows by name where nobody lives yet (Boston, Atlanta and Chicago today) */
+    var nobodyHere = s.miss || (!!spot && R6_HOMES.indexOf(ci) < 0);
     var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
-    var filtered = !!(city || s.miss || day || s.sound || budget);
-    /* who fits: in town in the picked city (that night, or any night with no date), or lives there and isn't away that night. Sound and budget narrow it further. */
-    var rows = [];
-    R6_ROSTER.forEach(function (a, idx) {
-      if (s.out && a.key === s.out && day === 14) return;
-      if (s.sound && a.genre !== s.sound) return;
-      if (budget && a.lo > budget) return;
-      var rank = 2, note = '';
-      var inAt = function (k, dd) { for (var i = 0; i < a.dates.length; i++) { var w = a.dates[i]; if (w[0] === k && (!dd || (dd >= w[1] && dd <= w[2]))) return w; } return null; };
-      var awayOn = function (dd) { for (var i = 0; i < a.dates.length; i++) { var w = a.dates[i]; if (w[0] !== a.homeKey && dd >= w[1] && dd <= w[2]) return w; } return null; };
-      if (s.miss) return;
-      if (ck) {
-        var w = inAt(ck, day);
-        if (w) { rank = 0; note = 'In town ' + R6_SPAN(w[1], w[2]) + '. No travel fee.'; }
-        else if (a.homeKey === ck && !(day && awayOn(day))) { rank = 1; note = 'Lives here. No travel fee.'; }
-        else return;
-      } else if (day) {
-        var aw = awayOn(day), c2 = aw ? H4_CITIES[R6_CITYKEY.indexOf(aw[0])] : null;
-        note = c2 ? 'In ' + c2.label + ' on ' + R6_NB(R6_LABEL(day)) + '.' : (a.homeKey ? 'Home in ' + H4_CITIES[R6_CITYKEY.indexOf(a.homeKey)].label + ' that night.' : '');
-      }
-      rows.push({ a: a, idx: idx, rank: rank, note: note });
+    /* only a place or a sound counts as a filter, so the heading never says somebody "fits" a night */
+    var filtered = !!(spot || s.miss || s.sound);
+    /* who fits: lives in the picked place, and has the picked sound in their own genres */
+    var rows = nobodyHere ? [] : R6_LIST.filter(function (a) {
+      if (spot && a.homeKey !== spot.key) return false;
+      if (s.sound && (a.genres || []).indexOf(s.sound) < 0) return false;
+      return true;
     });
-    rows.sort(function (x, y) { return (x.rank - y.rank) || (x.idx - y.idx); });
-    var tiles = rows.map(function (x) {
-      var a = x.a, link = a.href || '';
-      return { name: a.name, genre: a.genre, home: a.home, img: a.img, alt: a.alt, grade: a.grade || R6_GRADE, pos: a.pos || '50% 30%',
-        href: link || '#lineup', linkAria: link ? (a.key === 'kaytran' ? 'See Kaytran\'s profile' : 'Request ' + a.name) : a.name,
-        hasBadge: x.rank <= 1, badge: x.rank === 0 ? 'In town' : 'Lives here', badgeCls: x.rank === 0 ? 'rt-badge' : 'rt-badge rt-badge-home',
-        hasNote: !!x.note, note: x.note, fee: 'Fee ' + a.fee };
+    /* a tile: the artist's own photo, tag and home town, and a link to their profile. Lives here shows once a place is picked. There is no note line: nothing else is known. */
+    var tiles = rows.map(function (a) {
+      return { name: a.name, genre: a.tag, home: a.home, img: a.img, alt: a.alt, grade: R6_GRADE, pos: a.pos || '50% 30%',
+        href: 'artist.html#' + a.slug, linkAria: 'See ' + a.name + "'s profile",
+        hasBadge: !!spot, badge: 'Lives here', badgeCls: 'rt-badge rt-badge-home',
+        hasNote: false, note: '' };
     });
-    var n = rows.length, place = city ? city.label : '', when = day ? R6_NB(R6_LABEL(day)) : '';
-    var gridHead = !filtered ? 'The whole roster.'
-      : (!n ? 'Nobody fits that\u00a0yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
-    var countLine = s.miss ? "We're not in " + R6_PLACE(s.where, H4_CITIES[0]) + ' yet. Right now it\'s New York, Boston, Atlanta and Chicago.'
-      : !filtered ? R6_ROSTER.length + ' DJs on the roster. Add a city or a date to see who\'s around.'
-      : bad ? "That date's not on our calendar yet. Try a night in November or December."
-      : (n === 0 ? 'No DJs' : n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (budget ? ' within $' + budget.toLocaleString('en-US') : '') + (place && n ? ', no travel fee.' : '.');
-    var emptyLine = s.miss ? 'Pick New York, Boston, Atlanta or Chicago, or tell us where to go next.'
-      : 'Try another night, every sound or a bigger budget. The roster grows every month.';
+    var n = rows.length, total = R6_LIST.length, djs = function (k) { return k === 0 ? 'No DJs' : k === 1 ? '1 DJ' : k + ' DJs'; };
+    /* the places people live, in words, and whether the whole roster lives in one of them */
+    var homes = R6_HOMES.map(function (i) { return R6_PLACES[i].label; }), homeList = R6_AND(homes);
+    var oneHome = R6_HOMES.length === 1 && R6_LIST.every(function (a) { return a.homeKey === R6_PLACES[R6_HOMES[0]].key; });
+    /* why a typed date leaves the board as it is */
+    var why = dated ? " No tour dates are up yet, so the date doesn't change who you see." : '';
+    var gridHead = !total ? 'The roster is filling up.'
+      : !filtered ? 'The whole roster.'
+      : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
+    var countLine = !total ? 'No DJs are on the roster yet. Check back soon.'
+      : nobodyHere ? "We're not in " + (s.miss ? R6_PLACE(s.where, { name: s.where.trim() }) : spot.label) + ' yet.' + (homeList ? " Right now it's " + homeList + '.' : '')
+      : bad ? "We couldn't read that date. Try something like Sat, Nov 14."
+      : !filtered ? djs(total) + ' on the roster' + (oneHome ? (total === 1 ? ', based in ' : ', all based in ') + homes[0] : '') + '.' + (why || ' Add a city or a sound to narrow it down.')
+      : djs(n) + (spot ? ' based in ' + spot.label : '') + (s.sound ? ' playing ' + snd : '') + '.' + (n ? why : '');
+    var emptyLine = nobodyHere ? (homeList ? 'Everyone on the roster is based in ' + homeList + ' for now. Try a search there.' : 'Try a search without a place, or go back to the whole roster.')
+      : 'Try another sound, or go back to the whole roster.';
+    /* no widows: the last two words of each line stay together, as they did in the lines these replace */
+    countLine = R6_NB(countLine); emptyLine = R6_NB(emptyLine);
+    var chipAt = R6_HOMES.length > 1 ? R6_HOMES : [];
     /* Book a DJ on the roster: the search is right here, so it goes to the form and puts the cursor in Where (no reload, the picks stay) */
     var bookNow = function (e) {
       if (e && e.preventDefault) e.preventDefault();
@@ -801,25 +1117,25 @@ class Component extends DCLogic {
         self.focusT = setTimeout(function () { self.focusT = null; if (self.whereEl) self.whereEl.focus({ preventScroll: true }); }, 350);
       }, wasOpen ? 80 : 0);
     };
-    return Object.assign({
+    var V = Object.assign({
       whereRef: this.whereRef,
-      where: s.where, when: s.when, sound: s.sound, budget: s.budget,
+      where: s.where, when: s.when, sound: s.sound,
       setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState(!v.trim() ? { where: v, city: -1, miss: false } : { where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
-      setWhen: function (e) { var v = e.target.value, wd = R6_DATE(v); self.setState(wd.day > 0 ? { when: v, lastDay: wd.day } : { when: v }); },
+      /* a date is kept as typed (the calendar writes it the same way). It never changes who shows. */
+      setWhen: function (e) { self.setState({ when: e.target.value }); },
       setSound: function (e) { self.setState({ sound: e.target.value }); },
-      setBudget: function (e) { self.setState({ budget: e.target.value }); },
       noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); self.show(); self.focusBill(); },
-      /* Enter in Where, When or Budget jumps to the poster. A focused button keeps its own click. Focus follows to the poster's date either way. */
+      /* Enter in Where or When jumps to the board. A focused button keeps its own click. Focus follows to the board's heading either way. */
       findKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); self.show(); self.focusBill(); } },
       showLineup: function () { self.show(); self.focusBill(); },
-      cityChips: H4_CITIES.map(function (c, i) { var on = i === s.city && !s.miss; return { label: c.label, on: on ? 'true' : 'false', pick: function () { self.pickCity(i); } }; }),
-      /* the same chips inside the empty poster; they vanish once picked, so focus moves to the new bill */
-      emptyChips: H4_CITIES.map(function (c, i) { return { label: c.label, pick: function () { self.pickCity(i, true); self.focusBill(); } }; }),
+      /* one chip for each place somebody on the roster lives, and only once there are two or more: one chip alone is not a choice. On the live site the row always shows. */
+      cityChips: chipAt.map(function (i) { var on = i === s.city && !s.miss; return { label: R6_PLACES[i].label, on: on ? 'true' : 'false', pick: function () { self.pickCity(i); } }; }),
+      hasChips: !!r6Live() || chipAt.length > 0,
       countLine: countLine, gridHead: gridHead, filtered: filtered, tiles: tiles,
       /* nobody fits: the heading and the empty note say it once, with one Show the whole roster button, and the board (with the join card) steps aside */
-      showClear: filtered && rows.length > 0, gridDisplay: rows.length ? 'grid' : 'none',
-      emptyDisplay: rows.length ? 'none' : 'flex', emptyLine: emptyLine,
-      clearAll: function () { self.setState({ where: '', when: '', lastDay: 0, sound: '', budget: '', city: -1, miss: false }); self.focusBill(); },
+      showClear: filtered && n > 0, gridDisplay: n || !total ? 'grid' : 'none',
+      emptyDisplay: n || !total ? 'none' : 'flex', emptyLine: emptyLine,
+      clearAll: function () { self.setState({ where: '', when: '', sound: '', city: -1, miss: false }); self.focusBill(); },
       billRef: this.billRef, billHRef: this.billHRef, crowdRef: this.crowdRef,
       /* the crowd's video toggle: pausing keeps the frame (or the poster, before it ever played) */
       vidLabel: s.crowdPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
@@ -829,10 +1145,14 @@ class Component extends DCLogic {
         if (p) { if (v.pause) v.pause(); }
         else if (self.crowdVis !== false && v.play) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
       },
-    }, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
+    }, r6Live() ? r6LiveVals(this) : {}, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
+    return Object.assign(V, r6CalVals(this, V.setWhen));
   }
 }
 </script>
+<script src="bookd-config.js"></script>
+<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
+<script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>
 </html>

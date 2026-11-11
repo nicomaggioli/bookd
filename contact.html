@@ -5,7 +5,9 @@
 <title>Contact · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script>/* canvas: page stays still */
 (function () {
   var still = function () {
@@ -34,11 +36,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
 <style>
-/* big screens (bigscreen.py) */
+/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
+   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
+   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
 :root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
-@media (min-width:1921px){
-  html{zoom:calc(100vw / 1920px)}
-  :root{--vw:calc(1vw / (100vw / 1920px));--vh:calc(1vh / (100vw / 1920px));--svh:calc(1svh / (100vw / 1920px));--dvh:calc(1dvh / (100vw / 1920px));--lvh:calc(1lvh / (100vw / 1920px))}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+  html{zoom:var(--bz)}
+}
 }
 
 /* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
@@ -208,7 +214,7 @@ html{scroll-padding-top:88px}
 <a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
 </nav>
 <div class="navend">
-<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">Log in</a>
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">{{loginText}}</a>
 <button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
 <a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
 </div>
@@ -219,7 +225,7 @@ html{scroll-padding-top:88px}
 <a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
-<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">Log in</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
 </nav>
 </sc-if>
 </header>
@@ -246,7 +252,7 @@ html{scroll-padding-top:88px}
 <label class="field"><span class="field-l">I'm a</span><select value="{{who}}" onChange="{{setWho}}"><option value="host">Host planning a party</option><option value="dj">DJ</option><option value="agent">Agent or manager</option><option value="other">Something else</option></select></label>
 <label class="field"><span class="field-l">Message</span><textarea rows="5" value="{{msg}}" onInput="{{setMsg}}" aria-invalid="{{msgBad}}" placeholder="What's up?"></textarea></label>
 <sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}"><p class="ct-err" role="alert">{{errText}}</p></sc-if>
-<button class="btn btn-lg ink ct-send" type="submit">Send it</button>
+<button class="btn btn-lg ink ct-send" type="submit" aria-busy="{{sendBusy}}">{{sendLabel}}</button>
 </form>
 </sc-if>
 <sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
@@ -273,7 +279,16 @@ html{scroll-padding-top:88px}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
-// Contact6: the emails, plus a plain form that says thanks. Nothing is sent anywhere yet.
+// Contact6: the emails, plus a plain form that says thanks. On the canvas and in the preview nothing is sent.
+// On the live site (window.BOOKD.ready) the note is saved for the BOOKD team through bookd-api.js.
+// What to say when a real send does not go through. The form keeps everything that was typed.
+function ctFail(code) {
+  if (code === 'rate') return 'Too many tries in a row. Give it a minute and try\u00a0again.';
+  if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+  if (code === 'invalid') return 'That did not look right to us. Check the email and keep the note under 4,000\u00a0characters.';
+  return 'Something went wrong on our side. Nothing was sent, so try\u00a0again.';
+}
+
 /* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
    Then three lines in the class (README step 4):
      constructor, last line:         nav6Init(this);
@@ -287,9 +302,9 @@ html{scroll-padding-top:88px}
      switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
    curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
 var NAV6_DEFAULTS = {
-  inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
-  dashHref: 'dashboard.html', curDash: 'false', reqHref: 'requests.html', curReq: 'false',
-  seeOn: true, seeHref: 'kaytran.html#mine', signedIn: 'Kaytran',
+  inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
+  dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
+  seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
   curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
   waiting: 0, shell: ''
 };
@@ -369,12 +384,21 @@ function nav6Down(self, e) {
   var n = self.nav6, st = self.state || {}, t = e && e.target;
   if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
 }
+// On the live site, someone who is already signed in gets their own link where Log in was.
+// window.BOOKD.who is only set there (bookd-api.js), so the canvas and the preview always say Log in.
+function nav6Who() {
+  var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+  if (!w) return null;
+  if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+  if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+  return { href: 'login.html', text: 'Your inbox' };
+}
 // renderVals: every key the four shells use.
 function nav6Vals(self, cfg) {
   var n = self.nav6, st = self.state || {}, c = {}, k;
   for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
   if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
-  var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+  var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
   return {
     menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
     menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
@@ -384,7 +408,7 @@ function nav6Vals(self, cfg) {
     dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
     seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
     navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
-    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
     bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
     pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
     // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
@@ -395,7 +419,7 @@ function nav6Vals(self, cfg) {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', who: 'host', msg: '', tried: false, sent: false };
+    this.state = { name: '', email: '', who: 'host', msg: '', tried: false, sent: false, busy: false, fail: '' };
     nav6Init(this);
     var self = this;
     this.setName = function (e) { self.setState({ name: e.target.value }); };
@@ -407,11 +431,19 @@ class Component extends DCLogic {
       if (e && e.preventDefault) e.preventDefault();
       var s = self.state;
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim()) || !s.msg.trim()) { self.setState({ tried: true }); return; }
-      self.setState({ sent: true });
+      var api = typeof window !== 'undefined' && window.BOOKD && window.BOOKD.ready ? window.BOOKD.contact : null;
+      if (!api) { self.setState({ sent: true }); return; }
+      if (s.busy) return;
+      self.setState({ busy: true, fail: '', tried: true });
+      api.send({ name: s.name, email: s.email, who: s.who, message: s.msg }).then(function (r) {
+        if (self.gone) return;
+        self.setState(r && r.ok ? { busy: false, sent: true } : { busy: false, fail: (r && r.code) || 'unknown' });
+      });
     };
   }
   componentWillUnmount() {
     nav6Off(this);
+    this.gone = true;
   }
   renderVals() {
     var s = this.state, emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim()), msgOk = !!s.msg.trim();
@@ -420,12 +452,16 @@ class Component extends DCLogic {
       setName: this.setName, setEmail: this.setEmail, setWho: this.setWho, setMsg: this.setMsg, send: this.send, doneRef: this.doneRef,
       first: (s.name.trim().split(/\s+/)[0]) || 'thanks',
       emailBad: s.tried && !emailOk ? 'true' : 'false', msgBad: s.tried && !msgOk ? 'true' : 'false',
-      showErr: s.tried && (!emailOk || !msgOk),
-      errText: !emailOk && !msgOk ? 'Add an email we can reply to and a short\u00a0message.' : !emailOk ? 'Add an email we can reply to.' : 'Add a message, even a short one.'
+      sendLabel: s.busy ? 'One sec' : 'Send it', sendBusy: s.busy ? 'true' : 'false',
+      showErr: (s.tried && (!emailOk || !msgOk)) || !!s.fail,
+      errText: emailOk && msgOk && s.fail ? ctFail(s.fail) : !emailOk && !msgOk ? 'Add an email we can reply to and a short\u00a0message.' : !emailOk ? 'Add an email we can reply to.' : 'Add a message, even a short one.'
     }, nav6Vals(this, {}));
   }
 }
 </script>
+<script src="bookd-config.js"></script>
+<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
+<script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>
 </html>
