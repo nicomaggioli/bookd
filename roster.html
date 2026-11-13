@@ -34,7 +34,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;family=La+Belle+Aurore&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -398,7 +398,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .r6-find{border-radius:var(--r-card)}
 </style>
 <style>/* Nov 12: text is Inter again (Nico). Handwriting (.hand) is the one accent, used only where a note or a signature calls for it. */
-.hand{font-family:'Reenie Beanie','Bradley Hand',cursive !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
+.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
 /* a short handwritten note right under a headline, lined up with its left edge. The same rule is on every page; the colour follows the background (red on black here). */
 .hand-note{display:block;font-size:clamp(32px, calc(3.4 * var(--vw, 1vw)), 52px);line-height:.95;transform:rotate(-3deg);transform-origin:0 50%;margin-top:6px}
 .r6-head .hand-note{color:#ff3b2f}
@@ -415,7 +415,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
 body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 @media print{body::after{display:none}}
-span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','Bradley Hand',cursive !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
+span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
 #artists span.hand.hand-note,.jh span.hand.hand-note,.nf span.hand.hand-note{color:#000000 !important}
 .k6note.hand{font-size:clamp(30px,calc(3 * var(--vw,1vw)),44px) !important;margin-top:0 !important}
 </style>
@@ -463,6 +463,16 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <style>/* Nico asked for this on Nov 12: the photo shows its colour while the card is hovered */
 .rt:hover .rt-photo img{filter:none !important}
 </style>
+<style>/* Nov 13 (Nico): with no search there is no count line under the search bar, and no empty gap where it was */
+.r6-count:empty{display:none}
+</style>
+<style>/* Nov 13 (Erika's new intro already says "The whole roster."): the heading over the cards shows only once a search has an answer */
+.rg-h[data-t=""]{display:none}
+.rg-head:has(.rg-h[data-t=""]){display:none}
+.r6-top:has(+ .r6-wall .rg-h[data-t=""]){padding-bottom:clamp(28px,calc(3 * var(--vw,1vw)),44px)}
+</style>
+<style>/* Nov 13, independent check of Erika's requests */
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -496,8 +506,8 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <!-- ROSTER: the search desk. Typing filters the board live; the red pill jumps to it. -->
 <section class="wrap r6-top" aria-labelledby="r6-h">
 <div class="r6-head">
-<div class="r6-title"><h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1><span class="hand hand-note" aria-hidden="true">go on, pick one</span></div>
-<p class="lede">Everyone on BOOKD, in one place. Add where the party is and it narrows to the DJs who are already there, so you skip the travel&nbsp;fee.</p>
+<div class="r6-title"><h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1></div>
+<p class="lede">The whole roster. Name your city and date, and find the sound for your&nbsp;night.</p>
 </div>
 <form class="r6-find" id="find" aria-label="Filter the roster" onSubmit="{{noSubmit}}" onKeyDown="{{findKey}}">
 <label class="field r6-where"><span class="field-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
@@ -517,7 +527,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <section id="lineup" class="r6-wall" aria-labelledby="rg-h">
 <div class="wrap">
 <div class="rg-head">
-<h2 id="rg-h" class="rg-h" tabindex="-1" ref="{{billHRef}}">{{gridHead}}</h2>
+<h2 id="rg-h" class="rg-h" tabindex="-1" ref="{{billHRef}}" data-t="{{gridHead}}">{{gridHead}}</h2>
 <sc-if value="{{showClear}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
 </div>
 <div class="rg-grid" ref="{{billRef}}" style="display: {{gridDisplay}};">
@@ -549,7 +559,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
 <span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
-<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<nav aria-label="Footer"><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
@@ -839,7 +849,7 @@ function r6LiveVals(self) {
     cityChips: chips.map(function (c) { return { label: c, on: s.where.trim().toLowerCase() === c.toLowerCase() ? 'true' : 'false', pick: pick(c, false) }; }),
     emptyChips: chips.map(function (c) { return { label: c, pick: pick(c, true) }; }),
     filtered: filtered, tiles: tiles,
-    gridHead: waiting ? 'The whole roster.' : s.loadFail ? "The roster didn't load." : !total ? 'The roster is filling up.' : !filtered ? 'The whole roster.' : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.')),
+    gridHead: waiting ? '' : s.loadFail ? "The roster didn't load." : !total ? 'The roster is filling up.' : !filtered ? '' : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.')),
     countLine: waiting ? 'One sec, getting the roster.'
       : s.loadFail ? (s.loadFail === 'offline' ? "We couldn't reach BOOKD. Check your connection and refresh." : 'Something went wrong on our side. Refresh to try again.')
       : !total ? 'No DJs are on the roster yet. Check back soon.'
@@ -1182,12 +1192,12 @@ class Component extends DCLogic {
     /* why a typed date leaves the board as it is */
     var why = dated ? " No tour dates are up yet, so the date doesn't change who you see." : '';
     var gridHead = !total ? 'The roster is filling up.'
-      : !filtered ? 'The whole roster.'
+      : !filtered ? ''
       : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
     var countLine = !total ? 'No DJs are on the roster yet. Check back soon.'
       : nobodyHere ? "We're not in " + (s.miss ? R6_PLACE(s.where, { name: s.where.trim() }) : spot.label) + ' yet.' + (homeList ? " Right now it's " + homeList + '.' : '')
       : bad ? "We couldn't read that date. Try something like Sat, Nov 14."
-      : !filtered ? djs(total) + ' on the roster' + (oneHome ? (total === 1 ? ', based in ' : ', all based in ') + homes[0] : '') + '.' + (why || ' Add a city or a sound to narrow it down.')
+      : !filtered ? (why ? why.trim() : '')
       : djs(n) + (spot ? ' based in ' + spot.label : '') + (s.sound ? ' playing ' + snd : '') + '.' + (n ? why : '');
     var emptyLine = nobodyHere ? (homeList ? 'Everyone on the roster is based in ' + homeList + ' for now. Try a search there.' : 'Try a search without a place, or go back to the whole roster.')
       : 'Try another sound, or go back to the whole roster.';

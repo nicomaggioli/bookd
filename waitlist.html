@@ -104,16 +104,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 @media print{body::after{display:none}}
 </style>
-<style>/* Nov 13 (Nico, from a reference): an invitation coming out of an envelope on a red page. The card carries the words, the email box and the button. */
-.wl-page{background:#d31110 !important}
+<style>/* Nov 13 (Nico, from a reference photo): an invitation coming out of a real paper envelope on a worn red ground.
+   The paper is three generated textures (site-build/demo/paper). Rough edges come from the SVG filter #wl-rough, applied to the paper layers only. */
+.wl-page{background:#d31110 url("assets/87d942304a0ecc1d83730f615407f612.webp") 50% 50%/1024px 1024px !important}
+.wl-page::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 45%,rgba(255,255,255,.05),rgba(0,0,0,.2));pointer-events:none}
 .wl{padding:clamp(28px,calc(5 * var(--svh)),64px) var(--gut) clamp(28px,calc(5 * var(--svh)),64px) !important}
-.env{position:relative;width:min(560px,100%);margin:0 auto;--front:clamp(170px,calc(26 * var(--svh)),250px);--flap:clamp(96px,calc(15 * var(--svh)),150px)}
-.env-back{position:absolute;left:0;right:0;top:calc(var(--flap) - 1px);bottom:0;background:#e3dfc4;border-radius:0 0 4px 4px}
-.env-flap{position:absolute;left:0;right:0;top:0;height:var(--flap);background:#ece9d0;clip-path:polygon(50% 0,100% 100%,0 100%)}
-.env-card{position:relative;z-index:2;margin:calc(var(--flap) * .62) clamp(16px,5%,30px) 0;padding:clamp(26px,calc(4.4 * var(--svh)),44px) clamp(18px,6%,40px) calc(var(--front) * .98 + 6px);background:#fffde9;border-radius:3px;text-align:center;color:#000000}
-.env-eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#000000}
-.env-card .wl-h{color:#000000 !important;font-size:clamp(34px,min(calc(3 * var(--vw) + 22px),calc(7.4 * var(--svh))),60px) !important;text-transform:uppercase;letter-spacing:-0.055em;line-height:.92}
-.env-card .wl-sub{margin:14px auto 0 !important;max-width:26em;color:#000000 !important;font-size:13px !important;font-weight:700;letter-spacing:.12em;line-height:1.6 !important;text-transform:uppercase}
+.env{position:relative;width:min(580px,100%);margin:0 auto;--front:clamp(170px,calc(26 * var(--svh)),250px);--flap:clamp(100px,calc(16 * var(--svh)),160px);filter:drop-shadow(0 26px 26px rgba(40,0,0,.34)) drop-shadow(0 3px 4px rgba(40,0,0,.3))}
+/* the inside of the envelope: in shade */
+.env-back{position:absolute;left:0;right:0;top:calc(var(--flap) - 2px);bottom:0;background:linear-gradient(rgba(58,52,40,.34),rgba(58,52,40,.2) 45%,rgba(58,52,40,.14)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 30% 20%/420px 420px;filter:url(#wl-rough)}
+/* the open flap behind the card */
+.env-flap{position:absolute;left:0;right:0;top:0;height:var(--flap);clip-path:polygon(48.6% 2.5%,50% 0,51.4% 2.5%,100% 100%,0 100%);background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,0) 45%,rgba(60,54,40,.16)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 60% 70%/420px 420px;filter:url(#wl-rough)}
+/* the card */
+.env-card{position:relative;z-index:2;margin:calc(var(--flap) * .6) clamp(16px,5%,30px) 0;padding:clamp(26px,calc(4.4 * var(--svh)),44px) clamp(18px,6%,40px) calc(var(--front) * .98 + 6px);text-align:center;color:#111111;rotate:-.5deg;background:none !important}
+.env-card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 120% 100% at 50% 40%,rgba(255,255,255,0) 55%,rgba(150,128,70,.13)),url("assets/9d4328ee04d2591f9cdb18f200294fdb.webp") 10% 30%/460px 460px;filter:url(#wl-rough) drop-shadow(0 2px 3px rgba(40,30,10,.35)) drop-shadow(0 10px 14px rgba(40,30,10,.18))}
+.env-eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#111111}
+.env-card .wl-h{color:#111111 !important;font-size:clamp(34px,min(calc(3 * var(--vw) + 22px),calc(7.4 * var(--svh))),60px) !important;text-transform:uppercase;letter-spacing:-0.055em;line-height:.92}
+.env-card .wl-sub{margin:14px auto 0 !important;max-width:26em;color:#111111 !important;font-size:13px !important;font-weight:700;letter-spacing:.12em;line-height:1.6 !important;text-transform:uppercase}
 .env-card .wl-form{width:100% !important;margin:clamp(18px,calc(3 * var(--svh)),28px) auto 0 !important;max-width:420px}
 .env-card .wl-pill{background:#ffffff}
 .env-card .wl-pill:focus-within{background:#ffffff;box-shadow:0 0 0 3px #000000}
@@ -122,23 +128,34 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .env-card .wl-err{color:#ffffff}
 .env-card .wl-again{background:#000000;color:#ffffff;margin-top:20px}
 @media (hover: hover) and (pointer: fine){.env-card .wl-again:hover{background:#d31110;color:#ffffff}.env-card .wl-note a:hover{color:#d31110}}
-.env-front{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--front);background:#f6f3dc;border-radius:0 0 4px 4px;clip-path:polygon(0 0,50% 40%,100% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(var(--front) * .16);box-sizing:border-box}
-.env-fold{position:absolute;inset:0;background:linear-gradient(to top right,rgba(0,0,0,0) calc(50% - 1px),rgba(0,0,0,.09) 50%,rgba(0,0,0,0) calc(50% + 1px)) left bottom/50% 60% no-repeat,linear-gradient(to top left,rgba(0,0,0,0) calc(50% - 1px),rgba(0,0,0,.09) 50%,rgba(0,0,0,0) calc(50% + 1px)) right bottom/50% 60% no-repeat;pointer-events:none}
-.env-logo{position:relative;display:block;width:min(46%,230px);line-height:0}
+/* the front pocket, with its two fold creases; it casts a soft shadow up onto the card */
+.env-front{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--front);display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(var(--front) * .15);box-sizing:border-box;background:none !important;clip-path:none !important}
+.env-front::before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,49% 39.4%,50% 40%,51% 39.4%,100% 0,100% 100%,0 100%);background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,0) 30%,rgba(70,62,44,.1)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 0 0/420px 420px}
+.env-front{filter:url(#wl-rough) drop-shadow(0 -3px 5px rgba(40,30,10,.3))}
+.env-fold{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top right,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) left bottom/50% 60% no-repeat,
+  linear-gradient(to top left,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) right bottom/50% 60% no-repeat}
+.env-logo{position:absolute;z-index:4;left:50%;bottom:calc(var(--front) * .15);transform:translateX(-50%);display:block;width:min(46%,236px);line-height:0;opacity:.88}
 .env-logo:focus-visible{outline:2px solid #000000;outline-offset:6px}
 @media (prefers-reduced-motion: no-preference){
-  .env-card{animation:env-rise .9s cubic-bezier(.2,.9,.25,1) .25s backwards}
+  .env-card{animation:env-rise .95s cubic-bezier(.2,.9,.25,1) .25s backwards}
   .env-flap{animation:env-open .5s ease .05s backwards;transform-origin:50% 100%}
 }
 @keyframes env-rise{from{transform:translateY(34%)}}
 @keyframes env-open{from{transform:scaleY(.2);opacity:.4}}
 @media (max-width:420px){.env-card .wl-pill input{padding-left:14px;font-size:16px}.env-card .wl-go{padding:0 18px}}
 </style>
+<style>/* Nov 13, independent check of Erika's requests: the logo on the envelope is a full-size tap target; the small capital lines share one setting */
+.env-logo{padding:11px 0;bottom:calc(var(--front) * .15 - 11px) !important}
+.env-card .wl-sub{letter-spacing:.2em !important}
+@media (max-width:899px){.env-card .wl-sub,.env-eyebrow{font-size:12px !important;letter-spacing:.16em !important}}
+</style>
 </helmet>
 <div class="{{pageCls}}">
 <a class="skip" href="#main">Skip to content</a>
 <!-- TOP: the logo only. This page is the whole site before launch, so there is no menu and no footer row. -->
 <main id="main" class="wl" aria-labelledby="wl-h">
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0;"><filter id="wl-rough" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="4" result="n"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter></svg>
 <div class="env">
 <span class="env-back" aria-hidden="true"></span>
 <span class="env-flap" aria-hidden="true"></span>
@@ -160,7 +177,8 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <button class="wl-again" type="button" onClick="{{again}}">{{againLabel}}</button>
 </sc-if>
 </div>
-<div class="env-front"><span class="env-fold" aria-hidden="true"></span><a class="navhome" href="index.html" aria-label="BOOKD home" class="env-logo"><svg viewBox="80 455 1190 170" style="width: 100%; height: auto; fill: #000000;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a></div>
+<div class="env-front"><span class="env-fold" aria-hidden="true"></span></div>
+<a class="navhome env-logo" href="index.html" aria-label="BOOKD home"><svg viewBox="80 455 1190 170" style="width: 100%; height: auto; fill: #000000;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
 </div>
 </main>
 

@@ -48,7 +48,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;family=La+Belle+Aurore&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -843,7 +843,7 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 .fl{font-size:14px;min-width:44px}
 </style>
 <style>/* Nov 12: text is Inter again (Nico). Handwriting (.hand) is the one accent, used only where a note or a signature calls for it. Nothing on this page is set in the typewriter font any more (the TV text is Inter), so it is not loaded and the .type rule is gone. */
-.hand{font-family:'Reenie Beanie','Bradley Hand',cursive !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
+.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
 /* handwritten notes: one look everywhere. Bright red on black, black on red. A note sits directly under its headline, left aligned with it */
 .hand-note{display:block;font-size:clamp(32px, calc(3.4 * var(--vw, 1vw)), 52px);line-height:.95;transform:rotate(-3deg);transform-origin:0 50%;margin-top:6px;color:#ff3b2f}
 #artists .hand-note{color:#000000;margin-top:9px} /* 9px: the h of here came within 4 to 5px of the headline between 768 and 1440 wide */
@@ -894,7 +894,7 @@ repeating-conic-gradient(#f3f4f6 0 .85deg,#3c3d41 .85deg 2deg);
 <style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
 body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 @media print{body::after{display:none}}
-span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','Bradley Hand',cursive !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
+span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
 #artists span.hand.hand-note,.jh span.hand.hand-note,.nf span.hand.hand-note{color:#000000 !important}
 .k6note.hand{font-size:clamp(30px,calc(3 * var(--vw,1vw)),44px) !important;margin-top:0 !important}
 </style>
@@ -921,7 +921,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
    the browser scrolls it into view, so the whole frame and its ring come clear of the fixed bar. (On phones the swipe row is moved to the focused card by rowFocus
    in the page class.)
    The Lives here pill is cream with black text and sits above the photo's scrim, the same as on the roster.
-   See the whole lineup is cream: a red pill dissolved into the red floor video behind it.
+   See the whole roster is cream: a red pill dissolved into the red floor video behind it.
    The open soon line in the application form is centred under its button, like the same line on every other form.
    Notes: on a phone a note may wrap rather than run off the screen, and every note takes one phone size. */
 .djyb .djlink{scroll-margin-top:70vh}
@@ -941,7 +941,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 .iv-big{display:block;font-size:clamp(70px,calc(13.4 * var(--vw,1vw)),214px);line-height:.84;letter-spacing:-0.055em;text-transform:uppercase;color:#ffffff;text-shadow:0 2px 40px rgba(0,0,0,.55)}
 .iv-big span{display:block}
 /* the two script phrases, placed like the invitation's: one up and to the right, one low and to the left */
-.iv-s1,.iv-s2{font-family:'La Belle Aurore','Reenie Beanie',cursive !important;color:#d31110;white-space:nowrap;pointer-events:none;text-shadow:0 0 16px #000000,0 0 5px #000000,0 0 2px #000000;z-index:2;line-height:1 !important}
+.iv-s1,.iv-s2{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;color:#d31110;white-space:nowrap;pointer-events:none;text-shadow:0 0 16px #000000,0 0 5px #000000,0 0 2px #000000;z-index:2;line-height:1 !important}
 .iv-s1{position:absolute;right:-9%;top:-.34em;font-size:clamp(40px,calc(6 * var(--vw,1vw)),96px);transform:rotate(-8deg)}
 .iv-s2{position:absolute;left:4%;right:auto;bottom:1.28em;font-size:clamp(38px,calc(5.4 * var(--vw,1vw)),86px);transform:rotate(-8deg)}
 .herogrid > div:first-child > p:not(.iv-top){margin:clamp(18px,calc(2 * var(--vw,1vw)),30px) 0 0 !important;font-size:13px !important;font-weight:700;letter-spacing:.16em;line-height:1.75 !important;text-transform:uppercase;color:#fffde9 !important;max-width:none !important;text-shadow:0 1px 12px rgba(0,0,0,.7) !important}
@@ -1036,7 +1036,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 #artists .ghost.onred:hover,#artists .ghost.onred:focus-visible,#artists .ghost.onred:active{background:#000000;color:#ffffff !important}
 #artists .ink:focus-visible{background:#ffffff;color:#000000}
 /* black: the roster section. The pill in the location bar was an outline that turned black on the near black bar; now a flat cream pill that turns red.
-   See the whole lineup went from cream to white, which barely showed; it turns red too. The button on the You? card keeps a plain label, no underline */
+   See the whole roster went from cream to white, which barely showed; it turns red too. The button on the You? card keeps a plain label, no underline */
 .locbar a.btn.ghost{background:#fffde9;color:#000000 !important;border:0}
 .locbar a.btn.ghost:active{background:#d31110;color:#ffffff !important}
 .stage .lineup-more .btn:active{background:#d31110;color:#ffffff}
@@ -1063,6 +1063,30 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 </style>
 <style>/* Nico asked for this on Nov 12: the photo shows its colour while the card is hovered */
 .djyb:hover .djimg img{filter:none !important}
+</style>
+<style>/* Nov 13 (Erika): one handwriting on the whole site, the same marker hand as the artists' signatures, so it sits with the typed font;
+   and the picture moving behind the pass is calmer: no red in it, dimmer, half speed. */
+span.hand.hand-note,.k6note.hand,.iv-s1,.iv-s2{letter-spacing:0 !important}
+.artvid{background:#000000}
+.art-photo{background:#000000 !important}
+</style>
+<style>/* Nov 13 (Erika): the roster section's title is typed, in the same bold cream as "The whole roster." on the roster page */
+.intown-h{margin:clamp(18px,calc(2.4 * var(--vw,1vw)),34px) 0 clamp(14px,calc(1.6 * var(--vw,1vw)),24px);font-size:clamp(30px,calc(3.4 * var(--vw,1vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9;text-wrap:balance}
+</style>
+<style>/* Nov 13 (Erika): no handwriting beside typed headlines. "Less chasing." is a typed line of small capitals above the big words. */
+.iv-kick{display:block;margin:0 0 clamp(12px,calc(1.5 * var(--vw,1vw)),24px);font-size:clamp(14px,calc(1.55 * var(--vw,1vw)),24px);line-height:1.2;font-weight:700;letter-spacing:.24em;text-indent:.24em;text-transform:uppercase;color:#fffde9}
+@media (max-width:899px){.iv-kick{font-size:13px;letter-spacing:.2em;text-indent:.2em;margin-bottom:12px}.herogrid > div:first-child > p:not(.iv-top){margin-top:calc(5 * var(--vw,1vw)) !important}.cdbtn{margin-top:0}}
+</style>
+<style>/* Nov 13, independent check of Erika's requests: display headlines use the one cream, not pure white */
+#artists h2{color:#fffde9 !important}
+/* Nov 13 (Nico): the text at the top of the page is white, not cream */
+.iv-big,.iv-kick,.herogrid > div:first-child > p:not(.iv-top){color:#ffffff !important}
+</style>
+<style>/* Nov 13, same check: the small capital lines share one setting; the red card stops growing once the roster is long; the photo darkens a little more behind a signature */
+.herogrid > div:first-child > p:not(.iv-top){letter-spacing:.2em !important}
+@media (max-width:899px){.herogrid > div:first-child > p:not(.iv-top){font-size:12px !important;letter-spacing:.16em !important}}
+.lineup > span:nth-child(n+7):not(.lineup-you){display:none}
+.djyb .djimg::after{background:linear-gradient(rgba(0,0,0,0) 46%,rgba(0,0,0,.72)) !important}
 </style>
 </helmet>
 
@@ -1127,9 +1151,8 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 </div>
 <div class="herogrid" style="position: relative; z-index: 2; max-width: 1440px; width: 100%; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, calc(4 * var(--vw)), 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: clamp(28px, calc(4 * var(--vw)), 64px); align-items: end;">
 <div style="display: flex; flex-direction: column; gap: 22px; min-width: 0;">
-<h1 class="heroh1" style="margin: 0; font-size: clamp(48px, calc(7 * var(--vw)), 112px); line-height: 0.88; font-weight: 700; letter-spacing: -0.065em; text-wrap: balance; text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 2px 30px rgba(0,0,0,.45);"><span class="hand iv-s1">less chasing.</span><span class="iv-big"><span>More</span> <span>booking.</span></span></h1>
+<h1 class="heroh1" style="margin: 0; font-size: clamp(48px, calc(7 * var(--vw)), 112px); line-height: 0.88; font-weight: 700; letter-spacing: -0.065em; text-wrap: balance; text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 2px 30px rgba(0,0,0,.45);"><span class="iv-kick">Less chasing.</span><span class="iv-big"><span>More</span> <span>booking.</span></span></h1>
 <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #fffde9; max-width: 33em; text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 2px 30px rgba(0,0,0,.45);">Tell us where and when. We'll show you who's playing nearby. <br>Hear a set, then book them in one&nbsp;chat.</p>
-<span class="hand iv-s2" aria-hidden="true">for your next party</span>
 </div>
 <form class="srch qf" id="find" onSubmit="{{findDJ}}" onKeyDown="{{findKey}}" aria-label="Find a DJ"><div class="qf-grid"><label class="qf-f qf-wide"><span class="qf-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" onFocus="{{whereIn}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label><div class="qf-when" onBlur="{{calBlur}}"><label class="qf-f"><span class="qf-l">When</span><input type="text" id="qfwhen" value="{{when}}" onInput="{{setWhen}}" onFocus="{{calIn}}" onClick="{{calShow}}" onKeyDown="{{whenKey}}" inputmode="{{whenMode}}" placeholder="Sat, Nov 14" aria-haspopup="dialog" aria-expanded="{{calExp}}"></label><sc-if value="{{calOpen}}"><div class="qf-cal" id="qfcal" role="dialog" aria-label="Choose a date" tabindex="-1" onPointerDown="{{calHold}}" onKeyDown="{{calKey}}"><div class="qf-cal-h"><span class="qf-cal-t" aria-live="polite">{{calTitle}}</span><span class="qf-cal-n"><button type="button" class="qf-cal-b" aria-label="Previous month" aria-disabled="{{calPrevOff}}" onClick="{{calPrev}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.5 4.5 L7 10 L12.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button type="button" class="qf-cal-b" aria-label="Next month" onClick="{{calNext}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.5 4.5 L13 10 L7.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></span></div><div class="qf-cal-w" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div><div class="qf-cal-g"><sc-for list="{{calDays}}" as="d"><button type="button" class="{{d.cls}}" data-d="{{d.key}}" tabindex="{{d.tab}}" aria-label="{{d.lab}}" aria-pressed="{{d.on}}" aria-disabled="{{d.off}}" aria-hidden="{{d.hide}}" onClick="{{d.pick}}">{{d.n}}</button></sc-for></div></div></sc-if></div><label class="qf-f"><span class="qf-l">Sound</span><select value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label></div><button class="qf-go" type="submit">Find my DJ</button></form>
 </div>
@@ -1142,15 +1165,13 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <h2 class="sr">Who's in town</h2>
 
 <div class="locbar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: #000000; color: #ffffff; padding: 14px 16px;">
-<span aria-live="polite" style="font-size: 15px; font-weight: 700; flex: 1 1 260px;">{{locText}}<sc-if value="{{locRoster}}" hint-placeholder-val="{{ false }}"> <a class="btn btn-sm ghost" href="roster.html" style="color: #fffde9; white-space: nowrap; margin-left: 8px; vertical-align: middle;">See the whole lineup</a></sc-if></span>
+<span aria-live="polite" style="font-size: 15px; font-weight: 700; flex: 1 1 260px;">{{locText}}<sc-if value="{{locRoster}}" hint-placeholder-val="{{ false }}"> <a class="btn btn-sm ghost" href="roster.html" style="color: #fffde9; white-space: nowrap; margin-left: 8px; vertical-align: middle;">See the whole roster</a></sc-if></span>
 <button class="go btn" type="button" onClick="{{locate}}" aria-busy="{{locBusy}}" style="opacity: {{locBtnOp}};">{{locButton}}</button>
 </div>
 
-<sc-if value="{{lineupRow}}" hint-placeholder-val="{{ true }}">
 <div class="pickrow" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px;">
-<span class="hand hand-note" aria-hidden="true">meet the first three</span>
+<h2 class="intown-h">Meet the roster.</h2>
 </div>
-</sc-if>
 
 <div class="djgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 18px;">
 <sc-for list="{{cards}}" as="c" hint-placeholder-count="3">
@@ -1169,7 +1190,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <span class="djgo btn" style="align-self: flex-start; background: #000000; color: #ffffff; border-radius: 999px;">Join the roster</span>
 </a>
 </div>
-<div class="lineup-more" style="display: flex; justify-content: center; margin-top: 36px;"><a class="btn btn-lg go" href="roster.html">See the whole lineup</a></div>
+<div class="lineup-more" style="display: flex; justify-content: center; margin-top: 36px;"><a class="btn btn-lg go" href="roster.html">See the whole roster</a></div>
 
 </div>
 </section>
@@ -1206,10 +1227,10 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); align-items: stretch;">
 <div class="art-photo" style="position: relative; min-height: 560px; overflow: hidden;">
 <img loading="lazy" decoding="async" src="assets/4d552caef07a052814a49ea9990812d3.jpg" alt="Two DJs behind the booth with the crowd's hands up in front of them" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.65);">
-<div aria-hidden="true" style="position: absolute; inset: 0; background: #d31110; mix-blend-mode: multiply; opacity: .85;"></div><video class="retrovid artvid" src="assets/5202fcc6dd6427a2f4ffe91825411a03.mp4" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: #d31110; mix-blend-mode: multiply; opacity: .85;"></div><video class="retrovid artvid" src="assets/6659ed854874eec41284932827bcaaf3.mp4" poster="assets/6419db0e664ca2a1f5268a5f7bf17d53.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video>
 </div>
 <div class="arttext" style="padding: clamp(44px, calc(6 * var(--vw)), 90px) clamp(16px, calc(4 * var(--vw)), 48px); display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 0; max-width: 784px; box-sizing: border-box;">
-<div><h2 class="h2">Put your name on the&nbsp;roster.</h2><span class="hand hand-note" aria-hidden="true">yours goes here</span></div>
+<div><h2 class="h2">Put your name on the&nbsp;roster.</h2></div>
 <div class="artcopy">
 <p>Private parties pay well and book fast. Hosts send the date, the room and the budget before you say yes, and the deposit is paid before you show&nbsp;up.</p>
 <p>You get booked in the cities you're already touring, not just at&nbsp;home.</p>
@@ -1249,7 +1270,7 @@ span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Reenie Beanie','
 <p class="mf-line">Less chasing. More&nbsp;booking.</p>
 <a class="btn btn-lg go mf-go" href="#find">Find my DJ</a>
 <div class="tvwall tvwall-m"><div class="tvtilt"><div class="tvstage"><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.0395,0,0,0,0,1.127,0,0,0,0,1,0,-113.9,-180.05,0,1); --lp: 5.32px;"></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.008,0,0,0,0,1.022,0,0,0,0,1,0,1328.4,-171.3,0,1); --lp: 5.87px;"><video class="tvvid" src="assets/df503d8bbb4f65e56a0ae813f8c3e632.mp4" data-poster="assets/f75e97d52c3384afb1b4ee1a6825a359.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(0.712947,0.113053,0,-1.29933e-06,-0.104272,0.656559,0,-1.88751e-07,0,0,1,0,1736.53,19.5312,0,1); --lp: 9.02px;"><video class="tvvid" src="assets/d0908a21f0fae8e823c8030e49676881.mp4" data-poster="assets/196bb1d6bfb5f2bd1d425cca40d8cc40.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.155,0,0,0,0,1.05,0,0,0,0,1,0,1991,-17.5,0,1); --lp: 5.71px;"><video class="tvvid" src="assets/25acbce1903adfc57d1d5668cdafacae.mp4" data-poster="assets/33f8e1c084f6a5e113a9d01a96dfc01b.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.3125,0,0,0,0,1.225,0,0,0,0,1,0,-120.5,240.25,0,1); --lp: 4.9px;"><video class="tvvid" src="assets/ebc6eb5c250e7d4d8b9e4c48af9c183d.mp4" data-poster="assets/b79cfac7c2f16921609ea0e78e76cdf2.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs tvs-logo" style="transform: matrix3d(1.54875,0,0,0,0,1.12,0,0,0,0,1,0,641.25,127,0,1); --lp: 5.36px;"><svg class="tvlogo" viewBox="80 455 1190 170" aria-hidden="true" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg><small>© 2026 BOOKD. DJs for private&nbsp;parties.</small></span><a class="tvs tvs-txt tvs-nav" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)" style="transform: matrix3d(1.12875,0,0,0,0,0.9975,0,0,0,0,1,0,1323.75,201.875,0,1); --lp: 6.02px;"><span>Instagram</span></a><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.19175,0,0,0,0,1.26,0,0,0,0,1,0,1810.65,383,0,1); --lp: 4.76px;"><video class="tvvid" src="assets/4839f1a50ee2afe5409e0158c4ac6e85.mp4" data-poster="assets/0a889f538f7aa49ffc563470bd6e1605.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(0.9975,0,0,0,0,1.155,0,0,0,0,1,0,-149.5,659.75,0,1); --lp: 5.19px;"><video class="tvvid" src="assets/ef395919fb38b70468b70642fc56cfb4.mp4" data-poster="assets/77f907e66a6ed008e559732241f1ed96.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(0.943731,-0.0569613,0,8.60633e-07,0.0619329,1.0132,0,-5.65292e-08,0,0,1,0,283.675,634.411,0,1); --lp: 5.91px;"><video class="tvvid" src="assets/aecf8fb0ede1b251abbf67e86436c4ac.mp4" data-poster="assets/805dbc1725e1475028dbf7fc2c43e73b.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><a class="tvs tvs-txt tvs-nav" href="contact.html" style="transform: matrix3d(0.76125,0,0,0,0,0.6825,0,0,0,0,1,0,786.75,591.125,0,1); --lp: 8.79px;"><span>Contact</span></a><a class="tvs tvs-txt" href="roster.html" aria-label="Book a DJ. See the roster" style="transform: matrix3d(1.23375,0,0,0,0,1.1375,0,0,0,0,1,0,1142.25,583.875,0,1); --lp: 5.27px;"><span>Book a DJ<br>See the roster</span></a><span class="tvs" aria-hidden="true" style="transform: matrix3d(0.9975,0,0,0,0,1.155,0,0,0,0,1,0,-113.5,1086.75,0,1); --lp: 5.19px;"><video class="tvvid" src="assets/4f4c3d3db77d41f659fba50aee60b5ef.mp4" data-poster="assets/4ae100eadcaa0842135f79b2af88da05.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><a class="tvs tvs-txt tvs-nav" href="terms.html#privacy" style="transform: matrix3d(1.3125,0,0,0,0,1.19,0,0,0,0,1,0,363.5,952.5,0,1); --lp: 5.04px;"><span>Privacy</span></a><a class="tvs tvs-txt tvs-nav" href="terms.html#terms" style="transform: matrix3d(0.9975,0,0,0,0,1.015,0,0,0,0,1,0,1014.5,992.75,0,1); --lp: 5.91px;"><span>Terms</span></a><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.23296,-0.04305,0,-6.5146e-20,0.03535,1.0143,0,-1.5349e-18,0,0,1,0,1513.61,1048.46,0,1); --lp: 5.91px;"><video class="tvvid" src="assets/0635259cd36c2234cdcb24ac0cfaad33.mp4" data-poster="assets/7d0ecaa3d2649497de3a1261bff1084d.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><span class="tvs" aria-hidden="true" style="transform: matrix3d(1.05,0,0,0,0,1.33,0,0,0,0,1,0,2058,914.5,0,1); --lp: 4.51px;"><video class="tvvid" src="assets/67d19041c7e2a96d31f048c616dae3ec.mp4" data-poster="assets/ded423996c8d65c38dfe8df90be0ad7d.webp" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video></span><img class="tvimg" src="assets/379fa393535e89730140907bfc6d1481.webp" alt="A wall of old TVs and hi-fi units stacked edge to edge, drawn like a printed poster, every screen glowing red with a different picture" width="2400" height="1350" loading="lazy" decoding="async"></div></div></div><div class="mf-row"><span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
-<nav aria-label="Footer, phone"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="sr">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav></div>
+<nav aria-label="Footer, phone"><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="sr">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav></div>
 </div>
 <div class="morph" aria-hidden="true"><span class="mg"><svg viewBox="1205.65 563.59 59.16 56.78" preserveAspectRatio="none" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path></svg></span><span class="mg"><svg viewBox="418.27 462.0 222.05 155.88" preserveAspectRatio="none" focusable="false"><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path></svg></span><span class="mg"><svg viewBox="636.3 462.0 222.05 155.88" preserveAspectRatio="none" focusable="false"><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path></svg></span><span class="mg"><svg viewBox="862.36 462.57 184.98 154.96" preserveAspectRatio="none" focusable="false"><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path></svg></span><span class="mg"><svg viewBox="1038.07 462.57 185.91 151.9" preserveAspectRatio="none" focusable="false"><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path></svg></span><span class="mg"><svg viewBox="85.18 460.3 349.89 160.48" preserveAspectRatio="none" focusable="false"><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></span></div>
 <div class="reveal" ref="{{revealRef}}">
@@ -2166,7 +2187,7 @@ class Component extends DCLogic {
       if (window.ResizeObserver) { this.tvRO = new ResizeObserver(tvFit); tvWalls.forEach(function (w) { self.tvRO.observe(w); }); }
       var rvs = Array.prototype.slice.call(document.querySelectorAll('.retrovid, .tvvid'));
       if (rvs.length && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-        this.retroIO = new IntersectionObserver(function (es) { es.forEach(function (en) { var v = en.target; if (en.isIntersecting) { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; if (self.revealMask && self.revealMask.contains(v) && !self.tvOn) return; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }); }, { rootMargin: '120px 0px' });
+        this.retroIO = new IntersectionObserver(function (es) { es.forEach(function (en) { var v = en.target; if (en.isIntersecting) { if (v.classList.contains('artvid')) { v.defaultPlaybackRate = 0.5; v.playbackRate = 0.5; } if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; if (self.revealMask && self.revealMask.contains(v) && !self.tvOn) return; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }); }, { rootMargin: '120px 0px' });
         rvs.forEach(function (v) { self.retroIO.observe(v); });
       }
     }

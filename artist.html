@@ -34,7 +34,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;family=La+Belle+Aurore&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -153,7 +153,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 .k6sets .h2,.k6req .h2{color:#fffde9}
 /* handwriting: Reenie Beanie for the signature, the thin La Belle Aurore script for the notes */
 .hand{font-family:'Reenie Beanie','Bradley Hand',cursive;font-weight:400;letter-spacing:0;line-height:.9;text-transform:none}
-.hand.hand-note{font-family:'La Belle Aurore','Reenie Beanie','Bradley Hand',cursive;letter-spacing:.01em;line-height:1.05;white-space:nowrap}
+.hand.hand-note{font-family:'Reenie Beanie','Bradley Hand',cursive;letter-spacing:.01em;line-height:1.05;white-space:nowrap}
 
 /* HERO */
 .k6hero{position:relative;isolation:isolate;overflow:hidden;background:#000000;color:#ffffff;--ink:#ffffff;--script:#d31110;--pw:clamp(230px,calc(30 * var(--vw)),440px);--ar:auto;padding:clamp(22px,calc(2.4 * var(--vw)),36px) 0 clamp(48px,calc(4.8 * var(--vw)),70px)}
@@ -441,6 +441,17 @@ button.k6big:hover{transform:rotate(24deg)}
 body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 @media print{body::after{display:none}}
 </style>
+<style>/* Nov 13: on the cream profile the second button was grey and read as switched off; it is black, and turns red on hover */
+.k6hero[data-look="kozlow"] .a6hear{background:#000000 !important;color:#ffffff !important}
+@media (hover: hover) and (pointer: fine){.k6hero[data-look="kozlow"] .a6hear:hover{background:#d31110 !important;color:#ffffff !important}}
+</style>
+<style>/* Nov 13, independent check of Erika's requests: display headlines use the one cream, not pure white */
+.k6hero[data-look="schloss"] .a6name,.k6hero[data-look="schloss"] .a6line{color:#fffde9 !important}
+</style>
+<style>/* Nov 13, same check: phone spacing after the handwriting came off */
+@media (max-width:760px){.k6hero[data-look="julian-gjaci"] .a6ph{margin-top:26px !important}}
+@media (max-width:374px){.a6facts{letter-spacing:.1em !important}}
+</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <!-- NAV -->
@@ -479,7 +490,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><path id="k6arc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs></svg>
 <div class="wrap a6">
 <p class="a6facts"><span>{{look.sound}}</span><i class="a6dot" aria-hidden="true"></i><span><span class="vh">Based in </span>{{dj.home}}</span><span class="vh">. {{tagLine}} The photo: {{dj.alt}}.</span></p>
-<div class="a6namebox"><h1 id="k6name" class="a6name" style="--nw: {{nameW}};"><span class="vh">{{dj.name}}</span><span aria-hidden="true"><sc-for list="{{nameLines}}" as="n" hint-placeholder-count="1"><span class="a6line">{{n.t}}</span></sc-for></span><span class="hand hand-note a6note" aria-hidden="true">{{look.note}}</span><span class="hand a6sig" aria-hidden="true">{{dj.first}}</span></h1></div>
+<div class="a6namebox"><h1 id="k6name" class="a6name" style="--nw: {{nameW}};"><span class="vh">{{dj.name}}</span><span aria-hidden="true"><sc-for list="{{nameLines}}" as="n" hint-placeholder-count="1"><span class="a6line">{{n.t}}</span></sc-for></span></h1></div>
 <sc-if value="{{isSleeve}}" hint-placeholder-val="{{ false }}">
 <button type="button" class="a6ph" onClick="{{heroToggle}}" aria-label="{{photoAria}}">
 <span class="k6vinyl" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></span><span class="k6sheen"></span></span>
@@ -567,7 +578,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <section class="k6req k6sec" aria-labelledby="req-h">
 <div class="wrap k6reqgrid">
 <div class="k6reqcopy">
-<div class="a6askh"><h2 id="req-h" class="h2">Ask about {{dj.first}}.</h2><span class="hand hand-note a6free">it's free</span></div>
+<div class="a6askh"><h2 id="req-h" class="h2">Ask about {{dj.first}}.</h2></div>
 <p class="lede">Start with the night, the place and a rough budget. You pay nothing to&nbsp;ask.</p>
 <div class="k6who"><span class="fav fav-dj" aria-hidden="true"><img src="{{dj.img}}" alt="" loading="lazy" decoding="async" style="object-position: {{dj.pos}};"></span><p><b>{{dj.name}}.</b> {{tagLine}} Based in {{dj.home}}.</p></div>
 </div>
@@ -628,7 +639,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
 <div class="footrow">
 <span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
-<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+<nav aria-label="Footer"><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
 </div>
 </div>
 </footer>
@@ -802,9 +813,9 @@ var K6_W = { ' ': 237, A: 746, B: 662, C: 740, D: 722, E: 608, F: 587, G: 750, H
 // what each artist's top says, in their own words: the sound for the facts line and one short phrase for the script note.
 // Every word is already in that artist's entry above (the tag line, or the first paragraph of the bio). An artist not listed here gets their tag line and no note.
 var K6_LOOK = {
-  'julian-gjaci': { sound: 'Afro house', note: 'hypnotic grooves' },
-  'kozlow': { sound: 'Indie house', note: 'live violin' },
-  'schloss': { sound: 'House', note: 'deep cuts', sleeve: true }
+  'julian-gjaci': { sound: 'Afro house', note: '' },
+  'kozlow': { sound: 'Indie house, live violin', note: '' },
+  'schloss': { sound: 'House, deep cuts', note: '', sleeve: true }
 };
 function k6Wide(str, track) {
   var t = String(str || ''), w = 0, c, i;
