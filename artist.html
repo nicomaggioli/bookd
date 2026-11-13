@@ -1214,7 +1214,7 @@ class Component extends DCLogic {
       look: { bg: bg, img: bgImage ? 'yes' : 'no' }, hasBgImg: !!bgImage, bgRef: this.bgRef,
       hasArt: !!recArt, noArt: !recArt, artRef: this.artRef,
       sigCls: 'k6sig' + (pick.sign === 'right' ? ' k6sig-right' : ''),
-      nameK: nameK.toFixed(3), nameCls: 'k6name' + (nameFront ? ' k6name-front' : ''),
+      nameK: nameK.toFixed(3), nameCls: 'k6name k6name-front',   /* Nov 13 (Nico): every name sits in front of the sleeve, as on Julian's page */
       hearText: on ? 'Stop' : 'Hear a set',
       photoAria: !hasSets ? 'Go to the sets section' : on ? 'Close the SoundCloud player' : 'Play ' + cur.title + ' from SoundCloud',
       // name and ring are one item lists so the words land in the drawing as plain text
