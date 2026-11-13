@@ -1160,7 +1160,7 @@ span.hand.hand-note,.k6note.hand,.iv-s1,.iv-s2{letter-spacing:0 !important}
 
 <!-- IN TOWN (location) -->
 <section id="intown" class="stage" style="position: relative; overflow: hidden; background: #000000; color: #ffffff; padding: clamp(64px, calc(8 * var(--vw)), 110px) 0 clamp(150px, calc(16 * var(--vw)), 240px);">
-<div class="stage-fx" aria-hidden="true"><span class="beam beam-a"></span><span class="beam beam-b"></span><span class="beam beam-c"></span><div class="dfloor dretro"><video class="retrovid" src="assets/02239ac51df60bf15fcc40856cd1f454.mp4" poster="assets/ef768d83447ae89c60ddbb1cc9dd233a.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1"></video></div></div>
+<div class="stage-fx" aria-hidden="true"><span class="beam beam-a"></span><span class="beam beam-b"></span><span class="beam beam-c"></span><div class="dfloor dretro"><video class="retrovid" src="assets/682deb1db1fecb02ab7d707c28b3f0a6.mp4" poster="assets/98a4613445d27abbacb7dfeec25ff9c2.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1"></video></div></div>
 <div class="stage-in" style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, calc(4 * var(--vw)), 48px); display: flex; flex-direction: column; gap: 30px;">
 <h2 class="sr">Who's in town</h2>
 
@@ -1227,7 +1227,7 @@ span.hand.hand-note,.k6note.hand,.iv-s1,.iv-s2{letter-spacing:0 !important}
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); align-items: stretch;">
 <div class="art-photo" style="position: relative; min-height: 560px; overflow: hidden;">
 <img loading="lazy" decoding="async" src="assets/4d552caef07a052814a49ea9990812d3.jpg" alt="Two DJs behind the booth with the crowd's hands up in front of them" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.65);">
-<div aria-hidden="true" style="position: absolute; inset: 0; background: #d31110; mix-blend-mode: multiply; opacity: .85;"></div><video class="retrovid artvid" src="assets/6659ed854874eec41284932827bcaaf3.mp4" poster="assets/6419db0e664ca2a1f5268a5f7bf17d53.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: #d31110; mix-blend-mode: multiply; opacity: .85;"></div><video class="retrovid artvid" src="assets/ba429541a3f985e6626f996c2fc00fd0.mp4" poster="assets/e7470afd7504b583dd38a5deee834718.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video>
 </div>
 <div class="arttext" style="padding: clamp(44px, calc(6 * var(--vw)), 90px) clamp(16px, calc(4 * var(--vw)), 48px); display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 0; max-width: 784px; box-sizing: border-box;">
 <div><h2 class="h2">Put your name on the&nbsp;roster.</h2></div>
@@ -2187,7 +2187,7 @@ class Component extends DCLogic {
       if (window.ResizeObserver) { this.tvRO = new ResizeObserver(tvFit); tvWalls.forEach(function (w) { self.tvRO.observe(w); }); }
       var rvs = Array.prototype.slice.call(document.querySelectorAll('.retrovid, .tvvid'));
       if (rvs.length && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-        this.retroIO = new IntersectionObserver(function (es) { es.forEach(function (en) { var v = en.target; if (en.isIntersecting) { if (v.classList.contains('artvid')) { v.defaultPlaybackRate = 0.5; v.playbackRate = 0.5; } if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; if (self.revealMask && self.revealMask.contains(v) && !self.tvOn) return; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }); }, { rootMargin: '120px 0px' });
+        this.retroIO = new IntersectionObserver(function (es) { es.forEach(function (en) { var v = en.target; if (en.isIntersecting) { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; if (self.revealMask && self.revealMask.contains(v) && !self.tvOn) return; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }); }, { rootMargin: '120px 0px' });
         rvs.forEach(function (v) { self.retroIO.observe(v); });
       }
     }
