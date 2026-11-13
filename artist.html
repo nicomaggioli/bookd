@@ -34,7 +34,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;family=La+Belle+Aurore&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -73,7 +73,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .nlc{display:inline-flex;align-items:center;gap:8px}
 .navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
 .navend{justify-self:end;display:flex;align-items:center;gap:18px}
-.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+.navmenu{display:none;background:#ffffff;border:0;border-radius:999px;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
 /* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
 #mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
 #mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
@@ -94,7 +94,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:1100px){.nav6-in .navbook{display:none}}
 /* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
 @media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
-@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{background:#d31110;color:#ffffff}}
 /* ===== end nav shell ===== */
 /* keep a tabbed-to control clear of the dock; the dock never shows while the hero is on screen, so the hero needs no bottom room */
 html{scroll-padding-top:88px;scroll-padding-bottom:96px}
@@ -140,83 +140,176 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 @media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}.vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
 
-/* ---------- Artist6: one profile for every artist on the real roster, built from the Kaytran6 design. The record, the sets, the bio, the cost, the rider, the request. ---------- */
+/* ---------- Artist6: one profile page for every artist on the real roster. Nov 12 (Nico): the top is set like the printed invitation,
+   and each artist gets one composition of their own. The pieces are the same on every profile and so is their order: a facts line in small spaced capitals,
+   the name in big capitals, one script note and the signature touching the name, the photo, the buttons. What changes per artist is the paper,
+   the axis and the photo's frame, each picked from something true in that artist's own data:
+     Julian Gjaci  red paper, left axis, his two names stacked, the tall photo uncut on the right (the raw dance floor energy in his bio)
+     Kozlow        cream paper, centre axis, the portrait in an arch with a button either side (classically trained: the formal invitation itself)
+     Schloss       black, the square photo as a record sleeve with the record in it, his name low along the bottom (the selector, deep cuts)
+   An artist with no look of their own gets the plain black, left axis version. Nothing here is drawn over a photo, so no face is ever covered. ---------- */
 .k6sec{overflow-x:clip}
 .k6h2s{font-size:clamp(40px,calc(4.6 * var(--vw)),72px)}
+.k6sets .h2,.k6req .h2{color:#fffde9}
+/* handwriting: Reenie Beanie for the signature, the thin La Belle Aurore script for the notes */
+.hand{font-family:'Reenie Beanie','Bradley Hand',cursive;font-weight:400;letter-spacing:0;line-height:.9;text-transform:none}
+.hand.hand-note{font-family:'La Belle Aurore','Reenie Beanie','Bradley Hand',cursive;letter-spacing:.01em;line-height:1.05;white-space:nowrap}
 
-/* hero: the artist's name on the wall and the record, nothing else. A press on the record opens the first set.
-   --nk sizes the name: 1 for a seven letter name like the one the design was drawn for, smaller for a longer one, so every name spans the page on one line. The record tucks under the name by the same share. */
-.k6hero{position:relative;isolation:isolate;overflow:hidden;background:#d31110;--sz:clamp(250px,calc(35 * var(--vw)),510px);padding:clamp(20px,calc(3 * var(--vw)),40px) 0 clamp(56px,calc(7 * var(--vw)),104px)}
-.k6room{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 68% 70%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}
-.k6name{position:relative;margin:0 0 0 -0.04em;font-size:clamp(calc(84px * var(--nk,1)),calc(27 * var(--nk,1) * var(--vw)),calc(400px * var(--nk,1)));line-height:.8;font-weight:700;letter-spacing:-0.075em;color:#fffde9;white-space:nowrap;padding-bottom:.05em}
-.k6hgrid{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:end;column-gap:clamp(24px,calc(4 * var(--vw)),64px);margin-top:calc(clamp(-96px,calc(-6.4 * var(--vw)),-20px) * var(--nk,1))}
-.k6copy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(18px,calc(2 * var(--vw)),28px);min-width:0;padding-top:clamp(120px,calc(10 * var(--vw)),160px)}
-.k6lede{margin:0;font-size:clamp(24px,calc(2.6 * var(--vw)),38px);line-height:1.08;letter-spacing:-0.04em;font-weight:700;color:#ffffff;max-width:15em;text-wrap:balance}
-.k6town{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:26em}
+/* HERO */
+.k6hero{position:relative;isolation:isolate;overflow:hidden;background:#000000;color:#ffffff;--ink:#ffffff;--script:#d31110;--pw:clamp(230px,calc(30 * var(--vw)),440px);--ar:auto;padding:clamp(22px,calc(2.4 * var(--vw)),36px) 0 clamp(48px,calc(4.8 * var(--vw)),70px)}
 .k6hero :focus-visible{outline-color:#ffffff}
-.k6recwrap{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
-.k6rec{display:block;padding:0;border:0;background:none;cursor:pointer;width:var(--sz);height:var(--sz)}
-.k6tilt{position:relative;display:block;width:100%;height:100%;transform:perspective(1400px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-/* the disc is a render, so it turns; the light on it stays still, the way it does on a real record */
-.k6vinyl{position:absolute;top:2%;left:2%;width:96%;height:96%;border-radius:50%;transform:translateX(12%);transition:transform .9s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
-.k6live .k6vinyl{transform:translateX(62%)}
+.a6{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"facts photo" "name photo" "acts photo" "status photo";grid-template-rows:auto auto 1fr auto;column-gap:clamp(24px,calc(4 * var(--vw)),60px);row-gap:clamp(16px,calc(1.7 * var(--vw)),24px);align-items:start}
+.a6facts{grid-area:facts;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:2px 14px;font-size:13px;line-height:1.6;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.a6dot{flex:none;width:5px;height:5px;border-radius:50%;background:var(--script)}
+/* the name always fills its box: --nw is how wide the longest line sets, in ems, worked out from the letters in the logic below */
+.a6namebox{grid-area:name;container-type:inline-size;min-width:0}
+.a6name{position:relative;margin:0;font-size:calc(56 * var(--vw) / var(--nw,4));font-size:calc(100cqw / (var(--nw,4) * 1.03));line-height:.84;font-weight:700;letter-spacing:-0.055em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.a6line{display:block}
+.a6note,.a6sig{position:absolute;z-index:2;pointer-events:none;white-space:nowrap;color:var(--script)}
+.a6note{right:0;top:-.58em;font-size:clamp(34px,.3em,92px);transform:rotate(-7deg);transform-origin:100% 100%}
+.a6sig{left:1%;bottom:-.55em;font-size:clamp(46px,.36em,112px);line-height:1;transform:rotate(-6deg);transform-origin:0 0}
+.a6ph{grid-area:photo;position:relative;display:block;width:var(--pw);margin:0;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;border-radius:var(--r-card)}
+/* the photo is printed black on cream paper, whole: the frame takes the picture's own shape, so nothing is cut off or stretched */
+.a6frame{position:relative;z-index:1;display:block;overflow:hidden;isolation:isolate;border-radius:inherit;background:#fffde9}
+.a6frame img{display:block;width:100%;height:auto;aspect-ratio:var(--ar);object-fit:cover;filter:grayscale(1) contrast(1.2) brightness(1.06);mix-blend-mode:multiply}
+.a6acts{grid-area:acts;display:flex;flex-wrap:wrap;gap:10px;align-self:end}
+.a6status{grid-area:status;margin:0;min-height:1.6em;font-size:12px;line-height:1.6;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.a6hear{min-width:9.6em}
+.a6hear svg{flex:none;width:16px;height:16px;display:block}
+/* play and stop are both drawn; the open player's class picks which one shows */
+.ic-stop,.k6trk-on .ic-play,.k6dplay-on .ic-play,.a6hear[aria-pressed="true"] .ic-play{display:none}
+.k6trk-on .ic-stop,.k6dplay-on .ic-stop,.a6hear[aria-pressed="true"] .ic-stop{display:inline}
+.a6still{cursor:default}
+/* buttons on black: red and white */
+.a6req{background:#d31110;color:#ffffff}
+.a6hear{background:#ffffff;color:#000000}
+/* the record: only Schloss's square sleeve has one. Hover pulls it out, an open player pulls it further and turns it */
+.k6vinyl{display:none;position:absolute;z-index:0;top:3%;left:3%;width:94%;height:94%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(162,165,164,.4);transform:translateX(70%);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
 .k6disc{position:absolute;inset:0;display:block;border-radius:50%;animation:k6spin 1.8s linear infinite;animation-play-state:paused}
 .k6anim .k6disc,.k6spin .k6disc{animation-play-state:running;will-change:transform}
 @keyframes k6spin{to{transform:rotate(360deg)}}
 .k6disc img,.k6lbl{position:absolute;inset:0;display:block;width:100%;height:100%}
 .k6lbl text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
 .k6sheen{position:absolute;inset:0;border-radius:50%;pointer-events:none;mix-blend-mode:screen;background:conic-gradient(from 28deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.2) 16deg,rgba(255,255,255,.03) 38deg,rgba(255,255,255,0) 160deg,rgba(255,255,255,.14) 196deg,rgba(255,255,255,.02) 222deg,rgba(255,255,255,0) 360deg);-webkit-mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%);mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%)}
-.k6sleeve{position:absolute;inset:0;display:block;isolation:isolate;background:#fffde9;box-shadow:0 34px 60px rgba(0,0,0,.42),0 4px 10px rgba(0,0,0,.3),3px 0 6px rgba(0,0,0,.4)}
-/* the sleeve is the artist's photo, printed black on cream paper */
-.k6sleeve img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(1.08);mix-blend-mode:multiply}
-/* the card is two sheets: a lit spine on the left, the open mouth on the right */
-.k6sleeve::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,0) 2.5%,rgba(0,0,0,0) 97.5%,rgba(0,0,0,.34))}
-/* the note sits above the sleeve's shadow, so it reads cream, not grey */
-.k6note{position:relative;z-index:1;margin:0;min-height:1.45em;font-size:15px;line-height:1.45;font-weight:700;color:#fffde9}
-@media (hover: hover) and (pointer: fine){.k6rec:hover .k6vinyl{transform:translateX(50%)}.k6live .k6rec:hover .k6vinyl{transform:translateX(62%)}}
-.k6rec:focus-visible .k6vinyl{transform:translateX(50%)}
-.k6live .k6rec:focus-visible .k6vinyl{transform:translateX(62%)}
-@media (max-width:760px){
-.k6hero{--sz:min(calc(68 * var(--vw)),380px)}
-.k6hgrid{grid-template-columns:minmax(0,1fr);margin-top:20px;row-gap:32px}
-.k6recwrap{grid-row:1}
-.k6copy{padding-top:0}
-/* the playing note takes two lines on a phone, so keep room for both and nothing moves on a tap */
-.k6note{min-height:2.9em}
-.k6live .k6vinyl,.k6live .k6rec:focus-visible .k6vinyl{transform:translateX(40%)}
-.k6rec:focus-visible .k6vinyl{transform:translateX(24%)}
+
+/* Julian Gjaci: red paper, left axis, two names stacked, the tall photo whole on the right */
+.k6hero[data-look="julian-gjaci"]{background:#d31110;--ink:#fffde9;--script:#000000;--ar:900 / 1255;--pw:clamp(250px,min(calc(31 * var(--vw)),calc((100 * var(--vh) - 180px) * .717)),452px)}
+.k6hero[data-look="julian-gjaci"] .a6note{right:-1%;top:-.42em}
+.k6hero[data-look="julian-gjaci"] .a6sig{left:80.5%;bottom:-.12em}
+.k6hero[data-look="julian-gjaci"] .a6req{background:#ffffff;color:#000000}
+.k6hero[data-look="julian-gjaci"] .a6hear{background:#fffde9;color:#000000}
+
+/* Kozlow: cream paper, centre axis, the portrait in an arch, one button either side of it */
+.k6hero[data-look="kozlow"]{background:#fffde9;color:#000000;--ink:#000000;--script:#d31110;--ar:4 / 5;--pw:clamp(224px,min(calc(24.5 * var(--vw)),calc((100 * var(--vh) - 492px) * .8)),356px);padding-top:clamp(20px,calc(2.1 * var(--vw)),30px);padding-bottom:clamp(36px,calc(3 * var(--vw)),44px)}
+.k6hero[data-look="kozlow"] .a6{row-gap:clamp(12px,calc(1.25 * var(--vw)),18px)}
+.k6hero[data-look="kozlow"] :focus-visible{outline-color:#000000}
+.k6hero[data-look="kozlow"] .a6{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"facts facts facts" "name name name" "left photo right" "status status status";grid-template-rows:auto;align-items:center}
+.k6hero[data-look="kozlow"] .a6facts{justify-content:center}
+.k6hero[data-look="kozlow"] .a6name{text-align:center}
+.k6hero[data-look="kozlow"] .a6ph{border-radius:999px 999px var(--r-card) var(--r-card)}
+.k6hero[data-look="kozlow"] .a6acts{display:contents}
+.k6hero[data-look="kozlow"] .a6req{grid-area:left;justify-self:end}
+.k6hero[data-look="kozlow"] .a6hear{grid-area:right;justify-self:start;background:#a2a5a4;color:#000000}
+.k6hero[data-look="kozlow"] .a6status{text-align:center}
+.k6hero[data-look="kozlow"] .a6note{right:1%;top:-.5em}
+.k6hero[data-look="kozlow"] .a6sig{left:4%;bottom:-.66em}
+
+/* Schloss: black, the square photo as a record sleeve with the record in it, the name low along the bottom */
+.k6hero[data-look="schloss"]{--ar:1 / 1;--pw:clamp(230px,min(calc(29 * var(--vw)),calc(100 * var(--vh) - 486px)),420px)}
+.k6hero[data-look="schloss"] .a6{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"photo facts" "photo acts" "photo status" "name name";grid-template-rows:1fr auto auto auto}
+.k6hero[data-look="schloss"] .a6facts{align-self:end;justify-content:flex-end}
+.k6hero[data-look="schloss"] .a6acts{justify-content:flex-end}
+.k6hero[data-look="schloss"] .a6status{text-align:right}
+.k6hero[data-look="schloss"] .a6namebox{margin-top:clamp(18px,calc(2.4 * var(--vw)),36px)}
+.k6hero[data-look="schloss"] .k6vinyl{display:block}
+.k6hero[data-look="schloss"].k6live .k6vinyl{transform:translateX(84%)}
+@media (max-width:1000px){.k6hero[data-look="schloss"] .a6acts{flex-direction:column;align-items:flex-end}}
+.k6hero[data-look="schloss"] .a6note{right:1%;top:-.6em}
+.k6hero[data-look="schloss"] .a6sig{left:2%;bottom:-.5em}
+@media (hover: hover) and (pointer: fine){.k6hero[data-look="schloss"] .a6ph:hover .k6vinyl{transform:translateX(78%)}.k6hero[data-look="schloss"].k6live .a6ph:hover .k6vinyl{transform:translateX(84%)}}
+.k6hero[data-look="schloss"] .a6ph:focus-visible .k6vinyl{transform:translateX(78%)}
+
+/* the top arrives once: the name rises, the photo fades up, then the note and the signature are written in */
+@keyframes a6rise{from{opacity:0;transform:translateY(.16em)}to{opacity:1;transform:none}}
+@keyframes a6up{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+@keyframes a6write{from{clip-path:inset(-80% 105% -80% -10%)}to{clip-path:inset(-80% -20% -80% -10%)}}
+@media (prefers-reduced-motion: no-preference){
+.a6line{animation:a6rise .6s cubic-bezier(.2,.8,.2,1) both}
+.a6line:nth-child(2){animation-delay:.09s}
+.a6ph{animation:a6up .6s .12s cubic-bezier(.2,.8,.2,1) both}
+.a6note{animation:a6write .7s .5s cubic-bezier(.45,0,.25,1) both}
+.a6sig{animation:a6write .6s 1.05s cubic-bezier(.45,0,.25,1) both}
 }
 
-/* sets: the record hangs off the left edge, the artist's real sets beside it */
-.k6sets{background:#000000;padding:var(--sec) 0;overflow:clip}
+/* phones: one column, and each artist keeps their axis */
+@media (max-width:760px){
+.k6hero{--pw:min(calc(72 * var(--vw)),330px);padding-top:18px}
+.a6,.k6hero[data-look="kozlow"] .a6{grid-template-columns:minmax(0,1fr);grid-template-areas:"facts" "name" "photo" "acts" "status";grid-template-rows:auto;row-gap:16px}
+.a6facts{font-size:12px;letter-spacing:.16em;gap:2px 10px}
+.a6ph{margin-top:26px}
+.a6acts{flex-wrap:nowrap}
+.a6acts .btn{flex:1 1 0;min-width:0;padding:0 14px}
+.a6note{font-size:clamp(30px,.34em,40px)}
+.a6sig{font-size:clamp(44px,.5em,60px)}
+.k6hero[data-look="julian-gjaci"]{--pw:min(calc(70 * var(--vw)),320px)}
+.k6hero[data-look="julian-gjaci"] .a6ph{justify-self:end;margin-top:48px}
+.k6hero[data-look="julian-gjaci"] .a6sig{left:50%;bottom:-.7em}
+.k6hero[data-look="kozlow"]{--pw:min(calc(62 * var(--vw)),290px)}
+.k6hero[data-look="kozlow"] .a6ph{justify-self:center}
+.k6hero[data-look="kozlow"] .a6acts{display:flex;justify-content:center}
+.k6hero[data-look="kozlow"] .a6req,.k6hero[data-look="kozlow"] .a6hear{grid-area:auto;justify-self:auto}
+.k6hero[data-look="schloss"]{--pw:min(calc(64 * var(--vw)),300px)}
+.k6hero[data-look="schloss"] .a6{grid-template-columns:minmax(0,1fr);grid-template-areas:"photo" "facts" "acts" "name" "status";grid-template-rows:auto}
+.k6hero[data-look="schloss"] .a6ph{margin-top:4px}
+.k6hero[data-look="schloss"] .a6facts,.k6hero[data-look="schloss"] .a6acts{justify-content:flex-start}
+.k6hero[data-look="schloss"] .a6status{text-align:left}
+.k6hero[data-look="schloss"] .a6namebox{margin-top:34px}
+.k6hero[data-look="schloss"].k6live .k6vinyl{transform:translateX(74%)}
+.k6hero[data-look="schloss"] .a6acts{flex-direction:row;align-items:stretch}
+}
+
+/* SETS: the record beside the artist's real sets */
+.k6sets{background:#000000;padding:var(--sec) 0;overflow:clip;--line:#2f2f31;--txt:#fffde9;--sub:#a2a5a4;--hot:#ff3b2f}
 .k6deck{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:center}
-.k6big{position:relative;display:block;width:clamp(420px,calc(46 * var(--vw)),680px);aspect-ratio:1 / 1;justify-self:end;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;box-shadow:0 0 120px rgba(211,17,16,.28)}
+.k6big{position:relative;display:block;width:clamp(420px,calc(46 * var(--vw)),680px);aspect-ratio:1 / 1;justify-self:end;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .k6songs{min-width:0}
 .k6songs .lede{margin:18px 0 0;max-width:30em}
 .k6tracks{margin:clamp(28px,calc(3.4 * var(--vw)),48px) 0 0;padding:0;list-style:none}
-.k6tracks li{border-bottom:1px solid #2f2f31}
-.k6trk{display:grid;grid-template-columns:clamp(44px,calc(5 * var(--vw)),72px) minmax(0,1fr) 22px;gap:16px;align-items:center;width:100%;padding:18px 0 2px;border:0;background:none;color:#fffde9;font:inherit;text-align:left;cursor:pointer;transition:color .15s}
+.k6tracks li{border-bottom:1px solid var(--line)}
+.k6trk{display:grid;grid-template-columns:clamp(40px,calc(5 * var(--vw)),72px) minmax(0,1fr) 44px;gap:16px;align-items:center;width:100%;padding:18px 0 2px;border:0;background:none;color:var(--txt);font:inherit;text-align:left;cursor:pointer;transition:color .15s}
 .k6tid{font-size:clamp(26px,calc(2.8 * var(--vw)),40px);font-weight:700;letter-spacing:-0.05em;line-height:1;color:#d31110;font-variant-numeric:tabular-nums}
 .k6ttext{display:flex;flex-direction:column;gap:4px;min-width:0}
 .k6ttitle{font-size:clamp(26px,calc(2.8 * var(--vw)),40px);font-weight:700;letter-spacing:-0.05em;line-height:1}
-.k6tmeta{font-size:14px;line-height:1.35;color:#a2a5a4}
-.k6trk svg{width:20px;height:20px;display:block}
-.k6trk-on,.k6trk-on .k6tid,.k6trk-on .k6tmeta{color:#ff3b2f}
-/* under each set: a plain link out, lined up with the title, then the spot where the SoundCloud player lands after a press (empty and hidden until then) */
-.k6tout{display:inline-block;margin-left:calc(clamp(44px,calc(5 * var(--vw)),72px) + 16px);padding:10px 0 16px;font-size:15px;line-height:1.3;font-weight:700;color:#fffde9;text-decoration:underline;text-underline-offset:4px;transition:color .15s}
+.k6tmeta{font-size:14px;line-height:1.35;color:var(--sub)}
+.k6tplay{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#d31110;color:#ffffff;transition:background-color .15s,color .15s}
+.k6tplay svg{width:16px;height:16px;display:block}
+.k6trk-on,.k6trk-on .k6tid{color:var(--hot)}
+/* under each set: a small button out to SoundCloud, lined up with the title, then the spot where the player lands after a press (empty and hidden until then) */
+.k6tout{margin:12px 0 18px calc(clamp(40px,calc(5 * var(--vw)),72px) + 16px);min-height:44px;background:#fffde9;color:#000000;transition:background-color .15s,color .15s}
 .k6emb{height:166px;margin:0 0 20px;border-radius:var(--r-field);overflow:hidden;background:#1c1c1e}
 .k6emb:empty{display:none}
 .k6emb iframe{display:block;width:100%;height:100%;border:0}
-/* no sets yet: one link out, and the big record is only a picture */
 .k6find{margin-top:clamp(28px,calc(3.4 * var(--vw)),48px)}
 .k6still{cursor:default}
-@media (hover: hover) and (pointer: fine){.k6trk:hover,.k6trk:hover .k6tid,.k6tout:hover{color:#ff3b2f}}
 @media (max-width:900px){
 .k6deck{grid-template-columns:minmax(0,1fr)}
 .k6big{justify-self:center;width:min(calc(72 * var(--vw)),420px)}
 }
+@media (max-width:480px){.k6trk{gap:12px}.k6tout{margin-left:0}}
+/* Julian: his page reads down the left edge, so the words lead and the record sits on the right */
+@media (min-width:901px){
+.k6hero[data-look="julian-gjaci"] ~ .k6sets .k6deck{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.k6hero[data-look="julian-gjaci"] ~ .k6sets .k6big{order:2;justify-self:start}
+}
+/* Schloss: three sets, so his are printed like the track list on the back of a sleeve, black on cream */
+.k6hero[data-look="schloss"] ~ .k6sets{background:#fffde9;color:#000000;--line:rgba(0,0,0,.2);--txt:#000000;--sub:#2f2f31;--hot:#d31110}
+.k6hero[data-look="schloss"] ~ .k6sets .h2{color:#000000}
+.k6hero[data-look="schloss"] ~ .k6sets .lede{color:#000000}
+.k6hero[data-look="schloss"] ~ .k6sets :focus-visible{outline-color:#000000}
+.k6hero[data-look="schloss"] ~ .k6sets .k6tout{background:#a2a5a4}
+.k6hero[data-look="schloss"] ~ .k6sets .k6emb{background:#000000}
 
-/* about: the red band where the tour dates were. No dates were given, so it holds the artist's own words and their links. */
+/* ABOUT: the red band. No dates were given, so it holds the artist's own words and their links. */
 .k6town-sec{position:relative;background:#d31110;color:#fffde9;padding:var(--sec) 0}
 .k6town-sec :focus-visible{outline-color:#ffffff}
 .k6about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:start}
@@ -225,12 +318,22 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 .k6bio p{margin:0}
 .k6bio p:first-child{font-size:clamp(18px,calc(1.55 * var(--vw)),23px);line-height:1.35;letter-spacing:-0.015em}
 .k6links{display:flex;flex-wrap:wrap;gap:8px;margin:clamp(24px,calc(3 * var(--vw)),40px) 0 0;padding:0;list-style:none}
-.k6links .chip{min-height:44px;text-decoration:none;transition:background-color .15s,color .15s}
-@media (hover: hover) and (pointer: fine){.k6links .chip:hover{background:#fffde9;border-color:#fffde9;color:#000000}}
+.k6links .btn{min-height:44px;background:#fffde9;color:#000000;transition:background-color .15s,color .15s}
 @media (max-width:900px){.k6about{grid-template-columns:minmax(0,1fr)}}
+/* Kozlow: centre axis here too. The heading and the links are centred; the words stay left aligned so they read easily */
+.k6hero[data-look="kozlow"] ~ .k6town-sec .k6about{grid-template-columns:minmax(0,1fr);justify-items:center;gap:clamp(28px,calc(3.4 * var(--vw)),48px)}
+.k6hero[data-look="kozlow"] ~ .k6town-sec .h2{text-align:center}
+.k6hero[data-look="kozlow"] ~ .k6town-sec .k6aboutbody{max-width:44em}
+.k6hero[data-look="kozlow"] ~ .k6town-sec .k6bio{max-width:none}
+.k6hero[data-look="kozlow"] ~ .k6town-sec .k6links{justify-content:center}
+/* Schloss: his name sits on the right at the top, so this heading does too */
+@media (min-width:901px){
+.k6hero[data-look="schloss"] ~ .k6town-sec .k6about{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.k6hero[data-look="schloss"] ~ .k6town-sec .h2{order:2;text-align:right}
+}
 
-/* cost and rider: two plain lists on cream, same rows, nothing tilted */
-.k6costs{background:#fffde9;color:#000000;padding:var(--sec) 0}
+/* TERMS AND RIDER: two plain lists on cream, same rows */
+.k6costs{position:relative;background:#fffde9;color:#000000;padding:var(--sec) 0}
 .k6costs :focus-visible{outline-color:#d31110}
 .k6card :focus-visible{outline-color:#d31110}
 .k6costgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(48px,calc(7 * var(--vw)),112px);align-items:start}
@@ -238,26 +341,36 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 .k6colhead{display:flex;flex-direction:column;gap:14px}
 .k6colnote{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:26em}
 .k6ledger{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0}
-.k6ledger div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:baseline;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4}
+.k6ledger div{display:grid;grid-template-columns:minmax(max-content,1fr) auto;gap:4px 24px;align-items:baseline;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4}
 .k6ledger dt{font-weight:400}
-.k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
 .k6costfoot{margin:16px 0 0;font-size:15px;line-height:1.45;color:#2f2f31}
-.k6costfoot a{font-weight:700;text-underline-offset:3px}
-/* the rider as the artist sent it: plain lines in the same rows as the cost list, or one link to the full rider */
+.k6costfoot a{display:inline-block;padding:12px 0;margin:-12px 0;font-weight:700;text-underline-offset:3px}
 .k6lines{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;padding:0;list-style:none}
 .k6lines li{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4;font-weight:700}
 .k6riderbtn{align-self:flex-start;margin-top:clamp(28px,calc(3 * var(--vw)),44px)}
-@media (min-width:901px){.k6colhead{min-height:clamp(200px,calc(17 * var(--vw)),250px)}}
+@supports (grid-template-rows:subgrid){
+@media (min-width:901px){
+.k6costgrid{grid-template-rows:auto auto 1fr;row-gap:0}
+.k6col{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:subgrid;grid-row:span 3;align-items:start}
+.k6lines,.k6riderbtn{grid-row:2 / span 2}
+.k6riderbtn{justify-self:start}
+}
+}
 @media (max-width:900px){.k6costgrid{grid-template-columns:minmax(0,1fr)}}
 
+/* REQUEST */
 .k6req{background:#000000;padding:var(--sec) 0 clamp(40px,calc(5 * var(--vw)),72px)}
 .k6reqgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,calc(5 * var(--vw)),80px);align-items:start}
 @media (max-width:960px){.k6reqgrid{grid-template-columns:minmax(0,1fr)}}
 .k6reqcopy{display:flex;flex-direction:column;gap:22px;min-width:0}
+/* the script note crosses the end of the heading, the way it does on the homepage */
+.a6askh{position:relative}
+.a6free{display:block;position:relative;z-index:2;width:max-content;margin:-.04em 0 -.1em 1.1em;font-size:clamp(40px,calc(4.6 * var(--vw)),70px);color:#d31110;transform:rotate(-5deg);transform-origin:0 50%;pointer-events:none}
 .k6who{display:flex;align-items:center;gap:4px;font-size:15px;line-height:1.4;color:#fffde9}
 .k6who .fav{width:44px;height:44px}
 .k6who p{margin:0 0 0 10px;max-width:22em}
-.k6card{min-width:0;box-sizing:border-box;padding:clamp(12px,calc(1.4 * var(--vw)),18px);border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.k6card{min-width:0;box-sizing:border-box;padding:clamp(12px,calc(1.4 * var(--vw)),18px);border-radius:var(--r-card);background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
 .k6form{margin:0}
 .k6fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .k6f{display:flex;flex-direction:column;gap:6px;min-width:0}
@@ -272,60 +385,61 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 .k6sum{display:flex;flex-wrap:wrap;gap:6px}
 .k6sum>span{padding:7px 12px;border-radius:999px;background:#f2f2f0;font-size:14px;font-weight:700}
 .k6sentacts{display:flex;flex-wrap:wrap;gap:10px}
+.a6grey{background:#a2a5a4;color:#000000}
 .k6notone{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;margin-top:clamp(56px,calc(6 * var(--vw)),96px);padding-top:28px;border-top:1px solid #2f2f31}
-.k6notone p{margin:0;font-size:clamp(22px,calc(2.2 * var(--vw)),30px);font-weight:700;letter-spacing:-0.04em;line-height:1.1}
-@media (max-width:480px){.k6fgrid{grid-template-columns:minmax(0,1fr)}.k6card{border-radius:24px}.field input{font-size:18px}}
+.k6notone p{margin:0;font-size:clamp(22px,calc(2.2 * var(--vw)),30px);font-weight:700;letter-spacing:-0.04em;line-height:1.1;color:#fffde9}
+@media (max-width:480px){.k6fgrid{grid-template-columns:minmax(0,1fr)}.field input{font-size:18px}.a6free{font-size:calc(11 * var(--vw))}}
 
-/* the dock: the artist's name, a play or stop button and Request, once the hero has scrolled away */
-/* the nav sits above the dock, so the open phone menu dims the dock along with the rest of the page */
-.k6dock{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;width:min(560px,calc(100% - 32px));box-sizing:border-box;padding:6px 6px 6px 8px;border-radius:999px;background:rgba(14,14,15,.96);box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;transform:translate(-50%,140%);opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s,visibility 0s linear .35s}
+/* THE DOCK: the artist's name, a play or stop button and Request, once the top has scrolled away. A flat cream bar, so it shows on every section.
+   The nav sits above the dock, so the open phone menu dims the dock along with the rest of the page */
+.k6dock{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;width:min(560px,calc(100% - 32px));box-sizing:border-box;padding:6px 6px 6px 8px;border-radius:999px;background:#fffde9;color:#000000;box-shadow:0 18px 40px rgba(0,0,0,.5);transform:translate(-50%,140%);opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s,visibility 0s linear .35s}
 .k6dock-on{transform:translate(-50%,0);opacity:1;visibility:visible;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s,visibility 0s}
+.k6dock :focus-visible{outline-color:#000000}
 /* next to the request form the dock is just the name and the stop button */
 .k6dock-form{width:auto}.k6dock-form .btn{display:none}
-.k6dock .fav{width:40px;height:40px;box-shadow:0 0 0 2px #0e0e0f,0 0 0 4px #d31110}
-.k6dockt{display:flex;flex-direction:column;gap:1px;flex:1 1 auto;min-width:0;font-size:13px;line-height:1.25;color:#a2a5a4}
-.k6dockt b{font-size:16px;letter-spacing:-0.02em;color:#ffffff}
+.k6dock .fav{width:40px;height:40px;box-shadow:none}
+.k6dockt{display:flex;flex-direction:column;gap:1px;flex:1 1 auto;min-width:0;font-size:13px;line-height:1.25;color:#2f2f31}
+.k6dockt b{font-size:16px;letter-spacing:-0.02em;color:#000000}
 .k6dockt>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.k6dplay{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#1c1c1e;color:#ffffff;cursor:pointer;box-shadow:inset 0 0 0 1px #4d504f}
-.k6dplay-on{background:#d31110;box-shadow:none}
+.k6dplay{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#a2a5a4;color:#000000;cursor:pointer;transition:background-color .15s,color .15s}
+.k6dplay-on{background:#d31110;color:#ffffff}
 .k6dplay svg{width:16px;height:16px;display:block}
 @media (max-width:440px){.k6dock{padding-left:16px}.k6dock .fav{display:none}.k6dock .btn{padding:0 16px}}
 @media (max-width:370px){.k6dock{gap:8px}.k6dockt{font-size:12px}}
 
+/* hovers, by what the button sits on: on red, cream or white it turns black with white words; on black it turns white with black words, or red */
 @media (hover: hover) and (pointer: fine){
-.k6hero .paper:hover{background:#000000;color:#ffffff}
-.k6hero .ink:hover{background:#ffffff;color:#000000}
-.k6trk-on .k6tplay:hover{background:#000000}
-.k6card .go:hover{background:#000000;color:#ffffff}
-.k6card .ghost:hover{background:#000000;color:#ffffff}
-.k6dplay:hover{background:#fffde9;color:#000000}
-.k6dock .go:hover{background:#ffffff;color:#000000}
+.a6req:hover{background:#ffffff;color:#000000}
+.a6hear:hover{background:#d31110;color:#ffffff}
+.k6hero[data-look="julian-gjaci"] .a6req:hover,.k6hero[data-look="julian-gjaci"] .a6hear:hover,.k6hero[data-look="kozlow"] .a6req:hover,.k6hero[data-look="kozlow"] .a6hear:hover{background:#000000;color:#ffffff}
+/* the big record gives a quarter turn under the pointer, like a hand cueing it */
+button.k6big:hover{transform:rotate(24deg)}
+.k6trk:hover,.k6trk:hover .k6tid{color:var(--hot)}
+.k6trk:hover .k6tplay{background:#ffffff;color:#000000}
+.k6tout:hover{background:#d31110;color:#ffffff}
+.k6hero[data-look="schloss"] ~ .k6sets .k6trk:hover .k6tplay,.k6hero[data-look="schloss"] ~ .k6sets .k6tout:hover{background:#000000;color:#ffffff}
+.k6links .btn:hover{background:#000000;color:#ffffff}
+.k6costs .go:hover{background:#000000;color:#ffffff}
+.k6card .go:hover,.a6grey:hover{background:#000000;color:#ffffff}
+.k6dplay:hover,.k6dock .go:hover{background:#000000;color:#ffffff}
 }
-@media (max-width:760px) and (hover: hover) and (pointer: fine){.k6hero .paper:hover{background:#d31110;color:#ffffff}}
-@media (prefers-reduced-motion: reduce){.k6tilt{transition:none}.k6anim .k6beam,.k6anim .k6name,.k6anim .k6disc,.k6eq i{animation:none !important}}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
-<style>/* no sharp corners anywhere (Nov 5) */
-.k6sleeve{border-radius:var(--r-card);overflow:hidden}
-</style>
-<style>/* QA pass Nov 6 */
-/* Kaytran6-2: cost ledger labels keep one line and the long values wrap right aligned, so nothing collides on narrow phones */
-.k6ledger div{grid-template-columns:minmax(max-content,1fr) auto}
-.k6ledger dd{text-align:right}
-/* Kaytran6-3: on phones the hero glow sits behind the right of the record, away from the small copy (the note under the record too, while a set plays), so the cream text stays above 4.5:1 and the red keeps its depth */
-@media (max-width:760px){.k6room{background:radial-gradient(ellipse 60% 32% at 90% 32%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
-/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
-/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
+<style>/* shell fixes kept from the Nov 6 QA pass */
+/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row. flex-basis keeps the row on its own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+/* every footer link is at least 44px wide (Terms was 43px) */
 .footrow a{min-width:44px}
-/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
+/* above 1440px the nav bar lines up with the page */
 .navgrid{box-sizing:border-box}
-/* Site-9: fields use the field radius token, 14px (they were 18px) */
+/* fields use the field radius token */
 .field{border-radius:var(--r-field)}
-/* Site-10: the request card takes the card token, 20px, at every width (it was 30px, and 24px on phones) */
-.k6card{border-radius:var(--r-card)}
+</style>
+<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -359,28 +473,27 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <main id="main" style="flex: 1 1 auto;">
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><g id="k6mark"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></g></defs></svg>
 
-<!-- HERO: the artist's name and record. Hover pulls the disc out, a press opens the first set in the SoundCloud player down in the sets. -->
-<section class="{{heroCls}}" ref="{{heroRef}}" onPointerMove="{{tiltMove}}" onPointerLeave="{{tiltLeave}}" aria-labelledby="k6name">
-<span class="k6room" aria-hidden="true"></span>
+<!-- HERO: set like the invitation. Facts in small capitals, the name in big capitals, one script note and the signature touching the name, the photo, the buttons.
+     The photo and Hear a set both open the first set in the SoundCloud player down in the sets. Nothing is drawn over the photo. -->
+<section class="{{heroCls}}" data-look="{{dj.slug}}" ref="{{heroRef}}" aria-labelledby="k6name">
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><path id="k6arc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs></svg>
-<div class="wrap" style="--nk: {{nameK}};">
-<h1 id="k6name" class="k6name">{{dj.name}}</h1>
-<div class="k6hgrid">
-<div class="k6copy">
-<p class="k6lede"><span class="vh">The photo: {{dj.alt}}. </span>{{tagLine}}</p>
-<p class="k6town"><strong>Based in {{dj.home}}.</strong></p>
-<a class="btn btn-lg ink" href="{{hrefs.request}}"><span>Request {{dj.first}}</span></a>
-</div>
-<div class="k6recwrap">
-<button type="button" class="k6rec" onClick="{{heroToggle}}" aria-label="{{recAria}}" aria-pressed="{{recPressed}}">
-<span class="k6tilt" ref="{{tiltRef}}">
+<div class="wrap a6">
+<p class="a6facts"><span>{{look.sound}}</span><i class="a6dot" aria-hidden="true"></i><span><span class="vh">Based in </span>{{dj.home}}</span><span class="vh">. {{tagLine}} The photo: {{dj.alt}}.</span></p>
+<div class="a6namebox"><h1 id="k6name" class="a6name" style="--nw: {{nameW}};"><span class="vh">{{dj.name}}</span><span aria-hidden="true"><sc-for list="{{nameLines}}" as="n" hint-placeholder-count="1"><span class="a6line">{{n.t}}</span></sc-for></span><span class="hand hand-note a6note" aria-hidden="true">{{look.note}}</span><span class="hand a6sig" aria-hidden="true">{{dj.first}}</span></h1></div>
+<sc-if value="{{isSleeve}}" hint-placeholder-val="{{ false }}">
+<button type="button" class="a6ph" onClick="{{heroToggle}}" aria-label="{{photoAria}}">
 <span class="k6vinyl" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></span><span class="k6sheen"></span></span>
-<span class="k6sleeve"><img src="{{dj.img}}" alt="" fetchpriority="high" style="object-position: {{dj.pos}};"></span>
-</span>
+<span class="a6frame"><img src="{{dj.img}}" alt="" fetchpriority="high"></span>
 </button>
-<p class="k6note" aria-live="polite">{{heroNote}}</p>
+</sc-if>
+<sc-if value="{{notSleeve}}" hint-placeholder-val="{{ true }}">
+<div class="a6ph a6still"><span class="a6frame"><img src="{{dj.img}}" alt="" fetchpriority="high"></span></div>
+</sc-if>
+<div class="a6acts">
+<a class="btn btn-lg a6req" href="{{hrefs.request}}"><span>Request {{dj.first}}</span></a>
+<sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-lg a6hear" onClick="{{heroToggle}}" aria-pressed="{{recPressed}}" aria-label="{{recAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg><span>{{hearText}}</span></button></sc-if>
 </div>
-</div>
+<p class="a6status" aria-live="polite">{{heroNote}}</p>
 </div>
 </section>
 
@@ -397,7 +510,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <h2 id="sets-h" class="h2">Hear {{dj.first}} before you&nbsp;book.</h2>
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}">
 <p class="lede">Straight from SoundCloud. Press play to listen right&nbsp;here.</p>
-<ol class="k6tracks"><sc-for list="{{songs}}" as="t" hint-placeholder-count="3"><li><button type="button" class="{{t.cls}}" onClick="{{t.toggle}}" aria-label="{{t.aria}}" aria-expanded="{{t.expanded}}"><span class="k6tid">{{t.num}}</span><span class="k6ttext"><span class="k6ttitle">{{t.title}}</span><sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}"><span class="k6tmeta">The player is open below. Press again to close&nbsp;it.</span></sc-if></span><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="{{t.icon}}" fill="currentColor"></path></svg></button><a class="k6tout" href="{{t.url}}" target="_blank" rel="noopener">Open<span class="vh">&nbsp;{{t.title}}</span> on SoundCloud<span class="vh">&nbsp;(opens in a new tab)</span></a><div class="k6emb" ref="{{t.embRef}}"></div></li></sc-for></ol>
+<ol class="k6tracks"><sc-for list="{{songs}}" as="t" hint-placeholder-count="3"><li><button type="button" class="{{t.cls}}" onClick="{{t.toggle}}" aria-label="{{t.aria}}" aria-expanded="{{t.expanded}}"><span class="k6tid">{{t.num}}</span><span class="k6ttext"><span class="k6ttitle">{{t.title}}</span><sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}"><span class="k6tmeta">The player is open below. Press again to close&nbsp;it.</span></sc-if></span><span class="k6tplay" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg></span></button><a class="btn btn-sm k6tout" href="{{t.url}}" target="_blank" rel="noopener"><span>Open<span class="vh">&nbsp;{{t.title}}</span> on SoundCloud<span class="vh">&nbsp;(opens in a new tab)</span></span></a><div class="k6emb" ref="{{t.embRef}}"></div></li></sc-for></ol>
 </sc-if>
 <sc-if value="{{noSets}}" hint-placeholder-val="{{ false }}">
 <p class="lede">Sets coming&nbsp;soon.</p>
@@ -414,7 +527,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <div class="k6aboutbody">
 <div class="k6bio"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></div>
 <sc-if value="{{hasLinks}}" hint-placeholder-val="{{ false }}">
-<ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="chip" href="{{l.url}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
+<ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="btn btn-sm" href="{{l.url}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
 </sc-if>
 </div>
 </div>
@@ -429,7 +542,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <p class="k6colnote">The price comes with the offer. These terms are the same on every BOOKD&nbsp;booking.</p>
 </div>
 <dl class="k6ledger">
-<div><dt>BOOKD booking fee</dt><dd>10%, already in the&nbsp;price</dd></div>
+<div><dt>BOOKD booking fee</dt><dd>7%, already in the&nbsp;price</dd></div>
 <div><dt>Deposit to lock the date</dt><dd>50%</dd></div>
 <div><dt>The rest</dt><dd>Within 48 hours after the&nbsp;party</dd></div>
 </dl>
@@ -444,7 +557,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <ul class="k6lines" role="list"><sc-for list="{{rider}}" as="r" hint-placeholder-count="5"><li>{{r.t}}</li></sc-for></ul>
 </sc-if>
 <sc-if value="{{hasRiderLink}}" hint-placeholder-val="{{ false }}">
-<a class="btn btn-lg ink k6riderbtn" href="{{riderLink}}" target="_blank" rel="noopener">See the rider<span class="vh">&nbsp;(opens in a new tab)</span></a>
+<a class="btn btn-lg go k6riderbtn" href="{{riderLink}}" target="_blank" rel="noopener">See the rider<span class="vh">&nbsp;(opens in a new tab)</span></a>
 </sc-if>
 </div>
 </div>
@@ -454,7 +567,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <section class="k6req k6sec" aria-labelledby="req-h">
 <div class="wrap k6reqgrid">
 <div class="k6reqcopy">
-<h2 id="req-h" class="h2">Ask about {{dj.first}}. It's&nbsp;free.</h2>
+<div class="a6askh"><h2 id="req-h" class="h2">Ask about {{dj.first}}.</h2><span class="hand hand-note a6free">it's free</span></div>
 <p class="lede">Start with the night, the place and a rough budget. You pay nothing to&nbsp;ask.</p>
 <div class="k6who"><span class="fav fav-dj" aria-hidden="true"><img src="{{dj.img}}" alt="" loading="lazy" decoding="async" style="object-position: {{dj.pos}};"></span><p><b>{{dj.name}}.</b> {{tagLine}} Based in {{dj.home}}.</p></div>
 </div>
@@ -491,13 +604,13 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <p style="margin: 0; font-size: 17px; line-height: 1.45;">BOOKD is not taking requests yet, so this did not go to {{dj.first}} or to anyone else. Here's what you put&nbsp;in:</p>
 <div class="k6sum"><sc-for list="{{sentBits}}" as="b" hint-placeholder-count="4"><span>{{b.t}}</span></sc-for></div>
 <p style="margin: 0; font-size: 17px; line-height: 1.45;">To ask about this night now, contact&nbsp;BOOKD.</p>
-<div class="k6sentacts"><a class="btn btn-lg go" href="contact.html">Contact BOOKD</a><a class="btn btn-lg ghost" href="roster.html">See the roster</a></div>
+<div class="k6sentacts"><a class="btn btn-lg go" href="contact.html">Contact BOOKD</a><a class="btn btn-lg a6grey" href="roster.html">See the roster</a></div>
 </div>
 </sc-if>
 </div>
 </div>
 <div class="wrap">
-<div class="k6notone"><p>Not the one? Meet the rest of the&nbsp;roster.</p><a class="btn btn-lg ghost" href="roster.html">See the roster</a></div>
+<div class="k6notone"><p>Not the one? Meet the rest of the&nbsp;roster.</p><a class="btn btn-lg paper" href="roster.html">See the roster</a></div>
 </div>
 </section>
 
@@ -505,7 +618,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 <aside class="{{dockCls}}" aria-label="{{dockAria}}">
 <span class="fav" aria-hidden="true"><img src="{{dj.img}}" alt="" loading="lazy" decoding="async" style="object-position: {{dj.pos}};"></span>
 <span class="k6dockt"><b>{{dj.name}}</b><span>{{dockLine}}</span></span>
-<sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}"><button type="button" class="{{dockPlayCls}}" onClick="{{heroToggle}}" aria-label="{{dockPlayAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="{{playIcon}}" fill="currentColor"></path></svg></button></sc-if>
+<sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}"><button type="button" class="{{dockPlayCls}}" onClick="{{heroToggle}}" aria-label="{{dockPlayAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg></button></sc-if>
 <a class="btn go" href="{{hrefs.request}}">Request</a>
 </aside>
 </main>
@@ -521,7 +634,7 @@ html:has(.k6hero :focus){scroll-padding-bottom:0}
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4560}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4300}}'>
 /* ROSTER:BEGIN the real roster, written from roster/djs.json. Change the facts there, not here. Nothing in it is made up: no fee and no tour dates were given, so none are shown. */
 var BOOKD_DJS = [
  {
@@ -662,9 +775,6 @@ var BOOKD_DJS = [
 /* ROSTER:END */
 // Artist6: one profile page for every artist in BOOKD_DJS. The address picks who is on it: #slug, or #slug-sets for the same artist at the sets.
 // Every fact on the page is read from BOOKD_DJS. No fee, tour date, set length or reply time is shown, because none was given.
-var K6_PLAY = 'M6 4 L16 10 L6 16 Z';
-// stop is a rounded square: pressing it takes the SoundCloud player away
-var K6_STOP = 'M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z';
 var K6_FIELDS = ['date', 'where', 'guests', 'budget', 'msg'];
 // name order, the same order as the roster. The first one shows when the address names nobody.
 var K6_DJS = BOOKD_DJS.slice().sort(function (a, b) { return String(a.name).localeCompare(String(b.name)); });
@@ -689,6 +799,13 @@ var K6_W = { ' ': 237, A: 746, B: 662, C: 740, D: 722, E: 608, F: 587, G: 750, H
   a: 580, b: 630, c: 588, d: 630, e: 596, f: 398, g: 632, h: 622, i: 271, j: 271, k: 580, l: 271, m: 912, n: 622, o: 614, p: 630, q: 630, r: 407, s: 560, t: 366, u: 622, v: 600, w: 850, x: 580, y: 602, z: 573,
   '0': 674, '1': 431, '2': 630, '3': 646, '4': 676, '5': 622, '6': 650, '7': 582, '8': 651, '9': 650, '&': 672, '.': 334, ',': 334, "'": 339, '-': 468, '!': 338, '/': 388 };
 // how wide a name sets, in ems, at a given letter spacing (a letter the table does not have counts as an average one)
+// what each artist's top says, in their own words: the sound for the facts line and one short phrase for the script note.
+// Every word is already in that artist's entry above (the tag line, or the first paragraph of the bio). An artist not listed here gets their tag line and no note.
+var K6_LOOK = {
+  'julian-gjaci': { sound: 'Afro house', note: 'hypnotic grooves' },
+  'kozlow': { sound: 'Indie house', note: 'live violin' },
+  'schloss': { sound: 'House', note: 'deep cuts', sleeve: true }
+};
 function k6Wide(str, track) {
   var t = String(str || ''), w = 0, c, i;
   for (i = 0; i < t.length; i++) { c = t.charAt(i); w += (K6_W[c] || (c !== c.toLowerCase() ? 760 : 620)) / 1000 + track; }
@@ -841,7 +958,7 @@ class Component extends DCLogic {
     };
     // crowd video: PAUSE VIDEO / PLAY VIDEO; with reduced motion it starts paused
     this.vidOff = this.reduce;
-    this.tx = 0; this.ty = 0; this.tiltRaf = 0; this.dockCompact = false;
+    this.dockCompact = false;
     this.heroVisNow = typeof IntersectionObserver === 'undefined';
     // hero: one observer drives the crowd video, the beat animations and the dock
     this.heroRef = function (el) {
@@ -859,7 +976,6 @@ class Component extends DCLogic {
       });
       self.heroIO.observe(el);
     };
-    this.tiltRef = function (el) { self.tiltEl = el; };
     this.crowdRef = function (el) { self.vidEl = el; if (el) { el.muted = true; self.syncVid(); } };
     // request card: the dock hides while the form is on screen and after you scroll past it
     this.formRef = function (el) {
@@ -958,10 +1074,9 @@ class Component extends DCLogic {
     nav6Off(this);
     if (this.heroIO) this.heroIO.disconnect();
     if (this.formIO) this.formIO.disconnect();
-    if (this.tiltRaf) cancelAnimationFrame(this.tiltRaf);
     if (this.vidEl && this.vidEl.pause) { try { this.vidEl.pause(); } catch (err) {} }
-    this.hashT = null; this.errT = null; this.errFocus = null; this.heroIO = null; this.formIO = null; this.tiltRaf = 0;
-    this.vidEl = null; this.tiltEl = null; this.heroEl = null; this.formEl = null; this.fieldEls = {}; this.embEls = [];
+    this.hashT = null; this.errT = null; this.errFocus = null; this.heroIO = null; this.formIO = null;
+    this.vidEl = null; this.heroEl = null; this.formEl = null; this.fieldEls = {}; this.embEls = [];
   }
   // crowd video: plays only while the hero is on screen and nobody paused it (it starts paused with reduced motion)
   syncVid() {
@@ -970,13 +1085,6 @@ class Component extends DCLogic {
     if (!this.vidOff && this.heroVisNow) {
       if (v.paused && v.play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     } else if (!v.paused && v.pause) v.pause();
-  }
-  // record tilt: a few degrees toward the pointer, eased by the CSS transition
-  applyTilt() {
-    var el = this.tiltEl;
-    if (!el || !el.style) return;
-    el.style.setProperty('--ry', (this.tx * 6).toFixed(2) + 'deg');
-    el.style.setProperty('--rx', (-this.ty * 4).toFixed(2) + 'deg');
   }
   // sets. Each row has an empty spot under it; one stable ref per row keeps hold of it.
   embRef(i) {
@@ -997,7 +1105,7 @@ class Component extends DCLogic {
       try {
         fr = document.createElement('iframe');
         fr.title = 'SoundCloud player: ' + st.title;
-        fr.setAttribute('allow', 'autoplay');
+        fr.setAttribute('allow', 'autoplay; encrypted-media');
         fr.setAttribute('scrolling', 'no');
         fr.src = K6_SC + encodeURIComponent(st.url) + K6_SC_OPTS;
         host.appendChild(fr);
@@ -1074,7 +1182,7 @@ class Component extends DCLogic {
       var open = on && s.playing === i;
       return {
         num: String(i + 1), title: st.title, url: st.url, open: open,
-        cls: open ? 'k6trk k6trk-on' : 'k6trk', icon: open ? K6_STOP : K6_PLAY,
+        cls: open ? 'k6trk k6trk-on' : 'k6trk',
         aria: open ? 'Close the SoundCloud player for ' + st.title : 'Play ' + st.title + ' here, from SoundCloud',
         expanded: open ? 'true' : 'false',
         toggle: function () { self.toggleSet(i, false); },
@@ -1092,14 +1200,15 @@ class Component extends DCLogic {
       .map(function (x) { return String(x || '').trim(); })
       .filter(function (x) { return !!x; })
       .map(function (x) { return { t: x }; });
-    // phones and tablets have no hover, so the note says Tap there and Click with a mouse
-    var tap = typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(hover: none)').matches;
-    var heroNote = !hasSets ? 'Sets coming\u00a0soon.'
-      : live ? 'In the SoundCloud player below: ' + live.title + '.'
-      : s.outside ? 'Opened on SoundCloud in a new\u00a0tab.'
-      : (tap ? 'Tap' : 'Click') + ' the record to hear\u00a0' + dj.first + '.';
-    // the name is sized to span the hero the way the seven letter name the design was drawn for did (3.35em wide at the hero's letter spacing)
-    var nameK = Math.min(1, 3.35 / k6Wide(dj.name, -0.075));
+    // the line under the buttons, in small capitals: it only speaks when there is something to say
+    var heroNote = !hasSets ? 'Sets coming soon'
+      : live ? 'Playing below: ' + live.title
+      : s.outside ? 'Opened on SoundCloud in a new tab'
+      : '';
+    // the name: one line per word, in capitals. nameW is how wide the longest line sets, in ems, at the name's letter spacing; the page sizes the name from it so it always fills its box
+    var look = K6_LOOK[dj.slug] || { sound: dj.tag, note: '' };
+    var nameLines = String(dj.name).split(/\s+/).filter(function (w) { return !!w; });
+    var nameW = Math.max.apply(null, nameLines.map(function (w) { return k6Wide(w.toUpperCase(), -0.055); }));
     // the record label: the same idea, 34 units wide at most on the 200 unit disc
     var lblSize = Math.min(9.5, 34 / k6Wide(dj.name, -0.042));
     // the rider: the artist's own lines if they sent any, else a link to the full rider, else their note
@@ -1118,28 +1227,16 @@ class Component extends DCLogic {
       ids: { sets: dj.slug + '-sets', about: dj.slug + '-about', needs: dj.slug + '-needs', request: dj.slug + '-request' },
       hrefs: { request: '#' + dj.slug + '-request' },
       // hero
-      nameK: nameK.toFixed(3),
+      look: look, nameW: nameW.toFixed(3), nameLines: nameLines.map(function (w) { return { t: w }; }),
+      hearText: on ? 'Stop' : 'Hear a set', isSleeve: !!look.sleeve, notSleeve: !look.sleeve,
+      photoAria: !hasSets ? 'Go to the sets section' : on ? 'Close the SoundCloud player' : 'Play ' + cur.title + ' from SoundCloud',
       // name and ring are one item lists so the words land in the drawing as plain text
       lbl: {
         name: [dj.name], size: lblSize.toFixed(2), track: (-0.042 * lblSize).toFixed(2),
         ring: ['BOOKD RECORDS \u00b7 ' + String(dj.home).toUpperCase() + ' \u00b7 DJS FOR PRIVATE PARTIES \u00b7 BEST PLAYED LOUD \u00b7 ']
       },
       heroCls: 'k6hero' + (on ? ' k6live' : '') + (on && s.heroVis && !this.reduce ? ' k6anim' : ''),
-      heroRef: this.heroRef, tiltRef: this.tiltRef, crowdRef: this.crowdRef,
-      toggleVid: function () { self.vidOff = !self.vidOff; self.setState({ vidPaused: self.vidOff }); self.syncVid(); },
-      vidLabel: s.vidPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
-      tiltMove: function (e) {
-        if (self.reduce || !e || e.pointerType !== 'mouse' || !self.heroEl) return;
-        var r = self.heroEl.getBoundingClientRect();
-        if (!r || !r.width || !r.height) return;
-        self.tx = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / r.width - 0.5));
-        self.ty = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top) / r.height - 0.5));
-        if (!self.tiltRaf) self.tiltRaf = requestAnimationFrame(function () { self.tiltRaf = 0; self.applyTilt(); });
-      },
-      tiltLeave: function () {
-        self.tx = 0; self.ty = 0;
-        if (!self.tiltRaf) self.tiltRaf = requestAnimationFrame(function () { self.tiltRaf = 0; self.applyTilt(); });
-      },
+      heroRef: this.heroRef, crowdRef: this.crowdRef,
       // the record (hero, big record, dock): opens the set that is up next and brings its player into view, or closes the open one.
       // An artist with no sets yet: the hero record goes to the sets section, where the link out is.
       heroToggle: function () {
@@ -1147,7 +1244,6 @@ class Component extends DCLogic {
         if (!d || !d.sets || !d.sets.length) { self.goPart('sets'); return; }
         self.toggleSet(self.state.playing !== null ? self.state.playing : self.state.cur, true);
       },
-      playIcon: on ? K6_STOP : K6_PLAY,
       recAria: !hasSets ? 'Go to the sets section' : on ? 'Close the SoundCloud player' : 'Play ' + cur.title + ' from SoundCloud',
       recPressed: hasSets ? (on ? 'true' : 'false') : undefined,
       bigCls: 'k6big' + (on && !this.reduce ? ' k6spin' : ''),

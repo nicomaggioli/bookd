@@ -590,3 +590,17 @@
     }
   };
 })();
+
+// The waitlist page: add an email to the pre launch list. The public can only add; nobody but the admin reads it.
+(function () {
+  var B = window.BOOKD; if (!B || !B.ready) return;
+  var _ = B._, sb = _.sb;
+  B.waitlist = {
+    // o: email, who ('host' or 'dj'). Joining twice is fine and looks the same as joining once.
+    join: function (o) {
+      return _.guard(sb.rpc('join_waitlist', { p_email: _.clip(o && o.email, 200), p_who: o && o.who === 'dj' ? 'dj' : 'host' }).then(function (r) {
+        return _.bad(r) || { ok: true };
+      }));
+    }
+  };
+})();

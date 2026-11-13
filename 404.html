@@ -45,7 +45,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=La+Belle+Aurore&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -84,7 +84,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .nlc{display:inline-flex;align-items:center;gap:8px}
 .navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
 .navend{justify-self:end;display:flex;align-items:center;gap:18px}
-.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+.navmenu{display:none;background:#ffffff;border:0;border-radius:999px;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
 /* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
 #mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
 #mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
@@ -105,7 +105,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:1100px){.nav6-in .navbook{display:none}}
 /* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
 @media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
-@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{background:#d31110;color:#ffffff}}
 /* ===== end nav shell ===== */
 html{scroll-padding-top:88px}
 /* buttons, chips, fields, cards */
@@ -150,8 +150,6 @@ html{scroll-padding-top:88px}
 /* Nov 6: the crowd is gone, so the room closes up under the buttons (Contact's bottom padding) instead of keeping an empty red band */
 .nf{position:relative;isolation:isolate;overflow:hidden;background:#d31110;color:#fffde9;display:flex;flex-direction:column;box-sizing:border-box}
 .nf :focus-visible{outline-color:#ffffff}
-.nf-room{position:absolute;inset:0 -60%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse 24.5% 66% at 40.9% 40%,#ff3b2f 0%,rgba(255,59,47,0) 72%);animation:nfsway 7s ease-in-out infinite alternate}
-@keyframes nfsway{from{transform:translateX(-3.64%)}to{transform:translateX(17.27%)}}
 .nf-in{position:relative;z-index:2;flex:1 0 auto;width:100%;padding-top:clamp(20px,calc(3 * var(--vw)),40px);padding-bottom:clamp(64px,calc(7 * var(--vw)),112px)}
 .nf-h{margin:0 0 0 -0.04em;font-size:clamp(84px,calc(15.2 * var(--vw)),219px);line-height:.84;font-weight:700;letter-spacing:-0.075em;padding-bottom:.06em}
 .nf-num{display:block;color:#000000}
@@ -159,24 +157,49 @@ html{scroll-padding-top:88px}
 .nf-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:20px 56px;margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
 .nf-p{margin:0;flex:0 1 25em;font-size:clamp(20px,calc(1.9 * var(--vw)),27px);line-height:1.2;letter-spacing:-0.025em;font-weight:700;color:#ffffff}
 .nf-acts{display:flex;flex-wrap:wrap;gap:10px}
-@media (hover: hover) and (pointer: fine){.nf .ink:hover{background:#ffffff;color:#000000}.nf .ghost:hover{background:#ffffff;color:#000000;box-shadow:none}}
+@media (hover: hover) and (pointer: fine){.nf .ink:hover{background:#ffffff;color:#000000}.nf .paper:hover{background:#000000;color:#ffffff}}
+.nf .btn{transition:background .15s ease-out,color .15s ease-out}
 @media (max-width:760px){.nf-h{font-size:clamp(84px,calc(27 * var(--vw)),200px)}.nf-wrong span{display:block}.nf-row{margin-top:clamp(20px,calc(4 * var(--vw)),32px)}}
 @media (max-width:1024px) and (orientation:portrait){.nf-h{font-size:clamp(84px,calc(27 * var(--vw)),200px)}.nf-wrong span{display:block}.nf-row{margin-top:clamp(20px,calc(4 * var(--vw)),32px)}}
 @media (max-width:480px){.nf-acts,.nf-acts .btn{width:100%}}
-@media (prefers-reduced-motion: reduce){.nf-room{animation:none}}
 </style>
 <style>/* phones skip the decks (Nov 4) */
 @media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
 </style>
 <style>/* QA pass Nov 6 */
-/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row (Nov 11; they were 2 by 2). flex-basis keeps the row on its own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
 /* Site-2: every footer link is at least 44px wide (Terms was 43px) */
 .footrow a{min-width:44px}
 /* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
 .navgrid{box-sizing:border-box}
 /* Site-9: fields use the field radius token, 14px (they were 18px) */
 .field{border-radius:var(--r-field)}
+</style>
+<style>/* Nov 12: text is Inter again (Nico). Handwriting (.hand) is an accent, used only where a note calls for it. This page loads Inter and the note script (La Belle Aurore) only. The typewriter font belongs to the TV screens in the homepage footer, so the .type rule is gone from this page. */
+.hand{font-family:'La Belle Aurore','Bradley Hand',cursive !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
+.plain,.plain p,.plain li{font-family:'Inter',Helvetica,Arial,sans-serif}
+</style>
+<style>/* Nov 12, design pass: the handwritten note under the headline */
+/* Handwritten note. The same rule on every page that has one: one size, one tilt, directly under its headline and left aligned with it. */
+.hand-note{display:block;font-size:clamp(32px,calc(3.4 * var(--vw,1vw)),52px);line-height:.95;transform:rotate(-3deg);transform-origin:0 50%;margin-top:6px}
+/* Black here, because the room is red. fit-content keeps the tilted box as wide as its words, so it does not sweep across the headline. */
+.nf .hand-note{color:#000000;width:fit-content}
+/* Stacked headline (phones and upright tablets): "party." is the last line and its p hangs below the headline box, right above the note.
+   The note's top margin grows with the headline, 6px on a 390px phone up to 15px on a tablet, so the p always clears the note by about 6px (at a flat 6px they touch from about 650px wide). */
+@media (max-width:760px),(max-width:1024px) and (orientation:portrait){.nf .hand-note{margin-top:clamp(6px,calc(2.54 * var(--vw) - 4px),15px)}}
+</style>
+<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
+span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Bradley Hand',cursive !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
+#artists span.hand.hand-note,.jh span.hand.hand-note,.nf span.hand.hand-note{color:#000000 !important}
+.k6note.hand{font-size:clamp(30px,calc(3 * var(--vw,1vw)),44px) !important;margin-top:0 !important}
+</style>
+<style>/* Nov 12, last check pass. Notes: on a phone a note may wrap rather than run off the screen, and every note takes one phone size. The only handwriting here is the note, so the page loads the note's script and no second handwriting font. */
+@media (max-width:640px){span.hand.hand-note{white-space:normal;max-width:100%}}
+/* one size for every note on a phone: the size at which the longest one (every message gets read, on Contact) still fits the column on one line. 40px again from 460px wide */
+@media (max-width:460px){span.hand.hand-note{font-size:calc(8.7 * var(--vw,1vw)) !important}}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -209,14 +232,14 @@ html{scroll-padding-top:88px}
 </header>
 <main id="main" style="flex: 1 1 auto;">
 <section class="nf" aria-labelledby="nf-h">
-<span class="nf-room" aria-hidden="true"></span>
 <div class="wrap nf-in">
 <h1 id="nf-h" class="nf-h"><span class="nf-num">404.</span><span class="nf-wrong"><span>Wrong </span><span>party.</span></span></h1>
+<span class="hand hand-note" aria-hidden="true">wrong door</span>
 <div class="nf-row">
 <p class="nf-p">There are 404 people in this room and not one of them invited you. Grab a snack and head for the&nbsp;door.</p>
 <div class="nf-acts">
 <a class="btn btn-lg ink" href="index.html">Take me home</a>
-<a class="btn btn-lg ghost" href="roster.html">See the roster</a>
+<a class="btn btn-lg paper" href="roster.html">See the roster</a>
 </div>
 </div>
 </div>

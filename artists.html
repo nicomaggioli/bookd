@@ -48,7 +48,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=La+Belle+Aurore&amp;display=swap">
 <style>
 /* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
    --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
@@ -181,6 +181,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .jp-card img{display:block;width:100%;height:auto}
 .jp-sheen{position:absolute;inset:0;pointer-events:none;-webkit-mask:url(assets/da7e0978b50e9cdb278c918fe5e02310.webp) center/100% 100% no-repeat;mask:url(assets/da7e0978b50e9cdb278c918fe5e02310.webp) center/100% 100% no-repeat;background:linear-gradient(120deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 66%,rgba(255,255,255,.06) 100%)}
 @media (hover: hover) and (pointer: fine){.jh .ink:hover{background:#ffffff;color:#000000}}
+/* Nov 12 night check: on a short laptop window (1280 by 720) the Join the roster pill sat on the fold. The headline follows the window height there and the hero is exactly one screen. */
+@media (min-width:961px) and (max-height:800px){.jh-grid{min-height:calc(calc(100 * var(--vh)) - 68px)}.jh-copy{padding:40px 0;gap:24px}.jh-h1{font-size:clamp(62px,min(calc(12.2 * var(--vw)),calc(18 * var(--vh))),176px)}}
 @media (max-width:760px){
   .jh-grid{grid-template-columns:minmax(0,1fr);min-height:0;gap:0}
   .jh-stage{--pw:clamp(180px,calc(52 * var(--vw)),190px);order:-1;justify-self:center;margin:0;padding-bottom:0}
@@ -281,8 +283,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:480px){.ja-done-acts .btn{flex:1 1 100%}}
 /* after a failed send, the first field to fix scrolls in with the card edge and its heading clear of the nav, not jammed under it */
 .ja-f{scroll-margin-top:20px}
-/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row (Nov 11; they were 2 by 2). flex-basis keeps the row on its own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
 /* Site-2: every footer link is at least 44px wide (Terms was 43px) */
 .footrow a{min-width:44px}
 /* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
@@ -291,6 +293,53 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .field{border-radius:var(--r-field)}
 /* Site-10: the application card takes the card token, 20px, at every width (it was 30px, and 24px under 640px) */
 .ja-card{border-radius:var(--r-card)}
+</style>
+<style>/* Nov 12: text is Inter again (Nico). Handwriting (.hand) is an accent, used only where a note calls for it. This page loads Inter and the note script (La Belle Aurore) only. The typewriter font belongs to the TV screens in the homepage footer, so the .type rule is gone from this page. */
+.hand{font-family:'La Belle Aurore','Bradley Hand',cursive !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
+.plain,.plain p,.plain li{font-family:'Inter',Helvetica,Arial,sans-serif}
+</style>
+<style>/* Nov 12, design pass: the handwritten note, the open soon line, the strap wordmark */
+/* Handwritten note. The same rule on every page that has one: one size, one tilt, directly under its headline and left aligned with it. */
+.hand-note{display:block;font-size:clamp(32px,calc(3.4 * var(--vw,1vw)),52px);line-height:.95;transform:rotate(-3deg);transform-origin:0 50%;margin-top:6px}
+/* Black here, because the hero is red. fit-content keeps the tilted box as wide as its words, so it does not sweep across the headline.
+   The note sits in .jh-head with the h1, as one group: the 30px gap of .jh-copy stays between that group and the lede, not between the headline and its note. */
+.jh .hand-note{color:#000000;width:fit-content}
+/* up to 900px wide the f of free came within 3 to 4px of the headline; 10px keeps 7 to 9px of air there, like the other notes */
+@media (max-width:900px){.jh .hand-note{margin-top:10px}}
+/* on phones the pass hangs above the headline and its drop shadow was painted over the words Put your, greying the white letters. The copy is drawn above the pass, so the shadow stays behind the words. */
+.jh-copy{position:relative;z-index:1}
+/* "Applications open soon" is the Send button's caption: directly under it and centred, as on the log in and artist pages (it was left aligned, two lines down) */
+.ja-soon{margin:0 8px;text-align:center}
+/* Between 761px and about 1270px wide the strap gets shorter but its wordmark stayed 96px long, so BOOKD. ran into the stitching.
+   The wordmark now scales with the strap. From 1440px up it is the same 96px, with the same 62px above and below. */
+.jp-strap svg{width:clamp(75px,calc(6.667 * var(--vw)),96px);margin:clamp(50px,calc(4.306 * var(--vw)),62px) 0}
+</style>
+<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
+span.hand.hand-note,.k6note.hand{font-family:'La Belle Aurore','Bradley Hand',cursive !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
+#artists span.hand.hand-note,.jh span.hand.hand-note,.nf span.hand.hand-note{color:#000000 !important}
+.k6note.hand{font-size:clamp(30px,calc(3 * var(--vw,1vw)),44px) !important;margin-top:0 !important}
+</style>
+<style>/* Nov 12, last check pass. Notes: on a phone a note may wrap rather than run off the screen, and every note takes one phone size. The only handwriting here is the note, so the page loads the note's script and no second handwriting font. */
+@media (max-width:640px){span.hand.hand-note{white-space:normal;max-width:100%}}
+/* one size for every note on a phone: the size at which the longest one (every message gets read, on Contact) still fits the column on one line. 40px again from 460px wide */
+@media (max-width:460px){span.hand.hand-note{font-size:calc(8.7 * var(--vw,1vw)) !important}}
+</style>
+<style>/* Nov 12, night check before the showing: the look rules (flat pills with no rings, no shadow on type, hovers that show on their own background) and finger sizes */
+/* the bar: Menu is a flat white pill (it had a 1px ring), and each link in the bar is 44px tall for fingers on a tablet (they were 39px). The bar itself stays 68px tall */
+.navmenu{border:0;background:#ffffff;color:#000000}
+.nl{padding:13px 4px;line-height:18px}
+#mnav .nl{line-height:normal}
+@media (hover:hover) and (pointer:fine){.navmenu:hover{background:#d31110;color:#ffffff}}
+.chip{border:0}
+/* touch screens: the text links (terms, Log in, privacy policy) get a 44px tall tap area without moving a word, and the two closing lines sit far enough apart that the areas do not overlap */
+@media (max-width:1024px){
+  .jq-list a,.ja-login a,.ja-fine a{position:relative}
+  .jq-list a::after,.ja-login a::after,.ja-fine a::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
+  .ja-login{margin-top:16px}
+  .ja-fine:not(.ja-soon){margin-top:24px}
+}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -322,11 +371,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </sc-if>
 </header>
 <main id="main" style="flex: 1 1 auto;">
-<!-- HERO: the pass. It hangs from the nav, sways a few degrees with the pointer and the scroll, and turns over on a tap. -->
+<!-- HERO: the pass. It hangs from the nav, swings in once and sways a few degrees with the scroll. It does not follow the pointer. -->
 <section class="jh" aria-labelledby="jh-h" ref="{{heroRef}}" onPointerMove="{{hangMove}}" onPointerLeave="{{hangLeave}}">
 <div class="wrap jh-grid">
 <div class="jh-copy">
-<h1 id="jh-h" class="h1 jh-h1">Put your name on the&nbsp;roster.</h1>
+<div class="jh-head"><h1 id="jh-h" class="h1 jh-h1">Put your name on the&nbsp;roster.</h1><span class="hand hand-note" aria-hidden="true">joining is free</span></div>
 <p class="lede jh-lede">Hosts want a DJ who's already in town that weekend. If you're touring, that's you. Same flights, more&nbsp;nights.</p>
 <a class="btn btn-lg ink" href="#apply">{{heroCta}}</a>
 </div>
@@ -360,7 +409,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="jd-col">
 <div class="jd-colhead">
 <h2 class="h2 jd-h">Joining is&nbsp;free.</h2>
-<p class="jd-price">10%</p>
+<p class="jd-price">7%</p>
 <p class="jd-note">That's what BOOKD keeps, and only when you get&nbsp;booked.</p>
 </div>
 <dl class="jd-ledger">
@@ -380,7 +429,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="wrap">
 <dl class="jq-list">
 <div><dt>Can my agent handle&nbsp;it?</dt><dd>Yes. Requests go to you both, and agents log in on the DJ side. Whoever's awake&nbsp;answers.</dd></div>
-<div><dt>Who sets the&nbsp;price?</dt><dd>You do. Hosts see your fee range before they&nbsp;ask.</dd></div>
+<div><dt>Who sets the&nbsp;price?</dt><dd>You do. You send the price with your&nbsp;offer.</dd></div>
 <div><dt>What if a host&nbsp;cancels?</dt><dd>14 days out or more, they get the deposit back. 7 to 13 days, you keep half. Inside 7 days, you keep all of it. The long version is in the <a href="terms.html#t-cancel">terms</a>.</dd></div>
 </dl>
 </div>
@@ -404,16 +453,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <label class="field"><span class="field-l">Home city</span><input type="text" value="{{ap.city}}" onInput="{{apSet.city}}" autocomplete="address-level2" placeholder="Atlanta, GA"></label>
 <label class="field"><span class="field-l">Where you're playing next</span><input type="text" value="{{ap.next}}" onInput="{{apSet.next}}" placeholder="New York, Nov 13 to 15"></label>
 <label class="field ja-wide"><span class="field-l">Fee range</span><input type="text" value="{{ap.fee}}" onInput="{{apSet.fee}}" placeholder="Like $1,000 to $2,500"></label>
-<div class="ja-send"><sc-if value="{{apFailOn}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{apFailText}}</span></sc-if><button type="button" class="btn btn-lg go" aria-busy="{{apBusy}}" onClick="{{sendApply}}">{{apLabel}}</button></div>
+<div class="ja-send"><sc-if value="{{apFailOn}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{apFailText}}</span></sc-if><button type="button" class="btn btn-lg go" aria-busy="{{apBusy}}" onClick="{{sendApply}}">{{apLabel}}</button><sc-if value="{{apSoonNote}}" hint-placeholder-val="{{ false }}"><p class="ja-fine ja-soon">Applications open soon. Nothing gets sent&nbsp;yet.</p></sc-if></div>
 <p class="ja-login">Already on the roster? <a href="login.html#dj">Log&nbsp;in</a></p>
 <p class="ja-fine">Sending this means you agree to the <a href="terms.html#terms">terms</a> and the <a href="terms.html#privacy">privacy&nbsp;policy</a>.</p>
 </div>
 </sc-if>
 <sc-if value="{{applied}}" hint-placeholder-val="{{ false }}">
 <div class="ja-done" role="status" tabindex="-1" ref="{{apDoneRef}}">
-<p class="ja-done-h">Got it, {{apName}}.</p>
-<p class="ja-done-p">The BOOKD team listens to every set and replies within 5 days. Keep an eye on {{apEmail}}.</p>
-<div class="ja-done-acts"><a class="btn btn-lg go" href="roster.html">See the roster</a></div>
+<p class="ja-done-h">{{apDoneHead}}</p>
+<p class="ja-done-p">{{apDoneText}}</p>
+<div class="ja-done-acts"><sc-if value="{{apSoon}}" hint-placeholder-val="{{ false }}"><a class="btn btn-lg ink ja-ig" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Message BOOKD on Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if><a class="btn btn-lg go" href="roster.html">See the roster</a></div>
 </div>
 </sc-if>
 </div>
@@ -436,6 +485,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 /* Join6: For artists. Sample tour and the application. Dates are samples.
    On the canvas and in the preview the application goes nowhere. On the live site (window.BOOKD.ready) it is saved for the BOOKD team through bookd-api.js. */
 // What to say when a real send does not go through. The form keeps everything that was typed.
+// The built site says demo: false in bookd-config.js. While no backend is connected a form must never say it sent something:
+// it says so up front and again after the press. The canvas has no config, so it keeps the mockup.
+function jnSoon() {
+  var w = typeof window !== 'undefined' ? window : null, c = w ? w.BOOKD_CONFIG : null;
+  return !!(c && c.demo === false) && !(w.BOOKD && w.BOOKD.ready);
+}
 function jnFail(code) {
   if (code === 'rate') return 'Too many tries in a row. Give it a minute and try\u00a0again.';
   if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
@@ -587,7 +642,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     var self = this;
-    this.state = { tourOn: false, ap: { name: '', email: '', links: '', city: '', next: '', fee: '' }, apErr: false, applied: false, apBusy: false, apFail: '' };
+    this.state = { tourOn: false, ap: { name: '', email: '', links: '', city: '', next: '', fee: '' }, apErr: false, applied: false, apSoon: false, apBusy: false, apFail: '' };
     this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     /* the pass: a damped spring. It only runs while it is moving and the hero is on screen. a = angle, v = speed, t = target, all in degrees. */
     this.sw = { a: this.reduce ? 0 : -6, v: 0, t: 0 };
@@ -708,7 +763,7 @@ class Component extends DCLogic {
       return;
     }
     var api = typeof window !== 'undefined' && window.BOOKD && window.BOOKD.ready ? window.BOOKD.apply : null, a = this.state.ap;
-    if (!api) { this.apFocus = true; this.setState({ applied: true, apErr: false }); return; }
+    if (!api) { this.apFocus = true; this.setState({ applied: true, apErr: false, apSoon: jnSoon() }); return; }
     if (this.state.apBusy) return;
     this.setState({ apBusy: true, apFail: '', apErr: false });
     api.send({ name: a.name, email: a.email, links: a.links, city: a.city, next: a.next, fee: a.fee }).then(function (r) {
@@ -730,13 +785,9 @@ class Component extends DCLogic {
     return Object.assign({
       /* hero pass */
       heroRef: this.heroRef, hangRef: this.hangRef,
-      hangMove: function (e) {
-        if (self.reduce || (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen')) return;
-        var w = window.innerWidth || 1440, st, r;
-        if (self.cx == null) { st = self.hangEl && self.hangEl.parentNode; r = st && st.getBoundingClientRect ? st.getBoundingClientRect() : null; self.cx = r ? r.left + r.width / 2 : w / 2; }
-        self.sw.t = jnClamp((self.cx - e.clientX) / Math.max(320, w / 2) * 3, -3, 3); self.kick();
-      },
-      hangLeave: function () { self.cx = null; self.sw.t = 0; self.kick(); },
+      /* Nov 12: nothing follows the cursor (Nico). The pass swings in once when the page opens and sways a little with the scroll; the pointer no longer steers it. */
+      hangMove: function () {},
+      hangLeave: function () {},
       applied: !!s.applied,
       /* tour */
       tourRef: this.tourRef, tourRows: tourRows,
@@ -744,13 +795,16 @@ class Component extends DCLogic {
       showBooked: function () { self.setTour(false); }, showBookd: function () { self.setTour(true); },
       tourSum: s.tourOn ? 'Four more nights, four more paydays. Zero extra\u00a0flights.' : "Three gigs and four empty nights in other people's cities.",
       /* apply: once sent, the hero button and the heading stop asking */
-      heroCta: s.applied ? 'See my application' : 'Join the roster',
-      applyHead: s.applied ? 'Now we\u00a0listen.' : 'Send us 2\u00a0or\u00a03\u00a0sets.',
+      heroCta: s.applied && !s.apSoon ? 'See my application' : 'Join the roster',
+      applyHead: s.applied && !s.apSoon ? 'Now we\u00a0listen.' : 'Send us 2\u00a0or\u00a03\u00a0sets.',
       formOn: !s.applied, ap: ap, apSet: apSet, apInv: apInv, apErrOn: apErrOn, apRef: this.apRef,
       sendApply: function () { self.sendApply(); },
       apLabel: s.apBusy ? 'One sec' : 'Send for review', apBusy: s.apBusy ? 'true' : 'false', apFailOn: !!s.apFail && !s.applied, apFailText: s.apFail ? jnFail(s.apFail) : '',
       apKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); self.sendApply(); } },
-      apDoneRef: this.apDoneRef, apName: name || 'friend', apEmail: ap.email.trim()
+      apDoneRef: this.apDoneRef, apName: name || 'friend', apEmail: ap.email.trim(),
+      apSoon: !!s.apSoon, apSoonNote: jnSoon(),
+      apDoneHead: s.apSoon ? 'Nothing was\u00a0sent.' : 'Got it, ' + (name || 'friend') + '.',
+      apDoneText: s.apSoon ? "Applications aren't open yet, so this didn't go anywhere. Keep your set links handy. For now, message BOOKD on\u00a0Instagram." : 'The BOOKD team listens to every set and replies within 5 days. Keep an eye on ' + ap.email.trim() + '.'
     }, nav6Vals(this, { curJoin: 'page', loginHref: 'login.html#dj' }));
   }
 }

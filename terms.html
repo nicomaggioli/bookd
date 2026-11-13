@@ -73,7 +73,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .nlc{display:inline-flex;align-items:center;gap:8px}
 .navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
 .navend{justify-self:end;display:flex;align-items:center;gap:18px}
-.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+.navmenu{display:none;background:#ffffff;border:0;border-radius:999px;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
 /* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
 #mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
 #mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
@@ -94,7 +94,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:1100px){.nav6-in .navbook{display:none}}
 /* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
 @media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
-@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{background:#d31110;color:#ffffff}}
 /* ===== end nav shell ===== */
 /* buttons, chips, fields, cards */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
@@ -148,23 +148,12 @@ html{scroll-padding-top:68px}
 .lgl-top{position:relative;overflow:hidden;box-sizing:border-box;display:flex;align-items:flex-end;min-height:clamp(560px,calc(calc(100 * var(--svh)) - 68px),880px);padding:104px 0 clamp(40px,calc(5 * var(--vw)),72px);background:#000000}
 .lgl-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .lgl-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#000000}
-.lgl-scrim{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 42%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.92)),linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 55%)}
+.lgl-scrim{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 42%,rgba(0,0,0,.62) 62%,rgba(0,0,0,.92)),linear-gradient(90deg,rgba(0,0,0,.5),rgba(0,0,0,0) 60%)}
 .lgl-head{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:22px;min-width:0}
-.lgl-head .h1,.lgl-head .lede,.lgl-cap{text-shadow:0 1px 2px rgba(0,0,0,.45),0 2px 30px rgba(0,0,0,.45)}
 .lgl-cap{margin:0;font-size:15px;line-height:1.45;color:#a2a5a4}
 @media (max-width:1044px){.lgl-scrim{background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.5) 28%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.8) 72%,rgba(0,0,0,.92))}}
 .lgl-h1{font-size:clamp(60px,calc(9.6 * var(--vw)),140px);line-height:.86;letter-spacing:-0.07em}
 .lgl-head .ph{color:#ff3b2f}
-/* a clip off the digicam: black and white with a little grain, straight and square, no flash oval (moving footage under a fixed hotspot left a grey disc). Tap it, or the toggle under the caption, to pause. */
-.lgl-reel{justify-self:center;width:100%;max-width:440px}
-.lgl-fig{margin:0}
-.lgl-reelbtn{display:block;width:100%;padding:0;border:0;background:none;color:inherit;cursor:pointer}
-.lgl-clip{aspect-ratio:4 / 3}
-.lgl-clip video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%;filter:grayscale(1) contrast(1.12)}
-.lgl-clip .dgrain{opacity:.18}
-.lgl-reel figcaption{margin-top:12px;font-size:15px;line-height:1.45;color:#a2a5a4}
-/* the same quiet PAUSE VIDEO / PLAY VIDEO words as the Home6 hero */
-.lgl-reeltoggle{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;padding:0;border:0;background:none;color:rgba(255,255,255,.75);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;cursor:pointer}
 /* the short version: a plain list on red, same rows as Kaytran's dates */
 .lgl-short{background:#d31110;color:#ffffff;padding:clamp(64px,calc(8 * var(--vw)),110px) 0}
 .lgl-short :focus-visible{outline-color:#ffffff}
@@ -208,7 +197,7 @@ html{scroll-padding-top:68px}
 .lgl-mail{padding-top:6px}
 .lgl-end{display:flex;flex-direction:column;align-items:flex-start;gap:24px;padding-top:clamp(64px,calc(8 * var(--vw)),110px);padding-bottom:clamp(8px,calc(2 * var(--vw)),24px)}
 .lgl-endline{margin:0;max-width:13em;font-size:clamp(36px,calc(5 * var(--vw)),72px);line-height:.95;font-weight:700;letter-spacing:-0.06em;text-wrap:balance}
-@media (hover: hover) and (pointer: fine){.lgl-reeltoggle:hover{color:#ffffff}.lgl-pill:hover{color:#d31110}.lgl-more:hover{color:#d31110}.lgl-long .go:hover{background:#000000;color:#ffffff}}
+@media (hover: hover) and (pointer: fine){.lgl-pill:hover{color:#d31110}.lgl-more:hover{background:#000000;color:#ffffff}.lgl-long .go:hover{background:#000000;color:#ffffff}}
 @media (max-width:1100px){
 .lgl-body{grid-template-columns:minmax(0,1fr)}
 .lgl-doc{max-width:none}
@@ -216,7 +205,7 @@ html{scroll-padding-top:68px}
 .lgl-big{min-height:44px;margin-top:0}
 .lgl-sub{min-height:40px}
 .lgl-toc:not(.lgl-open) .lgl-sub{display:none}
-.lgl-more{display:inline-flex;align-items:center;min-height:44px;padding:0;border:0;background:transparent;color:#000000;font:700 15px 'Inter',sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.lgl-more{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 15px 'Inter',sans-serif;cursor:pointer;transition:background .15s ease-out,color .15s ease-out}
 .lgl-open .lgl-p-terms{order:1}.lgl-open::after{content:"";flex-basis:100%;order:2}.lgl-open .lgl-p-privacy{order:3}.lgl-open .lgl-more{order:4}
 }
 /* one column hero up to 900, so the title never runs under the clip, and the clip starts on the text edge */
@@ -233,14 +222,18 @@ html{scroll-padding-top:68px}
 /* one column widths (phones, touch tablets): with All sections open every section link is a full 44px tap target; they were 40px tall and Kids was 31px wide.
    7px of padding each side, cancelled by -7px margins, widens each tap box (Kids 45px) while the words keep their 20px gaps, their wrapping and their left edge */
 @media (max-width:1100px){.lgl-sub{min-height:44px;min-width:44px;justify-content:center;padding:0 7px;margin:0 -7px}}
-/* Site-2: phones hide Take the decks, so the four footer links sit 2 by 2 like the Home footer (Instagram and Contact, then Terms and Privacy) instead of 3 and 1. flex-basis keeps them on their own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(2,max-content);gap:0 16px;flex-basis:100%}}
+/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row (Nov 11; they were 2 by 2). flex-basis keeps the row on its own line under the copyright up to 480px */
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
 /* Site-2: every footer link is at least 44px wide (Terms was 43px) */
 .footrow a{min-width:44px}
 /* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
 .navgrid{box-sizing:border-box}
 /* Site-9: fields use the field radius token, 14px (they were 18px) */
 .field{border-radius:var(--r-field)}
+</style>
+<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
 </style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
@@ -275,14 +268,14 @@ html{scroll-padding-top:68px}
 <!-- top: the title, and a clip from the night -->
 <section class="lgl-top" aria-labelledby="lgl-h">
 <div class="lgl-bg" aria-hidden="true">
-<video class="lgl-vid" ref="{{reelRef}}" src="assets/7657d0ca3fb3da837431490c61ef7c68.mp4" poster="assets/1299c2db359fcff26688b123d16ba3d6.jpg" muted="" loop="" playsinline="" preload="metadata"></video>
+<video class="lgl-vid" ref="{{reelRef}}" src="assets/41e45df347a4f938d572280e55fde1bd.mp4" poster="assets/62482694080a7cdf4882c52b5d6bd63d.jpg" muted="" loop="" playsinline="" preload="metadata"></video>
 <div class="lgl-scrim"></div>
 </div>
 <div class="wrap lgl-head">
 <h1 id="lgl-h" class="h1 lgl-h1">The rules of the&nbsp;party.</h1>
 <p class="lede">Terms and privacy, on one page, in plain&nbsp;words.</p>
 <p class="lgl-cap">Everyone in this video read the terms.&nbsp;Probably.</p>
-<button type="button" class="lgl-reeltoggle" onClick="{{toggleReel}}" aria-label="{{reelLabel}}">{{reelText}}</button>
+
 </div>
 </section>
 
@@ -292,7 +285,7 @@ html{scroll-padding-top:68px}
 <h2 id="short-h" class="h2">The short&nbsp;version.</h2>
 <ol class="lgl-list" role="list">
 <li>BOOKD is where hosts look for a DJ who's already in town and book them in one chat. BOOKD LLC runs&nbsp;it.</li>
-<li>Hosts pay a 50% deposit to lock the date and the rest within 48 hours after the party. Offers already include a 10% booking fee, and that's what BOOKD keeps. The DJ gets the other&nbsp;90%.</li>
+<li>Hosts pay a 50% deposit to lock the date and the rest within 48 hours after the party. Offers already include a 7% booking fee, and that's what BOOKD keeps. The DJ gets the other&nbsp;93%.</li>
 <li>If plans change, how far out you cancel decides what happens to the money. Cancel 14 days or more before the party and the whole deposit comes&nbsp;back.</li>
 <li>We keep your account, your requests and your chats so bookings work. How long we keep each one is in the privacy part&nbsp;below. The only others who see it are the host or DJ you're booking with, the DJ's team, and a few companies that help run the site, like&nbsp;Stripe.</li>
 <li>Be nice to the DJ. That one isn't legal advice, just good&nbsp;manners.</li>
@@ -344,7 +337,7 @@ html{scroll-padding-top:68px}
 
 <section id="t-pay" class="lgl-sec" data-sec="">
 <h3><span class="lgl-n" aria-hidden="true">5</span><span>Payments and&nbsp;fees</span></h3>
-<p>Hosts pay a deposit of 50% when they accept an offer, and the rest within 48 hours after the party. Every offer already includes a 10% booking fee. That's what BOOKD keeps, and the DJ gets the other&nbsp;90%. Payments are handled by Stripe. Prices are in US dollars. Sales tax, where it applies, is shown before you&nbsp;pay.</p>
+<p>Hosts pay a deposit of 50% when they accept an offer, and the rest within 48 hours after the party. Every offer already includes a 7% booking fee. That's what BOOKD keeps, and the DJ gets the other&nbsp;93%. Payments are handled by Stripe. Prices are in US dollars. Sales tax, where it applies, is shown before you&nbsp;pay.</p>
 <p>DJs get paid 5 days after the&nbsp;party.</p>
 </section>
 
@@ -660,23 +653,23 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     var self = this;
-    // With reduced motion the clip starts paused, so its labels say Play from the start.
+    // With reduced motion the clip stays on its poster.
     var still = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.state = { active: '', tocOpen: false, reelOff: still };
+    this.state = { active: '', tocOpen: false };
     this.docEl = null;
     this.secs = null; this.onSpy = null; this.raf = 0;
     this.dead = false; this.moved = false; this.onMove = null;
-    // If the browser refuses to play, the labels say Play, so they always match what's on screen.
-    this.reelStuck = function (v) { if (!self.dead && v && v.paused && !self.state.reelOff) self.setState({ reelOff: true }); };
     this.reelRef = function (el) {
+      if (el === self.reel) return;
+      if (self.reelIO) { self.reelIO.disconnect(); self.reelIO = null; }
       self.reel = el; if (!el) return;
       el.muted = true;
-      if (!self.state.reelOff) { var p = el.play(); if (p && p.catch) p.catch(function () { self.reelStuck(el); }); }
-    };
-    this.toggleReel = function () {
-      var v = self.reel; if (!v) return;
-      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () { self.reelStuck(v); }); self.setState({ reelOff: false }); }
-      else { v.pause(); self.setState({ reelOff: true }); }
+      if (!still) { var p = el.play(); if (p && p.catch) p.catch(function () {}); }
+      /* Nov 12, speed: the clip at the top plays only while it is on screen. Before, it kept decoding for the whole read of the page, long after it had scrolled away. */
+      if (!still && window.IntersectionObserver) {
+        self.reelIO = new IntersectionObserver(function (es) { var on = es[es.length - 1].isIntersecting; if (on) { var q = el.play(); if (q && q.catch) q.catch(function () {}); } else el.pause(); });
+        self.reelIO.observe(el);
+      }
     };
     // Anchors land at 68px from the top (the nav's bottom edge), Terms and Privacy at 100px; the line sits a little below that, and above where the shortest section ends.
     this.pick = function () {
@@ -759,6 +752,7 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     this.dead = true;
+    if (this.reelIO) { this.reelIO.disconnect(); this.reelIO = null; }
     nav6Off(this);
     this.unspy();
     this.unmove();
@@ -768,9 +762,7 @@ class Component extends DCLogic {
     var self = this, s = this.state;
     var part = (s.active === 'privacy' || s.active.indexOf('p-') === 0) ? 'privacy' : 'terms';
     return Object.assign({
-      reelRef: this.reelRef, toggleReel: this.toggleReel, reelLabel: s.reelOff ? 'Play the party video' : 'Pause the party video',
-      // the visible toggle under the caption, in Home6's words
-      reelText: s.reelOff ? 'PLAY VIDEO' : 'PAUSE VIDEO',
+      reelRef: this.reelRef,
       docRef: this.docRef,
       toc: lglToc(s.active, part),
       tocCls: 'lgl-toc' + (s.tocOpen ? ' lgl-open' : ''),
