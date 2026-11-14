@@ -1095,6 +1095,21 @@ span.hand.hand-note,.k6note.hand,.iv-s1,.iv-s2{letter-spacing:0 !important}
 .vp-real{filter:drop-shadow(0 0 .6px rgba(255,253,233,.55)) drop-shadow(0 22px 26px rgba(0,0,0,.9)) drop-shadow(0 6px 10px rgba(0,0,0,.75)) !important}
 .art-still{filter:contrast(1.06) brightness(1.12) !important}
 </style>
+<style>/* Nov 14 (Nico picked option 1 of ten): the top was "too much in your face". The headline sits on one line at about two thirds of the size. Phones keep the two lines. */
+@media (min-width:900px){
+html body #top .iv-big{font-size:calc(8.6 * var(--vw,1vw)) !important;text-shadow:none !important}
+html body #top .iv-big span{display:inline !important}
+}
+</style>
+<style>/* Nov 14 (Nico): one box. The sentence and the search row start at the left edge of the M and end at the full stop of "MORE BOOKING."
+   --inkw is the printed width of the headline in its own font size (measured: 7.453em, with .062em of air before the M and .022em after the full stop). */
+@media (min-width:1100px){
+html body #top{--hfs:calc(8.6 * var(--vw,1vw));--inkw:calc(7.453 * var(--hfs));--inkx:calc(.02 * var(--hfs))}
+html body #top .herogrid > div:first-child > p:not(.iv-top){position:relative;left:var(--inkx);width:calc(var(--inkw) + .27em) !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important;font-size:max(11px,calc(.87 * var(--vw,1vw))) !important;letter-spacing:.12em !important;text-align:justify !important;text-align-last:justify !important;margin-right:calc(-.12em) ;box-sizing:content-box}
+html body #top .herogrid > div:first-child > p:not(.iv-top) br{display:none}
+html body #top .qf{position:relative;left:var(--inkx);width:var(--inkw) !important;max-width:none !important;box-sizing:border-box}
+}
+</style>
 </helmet>
 
 <div onClick="{{leaveCheck}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; position: relative; overflow-x: clip;">
