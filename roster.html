@@ -2,120 +2,100 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>The roster · BOOKD</title>
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>The roster · DJs for private parties · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="description" content="The whole BOOKD roster of DJs for private parties. Name your city and date, pick a sound, then read about each DJ on their own page.">
+<link rel="canonical" href="https://nicomaggioli.github.io/bookd/roster.html">
+<meta property="og:site_name" content="BOOKD">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The BOOKD roster">
+<meta property="og:description" content="The whole BOOKD roster of DJs for private parties. Name your city and date, pick a sound, then read about each DJ on their own page.">
+<meta property="og:url" content="https://nicomaggioli.github.io/bookd/roster.html">
+<meta property="og:image" content="https://nicomaggioli.github.io/bookd/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The BOOKD wordmark over blurred lights in black, white and red">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<script>/* canvas: page stays still */
-(function () {
-  var still = function () {
-    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
-  };
-  var css = document.createElement('style');
-  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-  document.head.appendChild(css);
-  var check = function () {
-    var on = still();
-    document.documentElement.classList.toggle('oncanvas', on);
-    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-  };
-  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();
-</script>
+<link rel="manifest" href="site.webmanifest">
+<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
 </head>
 <body>
+<noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Pick your headliner.</h1><p>The whole BOOKD roster of DJs for private parties. Name your city and date, pick a sound, then read about each DJ on their own page.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;display=swap">
-<style>
-/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
-   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
-   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
-:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
 @supports (zoom:calc(100vw / 1440px)){
 @media (min-width:1441px){
-  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
-  html{zoom:var(--bz)}
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
 }
 }
-
-/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
 body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
 h1,h2,h3,h4{text-wrap:balance}
 a{color:inherit}
 :root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px);--sec:clamp(64px,calc(8 * var(--vw)),110px)}
 html{scroll-padding-top:88px}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
-/* type */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 .h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
 .lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
-.muted{color:#a2a5a4}
-/* nav */
-/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
 .skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
 .skip:focus{top:12px}
 .nav6{position:sticky;top:0;z-index:45;background:#000000}
-.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navgrid{box-sizing:border-box;max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
 .navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
-.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl{text-decoration:none;font-size:15px;line-height:18px;padding:13px 4px;color:#ffffff;white-space:nowrap}
 .nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
-.nlc{display:inline-flex;align-items:center;gap:8px}
-.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
 .navend{justify-self:end;display:flex;align-items:center;gap:18px}
-.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
-/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
-#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
-#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.navmenu{display:none;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;line-height:normal;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)}
 .mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
-/* YOU button and its menu */
-.acctwrap{position:relative;flex:0 0 auto}
-.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
-.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
-.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
-.acctwho strong{color:#ffffff;font-weight:700}
-.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
-.acctmenu a:last-child{padding-bottom:13px}
-.acctmenu a[aria-current="page"]{color:#ff3b2f}
-@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
-@media (min-width:761px){#mnav,.mscrim{display:none !important}}
-@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
-/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
-@media (max-width:1100px){.nav6-in .navbook{display:none}}
-/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
-@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
-@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
-/* ===== end nav shell ===== */
-/* buttons, chips, fields, cards */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
-.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-sm{min-height:44px;padding:0 14px;font-size:14px}
 .btn-lg{min-height:56px;padding:0 28px;font-size:17px}
 .btn:active{transform:translateY(1px)}
 .go{background:#d31110;color:#ffffff}
 .ink{background:#000000;color:#ffffff}
-.paper{background:#ffffff;color:#000000}
-.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
-.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
-.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
-.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
-.field-l{font-size:12px;font-weight:700;color:#4d504f}
-.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
-.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
-.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
-.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
-/* Nov 11: a calendar on the When field, so a date can be clicked (Erika asked). The same calendar as the homepage's. Here it opens below the field: round day buttons, the chosen day in red.
-   Typing a date still works. On touch screens the keyboard stays down while it is open, so the calendar is not covered. */
+.paper{background:#fffde9;color:#000000}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:0;border-radius:999px;background:rgba(255,253,233,.16);color:#fffde9;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:#fffde9;color:#000000}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:var(--r-field);background:#f2f2f0;color:#000000;cursor:text}
+.field input,.field select{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
 .qf-when{position:relative;min-width:0;display:flex}
 .qf-when>.field{flex:1 1 auto}
 .qf-cal{position:absolute;left:0;top:calc(100% + 8px);z-index:30;width:300px;max-width:calc(100 * var(--vw) - 52px);box-sizing:border-box;padding:14px;border-radius:var(--r-card);background:#ffffff;color:#000000;box-shadow:0 24px 60px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.25);animation:qfcal .16s ease-out;outline:none}
@@ -127,356 +107,232 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .qf-cal-b svg{width:16px;height:16px;display:block}
 .qf-cal-b[aria-disabled="true"]{opacity:.35;cursor:default}
 .qf-cal-w,.qf-cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
-.qf-cal-w span{font:700 12px 'Inter',sans-serif;color:#4d504f;text-align:center;padding:6px 0 4px}
+.qf-cal-w span{font:700 12px 'Inter',sans-serif;text-align:center;padding:6px 0 4px}
 .qf-day{aspect-ratio:1;min-width:0;padding:0;border:0;border-radius:999px;background:transparent;color:#000000;font:700 15px 'Inter',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .12s}
-.qf-day-today{box-shadow:inset 0 0 0 2px #000000}
-.qf-day-on{background:#d31110;color:#ffffff;box-shadow:none}
+.qf-day-on{background:#d31110;color:#ffffff}
 .qf-day[aria-disabled="true"]{color:#a2a5a4;font-weight:400;cursor:default}
 .qf-blank{visibility:hidden}
-@media (hover: hover) and (pointer: fine){.qf-cal-b:not([aria-disabled="true"]):hover{background:#ebebe8}.qf-day:not([aria-disabled="true"]):not(.qf-day-on):hover{background:#f2f2f0}}
-@media (pointer: coarse){.qf-cal{width:344px}}
-@media (prefers-reduced-motion: reduce){.qf-cal{animation:none}.qf-cal-b,.qf-day{transition:none}}
-.card{border-radius:var(--r-card);overflow:hidden}
-.card-cream{background:#fffde9;color:#000000}
-.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
-.card-red{background:#d31110;color:#ffffff}
-/* flash photos (same look as the Home6 feed and camera) and avatars */
 .dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
-.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
-.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
-.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
-.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
-.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
-/* footer */
+.dflash img{display:block;width:100%;height:100%;object-fit:cover}
 .foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
 .foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
 .footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
 .footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
-.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
-@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
-@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
-
-/* ===== Roster6: the roster as a club flyer lineup poster ===== */
-/* search desk: plain fields, red pill, city chips. Fields go Where, When, Sound. No budget field and no fee on a tile: artist rates are not shown in public (client, Nov 11). */
+.footrow a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
 .r6-top{padding-top:clamp(40px,calc(6 * var(--vw)),88px);padding-bottom:clamp(32px,calc(4 * var(--vw)),52px);display:flex;flex-direction:column;gap:clamp(24px,calc(3 * var(--vw)),36px)}
-/* two grid items: the headline with its handwritten note (.r6-title), then the lede. The note sits inside .r6-title so it stays under the headline and the lede keeps the second column. */
+.r6-top-all{padding-bottom:clamp(28px,calc(3 * var(--vw)),44px)}
 .r6-head{display:grid;grid-template-columns:minmax(min-content,1.3fr) minmax(0,1fr);gap:18px 56px;align-items:end}
-/* headings on black are cream, like the board heading and the names under the photos */
 .r6-head .h1{color:#fffde9}
-.r6-find{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.25fr) auto;gap:8px;margin:0;padding:10px;border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.r6-find{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.25fr) auto;gap:8px;margin:0;padding:14px;border-radius:var(--r-card);background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
 .r6-find .field{transition:background .15s,box-shadow .15s}
 .r6-find select{cursor:pointer;padding-right:24px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 8 L10 13 L15 8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 0 center;background-size:18px 18px}
 .r6-go{align-self:stretch;min-height:58px;padding:0 30px;font-size:18px;letter-spacing:-0.02em}
+.r6-find :focus-visible{outline-color:#d31110}
 .r6-under{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
 .r6-chips{display:flex;flex-wrap:wrap;gap:8px}
-.r6-chips .chip,.empty-do .chip{color:#fffde9;border-color:#fffde9}
-.r6-chips .chip[aria-pressed="true"]{background:#fffde9;color:#000000;border-color:#fffde9}
 .r6-count{flex:1 1 280px;margin:0;font-size:15px;font-weight:700;line-height:1.4;color:#fffde9}
-/* the poster */
+.r6-count:empty{display:none}
 .r6-wall{padding:0 0 clamp(64px,calc(8 * var(--vw)),120px)}
-.bill{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--r-card);background:#d31110;color:#fffde9;padding:clamp(24px,calc(5.4 * var(--vw)),84px);display:flex;flex-direction:column;gap:clamp(56px,calc(7 * var(--vw)),112px);box-shadow:0 40px 120px rgba(211,17,16,.22)}
-.bill > *{position:relative;z-index:1}
-.bill > .bill-grain{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-.bill > .bill-flash{position:absolute;inset:0;z-index:6;pointer-events:none;background:#fffde9;opacity:0}
-.bill-pop > .bill-flash{animation:billflash .7s cubic-bezier(.2,.7,.3,1) both}
-@keyframes billflash{0%{opacity:.85}100%{opacity:0}}
-.bill :focus-visible{outline-color:#fffde9}
-/* the ring follows the surface (LEXICON 4.5): red on the white search desk and on the cream close band */
-.r6-find :focus-visible,.r6-close :focus-visible{outline-color:#d31110}
-.bill-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 32px;align-items:start}
-.bill-mark{grid-column:2;grid-row:1;display:block;width:clamp(96px,calc(11 * var(--vw)),170px);height:auto;fill:#000000;margin-top:calc(.5 * var(--vw))}
-.bill-date{grid-column:1;grid-row:1;margin:0;font-size:clamp(52px,calc(10 * var(--vw)),168px);line-height:.84;font-weight:700;letter-spacing:-0.075em;color:#fffde9;overflow-wrap:anywhere}
-/* a search lands focus here (tabindex -1, never a control), so it takes no ring */
-.bill-date:focus{outline:none}
-.bill-city{grid-column:1 / -1;margin:20px 0 0;font-size:clamp(28px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.055em;color:#000000;overflow-wrap:anywhere}
-.bill-note{grid-column:1 / -1;margin:10px 0 0;font-size:clamp(16px,calc(1.3 * var(--vw)),19px);line-height:1.45;color:#fffde9;max-width:40em}
-/* billing: headliners */
-.bill-tops{display:flex;flex-direction:column;gap:clamp(64px,calc(9 * var(--vw)),136px)}
-.act{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,calc(6 * var(--vw)),96px);align-items:start}
-.act-flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
-.act-flip .act-shot{order:2}
-/* both billing sizes share one grid, so every name starts on the same line */
-.act-l{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
-.act-l.act-flip{grid-template-columns:minmax(0,8fr) minmax(0,4fr)}
-/* the photo files are 334x205 thumbnails, so the poster shows them in the camera's 4:3 frame, close to their real size */
-.act-shot{position:relative;width:100%;max-width:440px;justify-self:start}
-.act-photo{aspect-ratio:4 / 3}
-/* a digicam frame: straight, square corners, direct flash that dies off into the dark, noisy sensor */
-.act-photo .dfx,.sub-photo .dfx{background:radial-gradient(ellipse 62% 58% at 50% 38%,rgba(255,255,255,.26) 0%,rgba(255,255,255,0) 46%,rgba(0,0,0,.28) 76%,rgba(0,0,0,.72) 100%)}
-.act-photo .dgrain,.sub-photo .dgrain{opacity:.34}
-.act-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-.act-name{margin:0;font-weight:700;line-height:.82;letter-spacing:-0.075em;color:#fffde9;text-wrap:balance}
-/* the giant name starts in its own column, so it never runs over the photo. The bottom margin keeps a descender (the y in Kaytran) off the line under it. */
-.act-xl .act-name{font-size:clamp(64px,calc(11.5 * var(--vw)),168px);margin-bottom:max(0px,calc(.17em - 18px))}
-.act-l .act-name{font-size:clamp(48px,calc(8 * var(--vw)),136px);margin-bottom:max(0px,calc(.17em - 18px))}
-.act-sound{margin:18px 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.2;font-weight:700;letter-spacing:-0.03em;color:#000000}
-/* the home town stays on one line, so "/ Rome" never ends up alone */
-.act-from{font-weight:400;color:#fffde9;letter-spacing:-0.01em;white-space:nowrap}
-/* what a booker compares, in the same two lines on every name */
-.act-when{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.3;letter-spacing:-0.02em;color:#fffde9}
-.act-fee{margin:6px 0 0;font-size:clamp(19px,calc(1.7 * var(--vw)),24px);line-height:1.3;font-weight:700;letter-spacing:-0.02em;color:#000000}
-.act-do{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,calc(2.6 * var(--vw)),36px)}
-.act-page{font-size:15px;font-weight:700;color:#fffde9;text-decoration:underline;text-underline-offset:4px;padding:12px 0}
-/* billing: the smaller names */
-.bill-subs{display:grid}
-.bill-with{margin:0;padding:24px 0 12px;font-size:clamp(20px,calc(2 * var(--vw)),28px);line-height:1.1;font-weight:700;letter-spacing:-0.04em;color:#000000}
-.sub{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1fr) auto;gap:14px clamp(24px,calc(3 * var(--vw)),48px);align-items:center;padding:28px 0;border-bottom:1px solid rgba(0,0,0,.35)}
-/* the last row has no rule of its own: the black rule over the open slot closes the list */
-.sub:last-child{border-bottom:0;padding-bottom:0}
-.sub-photo{width:96px;height:72px}
-.sub-out .sub-photo img{opacity:.72}
-.sub-name{margin:0;font-size:clamp(34px,calc(3.8 * var(--vw)),58px);line-height:.9;font-weight:700;letter-spacing:-0.065em;color:#fffde9}
-.sub-sound{margin:8px 0 0;font-size:19px;line-height:1.2;font-weight:700;letter-spacing:-0.02em;color:#000000}
-.sub-facts{min-width:0}
-.sub-facts .act-when,.sub-facts .act-fee{margin:0;font-size:17px}
-.sub-facts .act-fee{margin-top:4px}
-.sub-do{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
-/* wide screens: every small print row shares one set of columns, so the facts and buttons line up row to row */
-@media (min-width:1101px){.bill-subs{grid-template-columns:96px minmax(0,1fr) minmax(0,1fr) auto;column-gap:clamp(24px,calc(3 * var(--vw)),48px)}.bill-with{grid-column:1 / -1}.sub{grid-column:1 / -1;grid-template-columns:subgrid}}
-/* from 1366 a name in the small print stays on one line and its column grows to fit it, so "Jude & Frank" never breaks because another row has a Try button. Narrower, a one line name would push the notes to two or three lines, so it may wrap there. */
-@media (min-width:1366px){.bill-subs{grid-template-columns:96px minmax(min-content,1fr) minmax(0,1fr) auto}.sub-name{white-space:nowrap}}
-/* nobody on the bill */
-.bill-empty{flex-direction:column;align-items:flex-start;gap:20px}
-.empty-big{margin:0;font-size:clamp(48px,calc(7.5 * var(--vw)),128px);line-height:.86;font-weight:700;letter-spacing:-0.07em;color:#000000}
-.empty-copy{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;max-width:34em}
-.empty-do{display:flex;flex-wrap:wrap;gap:8px}
-/* the open slot */
-.bill-you{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:12px clamp(20px,calc(3 * var(--vw)),48px);padding-top:clamp(20px,calc(2.4 * var(--vw)),32px);color:#000000;text-decoration:none}
-.you-line{display:flex;align-items:baseline;gap:.25em}
-.you-and{font-size:clamp(28px,calc(3 * var(--vw)),48px);font-weight:700;letter-spacing:-0.05em;color:#fffde9}
-.you-big{font-size:clamp(110px,calc(19 * var(--vw)),320px);line-height:.78;font-weight:700;letter-spacing:-0.085em;color:#000000;transition:color .2s}
-.you-side{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:clamp(6px,calc(1 * var(--vw)),16px)}
-.you-copy{font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:24em}
-.bill-fine{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px 32px;padding-top:18px;border-top:1px solid rgba(0,0,0,.4);font-size:15px;line-height:1.5;color:#fffde9}
-.bill-fine p{margin:0}
-/* back to the party */
-.r6-close{position:relative;overflow:hidden;background:#fffde9;color:#000000;padding:var(--sec) 0}
-.r6-close-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
-.r6-close .h2{max-width:11em}
-.r6-close-p{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:30em}
-/* the whole crowd band at its natural size; the top fades into the cream so haze never ends in a hard line */
-.r6-crowd{display:block;width:120%;max-width:none;height:auto;margin:clamp(20px,calc(4 * var(--vw)),56px) 0 -2px -10%;aspect-ratio:1920 / 392;object-fit:fill;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000000 24%);mask-image:linear-gradient(180deg,transparent 0,#000000 24%);mix-blend-mode:multiply;pointer-events:none;background:transparent}
-.vidbtn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;white-space:nowrap;cursor:pointer}
-.r6-vid{position:absolute;right:max(var(--gut),calc((100% - 1440px) / 2 + var(--gut)));bottom:clamp(12px,calc(2 * var(--vw)),24px);z-index:2}
-@media (max-width:380px){.r6-head .h1{font-size:clamp(40px,calc(14 * var(--vw)),48px)}}
-@media (max-width:1240px){
-  .r6-find{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .r6-where,.r6-go{grid-column:1 / -1}
-}
-@media (max-width:1100px){
-  .sub{grid-template-columns:80px minmax(0,1fr)}
-  .sub-photo{width:80px;height:60px}
-  .sub-facts,.sub-do{grid-column:1 / -1}
-  .sub-do{justify-content:flex-start}
-}
-@media (max-width:900px){.r6-head{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:760px){
-  .act,.act-flip,.act-l,.act-l.act-flip{grid-template-columns:minmax(0,1fr);gap:0}
-  .act-flip .act-shot{order:0}
-  /* the photo files are small: past phone width a full-width headliner photo blows up and runs taller than the screen */
-  .act-shot{max-width:400px;justify-self:start}
-  .act-xl .act-name,.act-l .act-name{margin:20px 0 0 -2px}
-  .act-xl .act-name{font-size:clamp(60px,calc(17 * var(--vw)),120px)}
-  .act-l .act-name{font-size:clamp(48px,calc(13 * var(--vw)),96px)}
-  .bill-top{grid-template-columns:minmax(0,1fr)}
-  .bill-mark,.bill-date{grid-column:1;grid-row:auto}
-  .bill-mark{margin:0 0 8px}
-  .bill-you{grid-template-columns:minmax(0,1fr)}
-  /* phones show the middle of the crowd at twice the size, so it stays tall enough to read beside the video button */
-  .r6-crowd{width:212%;margin-left:-56%}
-}
-/* two columns squeeze a picked sound under the chevron below about 560px, so the desk stacks from 600 */
-@media (max-width:600px){
-  .r6-find{grid-template-columns:minmax(0,1fr);border-radius:24px}
-  .r6-go{width:100%}
-}
-@media (max-width:520px){
-  .you-big{font-size:clamp(80px,calc(calc(48 * var(--vw)) - 60px),110px)}
-  .sub{grid-template-columns:64px minmax(0,1fr);gap:12px 16px}
-  .sub-photo{width:64px;height:48px}
-}
-/* three small buttons stop fitting one row below about 410px: the date suggestion takes its own row so Hear a set and Request stay together */
-@media (max-width:420px){
-  .r6-chips{display:grid;grid-template-columns:1fr 1fr;width:100%}
-  .r6-chips .chip{justify-content:center}
-  .sub-do{display:grid;grid-template-columns:repeat(2,max-content)}
-  .sub-do .paper{grid-column:1 / -1;justify-self:start}
-}
-@media (hover: hover) and (pointer: fine){
-  .r6-find .field:hover:not(:focus-within){background:#ebebe8}
-  .r6-find .go:hover,.r6-close .go:hover{background:#000000;color:#ffffff}
-  .bill .ink:hover{background:#fffde9;color:#000000}
-  .bill .paper:hover{background:#000000;color:#fffde9}
-  .r6-chips .chip[aria-pressed="false"]:hover,.empty-do .chip:hover{background:rgba(255,253,233,.14)}
-  .act-page:hover{text-decoration-thickness:3px}
-  .bill-you:hover .you-big{color:#fffde9}
-  .bill-you:hover .you-btn{background:#fffde9;color:#000000}
-  .vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}
-}
-@media (prefers-reduced-motion: reduce){.bill-pop > .bill-flash{animation:none}}
-/* ===== the whole roster (Nov 4): an agency board of portraits, five across, names in caps underneath ===== */
 .rg-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-top:clamp(8px,calc(1 * var(--vw)),16px);margin-bottom:clamp(20px,calc(2.4 * var(--vw)),32px)}
 .rg-h{margin:clamp(16px,calc(2 * var(--vw)),28px) 0 0;font-size:clamp(30px,calc(3.4 * var(--vw)),52px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9;outline:none}
-.rg-clear{color:#fffde9}
+.rg-h.vh{margin:-1px}
+.rg-head-off{padding-top:0;margin-bottom:0}
 .rg-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(24px,calc(2.6 * var(--vw)),40px) clamp(12px,calc(1.2 * var(--vw)),18px)}
-/* The artist card. It is the same card as the homepage's "in town" cards (.djyb in Home6): change the two together.
-   A 3 / 4 photo in black and white with the first name signed across it (.yb-sig, further down), then the name and two quiet lines. */
 .rt{position:relative;display:flex;flex-direction:column;min-width:0;color:#fffde9;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.rt-shot{position:relative;display:block;aspect-ratio:3 / 4;overflow:hidden;border-radius:22px;container-type:inline-size;background:#111112;color:inherit}
-/* a dark fade over the lower part of the photo, so the signature reads on any picture */
-.rt-shot::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,0) 55%,rgba(0,0,0,.55))}
+.rt-shot{position:relative;display:block;aspect-ratio:3 / 4;overflow:hidden;border-radius:22px;container-type:inline-size;background:#000000;color:inherit}
+.rt-shot::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,0) 48%,rgba(0,0,0,.72))}
 .rt-photo{position:absolute;inset:0;height:100%}
 .rt-photo img{transition:filter .3s,transform .4s}
-/* the plain picture, as on the homepage cards: no flash vignette and no grain on top of it */
-.rt-photo .dfx,.rt-photo .dgrain{display:none}
-/* the badge sits over the fade and lets a click through to the card's link */
+.yb-sig{position:absolute;left:6%;bottom:5%;z-index:3;pointer-events:none;color:#fffde9;line-height:1;white-space:nowrap;transform:rotate(-7deg);transform-origin:0 100%}
+.yb-sig-0{font-family:'Reenie Beanie',cursive;font-size:calc(27cqw * var(--q, 1))}
+.yb-sig-s1{--q:.75}
+.yb-sig-s2{--q:.56}
+.yb-sig-s3{--q:.4}
 .rt-badge{position:absolute;left:10px;top:10px;z-index:3;pointer-events:none;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;line-height:1;background:#d31110;color:#ffffff}
 .rt-badge-home{background:#fffde9;color:#000000}
 .rt-name{margin:14px 0 0;font-size:17px;line-height:1.1;font-weight:700;letter-spacing:.01em;text-transform:uppercase;color:#fffde9}
-/* The whole tile opens the profile: the name is the one link and it is stretched over the tile. */
-.rt-name a{color:inherit;text-decoration:none;transition:color .25s}
+.rt-name a{color:inherit;text-decoration:none;transition:color .25s;scroll-margin-top:70vh}
 .rt-name a::after{content:"";position:absolute;inset:0;z-index:1}
 .rt-name a:focus-visible{outline:none}
 .rt:has(.rt-name a:focus-visible) .rt-shot{outline:3px solid #ff3b2f;outline-offset:3px}
 .rt-meta{margin:6px 0 0;font-size:14px;line-height:1.35;color:rgba(255,253,233,.8)}
+.rt-name,.rt-meta,.rt-note{overflow-wrap:anywhere}
 .rt-note{margin:6px 0 0;font-size:13px;line-height:1.35;font-weight:700;color:#ff3b2f}
-/* the red You? card: flat, as tall as the photo frames beside it and level with their tops */
 .rt-you{aspect-ratio:3 / 4;border-radius:22px;align-self:start;justify-content:flex-end;gap:6px;padding:clamp(14px,calc(1.4 * var(--vw)),22px);background:#d31110;color:#fffde9;text-decoration:none;box-sizing:border-box}
 .rt-and{font-size:clamp(18px,calc(1.5 * var(--vw)),24px);font-weight:700;letter-spacing:-0.04em}
 .rt-big{font-size:clamp(56px,calc(5.6 * var(--vw)),88px);line-height:.84;font-weight:700;letter-spacing:-0.075em;color:#000000;transition:color .25s}
 .rt-youp{margin-top:6px;font-size:14px;line-height:1.35;font-weight:700}
 .rt-youbtn{align-self:flex-start;margin-top:8px}
-.rg-empty{flex-direction:column;align-items:flex-start;gap:14px;padding:clamp(28px,calc(4 * var(--vw)),56px) 0}
-.rg-emptyh{margin:0;font-size:clamp(28px,calc(3 * var(--vw)),44px);line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9}
+.rg-empty{flex-direction:column;align-items:flex-start;gap:14px;padding:0}
 .rg-emptyp{margin:0;font-size:17px;line-height:1.45;color:#a2a5a4;max-width:30em}
 .rg-fine{margin:clamp(32px,calc(4 * var(--vw)),56px) 0 0;max-width:46em;font-size:13px;line-height:1.5;color:#a2a5a4}
 .r6-wall :focus-visible{outline-color:#ffffff}
 .r6-wall .rg-h:focus,.r6-wall .rg-h:focus-visible{outline:none}
-/* pointing at a card: it lifts, the photo comes back in colour and the name turns red.
-   A lifted card keeps a 6px strip under it (the link's own, so a click there still opens it), or a pointer on its bottom edge would fall off and make it flicker. */
-@media (hover: hover) and (pointer: fine){
-  .rt:hover{transform:translateY(-6px)}
-  .rt:hover .rt-name a::after{bottom:-6px}
-  .rt-you:hover::after{content:"";position:absolute;left:0;right:0;top:100%;height:6px}
-  .rt:hover .rt-photo img{transform:scale(1.04)}
-  .rt:hover .rt-name a{color:#ff3b2f}
-  .rt-you:hover .rt-big{color:#fffde9}
-  .rg-clear:hover{background:#fffde9;color:#000000;box-shadow:none}
-}
-/* Nov 11: with the real roster there are four cards for now (three artists and You?). Four across fills the row; a fifth card brings back five across. */
-/* four or fewer tiles fill the row on wide screens. Only there: this rule outranks the narrower ones below, and once left phones at four across. */
-@media (min-width:1181px){.rg-grid:not(:has(> :nth-child(5))){grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:1180px){.rg-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:900px){.rg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:600px){.rg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}.rt-big{font-size:56px}.rt-youp{font-size:13px}}
-@media (prefers-reduced-motion: reduce){.rt,.rt-photo img,.rt-name a,.rt-big{transition:none}}
-</style>
-<style>/* phones skip the decks (Nov 4) */
-@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
-</style>
-<style>/* QA pass Nov 6 */
-/* Roster6-1: nobody fits, so the board is hidden and the empty note sits right under the heading, spaced like the board would be */
-.rg-empty{padding:0}
-/* Roster6-2: on phones under 381px the "and You?" card fits its words instead of cropping them and its button fits inside the tile. Under 369px the words also sit a little tighter so the card stays as tall as the photo beside it */
-@media (max-width:380px){.rt-you{overflow:visible;padding:12px}.rt-youbtn{align-self:stretch;padding:0 8px;font-size:14px}}
-@media (max-width:368px){.rt-you{gap:4px}.rt-big{font-size:44px}.rt-youp,.rt-youbtn{margin-top:0}}
-/* up to 330px Safari sets "there's room on the board" on three rows, which made the card 7px taller than the photo beside it */
-@media (max-width:330px){.rt-you{gap:2px}.rt-big{font-size:40px}}
-/* Roster6-5: phone tap targets at least 44px tall: the city chips, Show the whole roster, and the DJ names under the photos (a 44px hit area around each name, so nothing moves and the focus ring stays around the name) */
-@media (max-width:760px){.r6-chips .chip,.rg-clear{min-height:44px}}
-/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row (Nov 11; they were 2 by 2). flex-basis keeps the row on its own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
-/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
-.footrow a{min-width:44px}
-/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
-.navgrid{box-sizing:border-box}
-/* Site-9: fields use the field radius token, 14px (they were 18px) */
-.field{border-radius:var(--r-field)}
-/* Site-10: the filter card takes the card token, 20px, at every width (it was 30px, and 24px under 600px) */
-.r6-find{border-radius:var(--r-card)}
-</style>
-<style>/* Nov 12: text is Inter again (Nico). Handwriting (.hand) is the one accent, used only where a note or a signature calls for it. */
-.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-weight:400 !important;letter-spacing:0 !important;line-height:.9;text-transform:none}
-/* a short handwritten note right under a headline, lined up with its left edge. The same rule is on every page; the colour follows the background (red on black here). */
-.hand-note{display:block;font-size:clamp(32px, calc(3.4 * var(--vw, 1vw)), 52px);line-height:.95;transform:rotate(-3deg);transform-origin:0 50%;margin-top:6px}
-.r6-head .hand-note{color:#ff3b2f}
-/* from 431 to 900px the headline runs on one line and the y of "your" hangs right over the note (1.5px apart): 6px more keeps the same gap as on phones and desktop */
-@media (min-width:431px) and (max-width:900px){.r6-head .hand-note{margin-top:12px}}
-.plain,.plain p,.plain li{font-family:'Inter',Helvetica,Arial,sans-serif}
-</style>
-<style>/* Nov 12: roster cards like a signed yearbook (Nico's references). The full picture in black and white with the artist's first name
-   signed across it by hand; colour comes back when you point at a card. The card itself (.rt, .rt-shot) is in the roster section above.
-   The signature is sized by the photo frame it sits in (cqw), so it takes the same share of the picture at every width. --q can shrink one long name. */
-.yb-sig{position:absolute;left:6%;bottom:5%;z-index:3;pointer-events:none;color:#fffde9;line-height:1;white-space:nowrap;text-shadow:0 2px 6px rgba(0,0,0,.6);transform:rotate(-7deg);transform-origin:0 100%}
-.yb-sig-0{font-family:'Reenie Beanie',cursive;font-size:calc(27cqw * var(--q, 1))}
-</style>
-<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
-body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
-@media print{body::after{display:none}}
-span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Marker Felt',sans-serif !important;font-size:clamp(40px,calc(4.6 * var(--vw,1vw)),70px) !important;line-height:1.05 !important;transform:rotate(-5deg) !important;margin-top:-.12em !important;position:relative;z-index:2;color:#d31110 !important;letter-spacing:.01em !important;white-space:nowrap}
-#artists span.hand.hand-note,.jh span.hand.hand-note,.nf span.hand.hand-note{color:#000000 !important}
-.k6note.hand{font-size:clamp(30px,calc(3 * var(--vw,1vw)),44px) !important;margin-top:0 !important}
-</style>
-<style>/* Nov 12, last check pass.
-   Keyboard: the focused link is the small name under the photo, but the ring is drawn on the photo above it, so the link asks for room above itself
-   when it scrolls into view and the ring comes clear of the fixed bar. The red You? card takes the same ring as the artist tiles beside it and as
-   its twin on the homepage. Notes: on a phone a note may wrap rather than run off the screen. */
-.rt-name a{scroll-margin-top:70vh}
 .r6-wall .rt-you:focus-visible{outline:3px solid #ff3b2f;outline-offset:3px}
-@media (max-width:640px){span.hand.hand-note{white-space:normal;max-width:100%}}
-/* one size for every note on a phone: the size at which the longest one (every message gets read, on Contact) still fits the column on one line. 40px again from 460px wide */
-@media (max-width:460px){span.hand.hand-note{font-size:calc(8.7 * var(--vw,1vw)) !important}}
-</style>
-<style>/* Nov 12, night check before the showing: the look rules (flat pills with no rings, no shadow on type, hovers that show on their own background) and finger sizes */
-/* the bar: Menu is a flat white pill (it had a 1px ring), and each link in the bar is 44px tall for fingers on a tablet (they were 39px). The bar itself stays 68px tall */
-.navmenu{border:0;background:#ffffff;color:#000000}
-.nl{padding:13px 4px;line-height:18px}
-#mnav .nl{line-height:normal}
-@media (hover:hover) and (pointer:fine){.navmenu:hover{background:#d31110;color:#ffffff}}
-/* signatures: no shadow on type. The fade under them is a little deeper instead, so a name still reads on a bright picture */
-.yb-sig{text-shadow:none}
-.rt-shot::after{background:linear-gradient(rgba(0,0,0,0) 48%,rgba(0,0,0,.72))}
-/* flat pills: Show the whole roster is white on black and goes red when pointed at; city chips are filled, never outlined */
-.rg-clear{background:#ffffff;color:#000000;box-shadow:none}
-.chip,.r6-chips .chip,.empty-do .chip{border:0}
-.r6-chips .chip[aria-pressed="false"],.empty-do .chip{background:rgba(255,253,233,.16)}
-/* calendar: today is a flat grey disc (it had a black ring) */
-.qf-day-today{box-shadow:none;background:#f2f2f0}
-@media (hover:hover) and (pointer:fine){
-  .rg-clear:hover{background:#d31110;color:#ffffff}
-  .r6-chips .chip[aria-pressed="false"]:hover,.empty-do .chip:hover{background:#ffffff;color:#000000}
-  /* on the white calendar a pointed-at day or arrow goes black with white text (pale grey on white barely showed) */
-  .qf-cal-b:not([aria-disabled="true"]):hover,.qf-day:not([aria-disabled="true"]):not(.qf-day-on):hover{background:#000000;color:#ffffff}
-  /* the red You? card: its black button turned red on red and vanished. Pointing anywhere on the card now turns the button white */
-  .rt-you:hover .rt-youbtn,.rt-you .rt-youbtn:hover{background:#ffffff;color:#000000}
+@media (min-width:761px){
+#mnav,.mscrim{display:none}
 }
-/* phones: the calendar is as wide as the filter card, so every day is a 44px target (they were 43px at 390 and 39px at 360) and the two arrows are 44px */
+@media (min-width:761px) and (max-width:807px){
+.navc{gap:4px 16px}
+}
+@media (min-width:1181px){
+.rg-grid:not(:has(> :nth-child(5))){grid-template-columns:repeat(4,minmax(0,1fr))}
+.rt-you:nth-child(5n+1){grid-column:1 / -1;aspect-ratio:auto;flex-flow:row wrap;align-items:baseline;justify-content:flex-start;gap:6px 14px;padding:22px}
+.rt-you:nth-child(5n+1) .rt-youp{flex:1 1 12em;margin:0;font-size:14px}
+.rt-you:nth-child(5n+1) .rt-youbtn{align-self:center;margin:0;padding:0 20px;font-size:15px}
+}
+@media (min-width:901px) and (max-width:1180px){
+.rt-you:nth-child(4n+1){grid-column:1 / -1;aspect-ratio:auto;flex-flow:row wrap;align-items:baseline;justify-content:flex-start;gap:6px 14px;padding:22px}
+.rt-you:nth-child(4n+1) .rt-youp{flex:1 1 12em;margin:0;font-size:14px}
+.rt-you:nth-child(4n+1) .rt-youbtn{align-self:center;margin:0;padding:0 20px;font-size:15px}
+}
+@media (min-width:601px) and (max-width:900px){
+.rt-you:nth-child(3n+1){grid-column:1 / -1;aspect-ratio:auto;flex-flow:row wrap;align-items:baseline;justify-content:flex-start;gap:6px 14px;padding:22px}
+.rt-you:nth-child(3n+1) .rt-youp{flex:1 1 12em;margin:0;font-size:14px}
+.rt-you:nth-child(3n+1) .rt-youbtn{align-self:center;margin:0;padding:0 20px;font-size:15px}
+}
+@media (max-width:1240px){
+.r6-find{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.r6-where,.r6-go{grid-column:1 / -1}
+}
+@media (max-width:1180px){
+.rg-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width:900px){
+.r6-head{grid-template-columns:minmax(0,1fr)}
+.rg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media (max-width:760px){
-  .qf-cal{left:-10px;width:calc(100 * var(--vw) - 32px);max-width:none;padding:6px}
-  .qf-cal-h{padding:6px 6px 0 6px}
-  .qf-cal-w,.qf-cal-g{gap:0}
-  .qf-cal-b{width:44px;height:44px}
+.navgrid{grid-template-columns:auto 1fr}
+.navc,.navlogin{display:none}
+.navmenu{display:inline-flex;align-items:center}
+.nav6 .navbook{padding:0 14px;font-size:14px}
+.chip{min-height:44px}
 }
-</style>
-<style>/* Nico asked for this on Nov 12: the photo shows its colour while the card is hovered */
+@media (max-width:600px){
+.r6-find{grid-template-columns:minmax(0,1fr)}
+.r6-go{width:100%}
+.rg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
+.rt-big{font-size:56px}
+.rt-youp{font-size:13px}
+.rt-you:nth-child(2n+1){grid-column:1 / -1;aspect-ratio:auto;flex-flow:row wrap;align-items:baseline;justify-content:flex-start;gap:6px 14px;padding:22px}
+.rt-you:nth-child(2n+1) .rt-youp{flex:1 1 12em;margin:0;font-size:14px}
+.rt-you:nth-child(2n+1) .rt-youbtn{align-self:center;margin:0;padding:0 20px;font-size:15px}
+}
+@media (max-width:480px){
+.footrow nav{display:grid;grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}
+}
+@media (max-width:420px){
+.r6-find{padding:10px}
+.r6-chips{display:grid;grid-template-columns:1fr 1fr;width:100%}
+.chip{justify-content:center}
+}
+@media (max-width:380px){
+.r6-head .h1{font-size:clamp(40px,calc(14 * var(--vw)),48px)}
+.rt-you{padding:12px}
+.rt-youbtn{align-self:stretch;padding:0 8px;font-size:14px}
+}
+@media (max-width:368px){
+.rt-you{gap:4px}
+.rt-big{font-size:44px}
+.rt-youp,.rt-youbtn{margin-top:0}
+}
+@media (max-width:359px){
+.navgrid{gap:10px}
+.navend{gap:8px}
+.navhome svg{width:100px !important}
+}
+@media (max-width:330px){
+.rt-you{gap:2px}
+.rt-big{font-size:40px}
+}
+@media (hover:hover) and (pointer:fine){
+.nl:hover{color:#ff3b2f}
+.navmenu:hover{background:#d31110;color:#ffffff}
+.go:hover{background:#ffffff;color:#000000}
+.paper:hover{background:#d31110;color:#ffffff}
+.footrow a:hover{text-decoration:underline;text-underline-offset:3px}
+.r6-find .go:hover{background:#000000;color:#ffffff}
+.chip[aria-pressed="false"]:hover{background:#ffffff;color:#000000}
+.rt:hover{transform:translateY(-6px)}
+.rt:hover .rt-name a::after{bottom:-6px}
+.rt-you:hover::after{content:"";position:absolute;left:0;right:0;top:100%;height:6px}
+.rt:hover .rt-photo img{transform:scale(1.04)}
+.rt:hover .rt-name a{color:#ff3b2f}
+.rt-you:hover .rt-big{color:#fffde9}
+.rt-you:hover .rt-youbtn,.rt-you .rt-youbtn:hover{background:#ffffff;color:#000000}
+}
 .rt:hover .rt-photo img{filter:none !important}
-</style>
-<style>/* Nov 13 (Nico): with no search there is no count line under the search bar, and no empty gap where it was */
-.r6-count:empty{display:none}
-</style>
-<style>/* Nov 13 (Erika's new intro already says "The whole roster."): the heading over the cards shows only once a search has an answer */
-.rg-h[data-t=""]{display:none}
-.rg-head:has(.rg-h[data-t=""]){display:none}
-.r6-top:has(+ .r6-wall .rg-h[data-t=""]){padding-bottom:clamp(28px,calc(3 * var(--vw,1vw)),44px)}
-</style>
-<style>/* Nov 13, independent check of Erika's requests */
-</style>
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+.qf-cal{animation:none}
+.qf-cal-b,.qf-day{transition:none}
+.rt,.rt-photo img,.rt-name a,.rt-big{transition:none}
+}
+@media print{body::after{display:none}}</style>
+<style>.nl{padding:13px 4px;line-height:18px}
+#mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
+#mnav{border-top-color:rgba(255,255,255,.2) !important}
+.mscrim{touch-action:none}
+html.nav6-open{overflow:hidden;scrollbar-gutter:stable}
+.btn-sm{min-height:44px}
+html .btn-main{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;min-height:58px;margin:0;padding:0 28px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 18px/1.1 'Inter',sans-serif;letter-spacing:-0.02em;text-align:center;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn-main:active{transform:translateY(1px)}
+html .btn-main:focus-visible{outline:2px solid #d31110;outline-offset:3px}
+html .btn-main[aria-busy="true"]{opacity:.6;cursor:progress}
+html .paper{background:#fffde9;color:#000000;box-shadow:none}
+html .btn-pale,html .btn-quiet{background:#f2f2f0;color:#000000;box-shadow:none}
+html .btn-quiet{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn[aria-disabled="true"]{background:#f2f2f0;color:rgba(0,0,0,.6);cursor:default}
+@media (hover:hover) and (pointer:fine){
+html .btn-main:not([aria-busy="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover{background:#000000;color:#ffffff}
+html .paper:hover{background:#d31110;color:#ffffff}
+html .on-red .paper:hover,html .paper.on-red:hover{background:#000000;color:#ffffff}
+html .btn[aria-disabled="true"]:hover{background:#f2f2f0;color:rgba(0,0,0,.6)}
+}
+html .field,html .qf-f{background:#f2f2f0 !important;box-shadow:none !important}
+html .field:focus-within,html .qf-f:focus-within{background:#ffffff !important;box-shadow:inset 0 0 0 2px #000000 !important;outline:2px solid transparent;outline-offset:-2px}
+html .field:has([aria-invalid="true"]),html .qf-f:has([aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110 !important}
+html .field-l,html .qf-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
+html .field input::placeholder,html .field textarea::placeholder,html .qf input::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
+html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
+html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
+html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
+html .fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+html .cap{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+@media (max-width:899px){html .cap{font-size:12px;letter-spacing:.16em}}
+html .ns{display:flex;flex-direction:column;align-items:flex-start;gap:14px;outline:none}
+html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height:.92;font-weight:700;letter-spacing:-0.06em;color:#000000;outline:none}
+html .ns-h:focus,html .ns-h:focus-visible{outline:none}
+html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
+html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
+<style>.qf-cal{scroll-margin:0 0 12px}
+.qf-cal[data-side="down"]{top:calc(100% + 8px);bottom:auto}
+.qf-cal[data-side="up"]{top:auto;bottom:calc(100% + 8px)}
+.qf-day-today{box-shadow:none;background:#f2f2f0}
+.qf-cal-w span{color:rgba(0,0,0,.7)}
+@media (hover:hover) and (pointer:fine){.qf-cal-b:not([aria-disabled="true"]):hover,.qf-day:not([aria-disabled="true"]):not(.qf-day-on):hover{background:#000000;color:#ffffff}}
+@media (pointer:coarse){.qf-cal{width:348px}.qf-cal-b{width:44px;height:44px}}
+@media (max-width:760px){
+.qf-cal{left:-10px;width:min(calc(100 * var(--vw) - 32px),360px);max-width:none;padding:6px}
+.qf-cal-h{padding:6px 6px 0 6px}
+.qf-cal-w,.qf-cal-g{gap:0}
+.qf-cal-b{width:44px;height:44px}
+.qf-day{aspect-ratio:auto;height:max(44px,calc((min(calc(100 * var(--vw) - 32px),360px) - 12px) / 7))}
+}
+@media (max-height:500px){
+.qf-cal{padding:6px;scroll-margin:8px 0}
+.qf-cal-h{padding:6px 6px 0 6px;margin-bottom:0}
+.qf-cal-w,.qf-cal-g{gap:0}
+.qf-cal-w span{padding:4px 0 2px}
+.qf-day{aspect-ratio:auto;height:44px}
+html:has(#qfcal){scroll-padding-top:0;scroll-padding-bottom:0}
+html:has(#qfcal) header.nav6{position:relative}
+html:has(#qfcal) header:not(.nav6){position:absolute !important}
+}</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
-<!-- NAV -->
-<!-- NAV: public shell, logged out (A/fix/shell/public.html) -->
 <header class="nav6">
 <a class="skip" href="#main">Skip to content</a>
 <div class="navgrid">
@@ -503,16 +359,15 @@ span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Mar
 </sc-if>
 </header>
 <main id="main" style="flex: 1 1 auto;">
-<!-- ROSTER: the search desk. Typing filters the board live; the red pill jumps to it. -->
-<section class="wrap r6-top" aria-labelledby="r6-h">
+<section class="{{topCls}}" aria-labelledby="r6-h">
 <div class="r6-head">
 <div class="r6-title"><h1 id="r6-h" class="h1">Pick your&nbsp;headliner.</h1></div>
 <p class="lede">The whole roster. Name your city and date, and find the sound for your&nbsp;night.</p>
 </div>
 <form class="r6-find" id="find" aria-label="Filter the roster" onSubmit="{{noSubmit}}" onKeyDown="{{findKey}}">
-<label class="field r6-where"><span class="field-l">Where</span><input type="text" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
-<div class="qf-when" onBlur="{{calBlur}}"><label class="field"><span class="field-l">When</span><input type="text" id="qfwhen" value="{{when}}" onInput="{{setWhen}}" onFocus="{{calIn}}" onClick="{{calShow}}" onKeyDown="{{whenKey}}" inputmode="{{whenMode}}" placeholder="Sat, Nov 14" aria-haspopup="dialog" aria-expanded="{{calExp}}"></label><sc-if value="{{calOpen}}"><div class="qf-cal" id="qfcal" role="dialog" aria-label="Choose a date" tabindex="-1" onPointerDown="{{calHold}}" onKeyDown="{{calKey}}"><div class="qf-cal-h"><span class="qf-cal-t" aria-live="polite">{{calTitle}}</span><span class="qf-cal-n"><button type="button" class="qf-cal-b" aria-label="Previous month" aria-disabled="{{calPrevOff}}" onClick="{{calPrev}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.5 4.5 L7 10 L12.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button type="button" class="qf-cal-b" aria-label="Next month" onClick="{{calNext}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.5 4.5 L13 10 L7.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></span></div><div class="qf-cal-w" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div><div class="qf-cal-g"><sc-for list="{{calDays}}" as="d"><button type="button" class="{{d.cls}}" data-d="{{d.key}}" tabindex="{{d.tab}}" aria-label="{{d.lab}}" aria-pressed="{{d.on}}" aria-disabled="{{d.off}}" aria-hidden="{{d.hide}}" onClick="{{d.pick}}">{{d.n}}</button></sc-for></div></div></sc-if></div>
-<label class="field"><span class="field-l">Sound</span><select value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label>
+<label class="field r6-where"><span class="field-l">Where</span><input type="text" name="city" value="{{where}}" onInput="{{setWhere}}" ref="{{whereRef}}" autocomplete="address-level2" placeholder="City or neighborhood"></label>
+<div class="qf-when" onBlur="{{calBlur}}"><label class="field"><span class="field-l">When</span><input type="text" id="qfwhen" name="date" value="{{when}}" onInput="{{setWhen}}" onFocus="{{calIn}}" onClick="{{calShow}}" onKeyDown="{{whenKey}}" inputmode="{{whenMode}}" placeholder="{{whenEx}}" role="combobox" aria-haspopup="dialog" aria-controls="qfcal" aria-expanded="{{calExp}}"></label><sc-if value="{{calOpen}}"><div class="qf-cal" id="qfcal" role="dialog" aria-label="Choose a date" tabindex="-1" onPointerDown="{{calHold}}" onKeyDown="{{calKey}}"><div class="qf-cal-h"><span class="qf-cal-t" aria-live="polite">{{calTitle}}</span><span class="qf-cal-n"><button type="button" class="qf-cal-b" aria-label="Previous month" aria-disabled="{{calPrevOff}}" onClick="{{calPrev}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.5 4.5 L7 10 L12.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button type="button" class="qf-cal-b" aria-label="Next month" onClick="{{calNext}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.5 4.5 L13 10 L7.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></span></div><div class="qf-cal-w" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div><div class="qf-cal-g"><sc-for list="{{calDays}}" as="d"><button type="button" class="{{d.cls}}" data-d="{{d.key}}" tabindex="{{d.tab}}" aria-label="{{d.lab}}" aria-pressed="{{d.on}}" aria-disabled="{{d.off}}" aria-hidden="{{d.hide}}" onClick="{{d.pick}}">{{d.n}}</button></sc-for></div></div></sc-if></div>
+<label class="field"><span class="field-l">Sound</span><select name="genre" value="{{sound}}" onInput="{{setSound}}"><option value="">Anything good</option><option value="Afro / Amapiano">Afro / Amapiano</option><option value="House / Tech house">House / Tech house</option><option value="Techno / EBM">Techno / EBM</option><option value="Disco">Disco</option><option value="R&amp;B">R&amp;B</option><option value="Rap">Rap</option></select></label>
 <button class="btn btn-lg go r6-go" type="button" onClick="{{showLineup}}">See who's around</button>
 </form>
 <div class="r6-under">
@@ -523,18 +378,17 @@ span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Mar
 </div>
 </section>
 
-<!-- ROSTER: the whole roster, like an agency board. The filters above narrow it to the DJs who fit. -->
 <section id="lineup" class="r6-wall" aria-labelledby="rg-h">
 <div class="wrap">
-<div class="rg-head">
-<h2 id="rg-h" class="rg-h" tabindex="-1" ref="{{billHRef}}" data-t="{{gridHead}}">{{gridHead}}</h2>
-<sc-if value="{{showClear}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm ghost rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
+<div class="{{headRowCls}}">
+<h2 id="rg-h" class="{{headCls}}" tabindex="-1" ref="{{billHRef}}">{{gridHead}}</h2>
+<sc-if value="{{showClear}}" hint-placeholder-val="{{ false }}"><button class="btn btn-sm paper rg-clear" type="button" onClick="{{clearAll}}">Show the whole roster</button></sc-if>
 </div>
 <div class="rg-grid" ref="{{billRef}}" style="display: {{gridDisplay}};">
 <sc-for list="{{tiles}}" as="d" hint-placeholder-count="3">
 <article class="rt">
 <span class="rt-shot">
-<span class="dflash rt-photo"><img src="{{d.img}}" alt="{{d.alt}}" loading="lazy" decoding="async" style="filter: {{d.grade}}; object-position: {{d.pos}};"><span class="dfx" aria-hidden="true"></span><span class="dgrain" aria-hidden="true"></span></span><span class="{{d.sigCls}}" aria-hidden="true">{{d.first}}</span>
+<span class="dflash rt-photo"><img sc-camel-src="{{d.img}}" alt="{{d.alt}}" loading="lazy" decoding="async" onError="{{d.noPhoto}}" style="filter: {{d.grade}}; object-position: {{d.pos}};"></span><span class="{{d.sigCls}}" aria-hidden="true">{{d.first}}</span>
 <sc-if value="{{d.hasBadge}}" hint-placeholder-val="{{ false }}"><span class="{{d.badgeCls}}">{{d.badge}}</span></sc-if>
 </span>
 <h3 class="rt-name"><a href="{{d.href}}">{{d.name}}</a></h3>
@@ -542,7 +396,7 @@ span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Mar
 <sc-if value="{{d.hasNote}}" hint-placeholder-val="{{ false }}"><p class="rt-note">{{d.note}}</p></sc-if>
 </article>
 </sc-for>
-<a class="rt rt-you" href="artists.html"><span class="rt-and">and</span><span class="rt-big">You?</span><span class="rt-youp">DJs, there's room on the&nbsp;board.</span><span class="btn ink rt-youbtn">Join the roster</span></a>
+<a class="rt rt-you" href="artists.html"><span class="rt-and">and</span><span class="rt-big">You?</span><span class="rt-youp">DJs, there's room on the&nbsp;roster.</span><span class="btn ink rt-youbtn">Join the roster</span></a>
 </div>
 <div class="rg-empty" style="display: {{emptyDisplay}};">
 <p class="rg-emptyp">{{emptyLine}}</p>
@@ -553,7 +407,6 @@ span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Mar
 </section>
 
 </main>
-<!-- FOOTER -->
 <footer class="foot6">
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
@@ -565,694 +418,626 @@ span.hand.hand-note,.k6note.hand{font-family:'Reenie Beanie','Bradley Hand','Mar
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1767}}'>
-/* ROSTER:BEGIN the real roster, written from roster/djs.json. Change the facts there, not here. Nothing in it is made up: no fee and no tour dates were given, so none are shown. */
-var BOOKD_DJS = [
- {
-  "slug": "julian-gjaci",
-  "name": "Julian Gjaci",
-  "first": "Julian",
-  "tag": "Afro house",
-  "genres": [
-   "Afro / Amapiano",
-   "House / Tech house"
-  ],
-  "home": "New York, NY",
-  "homeKey": "nyc",
-  "img": "assets/0bdf09346142fcf1c2a65dd06ddbee41.webp",
-  "alt": "Julian Gjaci in a red denim jacket and white sunglasses, headphones round his neck, both hands up",
-  "pos": "50% 22%",
-  "bio": [
-   "Julian Gjaci is a New York City-based DJ and music producer of Albanian origin, known for his distinctive fusion of Afro House, melodic rhythms, tribal percussion, and hypnotic grooves.",
-   "With a sound that balances sophistication and raw dance-floor energy, Julian creates immersive musical journeys that move seamlessly between intimate luxury venues and high-energy nightlife experiences.",
-   "His performances have taken him to some of New York City's most recognized nightlife destinations, including Zuma New York, Chez Margaux, Nebula, Somewhere Nowhere, The Ned, and Submercer.",
-   "Driven by a passion for musical storytelling, Julian's signature sound combines deep emotion, infectious rhythms, and refined underground influences."
-  ],
-  "sets": [],
-  "find": {
-   "label": "Find Julian on SoundCloud",
-   "url": "https://soundcloud.com/search/sounds?q=Julian%20Gjaci"
-  },
-  "links": [],
-  "rider": [
-   "3 x Pioneer CDJ-3000",
-   "Pioneer DJM-A9 or DJM-V10 mixer",
-   "Professional booth monitors",
-   "A properly configured sound system",
-   "USB-compatible setup"
-  ],
-  "riderNote": "",
-  "riderLink": ""
- },
- {
-  "slug": "kozlow",
-  "name": "Kozlow",
-  "first": "Kozlow",
-  "tag": "Indie house, live violin",
-  "genres": [
-   "House / Tech house"
-  ],
-  "home": "Brooklyn, NY",
-  "homeKey": "nyc",
-  "img": "assets/22e9880e3fad66734077380759757c18.webp",
-  "alt": "Kozlow, curly hair and a moustache, in a dark blazer with headphones on",
-  "pos": "50% 18%",
-  "bio": [
-   "Grant Kozlow Gardner is a Brooklyn-based DJ, producer, electronic violinist and founder of ANTHR FCKNG PARTY. Classically trained from age four, he began with the violin before moving into club music.",
-   "His sets pull from indie-leaning house, left-field dance music and records built for New York rooms. Live violin appears selectively, as part of the arrangement, not a standalone trick, alongside the sequencing, tension and release that let the room shape where a set goes next.",
-   "Kozlow's artist project and ANTHR FCKNG PARTY are two sides of the same practice. The party grew into a label centered on dancefloor-tested records, working New York DJs and nights built around the people on the floor, while Kozlow continues to release original productions and translate them into a flexible live performance language."
-  ],
-  "sets": [
-   {
-    "title": "Loco Paraiso mix",
-    "url": "https://soundcloud.com/locoparaiso/kozlow-loco-paraiso-garbicz"
-   }
-  ],
-  "find": null,
-  "links": [
-   {
-    "label": "SoundCloud",
-    "url": "https://soundcloud.com/grant-gardner-mp3"
-   },
-   {
-    "label": "Spotify",
-    "url": "https://open.spotify.com/artist/1Ms8hcf17jkqevIIRI0YkH"
-   },
-   {
-    "label": "Apple Music",
-    "url": "https://music.apple.com/us/artist/kozlow/1841645633"
-   },
-   {
-    "label": "Bandcamp",
-    "url": "https://kozlow.bandcamp.com/"
-   },
-   {
-    "label": "Instagram",
-    "url": "https://www.instagram.com/kozlow"
-   },
-   {
-    "label": "ANTHR FCKNG PARTY",
-    "url": "https://www.anthrfckngparty.com/kozlow"
-   }
-  ],
-  "rider": [],
-  "riderNote": "Rider on request.",
-  "riderLink": ""
- },
- {
-  "slug": "schloss",
-  "name": "Schloss",
-  "first": "Schloss",
-  "tag": "House, deep cuts",
-  "genres": [
-   "House / Tech house"
-  ],
-  "home": "New York, NY",
-  "homeKey": "nyc",
-  "img": "assets/49ebfbf8a8ad11de483b2adf16534760.webp",
-  "alt": "Schloss in a cap behind the decks on a rooftop, the skyline behind him",
-  "pos": "50% 50%",
-  "bio": [
-   "Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.",
-   "His sets blend technical precision with a selector's taste for forward sounds that give each experience its own identity. Shaped by his time living in Spain and years immersed in nightlife and music culture, Schloss plays across the house spectrum, emphasizing deep cuts and unique energy.",
-   "Schloss is represented by Proper Rhythm Creative, an artist-focused collective supporting talent across bookings, branding, and development."
-  ],
-  "sets": [
-   {
-    "title": "Outer Heaven Extended Set",
-    "url": "https://soundcloud.com/maxschlossberg/schloss-outer-heaven-8-14-26"
-   },
-   {
-    "title": "Direct Support for AVÖ, Unveiled",
-    "url": "https://soundcloud.com/maxschlossberg/schloss-direct-support-for"
-   },
-   {
-    "title": "Those Nights at Arlo Sunset",
-    "url": "https://soundcloud.com/maxschlossberg/schloss-sunset-arlo-5-29-26"
-   }
-  ],
-  "find": null,
-  "links": [
-   {
-    "label": "SoundCloud",
-    "url": "https://soundcloud.com/maxschlossberg"
-   }
-  ],
-  "rider": [],
-  "riderNote": "Rider on the way.",
-  "riderLink": ""
- }
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1767}}'>var BOOKD_DJS = [
+{
+"slug": "julian-gjaci",
+"name": "Julian Gjaci",
+"first": "Julian",
+"tag": "Afro house",
+"genres": [
+"Afro / Amapiano",
+"House / Tech house"
+],
+"home": "New York, NY",
+"homeKey": "nyc",
+"img": "assets/0bdf09346142fcf1c2a65dd06ddbee41.webp",
+"alt": "Julian Gjaci in a red denim jacket and white sunglasses, headphones round his neck, both hands up",
+"pos": "50% 22%",
+"bio": [
+"Julian Gjaci is a New York City-based DJ and music producer of Albanian origin, known for his distinctive fusion of Afro House, melodic rhythms, tribal percussion, and hypnotic grooves.",
+"With a sound that balances sophistication and raw dance-floor energy, Julian creates immersive musical journeys that move seamlessly between intimate luxury venues and high-energy nightlife experiences.",
+"His performances have taken him to some of New York City's most recognized nightlife destinations, including Zuma New York, Chez Margaux, Nebula, Somewhere Nowhere, The Ned, and Submercer.",
+"Driven by a passion for musical storytelling, Julian's signature sound combines deep emotion, infectious rhythms, and refined underground influences."
+],
+"sets": [],
+"find": {
+"label": "Find Julian on SoundCloud",
+"url": "https://soundcloud.com/search/sounds?q=Julian%20Gjaci"
+},
+"links": [],
+"rider": [
+"3 x Pioneer CDJ-3000",
+"Pioneer DJM-A9 or DJM-V10 mixer",
+"Professional booth monitors",
+"A properly configured sound system",
+"USB-compatible setup"
+],
+"riderNote": "",
+"riderLink": "",
+"look": {
+"bg": "red",
+"image": "assets/9d8d16988beebf9b88510ed602017ebd.jpg",
+"record": "",
+"sign": "left"
+},
+"status": "live"
+},
+{
+"slug": "kozlow",
+"name": "Kozlow",
+"first": "Kozlow",
+"tag": "Indie house, live violin",
+"genres": [
+"House / Tech house"
+],
+"home": "Brooklyn, NY",
+"homeKey": "nyc",
+"img": "assets/22e9880e3fad66734077380759757c18.webp",
+"alt": "Kozlow, curly hair and a moustache, in a dark blazer with headphones on",
+"pos": "50% 18%",
+"bio": [
+"Grant Kozlow Gardner is a Brooklyn-based DJ, producer, electronic violinist and founder of ANTHR FCKNG PARTY. Classically trained from age four, he began with the violin before moving into club music.",
+"His sets pull from indie-leaning house, left-field dance music and records built for New York rooms. Live violin appears selectively, as part of the arrangement, not a standalone trick, alongside the sequencing, tension and release that let the room shape where a set goes next.",
+"Kozlow's artist project and ANTHR FCKNG PARTY are two sides of the same practice. The party grew into a label centered on dancefloor-tested records, working New York DJs and nights built around the people on the floor, while Kozlow continues to release original productions and translate them into a flexible live performance language."
+],
+"sets": [
+{
+"title": "Loco Paraiso mix",
+"url": "https://soundcloud.com/locoparaiso/kozlow-loco-paraiso-garbicz"
+}
+],
+"find": null,
+"links": [
+{
+"label": "SoundCloud",
+"url": "https://soundcloud.com/grant-gardner-mp3"
+},
+{
+"label": "Spotify",
+"url": "https://open.spotify.com/artist/1Ms8hcf17jkqevIIRI0YkH"
+},
+{
+"label": "Apple Music",
+"url": "https://music.apple.com/us/artist/kozlow/1841645633"
+},
+{
+"label": "Bandcamp",
+"url": "https://kozlow.bandcamp.com/"
+},
+{
+"label": "Instagram",
+"url": "https://www.instagram.com/kozlow"
+},
+{
+"label": "ANTHR FCKNG PARTY",
+"url": "https://www.anthrfckngparty.com/kozlow"
+}
+],
+"rider": [],
+"riderNote": "Rider on request.",
+"riderLink": "",
+"look": {
+"bg": "cream",
+"image": "assets/1299c2db359fcff26688b123d16ba3d6.jpg",
+"record": "assets/22e9880e3fad66734077380759757c18.webp",
+"sign": "left"
+},
+"status": "live"
+},
+{
+"slug": "schloss",
+"name": "Schloss",
+"first": "Schloss",
+"tag": "House, deep cuts",
+"genres": [
+"House / Tech house"
+],
+"home": "New York, NY",
+"homeKey": "nyc",
+"img": "assets/49ebfbf8a8ad11de483b2adf16534760.webp",
+"alt": "Schloss in a cap behind the decks on a rooftop, the skyline behind him",
+"pos": "50% 50%",
+"bio": [
+"Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.",
+"His sets blend technical precision with a selector's taste for forward sounds that give each experience its own identity. Shaped by his time living in Spain and years immersed in nightlife and music culture, Schloss plays across the house spectrum, emphasizing deep cuts and unique energy.",
+"Schloss is represented by Proper Rhythm Creative, an artist-focused collective supporting talent across bookings, branding, and development."
+],
+"sets": [
+{
+"title": "Outer Heaven Extended Set",
+"url": "https://soundcloud.com/maxschlossberg/schloss-outer-heaven-8-14-26"
+},
+{
+"title": "Direct Support for AVÖ, Unveiled",
+"url": "https://soundcloud.com/maxschlossberg/schloss-direct-support-for"
+},
+{
+"title": "Those Nights at Arlo Sunset",
+"url": "https://soundcloud.com/maxschlossberg/schloss-sunset-arlo-5-29-26"
+}
+],
+"find": null,
+"links": [
+{
+"label": "SoundCloud",
+"url": "https://soundcloud.com/maxschlossberg"
+}
+],
+"rider": [],
+"riderNote": "Rider on the way.",
+"riderLink": "",
+"look": {
+"bg": "black",
+"image": "assets/ef768d83447ae89c60ddbb1cc9dd233a.jpg",
+"record": "assets/84a8c47ce4d29cac8705493c7ba678b2.jpg",
+"sign": "right"
+},
+"status": "live"
+}
 ];
-/* ROSTER:END */
-/* Roster6 preview data. The roster is BOOKD_DJS above: the three real artists the client sent on Nov 11. Nothing here adds a fact to it.
-   It always shows in name order. BOOKD never ranks or recommends anyone.
-   Artist rates are not shown in public (client, Nov 11): no fee on a tile, no budget field.
-   No tour dates were given, so a date never changes who shows. The one place fact is where each artist lives (homeKey), so the one badge is Lives here.
-   Until Nov 11 this page ran on fifteen sample DJs (Kaytran, Jude & Frank, Dial Tone and twelve more) with sample fees and sample November and December dates. All of that is gone. */
-var R6_LIST = BOOKD_DJS.slice().sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'en', { sensitivity: 'base' }); });
-/* the places the page knows by name, in the same order as H4_ALIAS below. One of them is a city on this roster (a chip, a Lives here badge) only while somebody in R6_LIST lives there. */
+function BOOKD_DJ_URL(slug, part) {
+var own = typeof window !== 'undefined' && window.BOOKD_ARTIST_PAGES, spot = part ? slug + '-' + part : '';
+if (own && own.indexOf(slug) >= 0) return slug + '.html' + (spot ? '#' + spot : '');
+return 'artist.html#' + (spot || slug);
+}
+var R6_LIST = BOOKD_DJS.filter(function (a) { return a && a.status !== 'draft'; }).sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'en', { sensitivity: 'base' }); });
 var R6_PLACES = [{ key: 'nyc', label: 'New York' }, { key: 'bos', label: 'Boston' }, { key: 'atl', label: 'Atlanta' }, { key: 'chi', label: 'Chicago' }];
-/* R6_HOMES: the R6_PLACES indexes where somebody on the roster lives. Today that is New York alone. */
-var R6_HOMES = [];
-R6_PLACES.forEach(function (p, i) { if (R6_LIST.some(function (a) { return a.homeKey === p.key; })) R6_HOMES.push(i); });
-/* a list in words: "New York", "New York and Boston", "New York, Boston and Atlanta" */
+function r6Norm(t) { t = String(t || '').toLowerCase(); try { t = t.normalize('NFD').replace(/[̀-ͯ]/g, ''); } catch (e) {} return t.replace(/[^a-z0-9]+/g, ' ').trim(); }
+function r6Homes(list) {
+var known = [], other = [], seen = {};
+R6_PLACES.forEach(function (p, i) { if (list.some(function (a) { return a.homeKey === p.key; })) known.push({ i: i, label: p.label }); });
+list.forEach(function (a) { var t = a.homeKey ? '' : r6Town(a.home), k = r6Norm(t); if (k && !seen[k]) { seen[k] = 1; other.push({ i: -1, label: t }); } });
+other.sort(function (x, y) { return x.label.localeCompare(y.label, 'en', { sensitivity: 'base' }); });
+return known.concat(other);
+}
 function R6_AND(list) { return list.length < 2 ? (list[0] || '') : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1]; }
-/* typed city to an R6_PLACES index (same order: nyc, bos, atl, chi); -1 when nothing matches. The live site reads the same groups (r6Terms), so all four stay. */
 var H4_ALIAS = [['new york', 'nyc', 'ny', 'brooklyn', 'manhattan', 'queens', 'bronx', 'bushwick', 'williamsburg', 'greenpoint', 'bed stuy', 'harlem', 'soho', 'tribeca', 'astoria'], ['boston', 'ma', 'cambridge', 'somerville', 'allston', 'brookline'], ['atlanta', 'atl', 'ga', 'decatur', 'buckhead'], ['chicago', 'chi', 'il', 'evanston', 'wicker park', 'logan square']];
 function H4_MATCH(q) {
-  q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
-  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (q.indexOf(' ' + H4_ALIAS[i][j] + ' ') >= 0) return i; } }
-  return -1;
+q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
+for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (q.indexOf(' ' + H4_ALIAS[i][j] + ' ') >= 0) return i; } }
+return -1;
 }
-/* a covered place named in full (brooklyn, atlanta), not just a state code: "Savannah, GA" is not Atlanta, so the poster shows the covered city instead */
 function R6_NAMED(q) {
-  q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
-  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { var a = H4_ALIAS[i][j]; if (a.length > 2 && q.indexOf(' ' + a + ' ') >= 0) return i; } }
-  return -1;
+q = ' ' + (q || '').toLowerCase().replace(/[^a-z]+/g, ' ') + ' ';
+for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { var a = H4_ALIAS[i][j]; if (a.length > 2 && q.indexOf(' ' + a + ' ') >= 0) return i; } }
+return -1;
 }
-/* live typing: a whole word wins (H4_MATCH), then a half-typed name ("bos", "new yo"). -2 means too short to tell, so the current city stays ("ma" is on its way to manhattan as often as it means Boston). */
 function R6_CITY(q) {
-  if ((q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim() === 'ma') return -2;
-  var hit = H4_MATCH(q); if (hit >= 0) return hit;
-  var t = (q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim();
-  if (t.length < 2) return -2;
-  for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (H4_ALIAS[i][j].length > 2 && H4_ALIAS[i][j].indexOf(t) === 0) return i; } }
-  return -1;
+if ((q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim() === 'ma') return -2;
+var hit = H4_MATCH(q); if (hit >= 0) return hit;
+var t = (q || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+if (t.length < 2) return -2;
+for (var i = 0; i < H4_ALIAS.length; i++) { for (var j = 0; j < H4_ALIAS[i].length; j++) { if (H4_ALIAS[i][j].length > 2 && H4_ALIAS[i][j].indexOf(t) === 0) return i; } }
+return -1;
 }
-/* the place as it goes on the poster: a bare code (nyc, atl) shows the city, anything else keeps what was typed with its capitals fixed ("brooklyn, ny" to "Brooklyn, NY", "sf" to "SF") */
 var R6_CODES = ['nyc', 'ny', 'ma', 'atl', 'ga', 'chi', 'il'];
-/* US state codes, so "brooklyn ny" without a comma still gets "NY" (and "San Di", half typed, stays as it is) */
 var R6_STATES = ' al ak az ar ca co ct de fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri sc sd tn tx ut vt va wa wv wi wy dc ';
 function R6_PLACE(q, city) {
-  var t = (q || '').trim(), n = t.toLowerCase().replace(/[^a-z]+/g, ' ').trim();
-  if (!t || R6_CODES.indexOf(n) >= 0) return city.name;
-  return t.split(',').map(function (p, i) {
-    p = p.trim();
-    if (p.length <= 2) return p.toUpperCase();
-    return p.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/(\S\s+)([A-Za-z]{2})$/, function (m, a, b) { return R6_STATES.indexOf(' ' + b.toLowerCase() + ' ') >= 0 ? a + b.toUpperCase() : m; });
-  }).filter(function (p) { return p; }).join(', ');
+var t = (q || '').trim(), n = t.toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+if (!t || R6_CODES.indexOf(n) >= 0) return city.name;
+return t.split(',').map(function (p, i) {
+p = p.trim();
+if (p.length <= 2) return p.toUpperCase();
+return p.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/(\S\s+)([A-Za-z]{2})$/, function (m, a, b) { return R6_STATES.indexOf(' ' + b.toLowerCase() + ' ') >= 0 ? a + b.toUpperCase() : m; });
+}).filter(function (p) { return p; }).join(', ');
 }
-/* day names for the live site's date labels. The preview has no sample calendar any more: it reads a typed date with the live site's r6When, only to tell whether it is a date. */
 var R6_DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-/* no widows: the last two words stay together */
 function R6_NB(t) { var i = t.lastIndexOf(' '); return i > 0 ? t.slice(0, i) + '\u00a0' + t.slice(i + 1) : t; }
-var R6_GRADE = 'grayscale(1) contrast(1.3) brightness(.95)'; /* the same grade as the homepage In town cards, so one photo looks the same on both pages */
-
-/* ===== the live site =====
-   On the canvas and in the preview the roster is BOOKD_DJS at the top: the three real artists, all living in New York, with no fees and no tour dates.
-   On the live site (window.BOOKD.ready) the roster comes from the database through bookd-api.js: any city, any date.
-   It stays in name order. BOOKD never ranks or recommends anyone. */
+function r6HeadVals(off) { return { topCls: off ? 'wrap r6-top r6-top-all' : 'wrap r6-top', headRowCls: off ? 'rg-head rg-head-off' : 'rg-head', headCls: off ? 'rg-h vh' : 'rg-h' }; }
+var R6_KEEP = 'bookd.roster.search';
+var R6_SOUNDS = ['Afro / Amapiano', 'House / Tech house', 'Techno / EBM', 'Disco', 'R&B', 'Rap'];
+function r6Kept() {
+try {
+if (window.self !== window.top) return null;
+var nav = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+var kind = nav && nav.type ? nav.type : (performance.navigation ? ['navigate', 'reload', 'back_forward'][performance.navigation.type] : 'navigate');
+if (kind !== 'reload' && kind !== 'back_forward') { sessionStorage.removeItem(R6_KEEP); return null; }
+var k = JSON.parse(sessionStorage.getItem(R6_KEEP) || 'null');
+if (!k || typeof k.where !== 'string' || typeof k.when !== 'string') return null;
+return { where: k.where.slice(0, 80), when: k.when.slice(0, 40), sound: R6_SOUNDS.indexOf(k.sound) >= 0 ? k.sound : '',
+city: k.city >= 0 && k.city < R6_PLACES.length ? Math.floor(k.city) : -1, miss: k.miss === true, lastIso: /^\d{4}-\d\d-\d\d$/.test(k.lastIso) ? k.lastIso : '' };
+} catch (e) { return null; }
+}
+function r6Keep(s) {
+try {
+if (window.self !== window.top) return;
+if (s.where || s.when || s.sound) sessionStorage.setItem(R6_KEEP, JSON.stringify({ where: s.where, when: s.when, sound: s.sound, city: s.city, miss: s.miss, lastIso: s.lastIso }));
+else sessionStorage.removeItem(R6_KEEP);
+} catch (e) {}
+}
+var R6_GRADE = 'grayscale(1) contrast(1.3) brightness(.95)';
 var R6_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var R6_BLANK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%23000'/%3E%3C/svg%3E";
-function r6Live() { var b = typeof window !== 'undefined' ? window.BOOKD : null; return b && b.ready && b.roster ? b.roster : null; }
+function r6Artists() { var b = typeof window !== 'undefined' ? window.BOOKD : null, a = b ? b.artists : null; return a && typeof a.peek === 'function' && typeof a.list === 'function' ? a : null; }
 function r6Today() { var t = new Date(); return t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2); }
 function r6Iso(y, m, d) { var t = new Date(Date.UTC(y, m, d)); return (m < 0 || m > 11 || d < 1 || t.getUTCMonth() !== m || t.getUTCDate() !== d) ? '' : t.toISOString().slice(0, 10); }
 function r6Day(iso) { var t = new Date(iso + 'T00:00:00Z'); return R6_MON[t.getUTCMonth()] + ' ' + t.getUTCDate(); }
 function r6Label(iso) { return R6_DOW[new Date(iso + 'T00:00:00Z').getUTCDay()] + ', ' + r6Day(iso); }
 function r6Span(a, b) { return a === b ? r6Day(a) : (a.slice(0, 7) === b.slice(0, 7) ? r6Day(a) + ' to ' + (+b.slice(8)) : r6Day(a) + ' to ' + r6Day(b)); }
-/* a typed date to a real one: "Sat, Nov 14", "14 nov", "11/14", "12/5/27", "2026-11-14". With no year it is the next time that day comes around. Empty text is { iso: '' }, unreadable text is null. */
 function r6When(txt, today) {
-  var w = (txt || '').toLowerCase().trim(), y = 0, m = -1, d = 0, x, i, iso;
-  if (!w) return { iso: '', label: '' };
-  w = w.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ').replace(/\bat\s+\d{1,2}\b/g, ' ');
-  if ((x = w.match(/\b(\d{4})-(\d{1,2})-(\d{1,2})\b/))) { y = +x[1]; m = +x[2] - 1; d = +x[3]; }
-  else if ((x = w.match(/\b(\d{1,2})\s*\/\s*(\d{1,2})(?:\s*\/\s*(\d{2,4}))?\b/))) {
-    m = +x[1] - 1; d = +x[2];
-    if (m > 11) { m = +x[2] - 1; d = +x[1]; }
-    if (x[3]) y = +x[3] < 100 ? 2000 + (+x[3]) : +x[3];
-  } else {
-    for (i = 0; i < 12 && m < 0; i++) if (new RegExp('\\b' + R6_MON[i].toLowerCase()).test(w)) m = i;
-    if (m < 0) return null;
-    x = w.match(new RegExp('\\b' + R6_MON[m].toLowerCase() + '[a-z]*\\.?\\s*(\\d{1,2})(?!\\d)')) || w.match(new RegExp('(\\d{1,2})(?:st|nd|rd|th)?\\s*(?:of\\s+)?' + R6_MON[m].toLowerCase()));
-    if (!x) return null;
-    d = +x[1];
-    if ((x = w.match(/\b(20\d{2})\b/))) y = +x[1];
-  }
-  if (y) iso = r6Iso(y, m, d);
-  else { y = +today.slice(0, 4); iso = r6Iso(y, m, d); if (iso && iso < today) iso = r6Iso(y + 1, m, d); }
-  return iso ? { iso: iso, label: r6Label(iso) } : null;
+var w = (txt || '').toLowerCase().trim(), y = 0, m = -1, d = 0, x, i, iso;
+if (!w) return { iso: '', label: '' };
+w = w.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ').replace(/\bat\s+\d{1,2}\b/g, ' ');
+if ((x = w.match(/\b(\d{4})-(\d{1,2})-(\d{1,2})\b/))) { y = +x[1]; m = +x[2] - 1; d = +x[3]; }
+else if ((x = w.match(/\b(\d{1,2})\s*\/\s*(\d{1,2})(?:\s*\/\s*(\d{2,4}))?\b/))) {
+m = +x[1] - 1; d = +x[2];
+if (m > 11) { m = +x[2] - 1; d = +x[1]; }
+if (x[3]) y = +x[3] < 100 ? 2000 + (+x[3]) : +x[3];
+} else {
+for (i = 0; i < 12 && m < 0; i++) if (new RegExp('\\b' + R6_MON[i].toLowerCase()).test(w)) m = i;
+if (m < 0) return null;
+x = w.match(new RegExp('\\b' + R6_MON[m].toLowerCase() + '[a-z]*\\.?\\s*(\\d{1,2})(?!\\d)')) || w.match(new RegExp('(\\d{1,2})(?:st|nd|rd|th)?\\s*(?:of\\s+)?' + R6_MON[m].toLowerCase()));
+if (!x) return null;
+d = +x[1];
+if ((x = w.match(/\b(20\d{2})\b/))) y = +x[1];
+}
+if (y) iso = r6Iso(y, m, d);
+else { y = +today.slice(0, 4); iso = r6Iso(y, m, d); if (iso && iso < today) iso = r6Iso(y + 1, m, d); }
+return iso ? { iso: iso, label: r6Label(iso) } : null;
 }
 function r6Town(city) { return String(city || '').split(',')[0].split('/')[0].trim(); }
-/* a typed place to the words that count as that place: Brooklyn, Queens and Manhattan are all New York (the H4_ALIAS groups), anything else is just what was typed */
 function r6Terms(q) { var i = R6_NAMED(q); return i < 0 ? [q] : H4_ALIAS[i].filter(function (a) { return a.length > 2; }).concat([q]); }
 function r6Has(text, terms) { var t = String(text || '').toLowerCase(); for (var i = 0; i < terms.length; i++) if (t.indexOf(terms[i]) >= 0) return true; return false; }
-/* Everything on the page that depends on who is on the roster, worked out from the real DJs. self.djs is null until they arrive. */
-function r6LiveVals(self) {
-  var s = self.state, djs = self.djs, today = r6Today();
-  var q = s.where.toLowerCase().replace(/\s+/g, ' ').trim(); if (q.length < 2) q = '';
-  var wd = r6When(s.when, today), bad = !wd, iso = wd ? wd.iso : (s.lastIso || '');
-  var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
-  var filtered = !!(q || iso || s.sound), rows = [], towns = {}, terms = q ? r6Terms(q) : [];
-  var seen = function (c) { c = r6Town(c); if (c) towns[c] = (towns[c] || 0) + 1; };
-  (djs || []).forEach(function (a) {
-    seen(a.home);
-    a.dates.forEach(function (w) { if (w.to >= today) seen(w.city); });
-    if (s.sound && a.genres.indexOf(s.sound) < 0 && a.sound !== s.sound) return;
-    var covers = function (w) { return iso ? (iso >= w.from && iso <= w.to) : w.to >= today; };
-    var here = null, away = null, rank = 2, note = '';
-    a.dates.forEach(function (w) {
-      if (!covers(w)) return;
-      if (q && r6Has(w.city, terms)) { if (!here) here = w; } else if (iso && !away) away = w;
-    });
-    if (q) {
-      if (here) { rank = 0; note = 'In town ' + r6Span(here.from, here.to) + '. No travel fee.'; }
-      else if (r6Has(a.home, terms) && !away) { rank = 1; note = 'Lives here. No travel fee.'; }
-      else return;
-    } else if (iso) {
-      note = away ? 'In ' + r6Town(away.city) + ' on ' + R6_NB(r6Label(iso)) + '.' : (r6Town(a.home) ? 'Home in ' + r6Town(a.home) + ' that night.' : '');
-    }
-    rows.push({ a: a, rank: rank, note: note });
-  });
-  var tiles = rows.map(function (x) {
-    // a live tile opens the shared profile page when that artist has one (the page reads BOOKD_DJS), never a made-up profile
-    var a = x.a, page = BOOKD_DJS.some(function (d) { return d.slug === a.slug; }) ? 'artist.html#' + a.slug : '';
-    return { name: a.name, genre: a.sound || a.genres.join(' / '), home: a.home, img: a.photo || R6_BLANK, alt: a.photo ? a.name : '', grade: R6_GRADE, pos: '50% 30%',
-      href: page || '#lineup', linkAria: page ? 'See ' + a.name + "'s profile" : a.name,
-      hasBadge: x.rank <= 1, badge: x.rank === 0 ? 'In town' : 'Lives here', badgeCls: x.rank === 0 ? 'rt-badge' : 'rt-badge rt-badge-home',
-      hasNote: !!x.note, note: x.note };
-  });
-  var n = rows.length, total = djs ? djs.length : 0, place = q ? R6_PLACE(s.where, { name: s.where.trim() }) : '', when = iso ? R6_NB(r6Label(iso)) : '';
-  /* the chips are the six places with the most DJs living there or passing through, then A to Z */
-  var chips = Object.keys(towns).sort(function (x, y) { return (towns[y] - towns[x]) || (x < y ? -1 : 1); }).slice(0, 6).sort();
-  var pick = function (label, jump) {
-    return function () {
-      var on = s.where.trim().toLowerCase() === label.toLowerCase();
-      self.setState({ where: on ? '' : label, city: -1, miss: false });
-      if (jump) { self.show(); self.focusBill(); } else self.pop();
-    };
-  };
-  var waiting = !djs && !s.loadFail;
-  return {
-    setWhere: function (e) { self.setState({ where: e.target.value, city: -1, miss: false }); },
-    setWhen: function (e) { var v = e.target.value, r = r6When(v, r6Today()); self.setState(r && r.iso ? { when: v, lastIso: r.iso } : (v.trim() ? { when: v } : { when: v, lastIso: '' })); },
-    clearAll: function () { self.setState({ where: '', when: '', lastDay: 0, lastIso: '', sound: '', city: -1, miss: false }); self.focusBill(); },
-    cityChips: chips.map(function (c) { return { label: c, on: s.where.trim().toLowerCase() === c.toLowerCase() ? 'true' : 'false', pick: pick(c, false) }; }),
-    emptyChips: chips.map(function (c) { return { label: c, pick: pick(c, true) }; }),
-    filtered: filtered, tiles: tiles,
-    gridHead: waiting ? '' : s.loadFail ? "The roster didn't load." : !total ? 'The roster is filling up.' : !filtered ? '' : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.')),
-    countLine: waiting ? 'One sec, getting the roster.'
-      : s.loadFail ? (s.loadFail === 'offline' ? "We couldn't reach BOOKD. Check your connection and refresh." : 'Something went wrong on our side. Refresh to try again.')
-      : !total ? 'No DJs are on the roster yet. Check back soon.'
-      : bad ? "We couldn't read that date. Try something like Sat, Nov 14."
-      : !filtered ? (total === 1 ? '1 DJ' : total + ' DJs') + " on the roster. Add a city or a date to see who's around."
-      : (n === 0 ? 'No DJs' : n === 1 ? '1 DJ' : n + ' DJs') + (s.sound ? ' playing ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (place && n ? ', no travel fee.' : '.'),
-    showClear: filtered && n > 0, gridDisplay: n || waiting || !total ? 'grid' : 'none', emptyDisplay: n || waiting || !total ? 'none' : 'flex',
-    emptyLine: 'Try another city, another night or every sound. The roster grows every month.'
-  };
+function r6Snd(sound) { return sound === 'R&B' ? 'R&B' : String(sound || '').toLowerCase().replace(/\bebm\b/, 'EBM'); }
+function r6NoPhoto(e) { var t = e && e.target; if (t && t.getAttribute && t.getAttribute('src') !== R6_BLANK) { t.setAttribute('alt', ''); t.setAttribute('src', R6_BLANK); } }
+function r6Tile(a, badge, note) {
+var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length;
+return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: R6_GRADE, pos: a.pos || '50% 50%',
+sigCls: 'yb-sig yb-sig-0' + (len > 16 ? ' yb-sig-s3' : len > 12 ? ' yb-sig-s2' : len > 9 ? ' yb-sig-s1' : ''), first: first,
+href: BOOKD_DJ_URL(a.slug), noPhoto: r6NoPhoto,
+hasBadge: !!badge, badge: badge === 'town' ? 'In town' : 'Lives here', badgeCls: badge === 'town' ? 'rt-badge' : 'rt-badge rt-badge-home',
+hasNote: !!note, note: note || '' };
 }
-/* ===== end the live site ===== */
-
-/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
-   Then three lines in the class (README step 4):
-     constructor, last line:         nav6Init(this);
-     componentWillUnmount, add:      nav6Off(this);
-     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
-   The nav keys come last, so they always win over any leftover old nav key in the page's object.
-   Settings (all optional, defaults below):
-     host:    inboxHref, curInbox, curAccount, waiting
-     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
-     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
-     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
-   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
-var NAV6_DEFAULTS = {
-  inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
-  dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
-  seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
-  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
-  waiting: 0, shell: ''
-};
-// Constructor: refs and stable handlers. Both menus start closed.
-function nav6Init(self) {
-  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
-  if (!self.state) self.state = {};
-  self.state.menuOpen = false;
-  self.state.acctOpen = false;
-  n.btnRef = function (el) { n.btn = el; };
-  n.acctBtnRef = function (el) { n.acctBtn = el; };
-  n.acctWrapRef = function (el) { n.acctWrap = el; };
-  n.key = function (e) { nav6Key(self, e); };
-  n.focusIn = function (e) { nav6FocusIn(self, e); };
-  n.down = function (e) { nav6Down(self, e); };
-  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
-  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
-  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
-  // pages that still call this.setMenu(true or false) keep working
-  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+function r6Chips(self, labels, isOn) {
+return labels.map(function (label, k) { var on = !!isOn(label, k); return { label: label, on: on ? 'true' : 'false', pick: function () { self.pickPlace(label, on); } }; });
 }
-// Opening one menu closes the other. Document listeners live only while a menu is open.
-function nav6Set(self, patch) {
-  var st = self.state || {};
-  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
-  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
-  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
-  nav6Listen(self, menu || acct);
+function r6OwnBoard(self) {
+var s = self.state, list = self.djs, fell = self.src === 'fallback';
+var wd = r6When(s.when, r6Today()), bad = !wd, dated = !!(wd && wd.iso);
+var ci = s.miss ? -1 : s.city, spot = ci >= 0 ? R6_PLACES[ci] : null, typed = r6Norm(s.where);
+var byText = function (a) { return typed.length > 1 && (' ' + r6Norm(a.home)).indexOf(' ' + typed) >= 0; };
+if (spot && list.some(function (a) { return a.homeKey !== spot.key && byText(a); })) spot = null;
+var placed = !!(spot || s.miss || ci >= 0), place = spot ? spot.label : (placed ? R6_PLACE(s.where, { name: s.where.trim().toUpperCase() }) : '');
+var livesIn = function (a) { return spot ? a.homeKey === spot.key : byText(a); };
+var nobodyHere = placed && !list.some(livesIn);
+var snd = r6Snd(s.sound);
+var filtered = !!(placed || s.sound);
+var rows = nobodyHere ? [] : list.filter(function (a) { return (!placed || livesIn(a)) && (!s.sound || (a.genres || []).indexOf(s.sound) >= 0); });
+var n = rows.length, total = list.length;
+var listed = !!s.sound && list.some(function (a) { return (a.genres || []).indexOf(s.sound) >= 0; });
+var homes = r6Homes(list), homeList = homes.length < 5 ? R6_AND(homes.map(function (h) { return h.label; })) : '';
+var why = !dated ? '' : self.wait ? ' One sec, checking tour dates.' : fell ? " Tour dates didn't load, so the date doesn't change who you see." : " No tour dates are up yet, so the date doesn't change who you see.";
+var fellLine = self.why === 'offline' ? "We couldn't reach BOOKD just now" : 'Something went wrong on our side';
+var headOff = (!!total && !filtered) || (!total && self.wait);
+var gridHead = headOff ? 'The roster' : !total ? (fell ? "The roster didn't load." : 'The roster is filling up.') : (!n ? 'Nobody fits that yet.' : "Here's who fits.");
+var countLine = !total ? (self.wait ? 'One sec, getting the roster.' : fell ? fellLine + '. Refresh to try again.' : 'Nobody is on the roster yet. Check back soon.')
+: nobodyHere ? "We're not in " + place + ' yet.' + (homeList ? " Right now it's " + homeList + '.' : '')
+: bad ? "We couldn't read that date. Try something like " + self.whenEx + '.'
+: !filtered ? (why ? why.trim() : fell ? fellLine + ', so this list may be out of date.' : '')
+: !n ? (listed && placed ? 'Nobody based in ' + place + ' lists ' + snd + ' yet.' : 'Nobody on the roster lists ' + snd + ' yet.')
+: 'Showing DJs' + (placed ? ' based in ' + place : '') + (s.sound ? ' who list ' + snd : '') + '.' + why;
+var emptyLine = nobodyHere ? (homeList ? 'Everyone on the roster is based in ' + homeList + ' for now. Try a search there.' : 'Try a search without a place, or go back to the whole roster.')
+: 'Try another sound, or go back to the whole roster.';
+var chipAt = homes.length > 1 && homes.length < 7 && homes.every(function (h) { return h.label.length < 29; }) ? homes : [];
+return { headOff: headOff, filtered: filtered, n: n, total: total,
+tiles: rows.map(function (a) { return r6Tile(a, placed ? 'home' : '', ''); }),
+chips: r6Chips(self, chipAt.map(function (h) { return h.label; }), function (label, k) { var h = chipAt[k]; return h.i >= 0 ? (!!spot && h.i === ci) : (!spot && placed && typed === r6Norm(label)); }),
+gridHead: headOff ? gridHead : R6_NB(gridHead), countLine: R6_NB(countLine), emptyLine: R6_NB(emptyLine) };
 }
-function nav6Listen(self, on) {
-  var n = self.nav6;
-  if (!n || typeof document === 'undefined' || n.on === on) return;
-  n.on = on;
-  var f = on ? 'addEventListener' : 'removeEventListener';
-  document[f]('keydown', n.key);
-  document[f]('focusin', n.focusIn);
-  document[f]('pointerdown', n.down, true);
+function r6DbBoard(self) {
+var s = self.state, djs = self.djs, today = r6Today();
+var q = s.where.toLowerCase().replace(/\s+/g, ' ').trim(); if (q.length < 2) q = '';
+var wd = r6When(s.when, today), bad = !wd, iso = wd ? wd.iso : (s.lastIso || '');
+var snd = r6Snd(s.sound);
+var filtered = !!(q || iso || s.sound), rows = [], towns = {}, terms = q ? r6Terms(q) : [];
+var seen = function (c) { c = r6Town(c); if (c) towns[c] = (towns[c] || 0) + 1; };
+djs.forEach(function (a) {
+var dates = a.dates || [], genres = a.genres || [];
+seen(a.home);
+dates.forEach(function (w) { if (w.to >= today) seen(w.city); });
+if (s.sound && genres.indexOf(s.sound) < 0 && a.tag !== s.sound) return;
+var covers = function (w) { return iso ? (iso >= w.from && iso <= w.to) : w.to >= today; };
+var here = null, away = null, rank = 2, note = '';
+dates.forEach(function (w) {
+if (!covers(w)) return;
+if (q && r6Has(w.city, terms)) { if (!here) here = w; } else if (iso && !away) away = w;
+});
+if (q) {
+if (here) { rank = 0; note = 'In town ' + r6Span(here.from, here.to) + '. No travel fee.'; }
+else if (r6Has(a.home, terms) && !away) { rank = 1; note = 'Lives here. No travel fee.'; }
+else return;
+} else if (iso) {
+note = away ? 'In ' + r6Town(away.city) + ' on ' + R6_NB(r6Label(iso)) + '.' : (r6Town(a.home) ? 'Home in ' + r6Town(a.home) + ' that night.' : '');
 }
-// componentWillUnmount
-function nav6Off(self) { nav6Listen(self, false); }
-// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
-function nav6Items(n) {
-  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
-  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
-  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+rows.push({ a: a, rank: rank, note: note });
+});
+var n = rows.length, total = djs.length, place = q ? R6_PLACE(s.where, { name: s.where.trim() }) : '', when = iso ? R6_NB(r6Label(iso)) : '';
+var listed = !!s.sound && djs.some(function (a) { return (a.genres || []).indexOf(s.sound) >= 0 || a.tag === s.sound; });
+var chips = Object.keys(towns).sort(function (x, y) { return (towns[y] - towns[x]) || (x < y ? -1 : 1); }).slice(0, 6).sort();
+var headOff = !!total && !filtered;
+return { headOff: headOff, filtered: filtered, n: n, total: total,
+tiles: rows.map(function (x) { return r6Tile(x.a, x.rank === 0 ? 'town' : x.rank === 1 ? 'home' : '', x.note); }),
+chips: r6Chips(self, chips, function (label) { return s.where.trim().toLowerCase() === label.toLowerCase(); }),
+gridHead: headOff ? 'The roster' : !total ? 'The roster is filling up.' : (!n ? 'Nobody fits that yet.' : "Here's who fits."),
+countLine: !total ? 'Nobody is on the roster yet. Check back soon.'
+: bad ? "We couldn't read that date. Try something like " + R6_NB(self.whenEx) + '.'
+: !filtered ? "Add a city or a date to see who's around."
+: n ? 'Showing DJs' + (s.sound ? ' who list ' + snd : '') + (place ? ' around ' + place : '') + (when ? ' on ' + when : '') + (place ? ', no travel fee.' : '.')
+: s.sound && !listed ? 'Nobody on the roster lists ' + snd + ' yet.'
+: s.sound && place && !iso ? 'Nobody based in ' + place + ' lists ' + snd + ' yet.'
+: 'Nobody' + (s.sound ? ' who lists ' + snd : '') + ' is around ' + (place || 'there') + (when ? ' on ' + when : '') + ' yet.',
+emptyLine: 'Try another city, another night or every sound. The roster grows every month.' };
 }
-// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
-function nav6Key(self, e) {
-  var n = self.nav6, st = self.state || {};
-  if (!e) return;
-  if (e.key === 'Escape' || e.key === 'Esc') {
-    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
-    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
-    return;
-  }
-  if (e.key !== 'Tab' || !st.menuOpen) return;
-  var items = nav6Items(n);
-  if (!items) { nav6Set(self, { menuOpen: false }); return; }
-  var i = items.indexOf(document.activeElement);
-  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
-  e.preventDefault();
-  items[j].focus();
-}
-// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
-// The YOU menu closes once focus leaves it.
-function nav6FocusIn(self, e) {
-  var n = self.nav6, st = self.state || {}, t = e && e.target;
-  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
-  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
-  var items = nav6Items(n);
-  if (!items) { nav6Set(self, { menuOpen: false }); return; }
-  items[0].focus();
-}
-// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
-// and closes the menu on click, so nothing under it gets the tap (F331).
-function nav6Down(self, e) {
-  var n = self.nav6, st = self.state || {}, t = e && e.target;
-  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
-}
-// On the live site, someone who is already signed in gets their own link where Log in was.
-// window.BOOKD.who is only set there (bookd-api.js), so the canvas and the preview always say Log in.
-function nav6Who() {
-  var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
-  if (!w) return null;
-  if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
-  if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
-  return { href: 'login.html', text: 'Your inbox' };
-}
-// renderVals: every key the four shells use.
-/* the When field's calendar. H6_WHENDATE reads what is typed ("Sat, Nov 14", "Nov 14", "11/14", "December 5, 2026") as a date, the next one coming if no year is given.
-   H6_WHENTEXT writes a date back the way the field shows it. */
 var H6_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var H6_WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 function H6_WHENDATE(txt, now) {
-  var w = String(txt || '').toLowerCase().replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ');
-  var yr = (w.match(/\b(20\d{2})\b/) || [])[1]; w = w.replace(/\d{3,}/g, ' ');
-  var mm = w.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})\b/), dm = w.match(/\b(\d{1,2})\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/), sl = w.match(/\b(\d{1,2})\/(\d{1,2})\b/);
-  var names = 'janfebmaraprmayjunjulaugsepoctnovdec', mo, dd;
-  if (mm) { mo = names.indexOf(mm[1]) / 3; dd = +mm[2]; } else if (dm) { mo = names.indexOf(dm[2]) / 3; dd = +dm[1]; } else if (sl) { mo = +sl[1] - 1; dd = +sl[2]; } else return null;
-  if (mo < 0 || mo > 11 || dd < 1 || dd > 31) return null;
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()), d = new Date(yr ? +yr : today.getFullYear(), mo, dd);
-  if (d.getMonth() !== mo) return null;
-  if (!yr && d < today) d = new Date(today.getFullYear() + 1, mo, dd);
-  return d;
+var w = String(txt || '').toLowerCase().replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ');
+var yr = (w.match(/\b(20\d{2})\b/) || [])[1]; w = w.replace(/\d{3,}/g, ' ');
+var mm = w.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})\b/), dm = w.match(/\b(\d{1,2})\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/), sl = w.match(/\b(\d{1,2})\/(\d{1,2})\b/);
+var names = 'janfebmaraprmayjunjulaugsepoctnovdec', mo, dd;
+if (mm) { mo = names.indexOf(mm[1]) / 3; dd = +mm[2]; } else if (dm) { mo = names.indexOf(dm[2]) / 3; dd = +dm[1]; } else if (sl) { mo = +sl[1] - 1; dd = +sl[2]; } else return null;
+if (mo < 0 || mo > 11 || dd < 1 || dd > 31) return null;
+var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()), d = new Date(yr ? +yr : today.getFullYear(), mo, dd);
+if (d.getMonth() !== mo) return null;
+if (!yr && d < today) d = new Date(today.getFullYear() + 1, mo, dd);
+return d;
 }
 function H6_WHENTEXT(d, now) { return H6_WD[d.getDay()].slice(0, 3) + ', ' + H6_MON[d.getMonth()].slice(0, 3) + ' ' + d.getDate() + (d.getFullYear() !== now.getFullYear() ? ', ' + d.getFullYear() : ''); }
-/* everything the When calendar needs from renderVals. setWhen is the page's own handler, so a clicked day goes through exactly what a typed one does. */
+function qfCalPlace(up) {
+var cal = document.getElementById('qfcal'), box = cal ? cal.parentNode : null;
+if (!cal || !box || !cal.getBoundingClientRect) return;
+var head = document.querySelector('header'), bar = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
+var f = box.getBoundingClientRect(), c = cal.getBoundingClientRect();
+cal.setAttribute('data-side', up && f.top - bar - 16 >= c.height ? 'up' : 'down');
+if (cal.scrollIntoView) cal.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+}
 function r6CalVals(self, setWhen) {
-  var s = self.state, cal = { y: s.calY, m: s.calM, days: [], first: true };
-  self.calSet = setWhen;
-  if (s.calOpen) {
-    var cNow = new Date(), cMin = new Date(cNow.getFullYear(), cNow.getMonth(), cNow.getDate()), cSel = H6_WHENDATE(s.when, cNow), cLead = new Date(s.calY, s.calM, 1).getDay(), cLen = new Date(s.calY, s.calM + 1, 0).getDate(), cTab = 0, ci;
-    cal.first = s.calY === cNow.getFullYear() && s.calM === cNow.getMonth();
-    for (ci = 0; ci < cLead; ci++) cal.days.push({ n: '', cls: 'qf-day qf-blank', key: 'b' + ci, tab: '-1', lab: '', on: 'false', off: 'true', hide: 'true', pick: function () {} });
-    for (ci = 1; ci <= cLen; ci++) (function (dd) {
-      var d = new Date(s.calY, s.calM, dd), off = d < cMin, on = !!cSel && +cSel === +d, today = +d === +cMin;
-      cal.days.push({ n: dd, cls: 'qf-day' + (on ? ' qf-day-on' : (today ? ' qf-day-today' : '')), key: s.calY + '-' + (s.calM + 1) + '-' + dd, tab: '-1', on: on ? 'true' : 'false', off: off ? 'true' : 'false', hide: 'false',
-        lab: H6_WD[d.getDay()] + ', ' + H6_MON[s.calM] + ' ' + dd + ', ' + s.calY + (today ? ', today' : '') + (off ? ', past' : ''), pick: function () { if (!off) self.calPick(d); } });
-    })(ci);
-    cal.days.forEach(function (x, i) { if (x.on === 'true') cTab = i; });
-    if (!cTab) cal.days.some(function (x, i) { if (x.off === 'false') { cTab = i; return true; } return false; });
-    if (cal.days[cTab]) cal.days[cTab].tab = '0';
-  }
-  return {
-    calOpen: s.calOpen, calExp: s.calOpen ? 'true' : 'false', calTitle: H6_MON[cal.m] + ' ' + cal.y, calDays: cal.days, calPrevOff: cal.first ? 'true' : 'false',
-    whenMode: window.matchMedia && window.matchMedia('(pointer: coarse)').matches ? 'none' : 'text',
-    calIn: function () { if (self.calSkip) { self.calSkip = false; return; } self.calShow(); }, calShow: function () { self.calShow(); },
-    calHold: function (e) { if (!e.pointerType || e.pointerType === 'mouse') e.preventDefault(); },
-    calBlur: function (e) { var to = e.relatedTarget, box = e.currentTarget; if (!to || !box || !box.contains(to)) self.calHide(); },
-    whenKey: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); self.calGo(H6_WHENDATE(self.state.when, new Date()) || new Date()); } else if (e.key === 'Escape' && self.state.calOpen) { e.preventDefault(); e.stopPropagation(); self.calHide(); } },
-    calPrev: function () { if (cal.first) return; var m = s.calM - 1, y = s.calY; if (m < 0) { m = 11; y--; } self.setState({ calY: y, calM: m }); },
-    calNext: function () { var m = s.calM + 1, y = s.calY; if (m > 11) { m = 0; y++; } self.setState({ calY: y, calM: m }); },
-    calKey: function (e) {
-      var k = e.key, el = e.target, at = el && el.getAttribute && el.getAttribute('data-d'), step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[k];
-      if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); self.calHide(true); return; }
-      if (!at) return;
-      var p = at.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
-      if (step) { e.preventDefault(); d.setDate(d.getDate() + step); self.calGo(d); }
-      else if (k === 'PageDown' || k === 'PageUp') { e.preventDefault(); var dd = d.getDate(); d = new Date(d.getFullYear(), d.getMonth() + (k === 'PageDown' ? 1 : -1), 1); d.setDate(Math.min(dd, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate())); self.calGo(d); }
-    }
-  };
+var s = self.state, cal = { y: s.calY, m: s.calM, days: [], first: true };
+self.calSet = setWhen;
+if (s.calOpen) {
+var cNow = new Date(), cMin = new Date(cNow.getFullYear(), cNow.getMonth(), cNow.getDate()), cSel = H6_WHENDATE(s.when, cNow), cLead = new Date(s.calY, s.calM, 1).getDay(), cLen = new Date(s.calY, s.calM + 1, 0).getDate(), cTab = 0, ci;
+cal.first = s.calY === cNow.getFullYear() && s.calM === cNow.getMonth();
+for (ci = 0; ci < cLead; ci++) cal.days.push({ n: '', cls: 'qf-day qf-blank', key: 'b' + ci, tab: '-1', lab: '', on: 'false', off: 'true', hide: 'true', pick: function () {} });
+for (ci = 1; ci <= cLen; ci++) (function (dd) {
+var d = new Date(s.calY, s.calM, dd), off = d < cMin, on = !!cSel && +cSel === +d, today = +d === +cMin;
+cal.days.push({ n: dd, cls: 'qf-day' + (on ? ' qf-day-on' : (today ? ' qf-day-today' : '')), key: s.calY + '-' + (s.calM + 1) + '-' + dd, tab: '-1', on: on ? 'true' : 'false', off: off ? 'true' : 'false', hide: 'false',
+lab: H6_WD[d.getDay()] + ', ' + H6_MON[s.calM] + ' ' + dd + ', ' + s.calY + (today ? ', today' : '') + (off ? ', past' : ''), pick: function () { if (!off) self.calPick(d); } });
+})(ci);
+cal.days.forEach(function (x, i) { if (x.on === 'true') cTab = i; });
+if (!cTab) cal.days.some(function (x, i) { if (x.off === 'false') { cTab = i; return true; } return false; });
+if (cal.days[cTab]) cal.days[cTab].tab = '0';
+}
+return {
+calOpen: s.calOpen, calExp: s.calOpen ? 'true' : 'false', calTitle: H6_MON[cal.m] + ' ' + cal.y, calDays: cal.days, calPrevOff: cal.first ? 'true' : 'false',
+whenMode: window.matchMedia && window.matchMedia('(pointer: coarse)').matches ? 'none' : 'text',
+calIn: function () { if (self.calSkip) { self.calSkip = false; return; } self.calShow(); }, calShow: function () { self.calShow(); },
+calHold: function (e) { if (!e.pointerType || e.pointerType === 'mouse') e.preventDefault(); },
+calBlur: function (e) { var to = e.relatedTarget, box = e.currentTarget; if (!to || !box || !box.contains(to)) self.calHide(); },
+whenKey: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); self.calGo(H6_WHENDATE(self.state.when, new Date()) || new Date()); } else if (e.key === 'Escape' && self.state.calOpen) { e.preventDefault(); e.stopPropagation(); self.calHide(); } },
+calPrev: function () { if (cal.first) return; var m = s.calM - 1, y = s.calY; if (m < 0) { m = 11; y--; } self.setState({ calY: y, calM: m }); },
+calNext: function () { var m = s.calM + 1, y = s.calY; if (m > 11) { m = 0; y++; } self.setState({ calY: y, calM: m }); },
+calKey: function (e) {
+var k = e.key, el = e.target, at = el && el.getAttribute && el.getAttribute('data-d'), step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[k];
+if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); self.calHide(true); return; }
+if (!at) return;
+var p = at.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+if (step) { e.preventDefault(); d.setDate(d.getDate() + step); self.calGo(d); }
+else if (k === 'PageDown' || k === 'PageUp') { e.preventDefault(); var dd = d.getDate(); d = new Date(d.getFullYear(), d.getMonth() + (k === 'PageDown' ? 1 : -1), 1); d.setDate(Math.min(dd, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate())); self.calGo(d); }
+}
+};
+}
+var NAV6_DEFAULTS = { curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null };
+function nav6Behind(open) {
+if (typeof document === 'undefined') return;
+var head = document.querySelector('header'), kids = head && head.parentNode ? head.parentNode.children : [];
+for (var i = 0; i < kids.length; i++) if (kids[i] !== head) { if (open) kids[i].setAttribute('inert', ''); else kids[i].removeAttribute('inert'); }
+document.documentElement.classList.toggle('nav6-open', !!open);
+}
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.resize = function () { if (self.state.menuOpen && !nav6Items(n)) nav6Set(self, { menuOpen: false }); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open }); };
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+if (menu !== !!st.menuOpen) self.setState({ menuOpen: menu });
+nav6Listen(self, menu); nav6Behind(menu);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+window[f]('resize', n.resize);
+}
+function nav6Off(self) { nav6Listen(self, false); nav6Behind(false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Who() {
+var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+if (!w) return null;
+if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+return { href: 'login.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
-  var n = self.nav6, st = self.state || {}, c = {}, k;
-  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
-  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
-  var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
-  return {
-    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
-    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
-    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
-    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
-    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
-    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
-    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
-    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
-    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
-    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
-    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
-    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
-    outsideDown: undefined
-  };
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var who = nav6Who();
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu
+};
 }
-/* ===== end nav shell ===== */
 class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    var self = this;
-    this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    /* city: an R6_PLACES index, -1 for none. miss: a place was typed that the page does not know. lastIso, loadFail and got are the live site's. */
-    this.state = { calOpen: false, calY: 0, calM: 0, where: '', when: '', sound: '', city: -1, miss: false, crowdPaused: this.reduce, lastIso: '', loadFail: '', got: 0 };
-    /* the live site: the real DJs, null until they arrive */
-    this.djs = null;
-    this.crowdOff = this.reduce;
-    this.billRef = function (el) { self.billEl = el; };
-    this.billHRef = function (el) { self.billHEl = el; };
-    this.whereRef = function (el) { self.whereEl = el; };
-    /* the crowd only dances while it is on screen and not paused (paused from the start with reduced motion). The same element again on a re-render keeps its observer. */
-    this.crowdRef = function (el) {
-      if (el && el === self.crowdEl && self.crowdIO) return;
-      if (self.crowdIO) { self.crowdIO.disconnect(); self.crowdIO = null; }
-      self.crowdEl = el;
-      if (el && window.IntersectionObserver) {
-        self.crowdIO = new IntersectionObserver(function (en) {
-          var v = self.crowdEl; if (!v) return;
-          self.crowdVis = en[en.length - 1].isIntersecting;
-          if (self.crowdVis && !self.crowdOff) { var p = v.play ? v.play() : null; if (p && p.catch) p.catch(function () {}); }
-          else if (v.pause) v.pause();
-        }, { threshold: 0.15 });
-        self.crowdIO.observe(el);
-      }
-    };
-    nav6Init(this);
-  }
-  /* #lineup (See it the way hosts do, on Erika's dashboard) lands on the board. The page draws after load, so the browser's own jump never finds it; this scrolls through the ref, with no flash.
-     The old #kaytran-out address (a sample DJ who dropped out of a sample night) went with the sample roster. Cancel6 and Inbox6 may still link to it; it now opens the whole roster like any other visit. */
-  componentDidMount() {
-    var self = this, h = typeof location !== 'undefined' ? location.hash : '', api = r6Live();
-    if (api) api.list().then(function (r) {
-      if (self.gone) return;
-      if (r && r.ok) { self.djs = r.djs; self.setState({ got: Date.now(), loadFail: '' }); }
-      else self.setState({ loadFail: (r && r.code) || 'unknown' });
-    });
-    if (h === '#lineup') this.hashT = setTimeout(function () {
-      self.hashT = null;
-      var t = self.billEl && self.billEl.closest ? self.billEl.closest('.r6-wall') : null;
-      if (t && t.scrollIntoView) t.scrollIntoView({ block: 'start' });
-    }, 80);
-  }
-  componentWillUnmount() {
-    if (this.calDoc) document.removeEventListener('pointerdown', this.calDoc, true);
-    this.gone = true;
-    if (this.crowdIO) { this.crowdIO.disconnect(); this.crowdIO = null; }
-    if (this.crowdEl && this.crowdEl.pause) this.crowdEl.pause();
-    clearTimeout(this.popT); this.popT = null;
-    clearTimeout(this.focusT); this.focusT = null;
-    clearTimeout(this.bookT); this.bookT = null;
-    clearTimeout(this.hashT); this.hashT = null;
-    nav6Off(this);
-  }
-  /* one camera flash over the poster when the bill changes on purpose (pill, chip, a suggested date). wait lets a smooth scroll land first. */
-  pop(wait) {
-    var self = this; if (!this.billEl || this.reduce) return;
-    clearTimeout(this.popT);
-    this.popT = setTimeout(function () {
-      var el = self.billEl; self.popT = null; if (!el) return;
-      el.classList.remove('bill-pop'); void el.offsetWidth; el.classList.add('bill-pop');
-      self.popT = setTimeout(function () { self.popT = null; if (self.billEl) self.billEl.classList.remove('bill-pop'); }, 800);
-    }, wait || 0);
-  }
-  /* scroll through the ref, not a document id, so another artboard on the same canvas can never catch it */
-  show() {
-    var t = this.billEl && this.billEl.closest ? this.billEl.closest('.r6-wall') : null;
-    if (t && t.scrollIntoView) t.scrollIntoView({ behavior: this.reduce ? 'auto' : 'smooth', block: 'start' });
-    this.pop(t && !this.reduce ? 320 : 0);
-  }
-  /* the button that was pressed can disappear with the old board, so keyboard focus lands on the board's heading instead of the page top */
-  focusBill() { var h = this.billHEl; if (!h || !h.focus) return; try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
-  /* on a phone the board is below the fold, so a chip goes to it; wider screens flash it in place. fromBill: the pick came from inside the board, so it also goes there when the heading has scrolled out of view, since focus lands on that heading. */
-  pickCity(i, fromBill) {
-    if (i === this.state.city && !this.state.miss) { this.setState({ city: -1, where: '' }); return; }
-    this.setState({ city: i, where: R6_PLACES[i].label, miss: false });
-    var h = this.billHEl, top = h && h.getBoundingClientRect ? h.getBoundingClientRect().top : 0;
-    var phone = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
-    if (phone || (fromBill && (top < 88 || top > (window.innerHeight || 800) - 120))) this.show(); else this.pop();
-  }
-
-  /* ---------- the When calendar ---------- */
-  calShow() {
-    if (this.state.calOpen) return;
-    var now = new Date(), d = H6_WHENDATE(this.state.when, now) || now;
-    if (d < new Date(now.getFullYear(), now.getMonth(), 1)) d = now;
-    this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() });
-    this.calWatch(true);
-  }
-  /* while it is open, a press anywhere else on the page closes it (a phone does not always blur the field when you tap away) */
-  calWatch(on) {
-    var self = this;
-    if (!this.calDoc) this.calDoc = function (e) { var box = document.querySelector('.qf-when'); if (box && !box.contains(e.target)) self.calHide(); };
-    document.removeEventListener('pointerdown', this.calDoc, true);
-    if (on) document.addEventListener('pointerdown', this.calDoc, true);
-  }
-  calHide(back) {
-    this.calWatch(false);
-    if (this.state.calOpen) this.setState({ calOpen: false });
-    if (back) { var el = document.getElementById('qfwhen'); if (el) { this.calSkip = true; el.focus(); } }
-  }
-  /* put the keyboard on one day of the grid, turning the page to its month first if needed */
-  calGo(d) {
-    var now = new Date(), min = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    if (d < min) d = min;
-    if (d.getFullYear() !== this.state.calY || d.getMonth() !== this.state.calM || !this.state.calOpen) { this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() }); this.calWatch(true); }
-    var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    setTimeout(function () { var el = document.querySelector('#qfcal [data-d="' + key + '"]'); if (el) el.focus(); }, 30);
-  }
-  calPick(d) {
-    this.calWatch(false);
-    this.setState({ calOpen: false });
-    if (this.calSet) this.calSet({ target: { value: H6_WHENTEXT(d, new Date()) } });
-    var el = document.getElementById('qfwhen'); if (el && document.activeElement !== el) { this.calSkip = true; el.focus(); }
-  }
-
-  renderVals() {
-    var self = this, s = this.state;
-    /* The preview: the three real artists in R6_LIST, in name order. Where narrows the board to who lives there, and Sound to who plays it.
-       A date is read but never narrows anything: no tour dates were given, and the line under the search says so. */
-    var wd = r6When(s.when, r6Today()), bad = !wd, dated = !!(wd && wd.iso);
-    var ci = s.miss ? -1 : s.city, spot = ci >= 0 ? R6_PLACES[ci] : null;
-    /* a place with nobody on the roster: one the page does not know (miss), or one it knows by name where nobody lives yet (Boston, Atlanta and Chicago today) */
-    var nobodyHere = s.miss || (!!spot && R6_HOMES.indexOf(ci) < 0);
-    var snd = s.sound === 'R&B' ? 'R&B' : s.sound.toLowerCase().replace(/\bebm\b/, 'EBM');
-    /* only a place or a sound counts as a filter, so the heading never says somebody "fits" a night */
-    var filtered = !!(spot || s.miss || s.sound);
-    /* who fits: lives in the picked place, and has the picked sound in their own genres */
-    var rows = nobodyHere ? [] : R6_LIST.filter(function (a) {
-      if (spot && a.homeKey !== spot.key) return false;
-      if (s.sound && (a.genres || []).indexOf(s.sound) < 0) return false;
-      return true;
-    });
-    /* a tile: the artist's own photo, tag and home town, and a link to their profile. Lives here shows once a place is picked. There is no note line: nothing else is known. */
-    var tiles = rows.map(function (a) {
-      return { name: a.name, genre: a.tag, home: a.home, img: a.img, alt: a.alt, grade: R6_GRADE, pos: a.pos || '50% 30%',
-        sigCls: 'yb-sig yb-sig-0', first: a.first || String(a.name || '').split(' ')[0],
-        href: 'artist.html#' + a.slug, linkAria: 'See ' + a.name + "'s profile",
-        hasBadge: !!spot, badge: 'Lives here', badgeCls: 'rt-badge rt-badge-home',
-        hasNote: false, note: '' };
-    });
-    var n = rows.length, total = R6_LIST.length, djs = function (k) { return k === 0 ? 'No DJs' : k === 1 ? '1 DJ' : k + ' DJs'; };
-    /* the places people live, in words, and whether the whole roster lives in one of them */
-    var homes = R6_HOMES.map(function (i) { return R6_PLACES[i].label; }), homeList = R6_AND(homes);
-    var oneHome = R6_HOMES.length === 1 && R6_LIST.every(function (a) { return a.homeKey === R6_PLACES[R6_HOMES[0]].key; });
-    /* why a typed date leaves the board as it is */
-    var why = dated ? " No tour dates are up yet, so the date doesn't change who you see." : '';
-    var gridHead = !total ? 'The roster is filling up.'
-      : !filtered ? ''
-      : (!n ? 'Nobody fits that yet.' : (n === 1 ? '1 DJ fits.' : n + ' DJs fit.'));
-    var countLine = !total ? 'No DJs are on the roster yet. Check back soon.'
-      : nobodyHere ? "We're not in " + (s.miss ? R6_PLACE(s.where, { name: s.where.trim() }) : spot.label) + ' yet.' + (homeList ? " Right now it's " + homeList + '.' : '')
-      : bad ? "We couldn't read that date. Try something like Sat, Nov 14."
-      : !filtered ? (why ? why.trim() : '')
-      : djs(n) + (spot ? ' based in ' + spot.label : '') + (s.sound ? ' playing ' + snd : '') + '.' + (n ? why : '');
-    var emptyLine = nobodyHere ? (homeList ? 'Everyone on the roster is based in ' + homeList + ' for now. Try a search there.' : 'Try a search without a place, or go back to the whole roster.')
-      : 'Try another sound, or go back to the whole roster.';
-    /* no widows: the last two words of each line stay together, as they did in the lines these replace */
-    countLine = R6_NB(countLine); emptyLine = R6_NB(emptyLine);
-    var chipAt = R6_HOMES.length > 1 ? R6_HOMES : [];
-    /* Book a DJ on the roster: the search is right here, so it goes to the form and puts the cursor in Where (no reload, the picks stay) */
-    var bookNow = function (e) {
-      if (e && e.preventDefault) e.preventDefault();
-      /* the scroll waits a beat while an open phone menu closes */
-      var wasOpen = self.state.menuOpen;
-      self.setMenu(false);
-      clearTimeout(self.bookT); clearTimeout(self.focusT);
-      self.bookT = setTimeout(function () {
-        self.bookT = null;
-        var f = self.whereEl && self.whereEl.closest ? self.whereEl.closest('form') : null;
-        if (f) f.scrollIntoView({ behavior: self.reduce ? 'auto' : 'smooth', block: 'center' });
-        self.focusT = setTimeout(function () { self.focusT = null; if (self.whereEl) self.whereEl.focus({ preventScroll: true }); }, 350);
-      }, wasOpen ? 80 : 0);
-    };
-    var V = Object.assign({
-      whereRef: this.whereRef,
-      where: s.where, when: s.when, sound: s.sound,
-      setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState(!v.trim() ? { where: v, city: -1, miss: false } : { where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
-      /* a date is kept as typed (the calendar writes it the same way). It never changes who shows. */
-      setWhen: function (e) { self.setState({ when: e.target.value }); },
-      setSound: function (e) { self.setState({ sound: e.target.value }); },
-      noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); self.show(); self.focusBill(); },
-      /* Enter in Where or When jumps to the board. A focused button keeps its own click. Focus follows to the board's heading either way. */
-      findKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); self.show(); self.focusBill(); } },
-      showLineup: function () { self.show(); self.focusBill(); },
-      /* one chip for each place somebody on the roster lives, and only once there are two or more: one chip alone is not a choice. On the live site the row always shows. */
-      cityChips: chipAt.map(function (i) { var on = i === s.city && !s.miss; return { label: R6_PLACES[i].label, on: on ? 'true' : 'false', pick: function () { self.pickCity(i); } }; }),
-      hasChips: !!r6Live() || chipAt.length > 0,
-      countLine: countLine, gridHead: gridHead, filtered: filtered, tiles: tiles,
-      /* nobody fits: the heading and the empty note say it once, with one Show the whole roster button, and the board (with the join card) steps aside */
-      showClear: filtered && n > 0, gridDisplay: n || !total ? 'grid' : 'none',
-      emptyDisplay: n || !total ? 'none' : 'flex', emptyLine: emptyLine,
-      clearAll: function () { self.setState({ where: '', when: '', sound: '', city: -1, miss: false }); self.focusBill(); },
-      billRef: this.billRef, billHRef: this.billHRef, crowdRef: this.crowdRef,
-      /* the crowd's video toggle: pausing keeps the frame (or the poster, before it ever played) */
-      vidLabel: s.crowdPaused ? 'PLAY VIDEO' : 'PAUSE VIDEO',
-      toggleVid: function () {
-        var p = !self.state.crowdPaused, v = self.crowdEl; self.crowdOff = p; self.setState({ crowdPaused: p });
-        if (!v) return;
-        if (p) { if (v.pause) v.pause(); }
-        else if (self.crowdVis !== false && v.play) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
-      },
-    }, r6Live() ? r6LiveVals(this) : {}, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
-    return Object.assign(V, r6CalVals(this, V.setWhen));
-  }
+constructor(props) {
+super(props);
+var self = this;
+this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var kept = r6Kept() || { where: '', when: '', sound: '', city: -1, miss: false, lastIso: '' };
+this.state = { calOpen: false, calY: 0, calM: 0, where: kept.where, when: kept.when, sound: kept.sound, city: kept.city, miss: kept.miss, lastIso: kept.lastIso, got: 0 };
+var now = new Date();
+this.whenEx = H6_WHENTEXT(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6 - now.getDay()), now);
+var A = r6Artists(), first = null;
+try { first = A ? A.peek(BOOKD_DJS) : null; } catch (e) { first = null; }
+this.djs = first && Array.isArray(first.artists) ? first.artists : R6_LIST;
+this.src = 'fixed'; this.why = '';
+this.ask = !!(first && !first.final);
+this.wait = this.ask && A.mode === 'database';
+this.billRef = function (el) { self.billEl = el; };
+this.billHRef = function (el) { self.billHEl = el; };
+this.whereRef = function (el) { self.whereEl = el; };
+nav6Init(this);
 }
-</script>
+componentDidMount() {
+var self = this, h = typeof location !== 'undefined' ? location.hash : '', A = this.ask ? r6Artists() : null;
+if (A) A.list(BOOKD_DJS).then(function (r) {
+if (self.gone) return;
+if (r && Array.isArray(r.artists)) { self.djs = r.artists; self.src = r.source || 'fixed'; self.why = r.why || ''; }
+self.wait = false;
+self.setState({ got: Date.now() });
+}, function () {
+if (self.gone) return;
+if (self.wait) { self.src = 'fallback'; self.why = 'unknown'; }
+self.wait = false;
+self.setState({ got: Date.now() });
+});
+if (h === '#lineup') this.hashT = setTimeout(function () {
+self.hashT = null;
+var t = self.billEl && self.billEl.closest ? self.billEl.closest('.r6-wall') : null;
+if (t && t.scrollIntoView) t.scrollIntoView({ block: 'start' });
+}, 80);
+}
+componentDidUpdate() {
+var s = this.state, cal = s.calOpen ? s.calY + '-' + s.calM : '';
+if (cal && cal !== this.calAt) qfCalPlace(false);
+this.calAt = cal;
+var k = [s.where, s.when, s.sound, s.city, s.miss, s.lastIso].join('\n');
+if (k !== this.keptKey) { this.keptKey = k; r6Keep(s); }
+}
+componentWillUnmount() {
+if (this.calDoc) document.removeEventListener('pointerdown', this.calDoc, true);
+this.gone = true;
+clearTimeout(this.focusT); this.focusT = null;
+clearTimeout(this.bookT); this.bookT = null;
+clearTimeout(this.hashT); this.hashT = null;
+nav6Off(this);
+}
+show() {
+var t = this.billEl && this.billEl.closest ? this.billEl.closest('.r6-wall') : null;
+if (t && t.scrollIntoView) t.scrollIntoView({ behavior: this.reduce ? 'auto' : 'smooth', block: 'start' });
+}
+focusBill() { var h = this.billHEl; if (!h || !h.focus) return; try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+pickPlace(label, on) {
+if (on) { this.setState({ where: '', city: -1, miss: false }); return; }
+var hit = R6_CITY(label);
+this.setState({ where: label, city: hit >= 0 ? hit : -1, miss: hit === -1 });
+if (window.matchMedia && window.matchMedia('(max-width: 760px)').matches) this.show();
+}
+calShow() {
+if (this.state.calOpen) return;
+var now = new Date(), d = H6_WHENDATE(this.state.when, now) || now;
+if (d < new Date(now.getFullYear(), now.getMonth(), 1)) d = now;
+this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() });
+this.calWatch(true);
+}
+calWatch(on) {
+var self = this;
+if (!this.calDoc) this.calDoc = function (e) { var box = document.querySelector('.qf-when'); if (box && !box.contains(e.target)) self.calHide(); };
+document.removeEventListener('pointerdown', this.calDoc, true);
+if (on) document.addEventListener('pointerdown', this.calDoc, true);
+}
+calHide(back) {
+this.calWatch(false);
+if (this.state.calOpen) this.setState({ calOpen: false });
+if (back) { var el = document.getElementById('qfwhen'); if (el) { this.calSkip = true; el.focus(); } }
+}
+calGo(d) {
+var now = new Date(), min = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+if (d < min) d = min;
+if (d.getFullYear() !== this.state.calY || d.getMonth() !== this.state.calM || !this.state.calOpen) { this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() }); this.calWatch(true); }
+var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+setTimeout(function () { var el = document.querySelector('#qfcal [data-d="' + key + '"]'); if (el) el.focus(); }, 30);
+}
+calPick(d) {
+this.calWatch(false);
+this.setState({ calOpen: false });
+if (this.calSet) this.calSet({ target: { value: H6_WHENTEXT(d, new Date()) } });
+var el = document.getElementById('qfwhen'); if (el && document.activeElement !== el) { this.calSkip = true; el.focus(); }
+}
+renderVals() {
+var self = this, s = this.state;
+var B = this.src === 'database' ? r6DbBoard(this) : r6OwnBoard(this);
+var bookNow = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var wasOpen = self.state.menuOpen;
+self.setMenu(false);
+clearTimeout(self.bookT); clearTimeout(self.focusT);
+self.bookT = setTimeout(function () {
+self.bookT = null;
+var f = self.whereEl && self.whereEl.closest ? self.whereEl.closest('form') : null;
+if (f) f.scrollIntoView({ behavior: self.reduce ? 'auto' : 'smooth', block: 'center' });
+self.focusT = setTimeout(function () { self.focusT = null; if (self.whereEl) self.whereEl.focus({ preventScroll: true }); }, 350);
+}, wasOpen ? 80 : 0);
+};
+var V = Object.assign(r6HeadVals(B.headOff), {
+whereRef: this.whereRef,
+where: s.where, when: s.when, sound: s.sound, whenEx: this.whenEx,
+setWhere: function (e) { var v = e.target.value, hit = R6_CITY(v); self.setState(!v.trim() ? { where: v, city: -1, miss: false } : { where: v, city: hit >= 0 ? hit : self.state.city, miss: hit === -1 }); },
+setWhen: function (e) { var v = e.target.value, r = r6When(v, r6Today()); self.setState(r && r.iso ? { when: v, lastIso: r.iso } : (v.trim() ? { when: v } : { when: v, lastIso: '' })); },
+setSound: function (e) { self.setState({ sound: e.target.value }); },
+noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); self.show(); self.focusBill(); },
+findKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { e.preventDefault(); self.show(); self.focusBill(); } },
+showLineup: function () { self.show(); self.focusBill(); },
+cityChips: B.chips, hasChips: B.chips.length > 0,
+countLine: B.countLine, gridHead: B.gridHead, tiles: B.tiles,
+showClear: B.filtered && B.n > 0, gridDisplay: B.n || !B.total ? 'grid' : 'none',
+emptyDisplay: B.n || !B.total ? 'none' : 'flex', emptyLine: B.emptyLine,
+clearAll: function () { self.setState({ where: '', when: '', lastIso: '', sound: '', city: -1, miss: false }); self.focusBill(); },
+billRef: this.billRef, billHRef: this.billHRef
+}, nav6Vals(this, { curRoster: 'page', bookHref: '#find', bookNow: bookNow }));
+return Object.assign(V, r6CalVals(this, V.setWhen));
+}
+}</script>
 <script src="bookd-config.js"></script>
-<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>

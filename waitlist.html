@@ -2,172 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<style>html[data-bookd-wait]{background:#d31110}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <title>Join the waitlist · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="description" content="The waitlist page for BOOKD. DJs for private parties.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://nicomaggioli.github.io/bookd/waitlist.html">
+<meta property="og:site_name" content="BOOKD">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The BOOKD waitlist">
+<meta property="og:description" content="The waitlist page for BOOKD. DJs for private parties.">
+<meta property="og:url" content="https://nicomaggioli.github.io/bookd/waitlist.html">
+<meta property="og:image" content="https://nicomaggioli.github.io/bookd/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The BOOKD wordmark over blurred lights in black, white and red">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<script>/* canvas: page stays still */
-(function () {
-  var still = function () {
-    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
-  };
-  var css = document.createElement('style');
-  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-  document.head.appendChild(css);
-  var check = function () {
-    var on = still();
-    document.documentElement.classList.toggle('oncanvas', on);
-    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-  };
-  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();
-</script>
+<link rel="manifest" href="site.webmanifest">
+<noscript><style>html,body{margin:0;background:#d31110}.bookd-plain{min-height:100vh;background:#d31110}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
 </head>
 <body>
+<noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Join the waitlist.</h1><p>The waitlist page for BOOKD. DJs for private parties.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
-<style>
-/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
-   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
-   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
-:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
 @supports (zoom:calc(100vw / 1440px)){
 @media (min-width:1441px){
-  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
-  html{zoom:var(--bz)}
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
 }
 }
-
-/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+:root{--gut:clamp(16px,calc(4 * var(--vw)),48px)}
 body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
-h1,h2,h3,h4{text-wrap:balance}
+h1{text-wrap:balance}
 a{color:inherit}
-:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
-.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
-/* type */
-.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
-.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
-.muted{color:#a2a5a4}
 .skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
 .skip:focus{top:12px}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
-
-/* ===== Waitlist6: the site before it opens. Plain on purpose (Nov 11): one line, one email box, one button, and a lot of empty space.
-   Behind it the dancing video fills the page under a dark shade, so the words stay easy to read. The shade lifts a little once you are on the list. ===== */
-.wl-page{position:relative;min-height:calc(100 * var(--vh));min-height:calc(100 * var(--svh));display:flex;flex-direction:column;overflow:hidden;background:#000000}
-/* the video and its shade sit behind everything, edge to edge */
-.wl-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#000000}
-.wl-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.wl-shade{position:absolute;inset:0;background:radial-gradient(ellipse 62% 56% at 50% 46%,rgba(0,0,0,.86) 0%,rgba(0,0,0,.78) 55%,rgba(0,0,0,.68) 100%),linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 72%,rgba(0,0,0,.66) 100%);transition:opacity 1.1s ease}
-.wl-on .wl-shade{opacity:.9}
-.wl-top{position:relative;z-index:2;display:flex;justify-content:center;padding:clamp(22px,calc(4.4 * var(--svh)),44px) var(--gut) 0}
-.wl{position:relative;z-index:1;flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(40px,calc(8 * var(--svh)),96px) var(--gut) clamp(72px,calc(17 * var(--svh)),190px)}
-.wl-h{margin:0;font-size:clamp(42px,min(calc(4 * var(--vw) + 28px),calc(11 * var(--svh))),92px);line-height:.94;font-weight:700;letter-spacing:-0.065em;color:#fffde9;text-wrap:balance;outline:none}
-/* the headline takes focus after a press so a screen reader reads the result; it is not a control, so it shows no ring */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
+.wl-page{position:relative;min-height:calc(100 * var(--vh));min-height:calc(100 * var(--svh));display:flex;flex-direction:column;overflow:hidden;background:#d31110 url("assets/87d942304a0ecc1d83730f615407f612.webp") 50% 50%/1024px 1024px}
+.wl-page::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 45%,rgba(255,255,255,.05),rgba(0,0,0,.2));pointer-events:none}
+.wl{position:relative;z-index:1;flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(28px,calc(5 * var(--svh)),64px) var(--gut) clamp(28px,calc(5 * var(--svh)),64px)}
+.env{position:relative;width:min(580px,100%);margin:0 auto;--front:clamp(170px,calc(26 * var(--svh)),250px);--flap:clamp(100px,calc(16 * var(--svh)),160px);filter:drop-shadow(0 26px 26px rgba(40,0,0,.34)) drop-shadow(0 3px 4px rgba(40,0,0,.3))}
+.env-back{position:absolute;left:0;right:0;top:calc(var(--flap) - 2px);bottom:0;background:linear-gradient(rgba(58,52,40,.34),rgba(58,52,40,.2) 45%,rgba(58,52,40,.14)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 30% 20%/420px 420px;filter:url(#wl-rough)}
+.env-flap{position:absolute;left:0;right:0;top:0;height:var(--flap);clip-path:polygon(48.6% 2.5%,50% 0,51.4% 2.5%,100% 100%,0 100%);background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,0) 45%,rgba(60,54,40,.16)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 60% 70%/420px 420px;filter:url(#wl-rough)}
+.env-card{position:relative;z-index:2;margin:calc(var(--flap) * .6) clamp(16px,5%,30px) 0;padding:clamp(26px,calc(4.4 * var(--svh)),44px) clamp(18px,6%,40px) calc(var(--front) * .98 + 6px);text-align:center;color:#000000;rotate:-.5deg}
+.env-card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 120% 100% at 50% 40%,rgba(255,255,255,0) 55%,rgba(150,128,70,.13)),url("assets/9d4328ee04d2591f9cdb18f200294fdb.webp") 10% 30%/460px 460px;filter:url(#wl-rough) drop-shadow(0 2px 3px rgba(40,30,10,.35)) drop-shadow(0 10px 14px rgba(40,30,10,.18))}
+.env-eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#000000}
+.wl-h{margin:0;font-size:clamp(34px,min(calc(3 * var(--vw) + 22px),calc(7.4 * var(--svh))),60px);line-height:.92;font-weight:700;letter-spacing:-0.055em;text-transform:uppercase;color:#000000;text-wrap:balance;outline:none}
 .wl-h:focus,.wl-h:focus-visible{outline:none}
-.wl-sub{margin:clamp(12px,calc(2 * var(--svh)),20px) 0 0;max-width:24em;font-size:clamp(16px,calc(1.3 * var(--vw)),19px);line-height:1.4;color:#ffffff}
-.wl-form{width:min(460px,100%);margin:clamp(26px,calc(4.6 * var(--svh)),44px) 0 0}
-/* one pill: the box and the button share it */
-.wl-pill{display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:#f2f2f0;transition:background .15s,box-shadow .15s}
-.wl-pill:focus-within{background:#ffffff;box-shadow:0 0 0 3px #d31110}
+.wl-sub{margin:14px auto 0;max-width:26em;font-size:13px;line-height:1.6;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#000000}
+@media (max-width:899px){.wl-sub,.env-eyebrow{font-size:12px;letter-spacing:.16em}}
+.wl-form{width:100%;max-width:420px;margin:clamp(18px,calc(3 * var(--svh)),28px) auto 0}
+.wl-pill{display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:#ffffff;transition:background .15s,box-shadow .15s}
+.wl-pill:focus-within{box-shadow:0 0 0 3px #000000}
 .wl-pill input{flex:1 1 auto;min-width:0;height:52px;margin:0;padding:0 8px 0 20px;border:0;border-radius:999px;background:transparent;font:400 18px 'Inter',sans-serif;letter-spacing:-0.01em;color:#000000;outline:none;-webkit-appearance:none;appearance:none}
-.wl-pill input::placeholder{color:#636665;opacity:1}
+.wl-pill input::placeholder{color:rgba(0,0,0,.6);opacity:1}
 .wl-go{flex:none;min-height:52px;padding:0 26px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 17px 'Inter',sans-serif;letter-spacing:-0.02em;cursor:pointer;white-space:nowrap;transition:background .15s}
 .wl-go:active{transform:translateY(1px)}
 .wl-go[aria-disabled="true"]{opacity:.6;cursor:default}
 .wl-go:focus-visible{outline:2px solid #000000;outline-offset:2px}
-.wl-note{margin:14px 0 0;min-height:19px;font-size:13px;line-height:1.45;color:#f0f0ee}
-.wl-note a{color:#ffffff;font-weight:700;text-underline-offset:2px}
-/* red letters would not hold up over the video, so a problem is said in white on a red pill */
-.wl-err{display:inline-block;margin-top:12px;padding:7px 14px;border-radius:999px;background:#d31110;color:#ffffff;font-weight:700}
-.wl-again{margin:clamp(20px,calc(3.4 * var(--svh)),32px) 0 0;min-height:48px;padding:0 24px;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 15px 'Inter',sans-serif;letter-spacing:-0.01em;cursor:pointer;transition:background .15s,color .15s}
+.wl-note{margin:10px 0 0;min-height:19px;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
+.wl-note a{color:#000000;font-weight:700;text-underline-offset:2px}
+.wl-err{display:inline-block;padding:7px 14px;border-radius:999px;background:#d31110;color:#ffffff;font-weight:700}
+.wl-again{margin:20px 0 0;min-height:48px;padding:0 24px;border:0;border-radius:999px;background:#000000;color:#ffffff;font:700 15px 'Inter',sans-serif;letter-spacing:-0.01em;cursor:pointer;transition:background .15s,color .15s}
 .wl-again:active{transform:translateY(1px)}
-.wl-again:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
-/* hover: the red Join sits on the white pill, so it turns black; the white pill sits on the dark veil, so it turns red; the Privacy link turns the small-text red */
-@media (hover: hover) and (pointer: fine){.wl-go:hover{background:#000000}.wl-again:hover{background:#d31110;color:#ffffff}.wl-note a:hover{color:#ff3b2f}}
-@media (max-width:420px){.wl-pill input{padding-left:16px;font-size:17px}.wl-go{padding:0 20px}}
-</style>
-<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
-body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
-@media print{body::after{display:none}}
-</style>
-<style>/* Nov 13 (Nico, from a reference photo): an invitation coming out of a real paper envelope on a worn red ground.
-   The paper is three generated textures (site-build/demo/paper). Rough edges come from the SVG filter #wl-rough, applied to the paper layers only. */
-.wl-page{background:#d31110 url("assets/87d942304a0ecc1d83730f615407f612.webp") 50% 50%/1024px 1024px !important}
-.wl-page::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 45%,rgba(255,255,255,.05),rgba(0,0,0,.2));pointer-events:none}
-.wl{padding:clamp(28px,calc(5 * var(--svh)),64px) var(--gut) clamp(28px,calc(5 * var(--svh)),64px) !important}
-.env{position:relative;width:min(580px,100%);margin:0 auto;--front:clamp(170px,calc(26 * var(--svh)),250px);--flap:clamp(100px,calc(16 * var(--svh)),160px);filter:drop-shadow(0 26px 26px rgba(40,0,0,.34)) drop-shadow(0 3px 4px rgba(40,0,0,.3))}
-/* the inside of the envelope: in shade */
-.env-back{position:absolute;left:0;right:0;top:calc(var(--flap) - 2px);bottom:0;background:linear-gradient(rgba(58,52,40,.34),rgba(58,52,40,.2) 45%,rgba(58,52,40,.14)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 30% 20%/420px 420px;filter:url(#wl-rough)}
-/* the open flap behind the card */
-.env-flap{position:absolute;left:0;right:0;top:0;height:var(--flap);clip-path:polygon(48.6% 2.5%,50% 0,51.4% 2.5%,100% 100%,0 100%);background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,0) 45%,rgba(60,54,40,.16)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 60% 70%/420px 420px;filter:url(#wl-rough)}
-/* the card */
-.env-card{position:relative;z-index:2;margin:calc(var(--flap) * .6) clamp(16px,5%,30px) 0;padding:clamp(26px,calc(4.4 * var(--svh)),44px) clamp(18px,6%,40px) calc(var(--front) * .98 + 6px);text-align:center;color:#111111;rotate:-.5deg;background:none !important}
-.env-card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 120% 100% at 50% 40%,rgba(255,255,255,0) 55%,rgba(150,128,70,.13)),url("assets/9d4328ee04d2591f9cdb18f200294fdb.webp") 10% 30%/460px 460px;filter:url(#wl-rough) drop-shadow(0 2px 3px rgba(40,30,10,.35)) drop-shadow(0 10px 14px rgba(40,30,10,.18))}
-.env-eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#111111}
-.env-card .wl-h{color:#111111 !important;font-size:clamp(34px,min(calc(3 * var(--vw) + 22px),calc(7.4 * var(--svh))),60px) !important;text-transform:uppercase;letter-spacing:-0.055em;line-height:.92}
-.env-card .wl-sub{margin:14px auto 0 !important;max-width:26em;color:#111111 !important;font-size:13px !important;font-weight:700;letter-spacing:.12em;line-height:1.6 !important;text-transform:uppercase}
-.env-card .wl-form{width:100% !important;margin:clamp(18px,calc(3 * var(--svh)),28px) auto 0 !important;max-width:420px}
-.env-card .wl-pill{background:#ffffff}
-.env-card .wl-pill:focus-within{background:#ffffff;box-shadow:0 0 0 3px #000000}
-.env-card .wl-note{color:#4d504f;margin-top:10px}
-.env-card .wl-note a{color:#000000}
-.env-card .wl-err{color:#ffffff}
-.env-card .wl-again{background:#000000;color:#ffffff;margin-top:20px}
-@media (hover: hover) and (pointer: fine){.env-card .wl-again:hover{background:#d31110;color:#ffffff}.env-card .wl-note a:hover{color:#d31110}}
-/* the front pocket, with its two fold creases; it casts a soft shadow up onto the card */
-.env-front{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--front);display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(var(--front) * .15);box-sizing:border-box;background:none !important;clip-path:none !important}
+.env-front{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--front);display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(var(--front) * .15);box-sizing:border-box;filter:url(#wl-rough) drop-shadow(0 -3px 5px rgba(40,30,10,.3))}
 .env-front::before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,49% 39.4%,50% 40%,51% 39.4%,100% 0,100% 100%,0 100%);background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,0) 30%,rgba(70,62,44,.1)),url("assets/5adc43feb9efc164eeda2fbc086d2a60.webp") 0 0/420px 420px}
-.env-front{filter:url(#wl-rough) drop-shadow(0 -3px 5px rgba(40,30,10,.3))}
 .env-fold{position:absolute;inset:0;pointer-events:none;background:
-  linear-gradient(to top right,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) left bottom/50% 60% no-repeat,
-  linear-gradient(to top left,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) right bottom/50% 60% no-repeat}
-.env-logo{position:absolute;z-index:4;left:50%;bottom:calc(var(--front) * .15);transform:translateX(-50%);display:block;width:min(46%,236px);line-height:0;opacity:.88}
+linear-gradient(to top right,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) left bottom/50% 60% no-repeat,
+linear-gradient(to top left,rgba(0,0,0,0) calc(50% - 1.5px),rgba(70,60,40,.2) calc(50% - .5px),rgba(255,255,255,.5) calc(50% + .5px),rgba(0,0,0,0) calc(50% + 2px)) right bottom/50% 60% no-repeat}
+.env-logo{position:absolute;z-index:4;left:50%;bottom:calc(var(--front) * .15 - 11px);transform:translateX(-50%);display:block;width:min(46%,236px);padding:11px 0;line-height:0;opacity:.88}
 .env-logo:focus-visible{outline:2px solid #000000;outline-offset:6px}
 @media (prefers-reduced-motion: no-preference){
-  .env-card{animation:env-rise .95s cubic-bezier(.2,.9,.25,1) .25s backwards}
-  .env-flap{animation:env-open .5s ease .05s backwards;transform-origin:50% 100%}
+.env-card{animation:env-rise .95s cubic-bezier(.2,.9,.25,1) .25s backwards}
+.env-flap{animation:env-open .5s ease .05s backwards;transform-origin:50% 100%}
 }
 @keyframes env-rise{from{transform:translateY(34%)}}
 @keyframes env-open{from{transform:scaleY(.2);opacity:.4}}
-@media (max-width:420px){.env-card .wl-pill input{padding-left:14px;font-size:16px}.env-card .wl-go{padding:0 18px}}
-</style>
-<style>/* Nov 13, independent check of Erika's requests: the logo on the envelope is a full-size tap target; the small capital lines share one setting */
-.env-logo{padding:11px 0;bottom:calc(var(--front) * .15 - 11px) !important}
-.env-card .wl-sub{letter-spacing:.2em !important}
-@media (max-width:899px){.env-card .wl-sub,.env-eyebrow{font-size:12px !important;letter-spacing:.16em !important}}
-</style>
+@media (hover: hover) and (pointer: fine){.wl-go:hover{background:#000000}.wl-again:hover{background:#d31110;color:#ffffff}.wl-note a:hover{color:#d31110}}
+@media (max-width:420px){.wl-pill input{padding-left:14px;font-size:16px}.wl-go{padding:0 18px}}</style>
 </helmet>
-<div class="{{pageCls}}">
+<div class="wl-page">
 <a class="skip" href="#main">Skip to content</a>
-<!-- TOP: the logo only. This page is the whole site before launch, so there is no menu and no footer row. -->
 <main id="main" class="wl" aria-labelledby="wl-h">
 <svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0;"><filter id="wl-rough" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="4" result="n"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter></svg>
 <div class="env">
 <span class="env-back" aria-hidden="true"></span>
 <span class="env-flap" aria-hidden="true"></span>
 <div class="env-card">
-<p class="env-eyebrow">You're invited</p>
+<sc-if value="{{inviteOn}}" hint-placeholder-val="{{ true }}"><p class="env-eyebrow">You're invited</p></sc-if>
 <h1 id="wl-h" class="wl-h" tabindex="-1" ref="{{headRef}}">{{head}}</h1>
-<p class="wl-sub">{{sub}}</p>
+<p class="wl-sub" role="status">{{sub}}</p>
 <sc-if value="{{formOn}}" hint-placeholder-val="{{ true }}">
 <form class="wl-form" onSubmit="{{join}}" novalidate="" aria-label="Join the waitlist">
 <div class="wl-pill">
 <label class="vh" for="wl-email">Email</label>
-<input id="wl-email" type="email" value="{{email}}" onInput="{{setEmail}}" ref="{{emailRef}}" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Your email" aria-invalid="{{emailBad}}" aria-describedby="wl-note">
+<input id="wl-email" type="email" name="email" value="{{email}}" onInput="{{setEmail}}" ref="{{emailRef}}" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Your email" aria-invalid="{{emailBad}}" aria-describedby="wl-note">
 <button class="wl-go" type="submit" aria-disabled="{{busy}}">{{goLabel}}</button>
 </div>
 <p id="wl-note" class="{{noteCls}}" role="{{noteRole}}">{{note}}<sc-if value="{{privacyOn}}" hint-placeholder-val="{{ true }}"> <a href="terms.html#privacy">Privacy</a></sc-if></p>
@@ -184,88 +149,68 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
-// Waitlist6: the page the site shows before launch. One job: take an email for the list.
-// On the design canvas this is a mockup: the button only swaps the words.
-// On the site with the backend connected (window.BOOKD.ready) it adds the email for real (web/api/waitlist.js).
-// On the site with no backend yet it never pretends: it says the list is not open and that nothing was saved.
-var WL_EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>var WL_EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 function wlLive() {
-  var b = typeof window !== 'undefined' ? window.BOOKD : null;
-  return b && b.ready && b.waitlist ? b.waitlist : null;
+var b = typeof window !== 'undefined' ? window.BOOKD : null;
+return b && b.ready && b.waitlist ? b.waitlist : null;
 }
-// The built site says demo: false in bookd-config.js. The canvas has no config, so it keeps the mockup.
 function wlSoon() {
-  var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
-  return !!(c && c.demo === false) && !wlLive();
+var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
+return !!(c && c.demo === false) && !wlLive();
 }
 function wlFail(code) {
-  if (code === 'rate') return 'Too many tries. Give it a\u00a0minute.';
-  if (code === 'offline') return "Couldn't reach BOOKD. Check your\u00a0connection.";
-  if (code === 'invalid') return "That email doesn't look\u00a0right.";
-  return 'Something went wrong. Nothing was saved, so try\u00a0again.';
+if (code === 'rate') return 'Too many tries. Give it a\u00a0minute.';
+if (code === 'offline') return "Couldn't reach BOOKD. Check your\u00a0connection.";
+if (code === 'invalid') return "That email doesn't look\u00a0right.";
+return 'Something went wrong. Nothing was saved, so try\u00a0again.';
 }
 class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    var self = this;
-    // done: '' the form, 'in' on the list, 'soon' the list is not open yet
-    this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    this.state = { email: '', bad: false, fail: '', busy: false, done: '' };
-    this.vid = null;
-    this.vidRef = function (el) {
-      if (self.vid && self.vid !== el && !self.vid.paused) self.vid.pause();
-      self.vid = el; if (el) { el.muted = true; if (!self.reduce && el.paused) { var p = el.play(); if (p && p.catch) p.catch(function () {}); } }
-    };
-    this.emailEl = null; this.headEl = null; this.wantEmail = false; this.wantHead = false;
-    this.emailRef = function (el) { self.emailEl = el; if (el && self.wantEmail) { self.wantEmail = false; if (el.focus) el.focus(); } };
-    this.headRef = function (el) { self.headEl = el; };
-  }
-  // the new headline takes focus after the press, so a screen reader reads the result
-  componentDidUpdate() {
-    if (this.wantHead && this.headEl && this.headEl.focus) { this.wantHead = false; this.headEl.focus(); }
-  }
-  componentWillUnmount() {
-    if (this.vid && !this.vid.paused) this.vid.pause();
-  }
-  renderVals() {
-    var self = this, s = this.state, soon = wlSoon();
-    var isIn = s.done === 'in', isSoon = s.done === 'soon', err = s.bad || !!s.fail;
-    return {
-      pageCls: isIn ? 'wl-page wl-on' : 'wl-page',
-      head: isIn ? "You're on the\u00a0list." : isSoon ? 'Not open\u00a0yet.' : 'Join the\u00a0waitlist.',
-      sub: isIn ? "We'll email you when BOOKD\u00a0opens." : isSoon ? 'Nothing was saved. Check back in a few\u00a0days.' : 'Be first to know when BOOKD\u00a0opens.',
-      formOn: !s.done, doneOn: !!s.done, againLabel: isIn ? 'Add another email' : 'Back',
-      email: s.email, emailBad: s.bad ? 'true' : 'false',
-      busy: s.busy ? 'true' : 'false', goLabel: s.busy ? 'One sec' : 'Join',
-      note: s.bad ? (s.email.trim() ? "That email doesn't look\u00a0right." : 'Add your email\u00a0first.') : s.fail ? wlFail(s.fail) : soon ? '' : 'One email when we\u00a0open.',   // no line under the box while the list is not open (Nov 11); the page still says so after the press
-      noteCls: err ? 'wl-note wl-err' : 'wl-note', noteRole: err ? 'alert' : 'note', privacyOn: !err && !soon,
-      emailRef: this.emailRef, headRef: this.headRef, vidRef: this.vidRef,
-      setEmail: function (e) { self.setState({ email: e.target.value, bad: false, fail: '' }); },
-      again: function () { self.wantEmail = true; self.setState({ done: '', email: '', bad: false, fail: '', busy: false }); },
-      join: function (e) {
-        if (e && e.preventDefault) e.preventDefault();
-        var st = self.state, em = st.email.trim();
-        if (st.busy) return;
-        if (!WL_EMAIL.test(em) || em.length > 200) {
-          self.setState({ bad: true, fail: '' });
-          if (self.emailEl && self.emailEl.focus) self.emailEl.focus();
-          return;
-        }
-        var api = wlLive();
-        if (!api) { self.wantHead = true; self.setState({ done: wlSoon() ? 'soon' : 'in', bad: false, fail: '' }); return; }
-        self.setState({ busy: true, bad: false, fail: '' });
-        api.join({ email: em }).then(function (r) {
-          if (r && r.ok) { self.wantHead = true; self.setState({ busy: false, done: 'in' }); }
-          else self.setState({ busy: false, fail: (r && r.code) || 'unknown' });
-        });
-      }
-    };
-  }
+constructor(props) {
+super(props);
+var self = this;
+this.state = { email: '', bad: false, fail: '', busy: false, done: '' };
+this.emailEl = null; this.headEl = null; this.wantEmail = false; this.wantHead = false;
+this.emailRef = function (el) { self.emailEl = el; if (el && self.wantEmail) { self.wantEmail = false; if (el.focus) el.focus(); } };
+this.headRef = function (el) { self.headEl = el; };
 }
-</script>
+componentDidUpdate() {
+if (this.wantHead && this.headEl && this.headEl.focus) { this.wantHead = false; this.headEl.focus(); }
+}
+renderVals() {
+var self = this, s = this.state, soon = wlSoon();
+var isIn = s.done === 'in', isSoon = s.done === 'soon', err = s.bad || !!s.fail;
+return {
+head: isIn ? "You're on the\u00a0list." : isSoon ? 'Not open\u00a0yet.' : 'Join the\u00a0waitlist.',
+sub: isIn ? "We'll email you when BOOKD\u00a0opens." : isSoon ? 'Nothing was saved. Check back\u00a0soon.' : 'Be first to know when BOOKD\u00a0opens.',
+inviteOn: !isSoon, formOn: !s.done, doneOn: !!s.done, againLabel: isIn ? 'Add another email' : 'Back',
+email: s.email, emailBad: s.bad ? 'true' : 'false',
+busy: s.busy ? 'true' : 'false', goLabel: s.busy ? 'One sec' : 'Join',
+note: s.bad ? (s.email.trim() ? "That email doesn't look\u00a0right." : 'Add your email\u00a0first.') : s.fail ? wlFail(s.fail) : soon ? '' : 'One email when we\u00a0open.',
+noteCls: err ? 'wl-note wl-err' : 'wl-note', noteRole: err ? 'alert' : 'note', privacyOn: !err && !soon,
+emailRef: this.emailRef, headRef: this.headRef,
+setEmail: function (e) { self.setState({ email: e.target.value, bad: false, fail: '' }); },
+again: function () { self.wantEmail = true; self.setState({ done: '', email: self.state.done === 'soon' ? self.state.email : '', bad: false, fail: '', busy: false }); },
+join: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var st = self.state, em = st.email.trim();
+if (st.busy) return;
+if (!WL_EMAIL.test(em) || em.length > 200) {
+self.setState({ bad: true, fail: '' });
+if (self.emailEl && self.emailEl.focus) self.emailEl.focus();
+return;
+}
+var api = wlLive();
+if (!api) { self.wantHead = true; self.setState({ done: wlSoon() ? 'soon' : 'in', bad: false, fail: '' }); return; }
+self.setState({ busy: true, bad: false, fail: '' });
+api.join({ email: em }).then(function (r) {
+if (r && r.ok) { self.wantHead = true; self.setState({ busy: false, done: 'in' }); }
+else self.setState({ busy: false, fail: (r && r.code) || 'unknown' });
+});
+}
+};
+}
+}</script>
 <script src="bookd-config.js"></script>
-<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>

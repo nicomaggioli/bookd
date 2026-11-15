@@ -2,86 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <title>Log in · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="BOOKD. DJs for private parties.">
+<meta name="description" content="The BOOKD log in page. Accounts open soon.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://nicomaggioli.github.io/bookd/login.html">
+<meta property="og:site_name" content="BOOKD">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Log in to BOOKD">
+<meta property="og:description" content="The BOOKD log in page. Accounts open soon.">
+<meta property="og:url" content="https://nicomaggioli.github.io/bookd/login.html">
+<meta property="og:image" content="https://nicomaggioli.github.io/bookd/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The BOOKD wordmark over blurred lights in black, white and red">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<script>/* canvas: page stays still */
-(function () {
-  var still = function () {
-    var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-    var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-    return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
-  };
-  var css = document.createElement('style');
-  css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-  document.head.appendChild(css);
-  var check = function () {
-    var on = still();
-    document.documentElement.classList.toggle('oncanvas', on);
-    if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-  };
-  document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-  check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-  [500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();
-</script>
+<link rel="manifest" href="site.webmanifest">
+<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
 </head>
 <body>
+<noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Back for another round?</h1><p>The BOOKD log in page. Accounts open soon.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
 <x-dc>
 <helmet>
+<link rel="preload" as="image" href="assets/62482694080a7cdf4882c52b5d6bd63d.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
-<style>
-/* big screens: wider than 1440 the whole page scales up from the 1440 layout, so 1920, 2000 or 2560 look like 1440, only bigger.
-   --bz is the scale. It never goes under 1. A wide but short window scales by its height instead (the page keeps at least 680 of its own pixels of height) and the layout stretches sideways the way it used to.
-   Browsers that cannot divide one length by another skip the whole block and keep the stretchy layout. */
-:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
 @supports (zoom:calc(100vw / 1440px)){
 @media (min-width:1441px){
-  :root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
-  html{zoom:var(--bz)}
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
 }
 }
-
-/* v6 shell: shared by every v6 page. Same tokens and components as index.html. */
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+html{scroll-padding-top:88px}
 body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
 h1,h2,h3,h4{text-wrap:balance}
 a{color:inherit}
-:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
-/* type */
 .h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
-.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
-.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
-.muted{color:#a2a5a4}
-/* nav */
-/* ===== nav shell (A/fix/shell/nav.css). Same block on every page except Home6. Markup: host, dj, admin or public.html. Handlers: nav.js ===== */
 .skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
 .skip:focus{top:12px}
 .nav6{position:sticky;top:0;z-index:45;background:#000000}
-.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navgrid{box-sizing:border-box;max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
 .navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
-.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl{text-decoration:none;font-size:15px;color:#ffffff;white-space:nowrap}
 .nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
 .nlc{display:inline-flex;align-items:center;gap:8px}
 .navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
 .navend{justify-self:end;display:flex;align-items:center;gap:18px}
 .navmenu{display:none;background:#ffffff;border:0;border-radius:999px;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
-/* phone menu: hangs from the bar over the page (F332); the scrim dims the page and takes the taps (F331) */
-#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
-#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)}
 .mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
-/* YOU button and its menu */
 .acctwrap{position:relative;flex:0 0 auto}
 .acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
-.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.2);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
 .acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
 .acctwho strong{color:#ffffff;font-weight:700}
 .acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
@@ -90,169 +98,128 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
 @media (min-width:761px){#mnav,.mscrim{display:none !important}}
 @media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
-/* signed in (header class nav6-in): from 1100px down the bar is the links and YOU, then Menu and YOU on phones; the red pill goes */
 @media (max-width:1100px){.nav6-in .navbook{display:none}}
-/* small tablets, public shell only (F184): below 808px Log in sat 16px after For artists while the links sat 30px apart; signed in bars never crowd */
 @media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
 @media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{background:#d31110;color:#ffffff}}
-/* ===== end nav shell ===== */
-html{scroll-padding-top:88px}
-/* buttons, chips, fields, cards */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
 .btn:active{transform:translateY(1px)}
-.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
 .btn-lg{min-height:56px;padding:0 28px;font-size:17px}
 .go{background:#d31110;color:#ffffff}
-.ink{background:#000000;color:#ffffff}
-.paper{background:#ffffff;color:#000000}
-.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
-.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
-.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
-.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
-.field-l{font-size:12px;font-weight:700;color:#4d504f}
-.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
-.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
-.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
-.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
-.card{border-radius:var(--r-card);overflow:hidden}
-.card-cream{background:#fffde9;color:#000000}
-.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
-.card-red{background:#d31110;color:#ffffff}
-/* flash photos (same look as the Home6 feed and camera) and avatars */
-.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
-.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
-.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
-.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
-.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
-.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
-/* footer */
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:var(--r-field);background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
+.field input{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field input::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
+@media (hover:hover) and (pointer:fine){.go:hover{background:#ffffff;color:#000000}}
 .foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
 .foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
 .footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
 .footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
-.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
-@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
-@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+@media (hover:hover) and (pointer:fine){.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
-/* ===== Login6: log in and sign up (hosts and DJs). The party through the door on one side, a plain card on the other. ===== */
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
 .lg{max-width:1440px;margin:0 auto;padding:4px var(--gut) clamp(12px,calc(2 * var(--vw)),24px);box-sizing:border-box}
-.lg-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(360px,1fr);gap:12px;min-height:clamp(640px,calc(calc(100 * var(--svh)) - 110px),790px)}
-/* stage */
-.lg-stage{position:relative;isolation:isolate;overflow:hidden;min-width:0;min-height:540px;border-radius:0;background:#000000;display:flex;flex-direction:column;justify-content:flex-end}
+.lg-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(360px,1fr);gap:12px;min-height:clamp(480px,calc(calc(100 * var(--svh)) - 110px),790px)}
+.lg-stage{position:relative;isolation:isolate;overflow:hidden;min-width:0;min-height:540px;border-radius:var(--r-card);background:#000000;display:flex;flex-direction:column;justify-content:flex-end}
 .lg-media{position:absolute;inset:0;z-index:0;pointer-events:none}
-.lg-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#000000}
+.lg-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#000000 url(assets/62482694080a7cdf4882c52b5d6bd63d.jpg) 50% 40%/cover no-repeat}
 .lg-scrim{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,0) 24%,rgba(0,0,0,0) 50%,rgba(0,0,0,.6) 76%,rgba(0,0,0,.9))}
 .lg-copy{position:relative;z-index:3;display:flex;flex-direction:column;gap:16px;padding:0 clamp(20px,calc(3 * var(--vw)),44px) clamp(22px,calc(3 * var(--vw)),44px)}
-.lg-h{font-size:clamp(44px,calc(6.8 * var(--vw)),98px);max-width:7.6em}
-/* what hangs in the doorway: the DJ pass on its strap */
-.lg-hang{position:absolute;z-index:2;top:-14px;right:clamp(20px,8%,110px);width:clamp(140px,calc(14 * var(--vw)),210px);transform-origin:50% 0;transition:transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.lg-h{font-size:clamp(44px,calc(6.8 * var(--vw)),98px);max-width:7.6em;color:#fffde9}
+.lg-hang{position:absolute;z-index:2;top:-14px;right:clamp(20px,8%,110px);width:clamp(140px,calc(14 * var(--vw)),210px);transform-origin:50% 0;transition:transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none;--k:.27}
 .lg-obj{position:absolute;left:0;top:0;width:100%;transform-origin:50% 0;transition:transform .8s cubic-bezier(.3,1.45,.5,1),opacity .25s ease}
 .lg-obj.lg-off{opacity:0;transform:translateY(-44px) rotate(-14deg)}
 .lg-pass{display:flex;flex-direction:column;align-items:center}
 .lg-pass.lg-on{transform:rotate(-5deg)}
-.lg-strap{display:flex;flex-direction:column;align-items:center;overflow:hidden;width:30px;height:clamp(50px,calc(6 * var(--vw)),96px);background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,0) 18%,rgba(255,255,255,.08) 50%,rgba(0,0,0,0) 82%,rgba(0,0,0,.28)),#d31110;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25),0 4px 10px rgba(0,0,0,.4)}
+.lg-strap{position:relative;z-index:4;display:flex;flex-direction:column;align-items:center;overflow:hidden;width:calc(var(--k,.225) * 52%);height:clamp(50px,calc(6 * var(--vw)),96px);background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,0) 18%,rgba(255,255,255,.08) 50%,rgba(0,0,0,0) 82%,rgba(0,0,0,.28)),#d31110;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25),0 4px 10px rgba(0,0,0,.4)}
 .lg-strap svg{flex:none;display:block;width:80px;height:auto;margin:52px 0;fill:#000000;opacity:.9;transform:rotate(90deg)}
-/* The lanyard hardware (the same on the home, artists and log in pages; made by site-build/tools-media/hook.py).
-   Drawn after a real swivel hook, the standard one on event lanyards: the strap folds through a wire bail, a swivel hangs from the bail, and a long narrow hook with a ribbed spring gate hangs from the swivel's ring.
-   --k is the hardware's width as a share of the pass width. Everything else follows from it, so it lines up with the slot at every size.
-   The hook is drawn twice. .hk-b sits UNDER the pass: the pass hides the leg that goes behind it, and the bend shows through the slot, which is a real hole in the pass image.
-   .hk-f sits OVER the pass and is cut down to the one leg that comes down in front of it. So the hook reads as threaded through the slot, not laid on top.
-   The slot's top edge is 5.34% of the pass width below the top of the pass and its bottom edge 9.48%; the hook hangs 7.91% down, a little way into the slot. */
 .hk{position:relative;display:block;flex:none;width:calc(var(--k,.225) * 100%);aspect-ratio:48 / 67;margin-top:calc(var(--k,.225) * -16.67%);pointer-events:none}
 .hk svg{position:absolute;left:0;top:0;display:block;width:100%;height:100%;overflow:visible}
 .hk-b{z-index:1;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.55))}
 .hk-f{z-index:3;filter:drop-shadow(1px 1px 1px rgba(0,0,0,.6));clip-path:inset(calc(100% - 100% * 0.0791 / (var(--k,.225) * 1.3958)) 0 calc(100% * 0.0257 / (var(--k,.225) * 1.3958)) 50%)}
-.lg-hang{--k:.27}
-.lg-strap{position:relative;z-index:4}
-.lg-hang .lg-strap{width:calc(var(--k,.225) * 52%)}
 .lg-strap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:15px;pointer-events:none;background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)) 0 0/100% 1px no-repeat,repeating-linear-gradient(90deg,rgba(255,226,220,.8) 0 3px,rgba(0,0,0,0) 3px 6px) 4px 4px/calc(100% - 8px) 1px no-repeat,repeating-linear-gradient(90deg,rgba(255,226,220,.8) 0 3px,rgba(0,0,0,0) 3px 6px) 4px 9px/calc(100% - 8px) 1px no-repeat,linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.24))}
 .lg-lam{position:relative;z-index:2;display:block;width:100%;margin-top:-7.91%}
 .lg-lam img{display:block;width:100%;height:auto;filter:drop-shadow(0 22px 30px rgba(0,0,0,.55))}
-/* card */
-.lg-card{min-width:0;display:flex;flex-direction:column;justify-content:flex-start;box-sizing:border-box;padding:clamp(32px,calc(6 * var(--vh)),64px) clamp(20px,calc(3 * var(--vw)),52px) clamp(24px,calc(3.4 * var(--vw)),56px);border-radius:30px;background:#ffffff;color:#000000}
+.lg-card{min-width:0;display:flex;flex-direction:column;justify-content:flex-start;box-sizing:border-box;padding:clamp(32px,calc(6 * var(--vh)),64px) clamp(20px,calc(3 * var(--vw)),52px) clamp(24px,calc(3.4 * var(--vw)),56px);border-radius:var(--r-card);background:#ffffff;color:#000000}
 .lg-in{width:100%;max-width:420px;margin:0 auto}
-.lg-in:has(.lg-done){margin-block:auto}
-/* the new password card is short: sit it in the middle of the white, beside the photo */
+.lg-in:has(.lg-done),.lg-in:has(.ns){margin-block:auto}
 .lg-in.lg-mid{margin-block:auto}
 .lg-form,.lg-done{display:flex;flex-direction:column;gap:12px;margin:0}
 .lg-switch{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-bottom:18px;padding:4px;border-radius:999px;background:#f2f2f0}
 .lg-knob{position:absolute;left:4px;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:999px;background:#000000;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.lg-sw{position:relative;z-index:1;min-height:44px;border:0;border-radius:999px;background:transparent;color:#4d504f;font:700 15px 'Inter',sans-serif;cursor:pointer;transition:color .2s}
+.lg-sw{position:relative;z-index:1;min-height:44px;border:0;border-radius:999px;background:transparent;color:rgba(0,0,0,.7);font:700 15px 'Inter',sans-serif;cursor:pointer}
 .lg-sw[aria-pressed="true"]{color:#ffffff}
 .lg-title{margin:0;font-size:clamp(40px,calc(3.8 * var(--vw)),58px);line-height:.92;font-weight:700;letter-spacing:-0.06em;text-wrap:balance;overflow-wrap:anywhere}
-.lg-sub{margin:0 0 8px;font-size:16px;line-height:1.45;color:#4d504f;overflow-wrap:anywhere}
+.lg-sub{margin:0 0 8px;font-size:16px;line-height:1.45;color:rgba(0,0,0,.7);overflow-wrap:anywhere}
 .lg-fields{display:flex;flex-direction:column;gap:8px}
 .lg-pw{position:relative}
 .lg-pw input{padding-right:72px}
-.lg-show{position:absolute;right:10px;top:50%;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 13px 'Inter',sans-serif;cursor:pointer;transform:translateY(-50%)}
-.lg-card .field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.lg-show{position:absolute;right:10px;top:50%;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 13px 'Inter',sans-serif;cursor:pointer;transform:translateY(-50%)}
 .lg-card :focus-visible{outline-color:#d31110}
-.ferr{display:block;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
-.lg-go{width:100%;min-height:58px;margin-top:4px;font-size:18px;letter-spacing:-0.02em}
-.lg-quiet{align-self:flex-start;min-height:44px;padding:0 2px;border:0;background:none;color:#000000;font:700 15px 'Inter',sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.lg-swap{margin:4px 0 0;font-size:15px;line-height:1.4;color:#4d504f}
-.lg-link{display:inline-block;min-height:0;padding:12px 2px;border:0;background:none;color:#000000;font:700 15px 'Inter',sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.lg-fine{margin:0;font-size:13px;line-height:1.45;color:#636665}
-.lg-fine a{font-weight:700;color:#000000;text-underline-offset:2px}
-.lg-soon{text-align:center}
+.lg-card .lg-go{margin-top:4px}
+.lg-quiet{align-self:flex-start}
+.lg-swap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:4px 0 0;font-size:15px;line-height:1.4;color:rgba(0,0,0,.7)}
+.lg-form .soon-line{margin-top:-2px}
 .lg-done{align-items:flex-start;outline:none}
 .lg-done:focus,.lg-done:focus-visible{outline:none}
 .lg-next{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-top:6px}
-.lg-quiets{display:flex;flex-wrap:wrap;gap:0 24px}
+.lg-quiets{display:flex;flex-wrap:wrap;gap:8px}
 .lg-next .btn{flex:1 1 auto}
-@media (hover: hover) and (pointer: fine){.lg-card .go:hover,.lg-card .ghost:hover{background:#000000;color:#ffffff;box-shadow:none}.lg-sw[aria-pressed="false"]:hover{color:#000000}.lg-show:hover{background:#000000;color:#ffffff}.lg-quiet:hover,.lg-link:hover,.lg-fine a:hover{color:#d31110}}
-/* short laptop screens: the stage gets shorter, so the pass gets smaller and stays clear of the big line, and the card tightens so sign up still fits */
+@media (hover: hover) and (pointer: fine){.lg-card .go:hover{background:#000000;color:#ffffff}.lg-sw[aria-pressed="false"]:hover{color:#000000}.lg-show:hover{background:#000000;color:#ffffff}.lg-card .fine a:hover{color:#d31110}}
 @media (min-width:961px) and (max-height:820px){.lg-hang{width:clamp(130px,calc(11 * var(--vw)),170px)}.lg-card{padding-block:28px}.lg-title{font-size:40px}.lg-switch{margin-bottom:12px}}
-@media (max-width:960px){.lg-grid{grid-template-columns:minmax(0,1fr);min-height:0}.lg-stage{min-height:460px}}
-@media (min-width:561px) and (max-width:960px) and (max-height:500px){.lg-stage{min-height:200px}.lg-hang{width:84px}.lg-strap{height:20px;width:19px}.lg-hang{--k:.34}}
-@media (max-width:560px){.lg{padding-top:0}.lg-grid{gap:8px}.lg-stage{min-height:280px}.lg-h{font-size:clamp(38px,calc(11.7 * var(--vw)),44px);max-width:100%}.lg-hang{right:20px;width:84px}.lg-strap{height:20px;width:19px}.lg-hang{--k:.34}.lg-card{padding:28px 20px 24px}.lg-title{font-size:32px}}
+@media (min-width:961px) and (max-height:700px){.lg-stage{position:sticky;top:72px;align-self:start;min-height:0;height:max(320px,calc(calc(100 * var(--svh)) - 84px))}}
+@media (max-width:960px){.lg-grid{grid-template-columns:minmax(0,1fr);min-height:0}.lg-stage{min-height:clamp(96px,calc(calc(100 * var(--svh)) - 546px),460px)}}
+@media (max-width:560px){.lg{padding-top:0}.lg-grid{gap:8px}.lg-stage{min-height:clamp(84px,calc(calc(100 * var(--svh)) - 495px),280px)}.lg-h{font-size:clamp(38px,calc(11.7 * var(--vw)),44px);max-width:100%}.lg-hang{right:20px;width:clamp(48px,calc(calc(30 * var(--svh)) - 148px),84px);--k:.34}.lg-strap{height:20px}.lg-card{padding:28px 20px 24px}.lg-title{font-size:32px}}
 @media (max-width:359px){.lg-h{font-size:34px}}
-@media (prefers-reduced-motion: reduce){.lg-hang,.lg-obj,.lg-knob,.lg-sw{transition:none}}
-</style>
-<style>/* phones skip the decks (Nov 4) */
-@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}
-</style>
-<style>/* no sharp corners anywhere (Nov 5) */
-.lg-stage{border-radius:var(--r-card)}
-</style>
-<style>/* QA pass Nov 6 */
-/* the white card uses the 20px card radius, so it matches the video stage beside it (was 30px) */
-.lg-card{border-radius:var(--r-card)}
-/* phone tap size: the Show and Hide password pill is 44px tall (was 40px) */
-.lg-show{min-height:44px}
-/* phone tap size: Make an account, Log in and Apply to the roster are 45px tall (were 43px) */
-.lg-link{padding:13px 2px}
-/* Phones hide Take the decks, and the four footer links (Instagram, Contact, Terms, Privacy) sit in one row (Nov 11; they were 2 by 2). flex-basis keeps the row on its own line under the copyright up to 480px */
-@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
-/* Site-2: every footer link is at least 44px wide (Terms was 43px) */
-.footrow a{min-width:44px}
-/* Legal6-3: above 1440px the nav bar lines up with the page. Its side padding now sits inside the 1440px cap, as in .wrap (at 1920 the logo was 48px left of the content). The same rule is on every page, so the bar never jumps */
-.navgrid{box-sizing:border-box}
-/* Site-9: fields use the field radius token, 14px (they were 18px) */
-.field{border-radius:var(--r-field)}
-</style>
-<style>/* Nov 12, last check pass. Flat fills only: no ring around a pill. The Show pill is white on the grey box and grey once the box turns white.
-   The second button on the white card is a flat grey pill, and the small actions (Back to log in, Your account, Log out) are pills too. Forgot your password? stays a link. */
+@media (max-width:960px) and (orientation:landscape) and (max-height:500px){.lg-stage{min-height:76px}.lg-h{max-width:none;font-size:min(clamp(44px,calc(6.8 * var(--vw)),98px),calc(11 * var(--svh)))}.lg-hang{display:none}.lg-card{padding-top:16px}.lg-switch{margin-bottom:12px}}
+@media (prefers-reduced-motion: reduce){.lg-hang,.lg-obj,.lg-knob{transition:none}}
 .lg-pw .field:focus-within + .lg-show{background:#f2f2f0}
-.lg-card .ghost{background:#f2f2f0;color:#000000;box-shadow:none}
-.lg-pillq{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0 18px;border-radius:999px;background:#f2f2f0;text-decoration:none}
-.lg-quiets{gap:8px}
-.lg-sw,.lg-show,.lg-pillq,.lg-card .btn{transition:background .15s ease-out,color .15s ease-out}
-@media (hover: hover) and (pointer: fine){.lg-pillq:hover,.lg-pw .field:focus-within + .lg-show:hover{background:#000000;color:#ffffff}}
-</style>
-<style>/* Nov 12 (Nico, from an invitation he liked): paper grain over every page, and the handwritten notes as a thin red script that crosses the headline */
-body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
-@media print{body::after{display:none}}
-</style>
-<style>/* Nov 13, independent check of Erika's requests: display headlines use the one cream, not pure white */
-#lg-h{color:#fffde9 !important}
-</style>
+.lg-sw,.lg-show,.lg-card .btn,.lg-card .btn-main,.lg-card .btn-quiet{transition:background .15s ease-out,color .15s ease-out}
+.lg-card .btn-quiet:active{transform:translateY(1px)}
+@media (hover: hover) and (pointer: fine){.lg-pw .field:focus-within + .lg-show:hover{background:#000000;color:#ffffff}}</style>
+<style>@media (max-width:359px){html .ns-acts .btn-main{padding:0 10px;font-size:15px}}</style>
+<style>.nl{padding:13px 4px;line-height:18px}
+#mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
+#mnav{border-top-color:rgba(255,255,255,.2) !important}
+.mscrim{touch-action:none}
+html.nav6-open{overflow:hidden;scrollbar-gutter:stable}
+.btn-sm{min-height:44px}
+html .btn-main{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;min-height:58px;margin:0;padding:0 28px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 18px/1.1 'Inter',sans-serif;letter-spacing:-0.02em;text-align:center;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn-main:active{transform:translateY(1px)}
+html .btn-main:focus-visible{outline:2px solid #d31110;outline-offset:3px}
+html .btn-main[aria-busy="true"]{opacity:.6;cursor:progress}
+html .paper{background:#fffde9;color:#000000;box-shadow:none}
+html .btn-pale,html .btn-quiet{background:#f2f2f0;color:#000000;box-shadow:none}
+html .btn-quiet{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn[aria-disabled="true"]{background:#f2f2f0;color:rgba(0,0,0,.6);cursor:default}
+@media (hover:hover) and (pointer:fine){
+html .btn-main:not([aria-busy="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover{background:#000000;color:#ffffff}
+html .paper:hover{background:#d31110;color:#ffffff}
+html .on-red .paper:hover,html .paper.on-red:hover{background:#000000;color:#ffffff}
+html .btn[aria-disabled="true"]:hover{background:#f2f2f0;color:rgba(0,0,0,.6)}
+}
+html .field,html .qf-f{background:#f2f2f0 !important;box-shadow:none !important}
+html .field:focus-within,html .qf-f:focus-within{background:#ffffff !important;box-shadow:inset 0 0 0 2px #000000 !important;outline:2px solid transparent;outline-offset:-2px}
+html .field:has([aria-invalid="true"]),html .qf-f:has([aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110 !important}
+html .field-l,html .qf-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
+html .field input::placeholder,html .field textarea::placeholder,html .qf input::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
+html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
+html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
+html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
+html .fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+html .cap{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+@media (max-width:899px){html .cap{font-size:12px;letter-spacing:.16em}}
+html .ns{display:flex;flex-direction:column;align-items:flex-start;gap:14px;outline:none}
+html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height:.92;font-weight:700;letter-spacing:-0.06em;color:#000000;outline:none}
+html .ns-h:focus,html .ns-h:focus-visible{outline:none}
+html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
+html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
-<!-- NAV -->
 <sc-if value="{{pubNav}}" hint-placeholder-val="{{ true }}">
-<!-- NAV: public shell, logged out (A/fix/shell/public.html) -->
 <header class="nav6">
 <a class="skip" href="#main">Skip to content</a>
 <div class="navgrid">
@@ -280,7 +247,6 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 </header>
 </sc-if>
 <sc-if value="{{hostNav}}" hint-placeholder-val="{{ false }}">
-<!-- NAV: host shell, signed in (A/fix/shell/host.html) -->
 <header class="nav6 nav6-in">
 <a class="skip" href="#main">Skip to content</a>
 <div class="navgrid">
@@ -298,7 +264,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
 <sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
 <div class="acctmenu">
-<span class="acctwho">Signed in as <strong>Dani Rivera</strong></span>
+<span class="acctwho">Logged in as <strong>{{hostName}}</strong></span>
 <a href="login.html" aria-current="{{curAccount}}">Your account</a>
 <a href="index.html">Log out</a>
 </div>
@@ -319,7 +285,6 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 </header>
 </sc-if>
 <sc-if value="{{djNav}}" hint-placeholder-val="{{ false }}">
-<!-- NAV: DJ shell, signed in (A/fix/shell/dj.html) -->
 <header class="nav6 nav6-in">
 <a class="skip" href="#main">Skip to content</a>
 <div class="navgrid">
@@ -336,7 +301,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
 <sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
 <div class="acctmenu">
-<span class="acctwho">Signed in as <strong>{{signedIn}}</strong></span>
+<span class="acctwho">Logged in as <strong>{{signedIn}}</strong></span>
 <sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a href="{{seeHref}}">See your page</a></sc-if>
 <a href="index.html">Log out</a>
 </div>
@@ -360,14 +325,13 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <div class="lg">
 <div class="lg-grid">
 
-<!-- the bold side: the party through the door -->
 <section class="lg-stage" ref="{{stageRef}}" aria-labelledby="lg-h">
 <div class="lg-media" aria-hidden="true">
-<video class="lg-vid" ref="{{vidRef}}" src="assets/41e45df347a4f938d572280e55fde1bd.mp4" poster="assets/62482694080a7cdf4882c52b5d6bd63d.jpg" muted="" loop="" playsinline="" preload="none"></video>
+<video class="lg-vid" ref="{{vidRef}}" data-src="assets/41e45df347a4f938d572280e55fde1bd.mp4" data-src-phone="assets/f2c7226d4bb6680a5d60a52857e10363.mp4" data-still="assets/62482694080a7cdf4882c52b5d6bd63d.jpg" data-still-phone="assets/62482694080a7cdf4882c52b5d6bd63d.jpg" muted="" loop="" playsinline="" preload="none"></video>
 <span class="lg-scrim"></span>
 </div>
 
-<div class="lg-hang" ref="{{hangRef}}" aria-hidden="true">
+<div class="lg-hang" aria-hidden="true">
 <div class="{{passCls}}">
 <span class="lg-strap"><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg><svg viewBox="80 455 1190 170" focusable="false"><use href="#lg-mark"></use></svg></span>
 <span class="hk" aria-hidden="true"><svg class="hk-b" viewBox="0 0 48 67" aria-hidden="true" focusable="false"><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.60"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.40"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.29"></path><path d="M10.9 3.6 L37.1 3.6 L37.1 9.2 L29.6 14 L18.4 14 L10.9 9.2 Z" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.95"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#18191b" stroke-width="4.40"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.20"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.22"></path><path d="M24 16.9 L24 20.6" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.90"></path><rect x="20.3" y="12.3" width="7.4" height="4.6" rx="1.6" fill="#c9ccd0" stroke="#18191b" stroke-width=".8"></rect><rect x="20.9" y="12.9" width="6.2" height="1.1" rx=".5" fill="#ffffff" opacity=".85"></rect><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.20"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.00"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.14"></circle><circle cx="24" cy="24.5" r="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.84"></circle><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#18191b" stroke-width="3.40"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="2.20"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="0.84"></path><path d="M21.7 29.7 L19.9 54.4" fill="none" stroke-linecap="butt" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="0.62"></path><path d="M21.42 33.4 L20.6 44.6" fill="none" stroke="#4d5055" stroke-width="2.2" stroke-dasharray=".55 1.25"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.80"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.60"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.37"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="1.01"></path></svg><svg class="hk-f" viewBox="0 0 48 67" aria-hidden="true" focusable="false"><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#18191b" stroke-width="4.80"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#c9ccd0" stroke-width="3.60"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(.42 .46)" stroke="#6f7378" stroke-width="1.37"></path><path d="M26.3 29.7 C27 38 29 50 29 60 A5 5 0 0 1 19 60 L19.3 55" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.4 -.44)" stroke="#ffffff" stroke-width="1.01"></path></svg></span>
@@ -381,7 +345,6 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 </div>
 </section>
 
-<!-- the plain side: the card -->
 <div class="lg-card">
 <div class="{{inCls}}">
 
@@ -398,28 +361,28 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <p class="lg-sub">{{cardSub}}</p>
 <div class="lg-fields">
 <sc-if value="{{isSignup}}" hint-placeholder-val="{{ false }}">
-<label class="field"><span class="field-l">Your name</span><input type="text" value="{{name}}" onInput="{{setName}}" ref="{{nameRef}}" autocomplete="name" placeholder="What your friends call you" aria-invalid="{{nameInv}}" aria-describedby="{{nameDesc}}"></label>
-<sc-if value="{{nameErrOn}}" hint-placeholder-val="{{ false }}"><span id="lg-err-name" class="ferr" role="alert">{{nameErr}}</span></sc-if>
+<label class="field"><span class="field-l">Your name</span><input type="text" name="display_name" value="{{name}}" onInput="{{setName}}" ref="{{nameRef}}" autocomplete="name" placeholder="What your friends call you" aria-required="true" aria-invalid="{{nameInv}}" aria-describedby="{{nameDesc}}"></label>
+<sc-if value="{{nameErrOn}}" hint-placeholder-val="{{ false }}"><span id="err-display_name" class="ferr" role="alert">{{nameErr}}</span></sc-if>
 </sc-if>
 <sc-if value="{{emailOn}}" hint-placeholder-val="{{ true }}">
-<label class="field"><span class="field-l">Email</span><input type="email" value="{{email}}" onInput="{{setEmail}}" ref="{{emailRef}}" autocomplete="email" placeholder="you@example.com" aria-invalid="{{emailInv}}" aria-describedby="{{emailDesc}}"></label>
-<sc-if value="{{emailErrOn}}" hint-placeholder-val="{{ false }}"><span id="lg-err-email" class="ferr" role="alert">{{emailErr}}</span></sc-if>
+<label class="field"><span class="field-l">Email</span><input type="email" name="email" value="{{email}}" onInput="{{setEmail}}" ref="{{emailRef}}" autocomplete="email" placeholder="you@example.com" aria-required="true" aria-invalid="{{emailInv}}" aria-describedby="{{emailDesc}}"></label>
+<sc-if value="{{emailErrOn}}" hint-placeholder-val="{{ false }}"><span id="err-email" class="ferr" role="alert">{{emailErr}}</span></sc-if>
 </sc-if>
 <sc-if value="{{pwOn}}" hint-placeholder-val="{{ true }}">
 <div class="lg-pw">
-<label class="field"><span class="field-l">{{pwLabel}}</span><input type="{{pwType}}" value="{{pw}}" onInput="{{setPw}}" ref="{{pwRef}}" autocomplete="{{pwAuto}}" aria-invalid="{{pwInv}}" aria-describedby="{{pwDesc}}"></label>
+<label class="field"><span class="field-l">{{pwLabel}}</span><input type="{{pwType}}" name="password" value="{{pw}}" onInput="{{setPw}}" ref="{{pwRef}}" autocomplete="{{pwAuto}}" aria-required="true" aria-invalid="{{pwInv}}" aria-describedby="{{pwDesc}}"></label>
 <button class="lg-show" type="button" onClick="{{toggleShow}}">{{showLabel}}<span class="vh">&nbsp;password</span></button>
 </div>
-<sc-if value="{{pwErrOn}}" hint-placeholder-val="{{ false }}"><span id="lg-err-pw" class="ferr" role="alert">{{pwErr}}</span></sc-if>
+<sc-if value="{{pwErrOn}}" hint-placeholder-val="{{ false }}"><span id="err-password" class="ferr" role="alert">{{pwErr}}</span></sc-if>
 </sc-if>
 </div>
-<button class="btn go lg-go" type="submit">{{goLabel}}</button>
-<sc-if value="{{soonOn}}" hint-placeholder-val="{{ false }}"><p class="lg-fine lg-soon">Accounts open soon. Nothing gets saved&nbsp;yet.</p></sc-if>
-<sc-if value="{{isLogin}}" hint-placeholder-val="{{ true }}"><button class="lg-quiet" type="button" onClick="{{toForgot}}">Forgot your password?</button></sc-if>
-<sc-if value="{{backOn}}" hint-placeholder-val="{{ false }}"><button class="lg-quiet lg-pillq" type="button" onClick="{{toLogin}}">Back to log in</button></sc-if>
-<sc-if value="{{swapOn}}" hint-placeholder-val="{{ true }}"><p class="lg-swap">{{swapLead}} <button class="lg-link" type="button" onClick="{{swap}}">{{swapLabel}}</button></p></sc-if>
-<sc-if value="{{applyOn}}" hint-placeholder-val="{{ false }}"><p class="lg-swap">New here? DJs get on by application.&nbsp;<a class="lg-link" href="artists.html#apply">Apply to the&nbsp;roster</a></p></sc-if>
-<sc-if value="{{isSignup}}" hint-placeholder-val="{{ false }}"><p class="lg-fine">Making an account means you agree to the <a href="terms.html#terms">terms</a> and the <a href="terms.html#privacy">privacy&nbsp;policy</a>.</p></sc-if>
+<button class="btn-main lg-go" type="submit" aria-busy="{{busyAttr}}">{{goLabel}}</button>
+<sc-if value="{{soonOn}}" hint-placeholder-val="{{ false }}"><p class="soon-line">{{soonText}}</p></sc-if>
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{ true }}"><button class="btn-quiet lg-quiet" type="button" onClick="{{toForgot}}">Forgot your password?</button></sc-if>
+<sc-if value="{{backOn}}" hint-placeholder-val="{{ false }}"><button class="btn-quiet lg-quiet" type="button" onClick="{{toLogin}}">Back to log in</button></sc-if>
+<sc-if value="{{swapOn}}" hint-placeholder-val="{{ true }}"><p class="lg-swap"><span>{{swapLead}}</span><button class="btn-quiet" type="button" onClick="{{swap}}">{{swapLabel}}</button></p></sc-if>
+<sc-if value="{{applyOn}}" hint-placeholder-val="{{ false }}"><p class="lg-swap"><span>New here? DJs get on by&nbsp;application.</span><a class="btn-quiet" href="artists.html#apply">Join the&nbsp;roster</a></p></sc-if>
+<sc-if value="{{isSignup}}" hint-placeholder-val="{{ false }}"><p class="fine">Making an account means you agree to the <a href="terms.html#terms">terms</a> and the <a href="terms.html#privacy">privacy&nbsp;policy</a>.</p></sc-if>
 </form>
 </sc-if>
 
@@ -430,23 +393,27 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 <sc-if value="{{doneIn}}" hint-placeholder-val="{{ true }}">
 <div class="lg-next">
 <a class="btn btn-lg go" href="{{nextHref}}">{{nextLabel}}</a>
-<sc-if value="{{altOn}}" hint-placeholder-val="{{ true }}"><a class="btn btn-lg ghost" href="{{altHref}}">{{altLabel}}</a></sc-if>
+<sc-if value="{{altOn}}" hint-placeholder-val="{{ true }}"><a class="btn btn-lg btn-pale" href="{{altHref}}">{{altLabel}}</a></sc-if>
 </div>
 <div class="lg-quiets">
-<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="lg-quiet lg-pillq" href="login.html">Your account</a></sc-if>
-<button class="lg-quiet lg-pillq" type="button" onClick="{{startOver}}">{{overLabel}}</button>
+<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="btn-quiet" href="login.html">Your account</a></sc-if>
+<button class="btn-quiet" type="button" onClick="{{startOver}}">{{overLabel}}</button>
 </div>
 </sc-if>
 <sc-if value="{{doneReset}}" hint-placeholder-val="{{ false }}">
-<button class="btn btn-lg go lg-go" type="button" onClick="{{toLogin}}">Back to log in</button>
+<button class="btn-main lg-go" type="button" onClick="{{toLogin}}">Back to log in</button>
 </sc-if>
-<sc-if value="{{doneSoon}}" hint-placeholder-val="{{ false }}">
-<div class="lg-next">
-<a class="btn btn-lg go" href="roster.html">See the roster</a>
-<a class="btn btn-lg ghost" href="contact.html">Contact BOOKD</a>
 </div>
-<div class="lg-quiets"><button class="lg-quiet lg-pillq" type="button" onClick="{{toLogin}}">Back to log in</button></div>
 </sc-if>
+
+<sc-if value="{{doneSoon}}" hint-placeholder-val="{{ false }}">
+<div class="ns" role="status">
+<h2 class="ns-h" tabindex="-1" ref="{{nsRef}}">Not open&nbsp;yet.</h2>
+<p class="ns-p">Accounts aren't open yet, so nothing was saved and nobody was logged in. For now, message BOOKD on&nbsp;Instagram.</p>
+<div class="ns-acts">
+<a class="btn-main" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Message BOOKD on Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a>
+<button type="button" class="btn-quiet" onClick="{{nsBack}}">Back to log in</button>
+</div>
 </div>
 </sc-if>
 
@@ -456,7 +423,6 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 </div>
 </div>
 </main>
-<!-- FOOTER -->
 <footer class="foot6">
 <div class="wrap">
 <svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
@@ -468,450 +434,398 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1282}}'>
-// Login6. On the design canvas, and on the site while no backend is set up, this is a mockup: submit only swaps the card.
-// When the site loads bookd-api.js with a filled in config (window.BOOKD.ready), the same card logs in, signs up,
-// sends the reset email and saves a new password for real. lgLive() is the only switch between the two.
-// Hashes (DECISIONS 4): #dj and #agent open the DJ side. #reset opens Forgot your password? (Account6).
-// #new-password (the reset email) and #dj-new-password (the approved DJ email, Messages6) pick a password.
-var LG_STAGE = {
-  host: { login: 'Back for another\u00a0round?', signup: 'Put the aux cord\u00a0down.', reset: 'Happens to the best of\u00a0us.', newpw: 'Happens to the best of\u00a0us.' },
-  dj: { login: 'Back in the\u00a0booth.', reset: 'Happens to the best of\u00a0us.', newpw: 'Welcome to the\u00a0booth.' }
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1282}}'>var LG_STAGE = {
+host: { login: 'Back for another\u00a0round?', signup: 'Put the aux cord\u00a0down.', reset: 'Happens to the best of\u00a0us.', newpw: 'Happens to the best of\u00a0us.' },
+dj: { login: 'Back in the\u00a0booth.', reset: 'Happens to the best of\u00a0us.', newpw: 'Welcome to the\u00a0booth.' }
 };
 var LG_CARD = {
-  login: { title: 'Log in.', sub: 'Good to see you\u00a0again.', subDJ: 'DJs and agents come in\u00a0here.', go: 'Log in', lead: 'New here?', swap: 'Make an account' },
-  signup: { title: 'Make an\u00a0account.', sub: 'Takes about a\u00a0minute.', go: 'Make my account', lead: 'Already have an account?', swap: 'Log in' },
-  reset: { title: 'Forgot your\u00a0password?', sub: "Type the email you signed up with and we'll send you a reset\u00a0link.", go: 'Send reset link', lead: '', swap: '' },
-  // a host back from the reset email; a DJ Erika just approved (the DJ lines)
-  newpw: { title: 'Pick a new\u00a0password.', titleDJ: 'Pick a\u00a0password.', sub: 'At least 8 characters, then you\'re back\u00a0in.', subDJ: 'You\'re on the roster. One more box and you\'re building your\u00a0profile.', go: 'Save password', lead: '', swap: '' }
+login: { title: 'Log in.', sub: 'Good to see you\u00a0again.', subDJ: 'DJs and agents come in\u00a0here.', go: 'Log in', lead: 'New here?', swap: 'Make an account' },
+signup: { title: 'Make an\u00a0account.', sub: 'Takes about a\u00a0minute.', go: 'Make my account', lead: 'Already have an account?', swap: 'Log in' },
+reset: { title: 'Forgot your\u00a0password?', sub: "Type the email on your account and we'll send you a reset\u00a0link.", subSoon: 'Password resets open with accounts. Nothing is sent\u00a0yet.', go: 'Send reset link', lead: '', swap: '' },
+newpw: { title: 'Pick a new\u00a0password.', titleDJ: 'Pick a\u00a0password.', sub: 'At least 8 characters, then you\'re back\u00a0in.', subDJ: 'You\'re on the roster. One more box and you\'re building your\u00a0profile.', go: 'Save password', lead: '', swap: '' }
 };
 var LG_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// Name for the welcome line: first name, with any trailing dots gone so the title doesn't end in "..".
 function lgName(role, name) {
-  var n = String(name || '').trim().replace(/\s+/g, ' ');
-  if (role === 'host') n = n.split(' ')[0];
-  n = n.replace(/[\s.,;:!?&+]+$/, '');
-  return n || 'friend';
+var n = String(name || '').trim().replace(/\s+/g, ' ');
+if (role === 'host') n = n.split(' ')[0];
+n = n.replace(/[\s.,;:!?&+]+$/, '');
+return n || 'friend';
 }
-
-// What the card says once you're in, and where you go next. DJs only ever log in here: signing up is the application on Join6.
-// A DJ Erika just approved picks a password here (#dj-new-password), then builds the profile hosts see.
 function lgDone(role, mode, name, live) {
-  if (live === 'admin') return {
-    title: "You're\u00a0in.",
-    line: 'The roster, applications and notes are on your\u00a0dashboard.',
-    next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
-  };
-  if (role === 'dj' && mode === 'newpw') return {
-    title: "You're\u00a0in.",
-    line: 'Next up is your profile. It\'s what hosts see when you\'re in\u00a0town.',
-    next: 'Build my profile', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
-  };
-  if (role === 'dj') return {
-    title: "You're\u00a0in.",
-    line: "Your requests, offers and tour dates are all on your\u00a0dashboard.",
-    next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
-  };
-  var who = lgName(role, name);
-  if (live && mode !== 'signup') return {
-    title: "You're\u00a0in.",
-    line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
-    next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
-  };
-  if (mode === 'signup') return {
-    title: "You're on the list,\u00a0" + who + '.',
-    line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
-    next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
-  };
-  return {
-    title: "You're\u00a0in.",
-    line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
-    next: 'Open my inbox', nextHref: 'login.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
-  };
+if (live === 'admin') return {
+title: "You're\u00a0in.",
+line: 'The roster, applications and notes are on your\u00a0dashboard.',
+next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+};
+if (role === 'dj' && mode === 'newpw') return {
+title: "You're\u00a0in.",
+line: 'Next up is your profile. It\'s what hosts see when you\'re in\u00a0town.',
+next: 'Build my profile', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+};
+if (role === 'dj') return {
+title: "You're\u00a0in.",
+line: "Your requests, offers and tour dates are all on your\u00a0dashboard.",
+next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+};
+var who = lgName(role, name);
+if (live && mode !== 'signup') return {
+title: "You're\u00a0in.",
+line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
+next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
+};
+if (mode === 'signup') return {
+title: "You're on the list,\u00a0" + who + '.',
+line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
+next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
+};
+return {
+title: "You're\u00a0in.",
+line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
+next: 'Open my inbox', nextHref: 'login.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
+};
 }
-
-// The red count on Requests after a DJ logs in: the hosts DJ6 counts as waiting, read from 'bookd.dj' (sent or countered).
 var LG_DJ_REQS = ['dani', 'theo', 'priya'];
 function lgDjWaiting() {
-  try {
-    var o = JSON.parse(sessionStorage.getItem('bookd.dj') || 'null');
-    var st = o && o.stage && typeof o.stage === 'object' ? o.stage : {};
-    var n = 0;
-    LG_DJ_REQS.forEach(function (k) { var v = st[k] || 'sent'; if (v === 'sent' || v === 'countered') n++; });
-    return n;
-  } catch (e) { return 3; }
+try {
+var o = JSON.parse(sessionStorage.getItem('bookd.dj') || 'null');
+var st = o && o.stage && typeof o.stage === 'object' ? o.stage : {};
+var n = 0;
+LG_DJ_REQS.forEach(function (k) { var v = st[k] || 'sent'; if (v === 'sent' || v === 'countered') n++; });
+return n;
+} catch (e) { return 3; }
 }
-
-// One message per field (F148). A new password needs 8 characters, as on Account6 (F151).
 function lgErr(bad, mode) {
-  if (bad === 'name') return "Add your name so DJs know who's\u00a0asking.";
-  if (bad === 'emailEmpty') return mode === 'signup' ? 'Add an email we can reach you\u00a0at.' : 'Add your email so we can find your\u00a0account.';
-  if (bad === 'email') return 'That email looks a little off. Mind checking\u00a0it?';
-  if (bad === 'pw') return mode === 'signup' || mode === 'newpw' ? 'Pick a password to finish\u00a0up.' : "Add your password and you're\u00a0in.";
-  if (bad === 'pwShort') return 'Make it at least 8\u00a0characters.';
-  // answers from the backend (live site only)
-  if (bad === 'badLogin') return "That email and password don't match. Try\u00a0again?";
-  if (bad === 'unconfirmed') return 'Confirm your email first. The link is in your\u00a0inbox.';
-  if (bad === 'taken') return "There's already an account with that email. Log in\u00a0instead?";
-  if (bad === 'weak') return 'Pick a stronger password. Longer is\u00a0better.';
-  if (bad === 'samePw') return "That's your old password. Pick a new\u00a0one.";
-  if (bad === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
-  if (bad === 'expired') return 'That link ran out. Send yourself a fresh\u00a0one.';
-  if (bad === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
-  if (bad) return 'Something went wrong on our side. Try\u00a0again.';
-  return '';
+if (bad === 'name') return "Add your name so DJs know who's\u00a0asking.";
+if (bad === 'emailEmpty') return mode === 'signup' ? 'Add an email we can reach you\u00a0at.' : 'Add your email so we can find your\u00a0account.';
+if (bad === 'email') return 'That email looks a little off. Mind checking\u00a0it?';
+if (bad === 'pw') return mode === 'signup' || mode === 'newpw' ? 'Pick a password to finish\u00a0up.' : "Add your password and you're\u00a0in.";
+if (bad === 'pwShort') return 'Make it at least 8\u00a0characters.';
+if (bad === 'badLogin') return "That email and password don't match. Try\u00a0again?";
+if (bad === 'unconfirmed') return 'Confirm your email first. The link is in your\u00a0inbox.';
+if (bad === 'taken') return "There's already an account with that email. Log in\u00a0instead?";
+if (bad === 'weak') return 'Pick a stronger password. Longer is\u00a0better.';
+if (bad === 'samePw') return "That's your old password. Pick a new\u00a0one.";
+if (bad === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
+if (bad === 'expired') return 'That link ran out. Send yourself a fresh\u00a0one.';
+if (bad === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (bad) return 'Something went wrong on our side. Try\u00a0again.';
+return '';
 }
-
-// The backend, when this is the live site with its config filled in. Null on the canvas and in the preview.
 function lgLive() {
-  var b = typeof window !== 'undefined' ? window.BOOKD : null;
-  return b && b.ready && b.auth ? b.auth : null;
+var b = typeof window !== 'undefined' ? window.BOOKD : null;
+return b && b.ready && b.auth ? b.auth : null;
 }
-// The built site can leave out the made-up logged-in screens (bookd-config.js, demo: false). Then, while no backend is
-// set up, this card does not pretend to sign anyone in: it says accounts are not open yet. The canvas has no config,
-// so it keeps the mockup.
 function lgSoon() {
-  var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
-  return !!(c && c.demo === false) && !lgLive();
+var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
+return !!(c && c.demo === false) && !lgLive();
 }
-
-/* ===== nav shell (A/fix/shell/nav.js). Paste this whole block once, right above `class Component extends DCLogic`. =====
-   Then three lines in the class (README step 4):
-     constructor, last line:         nav6Init(this);
-     componentWillUnmount, add:      nav6Off(this);
-     renderVals, wrap the return:    return Object.assign({ ...the page's own keys... }, nav6Vals(this, { ...this page's nav settings... }));
-   The nav keys come last, so they always win over any leftover old nav key in the page's object.
-   Settings (all optional, defaults below):
-     host:    inboxHref, curInbox, curAccount, waiting
-     DJ:      dashHref, curDash, reqHref, curReq, seeOn, seeHref, signedIn, waiting
-     public:  curRoster, curJoin, curLogin, loginHref, bookHref, bookNow
-     switch:  shell: 'public' | 'host' | 'dj'   (only on pages that paste more than one shell: Cancel6, Login6)
-   curX values are the strings 'page' or 'false'. waiting is a number; 0 hides the red count. */
 var NAV6_DEFAULTS = {
-  inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
-  dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
-  seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
-  curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
-  waiting: 0, shell: ''
+inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
+seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
+curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+waiting: 0, shell: ''
 };
-// Constructor: refs and stable handlers. Both menus start closed.
 function nav6Init(self) {
-  var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
-  if (!self.state) self.state = {};
-  self.state.menuOpen = false;
-  self.state.acctOpen = false;
-  n.btnRef = function (el) { n.btn = el; };
-  n.acctBtnRef = function (el) { n.acctBtn = el; };
-  n.acctWrapRef = function (el) { n.acctWrap = el; };
-  n.key = function (e) { nav6Key(self, e); };
-  n.focusIn = function (e) { nav6FocusIn(self, e); };
-  n.down = function (e) { nav6Down(self, e); };
-  n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
-  n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
-  n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
-  // pages that still call this.setMenu(true or false) keep working
-  self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+self.state.acctOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.acctBtnRef = function (el) { n.acctBtn = el; };
+n.acctWrapRef = function (el) { n.acctWrap = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.down = function (e) { nav6Down(self, e); };
+n.resize = function () { if (self.state.menuOpen && !nav6Items(n)) nav6Set(self, { menuOpen: false }); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
 }
-// Opening one menu closes the other. Document listeners live only while a menu is open.
+function nav6Behind(open) {
+if (typeof document === 'undefined') return;
+var head = document.querySelector('header'), kids = head && head.parentNode ? head.parentNode.children : [];
+for (var i = 0; i < kids.length; i++) if (kids[i] !== head) { if (open) kids[i].setAttribute('inert', ''); else kids[i].removeAttribute('inert'); }
+document.documentElement.classList.toggle('nav6-open', !!open);
+}
 function nav6Set(self, patch) {
-  var st = self.state || {};
-  var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
-  var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
-  if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
-  nav6Listen(self, menu || acct);
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+nav6Listen(self, menu || acct); nav6Behind(menu);
 }
 function nav6Listen(self, on) {
-  var n = self.nav6;
-  if (!n || typeof document === 'undefined' || n.on === on) return;
-  n.on = on;
-  var f = on ? 'addEventListener' : 'removeEventListener';
-  document[f]('keydown', n.key);
-  document[f]('focusin', n.focusIn);
-  document[f]('pointerdown', n.down, true);
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+document[f]('pointerdown', n.down, true);
+window[f]('resize', n.resize);
 }
-// componentWillUnmount
-function nav6Off(self) { nav6Listen(self, false); }
-// The open phone menu's Tab loop: Close, then each menu link. Null when the menu is not on screen (window got wider).
+function nav6Off(self) { nav6Listen(self, false); nav6Behind(false); }
 function nav6Items(n) {
-  var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
-  if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
-  return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
 }
-// Escape closes whichever menu is open and puts focus back on its button. Tab and Shift+Tab stay inside the open phone menu (F342).
 function nav6Key(self, e) {
-  var n = self.nav6, st = self.state || {};
-  if (!e) return;
-  if (e.key === 'Escape' || e.key === 'Esc') {
-    if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
-    else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
-    return;
-  }
-  if (e.key !== 'Tab' || !st.menuOpen) return;
-  var items = nav6Items(n);
-  if (!items) { nav6Set(self, { menuOpen: false }); return; }
-  var i = items.indexOf(document.activeElement);
-  var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
-  e.preventDefault();
-  items[j].focus();
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
 }
-// Focus that lands outside the nav (a click, a screen reader) goes back to Close while the phone menu is open.
-// The YOU menu closes once focus leaves it.
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
 function nav6FocusIn(self, e) {
-  var n = self.nav6, st = self.state || {}, t = e && e.target;
-  if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
-  if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
-  var items = nav6Items(n);
-  if (!items) { nav6Set(self, { menuOpen: false }); return; }
-  items[0].focus();
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
 }
-// A press anywhere outside the YOU menu closes it. The phone menu needs no outside handler: the scrim takes those taps
-// and closes the menu on click, so nothing under it gets the tap (F331).
 function nav6Down(self, e) {
-  var n = self.nav6, st = self.state || {}, t = e && e.target;
-  if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
 }
-// On the live site, someone who is already signed in gets their own link where Log in was.
-// window.BOOKD.who is only set there (bookd-api.js), so the canvas and the preview always say Log in.
 function nav6Who() {
-  var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
-  if (!w) return null;
-  if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
-  if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
-  return { href: 'login.html', text: 'Your inbox' };
+var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+if (!w) return null;
+if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+return { href: 'login.html', text: 'Your inbox' };
 }
-// renderVals: every key the four shells use.
 function nav6Vals(self, cfg) {
-  var n = self.nav6, st = self.state || {}, c = {}, k;
-  for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
-  if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
-  var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
-  return {
-    menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
-    menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
-    acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
-    acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
-    inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
-    dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
-    seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
-    navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
-    curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
-    bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
-    pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
-    // blanks the old outside handler: left bound, it would close the menu on the press and let the tap through (F331)
-    outsideDown: undefined
-  };
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj'
+};
 }
-/* ===== end nav shell ===== */
 class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    var self = this;
-    this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    this.state = {
-      role: 'host', mode: 'login', name: '', email: '', pw: '', showPw: false,
-      badName: '', badEmail: '', badPw: '', done: '', hostMode: '',
-      busy: false, liveRole: ''
-    };
-    this.stageEl = null; this.vid = null; this.hangEl = null; this.io = null; this.onScreen = false;
-    this.nameEl = null; this.emailEl = null; this.pwEl = null;
-    this.wantDone = false; this.wantEmail = false; this.wantName = false;
-
-    // Video: plays only while the stage is on screen. With reduced motion it stays on its poster.
-    this.stageRef = function (el) {
-      if (el === self.stageEl) return;
-      if (self.io) { self.io.disconnect(); self.io = null; }
-      self.stageEl = el;
-      if (!el) return;
-      if (typeof window !== 'undefined' && window.IntersectionObserver) {
-        self.io = new IntersectionObserver(function (en) { self.onScreen = en[en.length - 1].isIntersecting; self.syncVid(); }, { threshold: 0.1 });
-        self.io.observe(el);
-      } else { self.onScreen = true; self.syncVid(); }
-    };
-    this.vidRef = function (el) {
-      // Pause the old element when it goes away, whichever runs first: this ref or componentWillUnmount.
-      if (self.vid && self.vid !== el && !self.vid.paused) self.vid.pause();
-      self.vid = el; if (el) { el.muted = true; self.syncVid(); }
-    };
-    this.hangRef = function (el) { self.hangEl = el; };
-
-    // Focus: the first empty field after start over, the result after submit.
-    this.nameRef = function (el) { self.nameEl = el; if (el && self.wantName) { self.wantName = false; if (el.focus) el.focus(); } };
-    this.emailRef = function (el) { self.emailEl = el; if (el && self.wantEmail) { self.wantEmail = false; if (el.focus) el.focus(); } };
-    this.pwRef = function (el) { self.pwEl = el; };
-    // The result is shorter than the sign up form, so on a phone the page can end up scrolled past it: bring the card back under the nav.
-    this.doneRef = function (el) { if (el && self.wantDone) { self.wantDone = false; if (el.focus) el.focus({ preventScroll: true }); var c = el.closest ? el.closest('.lg-card') : null; if (c && c.getBoundingClientRect().top < 88) c.scrollIntoView({ block: 'start' }); } };
-    nav6Init(this);
-  }
-  syncVid() {
-    var v = this.vid;
-    if (!v) return;
-    if (this.onScreen && !this.reduce) {
-      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-    } else if (!v.paused) v.pause();
-  }
-  componentDidMount() {
-    // Join6 sends DJs here as login.html#dj. Agents use the same side, so #agent lands there too.
-    // Account6's Forgot your password? sends #reset. The reset email sends #new-password, the approved DJ email #dj-new-password.
-    var h = typeof location !== 'undefined' ? location.hash : '';
-    if (h === '#dj' || h === '#agent') this.setState({ role: 'dj' });
-    else if (h === '#reset') this.setMode('reset');
-    else if (h === '#new-password') this.setMode('newpw');
-    else if (h === '#dj-new-password') { this.setState({ role: 'dj' }); this.setMode('newpw'); }
-    // Live site: an email link (reset or invite) opens Pick a password; someone already signed in sees You're in.
-    var self = this, api = lgLive();
-    if (!api) return;
-    var arrived = window.BOOKD.arrived;
-    if (arrived === 'recovery' || arrived === 'invite') this.setMode('newpw');
-    else if (arrived === 'expired') { this.setMode('reset'); this.setState({ badEmail: 'expired' }); }
-    api.current().then(function (r) {
-      var u = r && r.ok ? r.user : null;
-      if (!u || self.state.done) return;
-      var who = { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || '' };
-      if (self.state.mode === 'newpw') { self.setState(who); return; }
-      self.setState(Object.assign(who, { mode: 'login', done: 'in' }));
-    });
-  }
-  setMode(mode) {
-    this.setState({ mode: mode, badName: '', badEmail: '', badPw: '', hostMode: '', showPw: false, pw: '' });
-  }
-  componentWillUnmount() {
-    nav6Off(this);
-    if (this.io) { this.io.disconnect(); this.io = null; }
-    if (this.vid && !this.vid.paused) this.vid.pause();
-    this.vid = null; this.stageEl = null; this.hangEl = null;
-    this.nameEl = null; this.emailEl = null; this.pwEl = null;
-  }
-  renderVals() {
-    var self = this, s = this.state;
-    var role = s.role === 'dj' ? 'dj' : 'host';
-    var mode = s.mode;
-    var stage = LG_STAGE[role][mode] || LG_STAGE[role].login;
-    var card = LG_CARD[mode] || LG_CARD.login;
-    var isSignup = mode === 'signup', isLogin = mode === 'login', isReset = mode === 'reset', isNewPw = mode === 'newpw';
-    var done = s.done ? lgDone(role, mode, s.name, s.liveRole) : null;
-    var isDJ = role === 'dj';
-    // a DJ Erika just approved (#dj-new-password): no profile yet, and the name is the newest applicant's (DECISIONS 4)
-    var newDj = isDJ && isNewPw;
-    var noBad = { badName: '', badEmail: '', badPw: '' };
-    return Object.assign({
-      // stage
-      stageRef: this.stageRef, vidRef: this.vidRef, hangRef: this.hangRef,
-      passCls: 'lg-obj lg-pass ' + (isDJ ? 'lg-on' : 'lg-off'),
-      stageTitle: stage,
-
-      // card: form
-      inCls: (isNewPw || isReset) ? 'lg-in lg-mid' : 'lg-in',
-      formOn: !s.done, switchOn: !isReset && !isNewPw,
-      knobX: isDJ ? '100%' : '0%', hostPressed: isDJ ? 'false' : 'true', djPressed: isDJ ? 'true' : 'false',
-      // F258: back on Host from the DJ side, a sign up comes back as it was; a sign up password never rides into a log in field
-      pickHost: function () {
-        var st = self.state;
-        if (st.role === 'host') return;
-        self.setState(Object.assign(st.hostMode === 'signup' && st.mode === 'login' ? { role: 'host', hostMode: '', mode: 'signup', pw: '', showPw: false } : { role: 'host', hostMode: '' }, noBad));
-      },
-      pickDJ: function () {
-        var st = self.state;
-        if (st.role === 'dj') return;
-        self.setState(Object.assign(st.mode === 'signup' ? { role: 'dj', hostMode: 'signup', mode: 'login', pw: '', showPw: false } : { role: 'dj' }, noBad));
-      },
-      cardTitle: isDJ && card.titleDJ ? card.titleDJ : card.title, cardSub: isDJ && card.subDJ ? card.subDJ : card.sub,
-      isSignup: isSignup, isLogin: isLogin, emailOn: !isNewPw, backOn: isReset || (isNewPw && !isDJ),
-      // F148: every field carries its own error, all flagged in one go
-      name: s.name, nameRef: this.nameRef, nameInv: s.badName ? 'true' : 'false',
-      nameErrOn: !!s.badName, nameDesc: s.badName ? 'lg-err-name' : '', nameErr: lgErr(s.badName, mode),
-      setName: function (e) { var v = e.target.value; self.setState(self.state.badName && v.trim() ? { name: v, badName: '' } : { name: v }); },
-      email: s.email, emailRef: this.emailRef, emailInv: s.badEmail ? 'true' : 'false',
-      emailErrOn: !!s.badEmail, emailDesc: s.badEmail ? 'lg-err-email' : '', emailErr: lgErr(s.badEmail, mode),
-      setEmail: function (e) { var v = e.target.value; self.setState(self.state.badEmail && LG_EMAIL.test(v.trim()) ? { email: v, badEmail: '' } : { email: v }); },
-      pwOn: !isReset, pw: s.pw, pwRef: this.pwRef, pwInv: s.badPw ? 'true' : 'false',
-      pwErrOn: !!s.badPw, pwDesc: s.badPw ? 'lg-err-pw' : '', pwErr: lgErr(s.badPw, mode),
-      pwLabel: isNewPw ? 'New password' : 'Password',
-      pwType: s.showPw ? 'text' : 'password', pwAuto: isSignup || isNewPw ? 'new-password' : 'current-password',
-      setPw: function (e) { var v = e.target.value, b = self.state.badPw; self.setState((b === 'pw' && v) || (b === 'pwShort' && v.length >= 8) || (b && b !== 'pw' && b !== 'pwShort') ? { pw: v, badPw: '' } : { pw: v }); },
-      showLabel: s.showPw ? 'Hide' : 'Show',
-      toggleShow: function () { self.setState({ showPw: !self.state.showPw }); },
-      goLabel: s.busy ? 'One sec' : card.go,
-      swapOn: (isLogin || isSignup) && !isDJ, applyOn: isLogin && isDJ, swapLead: card.lead, swapLabel: card.swap,
-      // F343: focus follows the card, to Your name when it appears and back to Email when it goes
-      swap: function () {
-        var su = self.state.mode !== 'signup';
-        self.wantName = su; self.wantEmail = false;
-        self.setMode(su ? 'signup' : 'login');
-        if (!su && self.emailEl && self.emailEl.focus) self.emailEl.focus();
-      },
-      toForgot: function () { self.wantEmail = true; self.setMode('reset'); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
-      toLogin: function () { self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', hostMode: '', showPw: false, pw: '' }, noBad)); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
-      submit: function (e) {
-        if (e && e.preventDefault) e.preventDefault();
-        var st = self.state, m = st.mode, em = st.email.trim();
-        var newPw = m === 'signup' || m === 'newpw';
-        var bn = m === 'signup' && !st.name.trim() ? 'name' : '';
-        var be = m === 'newpw' ? '' : (!em ? 'emailEmpty' : (LG_EMAIL.test(em) ? '' : 'email'));
-        var bp = m === 'reset' ? '' : (!st.pw ? 'pw' : (newPw && st.pw.length < 8 ? 'pwShort' : ''));
-        if (bn || be || bp) {
-          self.setState({ badName: bn, badEmail: be, badPw: bp });
-          var el = bn ? self.nameEl : (be ? self.emailEl : self.pwEl);
-          if (el && el.focus) el.focus();
-          return;
-        }
-        var api = lgLive();
-        if (!api) {
-          self.wantDone = true;
-          self.setState(Object.assign({ done: lgSoon() ? 'soon' : (m === 'reset' ? 'reset' : 'in'), pw: '', showPw: false }, noBad));
-          return;
-        }
-        // Live site: ask the backend, then show its answer on the field it is about.
-        if (st.busy) return;
-        self.setState(Object.assign({ busy: true }, noBad));
-        var call = m === 'signup' ? api.signUp({ name: st.name.trim(), email: em, password: st.pw })
-          : (m === 'login' ? api.signIn({ email: em, password: st.pw })
-          : (m === 'reset' ? api.sendReset(em) : api.setPassword(st.pw)));
-        call.then(function (r) {
-          if (!r || !r.ok) {
-            var c = (r && r.code) || 'unknown';
-            var onEmail = m === 'reset' || ((c === 'taken' || c === 'unconfirmed') && m !== 'newpw');
-            self.setState(onEmail ? { busy: false, badEmail: c } : { busy: false, badPw: c });
-            var el = onEmail ? self.emailEl : self.pwEl;
-            if (el && el.focus) el.focus();
-            return;
-          }
-          var u = r.user;
-          self.wantDone = true;
-          self.setState(Object.assign(
-            { busy: false, pw: '', showPw: false, done: m === 'reset' ? 'reset' : (r.needsConfirm ? 'confirm' : 'in') },
-            u ? { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || st.name } : {}, noBad));
-        });
-      },
-
-      // card: done
-      doneOn: !!s.done, doneRef: this.doneRef,
-      doneIn: s.done === 'in', doneReset: s.done === 'reset' || s.done === 'confirm', doneSoon: s.done === 'soon', soonOn: lgSoon(),
-      doneTitle: s.done === 'soon' ? 'Not open\u00a0yet.' : s.done === 'reset' || s.done === 'confirm' ? 'Check your\u00a0email.' : (done ? done.title : ''),
-      doneLine: s.done === 'soon' ? 'BOOKD accounts are not open yet, so nothing was saved and nobody was signed\u00a0in.' : s.done === 'confirm' ? ('We sent a link to ' + s.email.trim() + ". Tap it to confirm your email and you're in. Check spam too, it likes to hide there.") : s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
-      nextHref: done ? done.nextHref : 'login.html', nextLabel: done ? done.next : '',
-      altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
-      acctOn: !isDJ,
-      overLabel: done ? done.over : 'Not you? Log out',
-      // F253: every log out lands on an empty Log in card, with Email in focus
-      startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false }, noBad)); }
-    }, nav6Vals(this, {
-      curLogin: 'page',
-      // F71: once you're in, the bar is the host or DJ bar (shell README 6.8). A new host's Inbox is the empty one.
-      shell: s.done === 'in' ? (isDJ ? 'dj' : 'host') : 'public',
-      inboxHref: isSignup ? 'login.html' : 'login.html',
-      signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
-      // the red count (DECISIONS 2): Kaytran's open offer for a host back in, the DJ6 count for a DJ, nothing for a new account or a new DJ
-      waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
-      seeOn: !newDj,
-      dashHref: newDj ? 'login.html' : 'login.html',
-      reqHref: newDj ? 'login.html' : 'login.html'
-    }));
-  }
+constructor(props) {
+super(props);
+var self = this;
+this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+this.state = {
+role: 'host', mode: 'login', name: '', email: '', pw: '', showPw: false,
+badName: '', badEmail: '', badPw: '', done: '', hostMode: '',
+busy: false, liveRole: ''
+};
+this.stageEl = null; this.vid = null; this.io = null; this.onScreen = false;
+this.pickCut = function (el, mq) { var ph = !!(mq && mq.matches), u = (ph && el.getAttribute('data-src-phone')) || el.getAttribute('data-src'), p = (ph && el.getAttribute('data-still-phone')) || el.getAttribute('data-still'); if (p && el.getAttribute('poster') !== p) el.poster = p; if (!u || el.getAttribute('src') === u) return false; el.src = u; return true; };
+this.mqPhone = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 480px)') : null;
+this.onCut = function () { if (self.vid && self.pickCut(self.vid, self.mqPhone)) self.syncVid(); };
+if (this.mqPhone && this.mqPhone.addEventListener) this.mqPhone.addEventListener('change', this.onCut);
+this.nameEl = null; this.emailEl = null; this.pwEl = null;
+this.wantDone = false; this.wantEmail = false; this.wantName = false; this.wantPw = false;
+this.stageRef = function (el) {
+if (el === self.stageEl) return;
+if (self.io) { self.io.disconnect(); self.io = null; }
+self.stageEl = el;
+if (!el) return;
+if (typeof window !== 'undefined' && window.IntersectionObserver) {
+self.io = new IntersectionObserver(function (en) { self.onScreen = en[en.length - 1].isIntersecting; self.syncVid(); }, { threshold: 0.1 });
+self.io.observe(el);
+} else { self.onScreen = true; self.syncVid(); }
+};
+this.vidRef = function (el) {
+if (self.vid && self.vid !== el && !self.vid.paused) self.vid.pause();
+self.vid = el; if (el) { el.muted = true; self.pickCut(el, self.mqPhone); self.syncVid(); }
+};
+this.nameRef = function (el) { self.nameEl = el; if (el && self.wantName) { self.wantName = false; if (el.focus) el.focus(); } };
+this.emailRef = function (el) { self.emailEl = el; if (el && self.wantEmail) { self.wantEmail = false; if (el.focus) el.focus(); } };
+this.pwRef = function (el) { self.pwEl = el; if (el && self.wantPw) { self.wantPw = false; if (el.focus) el.focus(); } };
+this.doneRef = function (el) { if (el && self.wantDone) { self.wantDone = false; if (el.focus) el.focus({ preventScroll: true }); var c = el.closest ? el.closest('.lg-card') : null; if (c && c.getBoundingClientRect().top < 88) c.scrollIntoView({ block: 'start' }); } };
+this.nsRef = function (el) { if (el && self.wantDone) { self.wantDone = false; if (el.focus) el.focus({ preventScroll: true }); var c = el.closest ? el.closest('.lg-card') : null; if (c && c.getBoundingClientRect().top < 88) c.scrollIntoView({ block: 'start' }); } };
+nav6Init(this);
 }
-</script>
+syncVid() {
+var v = this.vid;
+if (!v) return;
+if (this.onScreen && !this.reduce) {
+if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+} else if (!v.paused) v.pause();
+}
+componentDidMount() {
+var h = typeof location !== 'undefined' ? location.hash : '';
+if (h === '#dj' || h === '#agent') this.setState({ role: 'dj' });
+else if (h === '#reset') this.setMode('reset');
+else if (h === '#new-password') this.setMode('newpw');
+else if (h === '#dj-new-password') { this.setState({ role: 'dj' }); this.setMode('newpw'); }
+var self = this, api = lgLive();
+if (!api) return;
+var arrived = window.BOOKD.arrived;
+if (arrived === 'recovery' || arrived === 'invite') this.setMode('newpw');
+else if (arrived === 'expired') { this.setMode('reset'); this.setState({ badEmail: 'expired' }); }
+api.current().then(function (r) {
+var u = r && r.ok ? r.user : null;
+if (!u || self.state.done) return;
+var who = { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || '' };
+if (self.state.mode === 'newpw') { self.setState(who); return; }
+self.setState(Object.assign(who, { mode: 'login', done: 'in' }));
+});
+}
+setMode(mode) {
+this.setState({ mode: mode, badName: '', badEmail: '', badPw: '', hostMode: '', showPw: false, pw: '' });
+}
+componentWillUnmount() {
+nav6Off(this);
+if (this.io) { this.io.disconnect(); this.io = null; }
+if (this.vid && !this.vid.paused) this.vid.pause();
+if (this.mqPhone && this.mqPhone.removeEventListener) this.mqPhone.removeEventListener('change', this.onCut);
+this.vid = null; this.stageEl = null;
+this.nameEl = null; this.emailEl = null; this.pwEl = null;
+}
+renderVals() {
+var self = this, s = this.state;
+var role = s.role === 'dj' ? 'dj' : 'host';
+var mode = s.mode;
+var stage = LG_STAGE[role][mode] || LG_STAGE[role].login;
+var card = LG_CARD[mode] || LG_CARD.login;
+var isSignup = mode === 'signup', isLogin = mode === 'login', isReset = mode === 'reset', isNewPw = mode === 'newpw';
+var done = s.done ? lgDone(role, mode, s.name, s.liveRole) : null;
+var isDJ = role === 'dj';
+var newDj = isDJ && isNewPw;
+var noBad = { badName: '', badEmail: '', badPw: '' };
+var soon = lgSoon();
+return Object.assign({
+stageRef: this.stageRef, vidRef: this.vidRef,
+passCls: 'lg-obj lg-pass ' + (isDJ ? 'lg-on' : 'lg-off'),
+stageTitle: stage,
+hostName: s.liveRole ? lgName('dj', s.name) : 'Dani Rivera',
+inCls: (isNewPw || isReset) ? 'lg-in lg-mid' : 'lg-in',
+formOn: !s.done, switchOn: !isReset && !isNewPw,
+knobX: isDJ ? '100%' : '0%', hostPressed: isDJ ? 'false' : 'true', djPressed: isDJ ? 'true' : 'false',
+pickHost: function () {
+var st = self.state;
+if (st.role === 'host') return;
+self.setState(Object.assign(st.hostMode === 'signup' && st.mode === 'login' ? { role: 'host', hostMode: '', mode: 'signup', pw: '', showPw: false } : { role: 'host', hostMode: '' }, noBad));
+},
+pickDJ: function () {
+var st = self.state;
+if (st.role === 'dj') return;
+self.setState(Object.assign(st.mode === 'signup' ? { role: 'dj', hostMode: 'signup', mode: 'login', pw: '', showPw: false } : { role: 'dj' }, noBad));
+},
+cardTitle: isDJ && card.titleDJ ? card.titleDJ : card.title,
+cardSub: soon && card.subSoon ? card.subSoon : (isDJ && card.subDJ ? card.subDJ : card.sub),
+isSignup: isSignup, isLogin: isLogin, emailOn: !isNewPw, backOn: isReset || (isNewPw && !isDJ),
+name: s.name, nameRef: this.nameRef, nameInv: s.badName ? 'true' : 'false',
+nameErrOn: !!s.badName, nameDesc: s.badName ? 'err-display_name' : '', nameErr: lgErr(s.badName, mode),
+setName: function (e) { var v = e.target.value; self.setState(self.state.badName && v.trim() ? { name: v, badName: '' } : { name: v }); },
+email: s.email, emailRef: this.emailRef, emailInv: s.badEmail ? 'true' : 'false',
+emailErrOn: !!s.badEmail, emailDesc: s.badEmail ? 'err-email' : '', emailErr: lgErr(s.badEmail, mode),
+setEmail: function (e) { var v = e.target.value; self.setState(self.state.badEmail && LG_EMAIL.test(v.trim()) ? { email: v, badEmail: '' } : { email: v }); },
+pwOn: !isReset, pw: s.pw, pwRef: this.pwRef, pwInv: s.badPw ? 'true' : 'false',
+pwErrOn: !!s.badPw, pwDesc: s.badPw ? 'err-password' : '', pwErr: lgErr(s.badPw, mode),
+pwLabel: isNewPw ? 'New password' : 'Password',
+pwType: s.showPw ? 'text' : 'password', pwAuto: isSignup || isNewPw ? 'new-password' : 'current-password',
+setPw: function (e) { var v = e.target.value, b = self.state.badPw; self.setState((b === 'pw' && v) || (b === 'pwShort' && v.length >= 8) || (b && b !== 'pw' && b !== 'pwShort') ? { pw: v, badPw: '' } : { pw: v }); },
+showLabel: s.showPw ? 'Hide' : 'Show',
+toggleShow: function () { self.setState({ showPw: !self.state.showPw }); },
+goLabel: s.busy ? 'One sec' : card.go, busyAttr: s.busy ? 'true' : 'false',
+soonText: isReset ? 'Accounts open soon. Nothing gets sent\u00a0yet.' : 'Accounts open soon. Nothing gets saved\u00a0yet.',
+swapOn: (isLogin || isSignup) && !isDJ, applyOn: isLogin && isDJ, swapLead: card.lead, swapLabel: card.swap,
+swap: function () {
+var su = self.state.mode !== 'signup';
+self.wantName = su; self.wantEmail = false;
+self.setMode(su ? 'signup' : 'login');
+if (!su && self.emailEl && self.emailEl.focus) self.emailEl.focus();
+},
+toForgot: function () { self.wantEmail = true; self.setMode('reset'); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
+toLogin: function () { self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', hostMode: '', showPw: false, pw: '' }, noBad)); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
+submit: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var st = self.state, m = st.mode, em = st.email.trim();
+var newPw = m === 'signup' || m === 'newpw';
+var bn = m === 'signup' && !st.name.trim() ? 'name' : '';
+var be = m === 'newpw' ? '' : (!em ? 'emailEmpty' : (LG_EMAIL.test(em) ? '' : 'email'));
+var bp = m === 'reset' ? '' : (!st.pw ? 'pw' : (newPw && st.pw.length < 8 ? 'pwShort' : ''));
+if (bn || be || bp) {
+self.setState({ badName: bn, badEmail: be, badPw: bp });
+var el = bn ? self.nameEl : (be ? self.emailEl : self.pwEl);
+if (el && el.focus) el.focus();
+return;
+}
+var api = lgLive();
+if (!api) {
+self.wantDone = true;
+if (lgSoon()) self.setState(Object.assign({ done: 'soon' }, noBad));
+else self.setState(Object.assign({ done: m === 'reset' ? 'reset' : 'in', pw: '', showPw: false }, noBad));
+return;
+}
+if (st.busy) return;
+self.setState(Object.assign({ busy: true }, noBad));
+var call = m === 'signup' ? api.signUp({ name: st.name.trim(), email: em, password: st.pw })
+: (m === 'login' ? api.signIn({ email: em, password: st.pw })
+: (m === 'reset' ? api.sendReset(em) : api.setPassword(st.pw)));
+call.then(function (r) {
+if (!r || !r.ok) {
+var c = (r && r.code) || 'unknown';
+var onEmail = m === 'reset' || ((c === 'taken' || c === 'unconfirmed') && m !== 'newpw');
+self.setState(onEmail ? { busy: false, badEmail: c } : { busy: false, badPw: c });
+var el = onEmail ? self.emailEl : self.pwEl;
+if (el && el.focus) el.focus();
+return;
+}
+var u = r.user;
+if ((m === 'login' || m === 'signup') && !r.needsConfirm) {
+var nx = '';
+try { var keep = window.BOOKD && window.BOOKD.next; nx = keep && typeof keep.take === 'function' ? keep.take() : ''; } catch (e) { nx = ''; }
+if (nx && typeof nx === 'string') { window.location.assign(nx); return; }
+}
+self.wantDone = true;
+self.setState(Object.assign(
+{ busy: false, pw: '', showPw: false, done: m === 'reset' ? 'reset' : (r.needsConfirm ? 'confirm' : 'in') },
+u ? { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || st.name } : {}, noBad));
+});
+},
+doneOn: !!s.done && s.done !== 'soon', doneRef: this.doneRef, nsRef: this.nsRef,
+nsBack: function () { var m = self.state.mode; self.wantName = m === 'signup'; self.wantPw = m === 'newpw'; self.wantEmail = !self.wantName && !self.wantPw; self.setState({ done: '' }); },
+doneIn: s.done === 'in', doneReset: s.done === 'reset' || s.done === 'confirm', doneSoon: s.done === 'soon', soonOn: soon,
+doneTitle: s.done === 'reset' || s.done === 'confirm' ? 'Check your\u00a0email.' : (done ? done.title : ''),
+doneLine: s.done === 'confirm' ? ('We sent a link to ' + s.email.trim() + ". Tap it to confirm your email and you're in. Check spam too, it likes to hide there.") : s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
+nextHref: done ? done.nextHref : 'login.html', nextLabel: done ? done.next : '',
+altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
+acctOn: !isDJ,
+overLabel: done ? done.over : 'Not you? Log out',
+startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false }, noBad)); }
+}, nav6Vals(this, {
+curLogin: 'page',
+shell: s.done === 'in' ? (isDJ ? 'dj' : 'host') : 'public',
+inboxHref: isSignup ? 'login.html' : 'login.html',
+signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
+waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
+seeOn: !newDj,
+dashHref: newDj ? 'login.html' : 'login.html',
+reqHref: newDj ? 'login.html' : 'login.html'
+}));
+}
+}</script>
 <script src="bookd-config.js"></script>
-<script>if (window.BOOKD_CONFIG && window.BOOKD_CONFIG.supabaseUrl && window.BOOKD_CONFIG.supabaseAnonKey) document.write('<script src="bookd-supabase.js"><\/script>');</script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>

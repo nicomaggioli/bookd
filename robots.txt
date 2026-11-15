@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nicomaggioli.github.io/bookd/sitemap.xml

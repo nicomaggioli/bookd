@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>Roster dashboard · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="The roster dashboard for the BOOKD team.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="bookd-manage.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;display=swap">
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
+}
+}
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);box-sizing:border-box;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;line-height:18px;padding:13px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:#ffffff;border:0;border-radius:999px;color:#000000;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;line-height:normal;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72);touch-action:none}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (min-width:761px) and (max-width:807px){.nav6 .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover{color:#ff3b2f}.navmenu:hover{background:#d31110;color:#ffffff}}
+html{scroll-padding-top:88px;scroll-padding-bottom:160px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-sm{min-height:44px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#fffde9;color:#000000}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:var(--r-field);background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;line-height:1.4;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #000000;outline:2px solid transparent;outline-offset:-2px}
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+@media (hover:hover) and (pointer:fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
+@media print{body::after{display:none}}
+.e6{background:#000000;color:#ffffff;padding:clamp(40px,calc(5 * var(--vw)),80px) 0 clamp(56px,calc(6 * var(--vw)),96px)}
+.e6-h{margin:0 0 0 -0.04em;font-size:clamp(56px,calc(9.4 * var(--vw)),136px);line-height:.86;font-weight:700;letter-spacing:-0.075em;color:#fffde9;padding-bottom:.14em}
+.e6-h span{color:#d31110}
+.e6-h:focus,.e6-name:focus{outline:none}
+.e6-lede{margin:clamp(8px,calc(1 * var(--vw)),16px) 0 0;max-width:30em;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9}
+.e6-truth{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 32px;align-items:center;margin-top:clamp(28px,calc(3.4 * var(--vw)),48px);padding:clamp(18px,calc(2 * var(--vw)),28px);border-radius:var(--r-card);background:rgba(255,255,255,.08)}
+.e6-truthh{margin:0 0 6px;font-size:20px;line-height:1.15;font-weight:700;letter-spacing:-0.03em;color:#fffde9}
+.e6-truth p{margin:0;max-width:40em;font-size:17px;line-height:1.45;color:#a2a5a4}
+.e6-truth p + p{margin-top:8px}
+.e6-truth .e6-waiting{font-size:15px;font-weight:700;color:#ff3b2f}
+.e6-truth .e6-quiet{font-size:15px}
+.e6-off{display:none}
+.e6-truth-bad{background:#d31110}
+.e6-truth-bad p{color:#ffffff}
+.e6-truth-bad .e6-truthh{color:#ffffff}
+html .e6 .e6-dl[aria-disabled="true"]{background:rgba(255,255,255,.2);color:#a2a5a4;cursor:default}
+.e6-msg{margin:16px 0 0;padding:14px 18px;border-radius:var(--r-field);background:#fffde9;color:#000000;font-size:15px;line-height:1.4;font-weight:700}
+.e6-msg:focus{outline:none}
+.e6-msg-err{background:#d31110;color:#ffffff}
+.e6-wait{margin:clamp(28px,calc(3.4 * var(--vw)),48px) 0 0;font-size:17px;color:#a2a5a4}
+.e6-fail{margin:clamp(28px,calc(3.4 * var(--vw)),48px) 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.e6-fail p{margin:0;font-size:17px;line-height:1.45;color:#fffde9;max-width:30em}
+.e6-listhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;margin-top:clamp(40px,calc(5 * var(--vw)),72px)}
+.e6-h2{margin:0;font-size:clamp(32px,calc(3.6 * var(--vw)),52px);line-height:.95;font-weight:700;letter-spacing:-0.06em;color:#fffde9}
+.e6-rows{list-style:none;margin:clamp(18px,calc(2 * var(--vw)),28px) 0 0;padding:0;display:grid;gap:10px}
+.e6-row{position:relative;display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:8px 18px;align-items:center;padding:12px 18px 12px 12px;border-radius:var(--r-card);background:rgba(255,255,255,.08);transition:background-color .15s}
+.e6-thumb{display:block;width:76px;height:76px;border-radius:var(--r-field);overflow:hidden;background:rgba(255,255,255,.12)}
+.e6-thumb img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.3) brightness(.95)}
+.e6-rtext{min-width:0}
+.e6-rname{margin:0;font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-0.035em;overflow-wrap:anywhere}
+.e6-rname a{color:#fffde9;text-decoration:none}
+.e6-rname a::after{content:"";position:absolute;inset:0;border-radius:var(--r-card)}
+.e6-rname a:focus-visible{outline:none}
+.e6-row:has(.e6-rname a:focus-visible){outline:2px solid #ff3b2f;outline-offset:3px}
+.e6-rmeta{display:flex;flex-wrap:wrap;gap:0 14px;margin:4px 0 0;font-size:15px;line-height:1.4;color:#a2a5a4}
+.e6-rmeta span:first-child{color:#fffde9}
+.e6-rflag{margin:4px 0 0;font-size:13px;line-height:1.4;font-weight:700;color:#ff3b2f}
+.e6-rneed{margin:4px 0 0;font-size:13px;line-height:1.4;color:#a2a5a4}
+.e6-pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;font-size:13px;line-height:1;font-weight:700;white-space:nowrap}
+.e6-pill-live{background:#fffde9;color:#000000}
+.e6-pill-draft{background:#a2a5a4;color:#000000}
+.e6-rend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.e6-row .e6-redit{min-height:40px;transition:background-color .15s,color .15s}
+.e6-empty{margin-top:clamp(18px,calc(2 * var(--vw)),28px);padding:clamp(18px,calc(2 * var(--vw)),28px);border-radius:var(--r-card);background:rgba(255,255,255,.08)}
+.e6-empty h3{margin:0;font-size:clamp(26px,calc(2.4 * var(--vw)),34px);line-height:1;font-weight:700;letter-spacing:-0.055em;color:#fffde9}
+.e6-empty p{margin:10px 0 0;font-size:17px;line-height:1.45;color:#a2a5a4}
+.e6-also{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-top:clamp(28px,calc(3.4 * var(--vw)),48px);padding-top:24px;border-top:1px solid rgba(255,255,255,.2)}
+.e6-also p{margin:0;font-size:17px;line-height:1.45;color:#fffde9;max-width:30em}
+.e6-top{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,calc(1.6 * var(--vw)),22px)}
+.e6-back{background:#fffde9;color:#000000}
+.e6-name{margin:0 0 0 -0.04em;max-width:100%;font-size:clamp(44px,calc(6.4 * var(--vw)),96px);line-height:.9;font-weight:700;letter-spacing:-0.07em;color:#fffde9;overflow-wrap:anywhere;padding-bottom:.08em}
+.e6-sub{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0;font-size:15px;line-height:1.4;color:#a2a5a4}
+.e6-warn{margin:0;max-width:40em;font-size:15px;line-height:1.45;font-weight:700;color:#ff3b2f}
+.e6-jump{display:none;background:rgba(255,255,255,.2);color:#ffffff}
+.e6-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,calc(3 * var(--vw)),48px);align-items:start;margin-top:clamp(24px,calc(3 * var(--vw)),44px)}
+.e6-form{display:grid;gap:14px;min-width:0;margin:0}
+.e6-card{box-sizing:border-box;min-width:0;padding:clamp(16px,calc(2 * var(--vw)),28px);border-radius:var(--r-card);background:#ffffff;color:#000000;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.e6-card :focus-visible,.e6-bar :focus-visible,.e6-dlg :focus-visible{outline-color:#d31110}
+.e6-card h2{margin:0 0 8px;font-size:clamp(28px,calc(2.4 * var(--vw)),36px);line-height:1;font-weight:700;letter-spacing:-0.06em}
+.e6-h3{margin:16px 0 0;font-size:17px;line-height:1.2;font-weight:700;letter-spacing:-0.02em}
+.e6-note{margin:0;font-size:15px;line-height:1.45;color:rgba(0,0,0,.7)}
+html .e6-card > .ferr{padding:0}
+.e6-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.e6-f{display:flex;flex-direction:column;min-width:0}
+.e6-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.e6-chip{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#f2f2f0;color:#000000;font:700 15px/1.1 'Inter',sans-serif;cursor:pointer;white-space:nowrap;transition:background-color .15s,color .15s}
+.e6-chip[aria-pressed="true"]{background:#d31110;color:#ffffff}
+.e6-grey{background:#f2f2f0;color:#000000;transition:background-color .15s,color .15s}
+.e6-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.e6-pick{position:relative}
+.e6-pick:has(input:focus-visible){outline:2px solid #d31110;outline-offset:3px}
+.e6-pick[aria-busy="true"]{cursor:progress}
+.e6-focus{display:flex;justify-content:center;border-radius:var(--r-field);overflow:hidden;background:#f2f2f0}
+.e6-focusbox{position:relative;display:block;line-height:0;cursor:crosshair;-webkit-user-select:none;user-select:none}
+.e6-focusbox img{display:block;max-width:100%;max-height:340px;width:auto;height:auto;-webkit-user-drag:none}
+.e6-dot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#ffffff;pointer-events:none}
+.e6-dot::after{content:"";position:absolute;inset:7px;border-radius:50%;background:#d31110}
+.e6-drop{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:clamp(18px,calc(2 * var(--vw)),28px);border-radius:var(--r-field);background:#f2f2f0}
+.e6-drop p{margin:0;font-size:17px;line-height:1.4}
+html .e6-drop .fhint{padding:0}
+.e6-slide{display:flex;flex-direction:column;gap:0;min-width:0;padding:12px 16px 2px;border-radius:var(--r-field);background:#f2f2f0}
+.e6-slide input{width:100%;margin:0;height:44px;accent-color:#d31110;cursor:pointer}
+.e6-list{display:grid;gap:8px}
+.e6-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 44px;gap:8px;align-items:start}
+.e6-x{display:grid;place-items:center;width:44px;height:44px;margin-top:8px;padding:0;border:0;border-radius:50%;background:#f2f2f0;color:#000000;cursor:pointer;transition:background-color .15s,color .15s}
+.e6-x svg{display:block;width:16px;height:16px}
+.e6-add{justify-self:start;margin-top:4px}
+.e6-sw{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px;padding:8px;border-radius:var(--r-field);background:#f2f2f0}
+.e6-swb{position:relative;display:flex;align-items:flex-end;justify-content:space-between;box-sizing:border-box;min-height:84px;padding:12px 14px;border:0;border-radius:10px;font:700 17px/1 'Inter',sans-serif;letter-spacing:-0.03em;text-align:left;cursor:pointer}
+.e6-swb[data-c="red"]{background:#d31110;color:#fffde9}
+.e6-swb[data-c="black"]{background:#000000;color:#fffde9}
+.e6-swb[data-c="cream"]{background:#fffde9;color:#000000}
+.e6-tick{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ffffff;color:#000000;opacity:0;transition:opacity .15s}
+.e6-swb[data-c="cream"] .e6-tick{background:#000000;color:#ffffff}
+.e6-tick svg{display:block;width:14px;height:14px}
+.e6-swb[aria-pressed="true"] .e6-tick{opacity:1}
+.e6-pic{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:center;padding:12px;border-radius:var(--r-field);background:#f2f2f0}
+.e6-picimg{display:block;width:76px;height:76px;border-radius:10px;overflow:hidden;background:rgba(0,0,0,.15)}
+.e6-picimg img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.e6-pic-round .e6-picimg{border-radius:50%}
+.e6-pictext{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.e6-pictext p{margin:0;font-size:15px;line-height:1.4;color:rgba(0,0,0,.7)}
+.e6-pic .btn{min-height:44px;background:#ffffff;transition:background-color .15s,color .15s}
+.e6-dates{list-style:none;margin:4px 0 0;padding:0}
+.e6-dates li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.15);font-size:17px;line-height:1.4}
+.e6-dates b{font-weight:700}
+.e6-more{display:grid;gap:16px}
+.e6-morerow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px}
+.e6-morerow p{margin:0;flex:1 1 16em;font-size:15px;line-height:1.45;color:#000000}
+.e6-morerow + .e6-morerow{padding-top:16px;border-top:1px solid rgba(0,0,0,.15)}
+.e6-pv{position:sticky;top:84px;box-sizing:border-box;min-width:0;max-height:calc(calc(100 * var(--vh)) - 190px);overflow-y:auto;overscroll-behavior:contain;padding:clamp(16px,calc(1.6 * var(--vw)),24px);border-radius:var(--r-card);background:rgba(255,255,255,.08);scrollbar-width:thin}
+.e6-pv:focus{outline:none}
+.e6-pvh{margin:0;font-size:28px;line-height:1;font-weight:700;letter-spacing:-0.06em;color:#fffde9}
+.e6-pvrow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:end}
+.e6-pvl{margin:16px 0 10px;font-size:13px;line-height:1.3;font-weight:700;color:#a2a5a4}
+.e6-pvcard{min-width:0;color:#fffde9}
+.e6-shot{position:relative;display:block;aspect-ratio:3 / 4;overflow:hidden;border-radius:22px;container-type:inline-size;background:#000000}
+.e6-shot::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,0) 48%,rgba(0,0,0,.72))}
+.e6-shot img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.3) brightness(.95)}
+.e6-nophoto{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;font-size:13px;line-height:1.3;font-weight:700;color:#a2a5a4}
+.e6-sig{position:absolute;left:6%;bottom:5%;z-index:3;pointer-events:none;color:#fffde9;line-height:1;white-space:nowrap;transform:rotate(-7deg);transform-origin:0 100%;font-family:'Reenie Beanie',cursive;font-weight:400;letter-spacing:0;font-size:calc(27cqw * var(--q, 1))}
+.e6-pvname{margin:14px 0 0;font-size:17px;line-height:1.1;font-weight:700;letter-spacing:.01em;text-transform:uppercase;color:#fffde9;overflow-wrap:anywhere}
+.e6-pvmeta{margin:6px 0 0;font-size:14px;line-height:1.35;color:rgba(255,253,233,.8)}
+.e6-herobox{container-type:inline-size;border-radius:var(--r-field);overflow:hidden}
+.e6-hero{--u:calc(1cqw * var(--q, 1));--sz:calc(35 * var(--u));--bg:#d31110;--ink:#fffde9;--txt:#fffde9;--veil:.45;--b1:#000000;--b1t:#ffffff;--b2:#fffde9;--b2t:#000000;
+position:relative;isolation:isolate;overflow:hidden;display:block;box-sizing:border-box;padding:calc(2.8 * var(--u)) calc(3.3 * var(--u));background:var(--bg);color:var(--txt)}
+.e6-hero[data-bg="black"]{--bg:#000000;--veil:.6;--b1:#d31110;--b2:#ffffff}
+.e6-hero[data-bg="cream"]{--bg:#fffde9;--ink:#000000;--txt:#000000;--veil:.62;--b2:#d31110;--b2t:#ffffff}
+.e6-hbg{position:absolute;inset:0;z-index:-2;display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.e6-hero[data-bg="red"] .e6-hbg{mix-blend-mode:multiply}
+.e6-hero[data-img="yes"]::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--bg);opacity:var(--veil)}
+.e6-hname{position:relative;z-index:3;display:block;margin-left:-0.04em;font-size:calc(27 * var(--nk, .706) * var(--u));line-height:.8;font-weight:700;letter-spacing:-0.075em;color:var(--ink);white-space:nowrap;padding-bottom:.05em}
+.e6-hgrid{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:end;column-gap:calc(4 * var(--u));margin-top:calc(var(--sz) * -.13)}
+.e6-hcopy{display:flex;flex-direction:column;align-items:flex-start;gap:calc(1.6 * var(--u));min-width:0;padding-top:calc(var(--sz) * .13 + 1.1 * var(--u))}
+.e6-hlede{font-size:max(11px,calc(2.6 * var(--u)));line-height:1.08;font-weight:700;letter-spacing:-0.04em}
+.e6-htown{font-size:max(9px,calc(1.4 * var(--u)));line-height:1.3;font-weight:700}
+.e6-hbtns{display:flex;gap:calc(.7 * var(--u))}
+.e6-hbtns span{display:block;height:calc(3.9 * var(--u));width:calc(10 * var(--u));border-radius:999px;background:var(--b1)}
+.e6-hbtns span + span{background:var(--b2)}
+.e6-hrec{position:relative;z-index:2;display:block;width:var(--sz);height:var(--sz)}
+.e6-hvinyl{position:absolute;top:2%;left:2%;width:96%;height:96%;border-radius:50%;transform:translateX(24%)}
+.e6-hvinyl>img,.e6-hlbl{position:absolute;inset:0;display:block;width:100%;height:100%}
+.e6-hlbl text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
+.e6-hart{position:absolute;left:33.3%;top:33.3%;width:33.4%;height:33.4%;display:block;border-radius:50%;overflow:hidden;isolation:isolate;background:#d31110}
+.e6-hart img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.2) brightness(1.15);mix-blend-mode:multiply}
+.e6-hero[data-bg="black"] .e6-hvinyl::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.17);-webkit-mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%);mask-image:radial-gradient(circle,transparent 33.8%,#000000 34.2%)}
+.e6-hsleeve{position:absolute;inset:0;display:block;isolation:isolate;overflow:hidden;border-radius:calc(1.4 * var(--u));background:#fffde9;box-shadow:0 calc(2.4 * var(--u)) calc(4 * var(--u)) rgba(0,0,0,.42)}
+.e6-hsleeve img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(1.08);mix-blend-mode:multiply}
+.e6-hsleeve::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(rgba(0,0,0,0) 58%,rgba(0,0,0,.6))}
+.e6-hsig{position:absolute;left:6%;bottom:5%;z-index:2;font-family:'Reenie Beanie',cursive;font-weight:400;letter-spacing:0;font-size:calc(var(--sz) * .2);line-height:1;color:#fffde9;transform:rotate(-7deg);transform-origin:0 100%;white-space:nowrap}
+.e6-hsig-right{left:auto;right:6%;bottom:9%;transform-origin:100% 100%}
+.e6-pvopen{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.e6-pvopen p{margin:0;font-size:15px;line-height:1.45;color:#a2a5a4}
+.e6-bar{position:sticky;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:30;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;margin-top:clamp(20px,calc(2.4 * var(--vw)),32px);padding:10px 10px 10px 22px;border-radius:var(--r-card);background:#fffde9;color:#000000;box-shadow:0 18px 40px rgba(0,0,0,.55)}
+.e6-barmsg{flex:1 1 15em;min-width:0;margin:0;font-size:15px;line-height:1.35;font-weight:700}
+.e6-barmsg-err{color:#d31110}
+.e6-barerr{flex:1 1 15em;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.e6-barerr .e6-barmsg{flex:1 1 12em}
+.e6-bar .e6-barerr .btn{min-height:44px;padding:0 18px;font-size:15px}
+.e6-baracts{display:flex;flex-wrap:wrap;gap:8px}
+.e6-bar .btn{min-height:52px;padding:0 24px;font-size:16px;transition:background-color .15s,color .15s}
+.e6-bar .btn[aria-disabled="true"]{background:#f2f2f0;color:rgba(0,0,0,.6);cursor:default}
+.e6-bar .btn[aria-busy="true"]{cursor:progress}
+.e6-scrim{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.78)}
+.e6-dlg{box-sizing:border-box;width:min(500px,100%);padding:clamp(20px,calc(2 * var(--vw)),28px);border-radius:var(--r-card);background:#ffffff;color:#000000;display:grid;gap:12px}
+.e6-dlg h2{margin:0;font-size:clamp(28px,calc(2.4 * var(--vw)),36px);line-height:1;font-weight:700;letter-spacing:-0.06em}
+.e6-dlg p{margin:0;font-size:17px;line-height:1.45}
+.e6-dlgacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.e6-dlgacts .btn{padding:0 22px;transition:background-color .15s,color .15s}
+@media (hover:hover) and (pointer:fine){
+.e6-row:hover{background:rgba(255,255,255,.12)}
+.e6-row:hover .e6-redit{background:#d31110;color:#ffffff}
+.e6-back:hover,.e6-jump:hover{background:#d31110;color:#ffffff}
+html .e6 .e6-dl[aria-disabled="true"]:hover{background:rgba(255,255,255,.2);color:#a2a5a4}
+.e6-chip:hover,.e6-grey:hover,.e6-x:hover,.e6-pic .btn:hover{background:#000000;color:#ffffff}
+.e6-card .go:hover,.e6-dlg .go:hover,.e6-bar .go:hover{background:#000000;color:#ffffff}
+.e6-bar .ink:hover{background:#d31110;color:#ffffff}
+.e6-swb:hover .e6-tick{opacity:.55}
+.e6-swb[aria-pressed="true"]:hover .e6-tick{opacity:1}
+}
+@media (max-width:1040px){
+.e6-grid{grid-template-columns:minmax(0,1fr)}
+.e6-pv{position:static;max-height:none;overflow:visible}
+.e6-jump{display:inline-flex}
+}
+@media (max-width:640px){
+.e6-truth{grid-template-columns:minmax(0,1fr)}
+.e6-dl{width:100%}
+.e6-row{grid-template-columns:64px minmax(0,1fr);padding:10px 14px 12px 10px;column-gap:14px}
+.e6-thumb{width:64px;height:64px;grid-row:1 / span 2;align-self:start}
+.e6-rtext{grid-column:2}
+.e6-rend{grid-column:2}
+.e6-addbtn{width:100%}
+.e6-two{grid-template-columns:minmax(0,1fr)}
+.e6-item{grid-template-columns:minmax(0,1fr) 44px}
+.e6-item .e6-f:first-child{grid-column:1;grid-row:1}
+.e6-item .e6-f + .e6-f{grid-column:1;grid-row:2}
+.e6-item .e6-x{grid-column:2;grid-row:1}
+.e6-bar{padding:12px;gap:10px}
+.e6-barmsg{flex-basis:100%;padding:0 6px;font-size:14px}
+.e6-barerr{flex-basis:100%}
+.e6-baracts{flex:1 1 100%;flex-wrap:nowrap}
+.e6-baracts .btn{flex:1 1 0;min-width:0;padding:0 10px;font-size:15px;white-space:normal;line-height:1.1}
+.e6-dlgacts .btn{flex:1 1 100%}
+.field input{font-size:18px}
+}
+@media (max-width:480px){
+.e6-pvrow{grid-template-columns:minmax(0,1fr);gap:14px}
+.e6-pvcard{width:min(170px,70%)}
+.e6-pvopen{flex-direction:column-reverse;align-items:flex-start}
+}
+@media (max-width:380px){
+.e6-h{font-size:52px}
+.e6-sw{gap:6px;padding:6px}
+.e6-swb{padding:10px;font-size:15px}
+.e6-tick{top:8px;right:8px}
+.e6-baracts .btn{font-size:14px}
+}</style>
+<style>.nl{padding:13px 4px;line-height:18px}
+#mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
+#mnav{border-top-color:rgba(255,255,255,.2) !important}
+.mscrim{touch-action:none}
+html.nav6-open{overflow:hidden;scrollbar-gutter:stable}
+.btn-sm{min-height:44px}
+html .btn-main{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;min-height:58px;margin:0;padding:0 28px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 18px/1.1 'Inter',sans-serif;letter-spacing:-0.02em;text-align:center;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn-main:active{transform:translateY(1px)}
+html .btn-main:focus-visible{outline:2px solid #d31110;outline-offset:3px}
+html .btn-main[aria-busy="true"]{opacity:.6;cursor:progress}
+html .paper{background:#fffde9;color:#000000;box-shadow:none}
+html .btn-pale,html .btn-quiet{background:#f2f2f0;color:#000000;box-shadow:none}
+html .btn-quiet{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer}
+html .btn[aria-disabled="true"]{background:#f2f2f0;color:rgba(0,0,0,.6);cursor:default}
+@media (hover:hover) and (pointer:fine){
+html .btn-main:not([aria-busy="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover{background:#000000;color:#ffffff}
+html .paper:hover{background:#d31110;color:#ffffff}
+html .on-red .paper:hover,html .paper.on-red:hover{background:#000000;color:#ffffff}
+html .btn[aria-disabled="true"]:hover{background:#f2f2f0;color:rgba(0,0,0,.6)}
+}
+html .field,html .qf-f{background:#f2f2f0 !important;box-shadow:none !important}
+html .field:focus-within,html .qf-f:focus-within{background:#ffffff !important;box-shadow:inset 0 0 0 2px #000000 !important;outline:2px solid transparent;outline-offset:-2px}
+html .field:has([aria-invalid="true"]),html .qf-f:has([aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110 !important}
+html .field-l,html .qf-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
+html .field input::placeholder,html .field textarea::placeholder,html .qf input::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
+html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
+html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
+html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
+html .fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+html .cap{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+@media (max-width:899px){html .cap{font-size:12px;letter-spacing:.16em}}
+html .ns{display:flex;flex-direction:column;align-items:flex-start;gap:14px;outline:none}
+html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height:.92;font-weight:700;letter-spacing:-0.06em;color:#000000;outline:none}
+html .ns-h:focus,html .ns-h:focus-visible{outline:none}
+html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
+html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<header class="nav6">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">{{loginText}}</a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto;">
+<section class="e6" aria-labelledby="e6-h">
+<div class="wrap">
+
+<sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+<h1 id="e6-h" class="e6-h" tabindex="-1" ref="{{headRef}}">Your <span>roster.</span></h1>
+<p class="e6-lede">Add a DJ, change what their page says, or take someone off the&nbsp;site.</p>
+<div class="{{truthCls}}" role="group" aria-label="Where your changes are saved">
+<div>
+<h2 class="e6-truthh">{{truthHead}}</h2>
+<p>{{truthText}}</p>
+<sc-if value="{{hasWaiting}}" hint-placeholder-val="{{ false }}"><p class="{{waitingCls}}">{{waitingText}}</p></sc-if>
+</div>
+<sc-if value="{{canDownload}}" hint-placeholder-val="{{ true }}">
+<button class="btn btn-lg paper e6-dl" type="button" onClick="{{download}}" aria-busy="{{dlBusy}}" aria-disabled="{{dlOff}}">{{dlLabel}}</button>
+</sc-if>
+</div>
+<sc-if value="{{hasListMsg}}" hint-placeholder-val="{{ false }}"><p class="{{listMsgCls}}" role="status" tabindex="-1" ref="{{msgRef}}">{{listMsg}}</p></sc-if>
+<sc-if value="{{loading}}" hint-placeholder-val="{{ false }}"><p class="e6-wait" role="status">One sec. Getting the&nbsp;roster.</p></sc-if>
+<sc-if value="{{loadFailed}}" hint-placeholder-val="{{ false }}">
+<div class="e6-fail" role="alert"><p>{{loadFailText}}</p><button class="btn paper" type="button" onClick="{{retry}}">Try again</button></div>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ true }}">
+<div class="e6-listhead">
+<h2 class="e6-h2">Everyone on&nbsp;it.</h2>
+<a class="btn btn-lg go e6-addbtn" href="#add" onClick="{{addNew}}">Add a DJ</a>
+</div>
+<sc-if value="{{hasRows}}" hint-placeholder-val="{{ true }}">
+<ul class="e6-rows" role="list">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+<li class="e6-row">
+<span class="e6-thumb" aria-hidden="true"><sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ true }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{r.img}}" alt="" loading="lazy" decoding="async" style="object-position: {{r.pos}};"></sc-if></span>
+<div class="e6-rtext">
+<h3 class="e6-rname"><a href="{{r.href}}" onClick="{{r.open}}">{{r.name}}<span class="vh">. {{r.pill}}. Open to edit.</span></a></h3>
+<p class="e6-rmeta"><span>{{r.city}}</span><span>{{r.sound}}</span></p>
+<sc-if value="{{r.hasNeed}}" hint-placeholder-val="{{ false }}"><p class="e6-rneed">{{r.need}}</p></sc-if>
+<sc-if value="{{r.hasFlag}}" hint-placeholder-val="{{ false }}"><p class="e6-rflag">{{r.flag}}</p></sc-if>
+</div>
+<div class="e6-rend" aria-hidden="true"><span class="{{r.pillCls}}">{{r.pill}}</span><span class="btn btn-sm paper e6-redit">Edit</span></div>
+</li>
+</sc-for>
+</ul>
+</sc-if>
+<sc-if value="{{noRows}}" hint-placeholder-val="{{ false }}">
+<div class="e6-empty"><h3>Nobody here&nbsp;yet.</h3><p>Add your first DJ and they show up in this&nbsp;list.</p></div>
+</sc-if>
+<sc-if value="{{isDatabase}}" hint-placeholder-val="{{ false }}">
+<div class="e6-also"><p>Applications and tour dates are on the main&nbsp;dashboard.</p><a class="btn paper" href="login.html">Open the main dashboard</a></div>
+</sc-if>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{isEdit}}" hint-placeholder-val="{{ false }}">
+<div class="e6-top">
+<a class="btn e6-back" href="#roster" onClick="{{toList}}">Back to the roster</a>
+<h1 id="e6-h" class="e6-name" tabindex="-1" ref="{{headRef}}">{{edTitle}}</h1>
+<p class="e6-sub"><span class="{{edPillCls}}">{{edPill}}</span><span>{{edWhere}}</span></p>
+<sc-if value="{{hasEdWarn}}" hint-placeholder-val="{{ false }}"><p class="e6-warn">{{edWarn}}</p></sc-if>
+<button class="btn e6-jump" type="button" onClick="{{toPreview}}">See the preview</button>
+</div>
+<div class="e6-grid">
+<form class="e6-form" aria-label="{{formAria}}" onSubmit="{{noSubmit}}" novalidate="">
+
+<section class="e6-card" aria-labelledby="e6-c-basics">
+<h2 id="e6-c-basics">The&nbsp;basics.</h2>
+<div class="e6-two">
+<div class="e6-f">
+<label class="field"><span class="field-l">Name</span><input type="text" name="name" value="{{form.name}}" onInput="{{set.name}}" placeholder="What goes on the flyer" autocomplete="off" aria-required="true" aria-invalid="{{inv.name}}" aria-describedby="{{desc.name}}"></label>
+<sc-if value="{{err.name}}" hint-placeholder-val="{{ false }}"><span id="e6-err-name" class="e6-err ferr" role="alert">{{errText.name}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Signed as</span><input type="text" name="first_name" value="{{form.first}}" onInput="{{set.first}}" placeholder="First name" autocomplete="off" aria-invalid="{{inv.first}}" aria-describedby="e6-hint-first {{desc.first}}"></label>
+<sc-if value="{{err.first}}" hint-placeholder-val="{{ false }}"><span id="e6-err-first" class="e6-err ferr" role="alert">{{errText.first}}</span></sc-if>
+<span id="e6-hint-first" class="e6-hint fhint">Handwritten across their&nbsp;photo.</span>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Based in</span><input type="text" name="home_city" value="{{form.home}}" onInput="{{set.home}}" placeholder="Brooklyn, NY" autocomplete="off" aria-invalid="{{inv.home}}" aria-describedby="{{desc.home}}"></label>
+<sc-if value="{{err.home}}" hint-placeholder-val="{{ false }}"><span id="e6-err-home" class="e6-err ferr" role="alert">{{errText.home}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Their sound, in a few words</span><input type="text" name="sound" value="{{form.tag}}" onInput="{{set.tag}}" placeholder="Disco and house, all vinyl" autocomplete="off" aria-invalid="{{inv.tag}}" aria-describedby="{{desc.tag}}"></label>
+<sc-if value="{{err.tag}}" hint-placeholder-val="{{ false }}"><span id="e6-err-tag" class="e6-err ferr" role="alert">{{errText.tag}}</span></sc-if>
+<sc-if value="{{tip.tag}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.tag}}</span></sc-if>
+</div>
+</div>
+<h3 class="e6-h3" id="e6-l-genres">Sounds they come up&nbsp;under</h3>
+<p class="e6-note" id="e6-n-genres">The same choices as the Sound search on the roster. Pick every one that&nbsp;fits.</p>
+<div class="e6-chips" role="group" aria-labelledby="e6-l-genres" aria-describedby="e6-n-genres">
+<sc-for list="{{genres}}" as="g" hint-placeholder-count="6"><button type="button" class="e6-chip" aria-pressed="{{g.on}}" onClick="{{g.flip}}">{{g.label}}</button></sc-for>
+</div>
+<sc-if value="{{err.genres}}" hint-placeholder-val="{{ false }}"><span class="e6-err ferr" role="alert">{{errText.genres}}</span></sc-if>
+</section>
+
+<section class="e6-card" aria-labelledby="e6-c-photo">
+<h2 id="e6-c-photo">Photo.</h2>
+<sc-if value="{{hasPhoto}}" hint-placeholder-val="{{ false }}">
+<div class="e6-focus"><span class="e6-focusbox" onClick="{{focusClick}}" onPointerDown="{{focusDown}}" onPointerMove="{{focusMove}}" onPointerUp="{{focusUp}}" onPointerCancel="{{focusUp}}"><img sc-camel-src="{{form.img}}" alt="" draggable="false"><span class="e6-dot" style="left: {{form.px}}%; top: {{form.py}}%;" aria-hidden="true"></span></span></div>
+<p class="e6-note">Tap the part that should always stay in the picture, like their face. The preview shows the&nbsp;crop.</p>
+<div class="e6-two">
+<label class="e6-slide"><span class="field-l">Slide the spot left or right</span><input type="range" min="0" max="100" step="1" name="cover_pos_x" value="{{form.px}}" onInput="{{setPx}}" aria-valuetext="{{pxText}}"></label>
+<label class="e6-slide"><span class="field-l">Slide the spot up or down</span><input type="range" min="0" max="100" step="1" name="cover_pos_y" value="{{form.py}}" onInput="{{setPy}}" aria-valuetext="{{pyText}}"></label>
+</div>
+<div class="e6-acts">
+<label class="btn e6-grey e6-pick" aria-busy="{{pickBusy.img}}">{{pickLabel.img}}<input class="vh" type="file" name="cover_path" accept="image/*" onChange="{{pick.img}}" aria-invalid="{{inv.img}}" aria-describedby="{{desc.img}}"></label>
+<button type="button" class="btn e6-grey" onClick="{{clear.img}}">Remove the photo</button>
+</div>
+</sc-if>
+<sc-if value="{{noPhoto}}" hint-placeholder-val="{{ true }}">
+<div class="e6-drop">
+<p>No photo&nbsp;yet.</p>
+<label class="btn btn-lg go e6-pick" aria-busy="{{pickBusy.img}}">{{pickLabel.img}}<input class="vh" type="file" name="cover_path" accept="image/*" onChange="{{pick.img}}" aria-invalid="{{inv.img}}" aria-describedby="{{desc.img}}"></label>
+<span class="e6-hint fhint">A JPG or PNG. A big file is made smaller for&nbsp;you.</span>
+</div>
+</sc-if>
+<sc-if value="{{err.img}}" hint-placeholder-val="{{ false }}"><span id="e6-err-img" class="e6-err ferr" role="alert">{{errText.img}}</span></sc-if>
+<div class="e6-f">
+<label class="field"><span class="field-l">What the photo shows</span><textarea rows="2" name="cover_alt" value="{{form.alt}}" onInput="{{set.alt}}" placeholder="In a dark jacket with headphones on, looking at the camera" aria-invalid="{{inv.alt}}" aria-describedby="e6-hint-alt {{desc.alt}}"></textarea></label>
+<sc-if value="{{err.alt}}" hint-placeholder-val="{{ false }}"><span id="e6-err-alt" class="e6-err ferr" role="alert">{{errText.alt}}</span></sc-if>
+<sc-if value="{{tip.alt}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.alt}}</span></sc-if>
+<span id="e6-hint-alt" class="e6-hint fhint">One short sentence, for people who can't see the&nbsp;photo.</span>
+</div>
+</section>
+
+<section class="e6-card" aria-labelledby="e6-c-about">
+<h2 id="e6-c-about">About&nbsp;them.</h2>
+<div class="e6-f">
+<label class="field"><span class="field-l">Bio</span><textarea rows="9" name="bio" value="{{form.bio}}" onInput="{{set.bio}}" placeholder="Who they are and what a night with them sounds like." aria-invalid="{{inv.bio}}" aria-describedby="e6-hint-bio {{desc.bio}}"></textarea></label>
+<sc-if value="{{err.bio}}" hint-placeholder-val="{{ false }}"><span id="e6-err-bio" class="e6-err ferr" role="alert">{{errText.bio}}</span></sc-if>
+<sc-if value="{{tip.bio}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.bio}}</span></sc-if>
+<span id="e6-hint-bio" class="e6-hint fhint">Leave an empty line to start a new paragraph. {{bioCount}}</span>
+</div>
+<h3 class="e6-h3">Links on their&nbsp;page</h3>
+<p class="e6-note">SoundCloud, Instagram, their own site. Each one is a button under the&nbsp;bio.</p>
+<div class="e6-list" data-list="links">
+<sc-for list="{{links}}" as="l" hint-placeholder-count="1">
+<div class="e6-item">
+<div class="e6-f">
+<label class="field"><span class="field-l">{{l.labelL}}</span><input type="text" name="{{l.nameLabel}}" value="{{l.label}}" onInput="{{l.setLabel}}" placeholder="SoundCloud" autocomplete="off" aria-invalid="{{l.invLabel}}" aria-describedby="{{l.descLabel}}"></label>
+<sc-if value="{{l.hasErrLabel}}" hint-placeholder-val="{{ false }}"><span id="{{l.idLabel}}" class="e6-err ferr" role="alert">{{l.errLabel}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">{{l.urlL}}</span><input type="url" inputmode="url" name="{{l.nameUrl}}" value="{{l.url}}" onInput="{{l.setUrl}}" placeholder="https://" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{l.invUrl}}" aria-describedby="{{l.descUrl}}"></label>
+<sc-if value="{{l.hasErrUrl}}" hint-placeholder-val="{{ false }}"><span id="{{l.idUrl}}" class="e6-err ferr" role="alert">{{l.errUrl}}</span></sc-if>
+</div>
+<button type="button" class="e6-x" onClick="{{l.remove}}" aria-label="{{l.removeAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg></button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{canAddLink}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn e6-grey e6-add" data-add="links" onClick="{{addLink}}">Add a link</button></sc-if>
+<sc-if value="{{err.links}}" hint-placeholder-val="{{ false }}"><span class="e6-err ferr" role="alert">{{errText.links}}</span></sc-if>
+</section>
+
+<section class="e6-card" aria-labelledby="e6-c-sets">
+<h2 id="e6-c-sets">Sets.</h2>
+<p class="e6-note">SoundCloud links only, up to four. They play right on their&nbsp;page.</p>
+<div class="e6-list" data-list="sets">
+<sc-for list="{{sets}}" as="t" hint-placeholder-count="1">
+<div class="e6-item">
+<div class="e6-f">
+<label class="field"><span class="field-l">{{t.titleL}}</span><input type="text" name="{{t.nameTitle}}" value="{{t.title}}" onInput="{{t.setTitle}}" placeholder="What the set is called" autocomplete="off" aria-invalid="{{t.invTitle}}" aria-describedby="{{t.descTitle}}"></label>
+<sc-if value="{{t.hasErrTitle}}" hint-placeholder-val="{{ false }}"><span id="{{t.idTitle}}" class="e6-err ferr" role="alert">{{t.errTitle}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">{{t.urlL}}</span><input type="url" inputmode="url" name="{{t.nameUrl}}" value="{{t.url}}" onInput="{{t.setUrl}}" placeholder="https://soundcloud.com/" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{t.invUrl}}" aria-describedby="{{t.descUrl}}"></label>
+<sc-if value="{{t.hasErrUrl}}" hint-placeholder-val="{{ false }}"><span id="{{t.idUrl}}" class="e6-err ferr" role="alert">{{t.errUrl}}</span></sc-if>
+</div>
+<button type="button" class="e6-x" onClick="{{t.remove}}" aria-label="{{t.removeAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg></button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{canAddSet}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn e6-grey e6-add" data-add="sets" onClick="{{addSet}}">Add a set</button></sc-if>
+<sc-if value="{{err.sets}}" hint-placeholder-val="{{ false }}"><span class="e6-err ferr" role="alert">{{errText.sets}}</span></sc-if>
+<h3 class="e6-h3">No sets&nbsp;yet?</h3>
+<p class="e6-note">One button can stand in where the sets would be. It goes away once there is a&nbsp;set.</p>
+<div class="e6-two">
+<div class="e6-f">
+<label class="field"><span class="field-l">Words on the button</span><input type="text" name="find_label" value="{{form.findLabel}}" onInput="{{set.findLabel}}" placeholder="{{findHolder}}" autocomplete="off" aria-invalid="{{inv.findLabel}}" aria-describedby="{{desc.findLabel}}"></label>
+<sc-if value="{{err.findLabel}}" hint-placeholder-val="{{ false }}"><span id="e6-err-findLabel" class="e6-err ferr" role="alert">{{errText.findLabel}}</span></sc-if>
+<sc-if value="{{tip.findLabel}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.findLabel}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Where it goes</span><input type="url" inputmode="url" name="find_url" value="{{form.findUrl}}" onInput="{{set.findUrl}}" placeholder="https://" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{inv.findUrl}}" aria-describedby="{{desc.findUrl}}"></label>
+<sc-if value="{{err.findUrl}}" hint-placeholder-val="{{ false }}"><span id="e6-err-findUrl" class="e6-err ferr" role="alert">{{errText.findUrl}}</span></sc-if>
+</div>
+</div>
+</section>
+
+<section class="e6-card" aria-labelledby="e6-c-rider">
+<h2 id="e6-c-rider">What they&nbsp;need.</h2>
+<div class="e6-f">
+<label class="field"><span class="field-l">The rider, one need on each line</span><textarea rows="6" name="rider_lines" value="{{form.rider}}" onInput="{{set.rider}}" placeholder="2 x Pioneer CDJ-3000" aria-invalid="{{inv.rider}}" aria-describedby="{{desc.rider}}"></textarea></label>
+<sc-if value="{{err.rider}}" hint-placeholder-val="{{ false }}"><span id="e6-err-rider" class="e6-err ferr" role="alert">{{errText.rider}}</span></sc-if>
+<sc-if value="{{tip.rider}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.rider}}</span></sc-if>
+</div>
+<div class="e6-two">
+<div class="e6-f">
+<label class="field"><span class="field-l">A short note, when there is no list</span><input type="text" name="rider_note" value="{{form.riderNote}}" onInput="{{set.riderNote}}" placeholder="Rider on request." autocomplete="off" aria-invalid="{{inv.riderNote}}" aria-describedby="{{desc.riderNote}}"></label>
+<sc-if value="{{err.riderNote}}" hint-placeholder-val="{{ false }}"><span id="e6-err-riderNote" class="e6-err ferr" role="alert">{{errText.riderNote}}</span></sc-if>
+<sc-if value="{{tip.riderNote}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.riderNote}}</span></sc-if>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Link to the full rider</span><input type="url" inputmode="url" name="rider_link" value="{{form.riderLink}}" onInput="{{set.riderLink}}" placeholder="https://" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{inv.riderLink}}" aria-describedby="e6-hint-riderLink {{desc.riderLink}}"></label>
+<sc-if value="{{err.riderLink}}" hint-placeholder-val="{{ false }}"><span id="e6-err-riderLink" class="e6-err ferr" role="alert">{{errText.riderLink}}</span></sc-if>
+<span id="e6-hint-riderLink" class="e6-hint fhint">Anyone can open this link. Check the file has no phone&nbsp;numbers.</span>
+</div>
+</div>
+</section>
+
+<section class="e6-card" aria-labelledby="e6-c-look">
+<h2 id="e6-c-look">How their page&nbsp;looks.</h2>
+<h3 class="e6-h3" id="e6-l-bg" style="margin-top: 0;">Background colour</h3>
+<div class="e6-sw" role="group" aria-labelledby="e6-l-bg">
+<sc-for list="{{swatches}}" as="w" hint-placeholder-count="3"><button type="button" class="e6-swb" data-c="{{w.key}}" aria-pressed="{{w.on}}" onClick="{{w.pick}}"><span>{{w.label}}</span><span class="e6-tick" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4.5 10.5 L8.5 14.5 L15.5 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button></sc-for>
+</div>
+<h3 class="e6-h3">Picture behind the top of the&nbsp;page</h3>
+<div class="e6-pic">
+<span class="e6-picimg" aria-hidden="true"><sc-if value="{{hasImage}}" hint-placeholder-val="{{ false }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{form.image}}" alt=""></sc-if></span>
+<div class="e6-pictext">
+<p>{{imageNote}}</p>
+<div class="e6-acts" style="margin-top: 0;">
+<label class="btn btn-sm e6-pick" aria-busy="{{pickBusy.image}}">{{pickLabel.image}}<input class="vh" type="file" name="look_image" accept="image/*" onChange="{{pick.image}}" aria-invalid="{{inv.image}}" aria-describedby="{{desc.image}}"></label>
+<sc-if value="{{hasImage}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn btn-sm" onClick="{{clear.image}}">Take it off</button></sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{err.image}}" hint-placeholder-val="{{ false }}"><span id="e6-err-image" class="e6-err ferr" role="alert">{{errText.image}}</span></sc-if>
+<h3 class="e6-h3">Picture on their record&nbsp;label</h3>
+<div class="e6-pic e6-pic-round">
+<span class="e6-picimg" aria-hidden="true"><sc-if value="{{hasRecord}}" hint-placeholder-val="{{ false }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{form.record}}" alt=""></sc-if></span>
+<div class="e6-pictext">
+<p>{{recordNote}}</p>
+<div class="e6-acts" style="margin-top: 0;">
+<label class="btn btn-sm e6-pick" aria-busy="{{pickBusy.record}}">{{pickLabel.record}}<input class="vh" type="file" name="look_record" accept="image/*" onChange="{{pick.record}}" aria-invalid="{{inv.record}}" aria-describedby="{{desc.record}}"></label>
+<sc-if value="{{hasRecord}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn btn-sm" onClick="{{clear.record}}">Take it off</button></sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{err.record}}" hint-placeholder-val="{{ false }}"><span id="e6-err-record" class="e6-err ferr" role="alert">{{errText.record}}</span></sc-if>
+<h3 class="e6-h3" id="e6-l-sign">Where the signature sits on the&nbsp;photo</h3>
+<p class="e6-note" id="e6-n-sign">Pick the side where it doesn't cover a&nbsp;face.</p>
+<div class="e6-chips" role="group" aria-labelledby="e6-l-sign" aria-describedby="e6-n-sign">
+<sc-for list="{{sides}}" as="d" hint-placeholder-count="2"><button type="button" class="e6-chip" aria-pressed="{{d.on}}" onClick="{{d.pick}}">{{d.label}}</button></sc-for>
+</div>
+</section>
+
+<sc-if value="{{isDatabase}}" hint-placeholder-val="{{ false }}">
+<section class="e6-card" aria-labelledby="e6-c-private">
+<h2 id="e6-c-private">Only you see&nbsp;this.</h2>
+<p class="e6-note">Never shown on the site. {{claimNote}}</p>
+<div class="e6-f">
+<label class="field"><span class="field-l">Their email</span><input type="email" name="contact_email" value="{{form.email}}" onInput="{{set.email}}" placeholder="name@example.com" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{inv.email}}" aria-describedby="{{desc.email}}"></label>
+<sc-if value="{{err.email}}" hint-placeholder-val="{{ false }}"><span id="e6-err-email" class="e6-err ferr" role="alert">{{errText.email}}</span></sc-if>
+</div>
+<div class="e6-two">
+<div class="e6-f">
+<label class="field"><span class="field-l">Agent's name</span><input type="text" name="agent_name" value="{{form.agent}}" onInput="{{set.agent}}" autocomplete="off"></label>
+</div>
+<div class="e6-f">
+<label class="field"><span class="field-l">Agent's email</span><input type="email" name="agent_email" value="{{form.agentEmail}}" onInput="{{set.agentEmail}}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{inv.agentEmail}}" aria-describedby="{{desc.agentEmail}}"></label>
+<sc-if value="{{err.agentEmail}}" hint-placeholder-val="{{ false }}"><span id="e6-err-agentEmail" class="e6-err ferr" role="alert">{{errText.agentEmail}}</span></sc-if>
+</div>
+</div>
+</section>
+<sc-if value="{{isSaved}}" hint-placeholder-val="{{ false }}">
+<section class="e6-card" aria-labelledby="e6-c-dates">
+<h2 id="e6-c-dates">Tour&nbsp;dates.</h2>
+<sc-if value="{{hasDates}}" hint-placeholder-val="{{ false }}">
+<ul class="e6-dates" role="list"><sc-for list="{{dates}}" as="d" hint-placeholder-count="2"><li><b>{{d.city}}</b><span>{{d.when}}</span></li></sc-for></ul>
+</sc-if>
+<sc-if value="{{noDates}}" hint-placeholder-val="{{ false }}"><p class="e6-note">No dates coming&nbsp;up.</p></sc-if>
+<div class="e6-morerow" style="margin-top: 8px;"><p>Dates are added and removed on the main&nbsp;dashboard.</p><a class="btn e6-grey" href="login.html">Open the main dashboard</a></div>
+</section>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{hasMore}}" hint-placeholder-val="{{ false }}">
+<section class="e6-card e6-more" aria-labelledby="e6-c-more">
+<h2 id="e6-c-more" style="margin-bottom: 0;">Start over or&nbsp;remove.</h2>
+<sc-if value="{{canReset}}" hint-placeholder-val="{{ false }}">
+<div class="e6-morerow"><p>{{resetNote}}</p><button type="button" class="btn e6-grey" onClick="{{askReset}}" aria-busy="{{resetBusy}}">{{resetLabel}}</button></div>
+</sc-if>
+<sc-if value="{{canRemove}}" hint-placeholder-val="{{ false }}">
+<div class="e6-morerow"><p>{{removeNote}}</p><button type="button" class="btn e6-grey" onClick="{{askRemove}}" aria-busy="{{removeBusy}}">{{removeLabel}}</button></div>
+</sc-if>
+<sc-if value="{{builtinNote}}" hint-placeholder-val="{{ false }}">
+<div class="e6-morerow"><p>They are part of the site, so they can't be removed here. To take them off, save them as a&nbsp;draft.</p></div>
+</sc-if>
+</section>
+</sc-if>
+</form>
+
+<aside id="e6-preview" class="e6-pv" aria-labelledby="e6-pv-h" tabindex="-1" ref="{{pvRef}}">
+<h2 id="e6-pv-h" class="e6-pvh">Preview.</h2>
+<div class="e6-pvrow">
+<div class="e6-pvcard">
+<p class="e6-pvl">On the roster</p>
+<span class="e6-shot"><sc-if value="{{hasPhoto}}" hint-placeholder-val="{{ false }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{form.img}}" alt="{{pv.alt}}" style="object-position: {{pv.pos}};"></sc-if><sc-if value="{{noPhoto}}" hint-placeholder-val="{{ true }}"><span class="e6-nophoto">No photo yet</span></sc-if><span class="e6-sig" aria-hidden="true">{{pv.first}}</span></span>
+<p class="e6-pvname">{{pv.name}}</p>
+<p class="e6-pvmeta">{{pv.tag}}<br>{{pv.home}}</p>
+</div>
+<div class="e6-pvopen">
+<p>{{openNote}}</p>
+<sc-if value="{{canOpen}}" hint-placeholder-val="{{ false }}"><a class="btn paper" href="{{profileHref}}" target="_blank" rel="noopener">Open their page<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if>
+</div>
+</div>
+<p class="e6-pvl">The top of their page</p>
+<div class="e6-herobox" aria-hidden="true">
+<span class="e6-hero" data-bg="{{form.bg}}" data-img="{{pv.bgOn}}" style="--nk: {{pv.nameK}};">
+<sc-if value="{{hasImage}}" hint-placeholder-val="{{ false }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" class="e6-hbg" sc-camel-src="{{form.image}}" alt=""></sc-if>
+<span class="e6-hname">{{pv.name}}</span>
+<span class="e6-hgrid">
+<span class="e6-hcopy"><span class="e6-hlede">{{pv.tagLine}}</span><span class="e6-htown">{{pv.town}}</span><span class="e6-hbtns"><span></span><span></span></span></span>
+<span class="e6-hrec">
+<span class="e6-hvinyl"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><sc-if value="{{noRecord}}" hint-placeholder-val="{{ true }}"><svg class="e6-hlbl" viewBox="0 0 200 200" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{pv.lblSize}}" letter-spacing="{{pv.lblTrack}}">{{pv.lblName}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text></svg></sc-if><sc-if value="{{hasRecord}}" hint-placeholder-val="{{ false }}"><span class="e6-hart"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{form.record}}" alt=""></span></sc-if></span>
+<span class="e6-hsleeve"><sc-if value="{{hasPhoto}}" hint-placeholder-val="{{ false }}"><img onError="{{imgGone}}" onLoad="{{imgBack}}" sc-camel-src="{{form.img}}" alt="" style="object-position: {{pv.pos}};"></sc-if><span class="{{pv.sigCls}}">{{pv.first}}</span></span>
+</span>
+</span>
+</span>
+</div>
+</aside>
+</div>
+
+<div class="e6-bar" role="group" aria-label="Save">
+<p class="{{barCls}}" role="status">{{barText}}</p>
+<sc-if value="{{hasBarErr}}" hint-placeholder-val="{{ false }}"><div class="e6-barerr"><p class="e6-barmsg e6-barmsg-err" role="alert">{{barErr}}</p><sc-if value="{{barLogin}}" hint-placeholder-val="{{ false }}"><a class="btn ink" href="login.html" target="_blank" rel="noopener">Log in again<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if></div></sc-if>
+<div class="e6-baracts">
+<button type="button" class="btn ink" onClick="{{saveA}}" aria-busy="{{busyA}}" aria-disabled="{{offA}}">{{labelA}}</button>
+<button type="button" class="btn go" onClick="{{saveB}}" aria-busy="{{busyB}}" aria-disabled="{{offB}}">{{labelB}}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasDialog}}" hint-placeholder-val="{{ false }}">
+<div class="e6-scrim" onClick="{{dlgScrim}}">
+<div class="e6-dlg" role="alertdialog" aria-modal="true" aria-labelledby="e6-dlg-h" aria-describedby="e6-dlg-p" ref="{{dlgRef}}">
+<h2 id="e6-dlg-h">{{dlg.title}}</h2>
+<p id="e6-dlg-p">{{dlg.text}}</p>
+<div class="e6-dlgacts"><button type="button" class="btn btn-lg e6-grey" onClick="{{dlgNo}}">{{dlg.no}}</button><button type="button" class="btn btn-lg go" onClick="{{dlgYes}}">{{dlg.yes}}</button></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</section>
+</main>
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>var BOOKD_DJS = [
+{
+"slug": "julian-gjaci",
+"name": "Julian Gjaci",
+"first": "Julian",
+"tag": "Afro house",
+"genres": [
+"Afro / Amapiano",
+"House / Tech house"
+],
+"home": "New York, NY",
+"homeKey": "nyc",
+"img": "assets/0bdf09346142fcf1c2a65dd06ddbee41.webp",
+"alt": "Julian Gjaci in a red denim jacket and white sunglasses, headphones round his neck, both hands up",
+"pos": "50% 22%",
+"bio": [
+"Julian Gjaci is a New York City-based DJ and music producer of Albanian origin, known for his distinctive fusion of Afro House, melodic rhythms, tribal percussion, and hypnotic grooves.",
+"With a sound that balances sophistication and raw dance-floor energy, Julian creates immersive musical journeys that move seamlessly between intimate luxury venues and high-energy nightlife experiences.",
+"His performances have taken him to some of New York City's most recognized nightlife destinations, including Zuma New York, Chez Margaux, Nebula, Somewhere Nowhere, The Ned, and Submercer.",
+"Driven by a passion for musical storytelling, Julian's signature sound combines deep emotion, infectious rhythms, and refined underground influences."
+],
+"sets": [],
+"find": {
+"label": "Find Julian on SoundCloud",
+"url": "https://soundcloud.com/search/sounds?q=Julian%20Gjaci"
+},
+"links": [],
+"rider": [
+"3 x Pioneer CDJ-3000",
+"Pioneer DJM-A9 or DJM-V10 mixer",
+"Professional booth monitors",
+"A properly configured sound system",
+"USB-compatible setup"
+],
+"riderNote": "",
+"riderLink": "",
+"look": {
+"bg": "red",
+"image": "assets/9d8d16988beebf9b88510ed602017ebd.jpg",
+"record": "",
+"sign": "left"
+},
+"status": "live"
+},
+{
+"slug": "kozlow",
+"name": "Kozlow",
+"first": "Kozlow",
+"tag": "Indie house, live violin",
+"genres": [
+"House / Tech house"
+],
+"home": "Brooklyn, NY",
+"homeKey": "nyc",
+"img": "assets/22e9880e3fad66734077380759757c18.webp",
+"alt": "Kozlow, curly hair and a moustache, in a dark blazer with headphones on",
+"pos": "50% 18%",
+"bio": [
+"Grant Kozlow Gardner is a Brooklyn-based DJ, producer, electronic violinist and founder of ANTHR FCKNG PARTY. Classically trained from age four, he began with the violin before moving into club music.",
+"His sets pull from indie-leaning house, left-field dance music and records built for New York rooms. Live violin appears selectively, as part of the arrangement, not a standalone trick, alongside the sequencing, tension and release that let the room shape where a set goes next.",
+"Kozlow's artist project and ANTHR FCKNG PARTY are two sides of the same practice. The party grew into a label centered on dancefloor-tested records, working New York DJs and nights built around the people on the floor, while Kozlow continues to release original productions and translate them into a flexible live performance language."
+],
+"sets": [
+{
+"title": "Loco Paraiso mix",
+"url": "https://soundcloud.com/locoparaiso/kozlow-loco-paraiso-garbicz"
+}
+],
+"find": null,
+"links": [
+{
+"label": "SoundCloud",
+"url": "https://soundcloud.com/grant-gardner-mp3"
+},
+{
+"label": "Spotify",
+"url": "https://open.spotify.com/artist/1Ms8hcf17jkqevIIRI0YkH"
+},
+{
+"label": "Apple Music",
+"url": "https://music.apple.com/us/artist/kozlow/1841645633"
+},
+{
+"label": "Bandcamp",
+"url": "https://kozlow.bandcamp.com/"
+},
+{
+"label": "Instagram",
+"url": "https://www.instagram.com/kozlow"
+},
+{
+"label": "ANTHR FCKNG PARTY",
+"url": "https://www.anthrfckngparty.com/kozlow"
+}
+],
+"rider": [],
+"riderNote": "Rider on request.",
+"riderLink": "",
+"look": {
+"bg": "cream",
+"image": "assets/1299c2db359fcff26688b123d16ba3d6.jpg",
+"record": "assets/22e9880e3fad66734077380759757c18.webp",
+"sign": "left"
+},
+"status": "live"
+},
+{
+"slug": "schloss",
+"name": "Schloss",
+"first": "Schloss",
+"tag": "House, deep cuts",
+"genres": [
+"House / Tech house"
+],
+"home": "New York, NY",
+"homeKey": "nyc",
+"img": "assets/49ebfbf8a8ad11de483b2adf16534760.webp",
+"alt": "Schloss in a cap behind the decks on a rooftop, the skyline behind him",
+"pos": "50% 50%",
+"bio": [
+"Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.",
+"His sets blend technical precision with a selector's taste for forward sounds that give each experience its own identity. Shaped by his time living in Spain and years immersed in nightlife and music culture, Schloss plays across the house spectrum, emphasizing deep cuts and unique energy.",
+"Schloss is represented by Proper Rhythm Creative, an artist-focused collective supporting talent across bookings, branding, and development."
+],
+"sets": [
+{
+"title": "Outer Heaven Extended Set",
+"url": "https://soundcloud.com/maxschlossberg/schloss-outer-heaven-8-14-26"
+},
+{
+"title": "Direct Support for AVÖ, Unveiled",
+"url": "https://soundcloud.com/maxschlossberg/schloss-direct-support-for"
+},
+{
+"title": "Those Nights at Arlo Sunset",
+"url": "https://soundcloud.com/maxschlossberg/schloss-sunset-arlo-5-29-26"
+}
+],
+"find": null,
+"links": [
+{
+"label": "SoundCloud",
+"url": "https://soundcloud.com/maxschlossberg"
+}
+],
+"rider": [],
+"riderNote": "Rider on the way.",
+"riderLink": "",
+"look": {
+"bg": "black",
+"image": "assets/ef768d83447ae89c60ddbb1cc9dd233a.jpg",
+"record": "assets/84a8c47ce4d29cac8705493c7ba678b2.jpg",
+"sign": "right"
+},
+"status": "live"
+}
+];
+function BOOKD_DJ_URL(slug, part) {
+var own = typeof window !== 'undefined' && window.BOOKD_ARTIST_PAGES, spot = part ? slug + '-' + part : '';
+if (own && own.indexOf(slug) >= 0) return slug + '.html' + (spot ? '#' + spot : '');
+return 'artist.html#' + (spot || slug);
+}
+var E6_LIMITS = { name: 120, first: 24, tag: 60, home: 120, alt: 200, bioParas: 8, bioChars: 2000, sets: 4, setTitle: 120, findLabel: 60, links: 8, linkLabel: 40, rider: 12, riderLine: 160, riderNote: 160 };
+var E6_SOUNDS = ['Afro / Amapiano', 'House / Tech house', 'Techno / EBM', 'Disco', 'R&B', 'Rap'];
+var E6_TEXT = ['name', 'first', 'home', 'tag', 'alt', 'bio', 'findLabel', 'findUrl', 'rider', 'riderNote', 'riderLink', 'email', 'agent', 'agentEmail'];
+var E6_PICS = ['img', 'image', 'record'];
+var E6_W = { ' ': 237, A: 746, B: 662, C: 740, D: 722, E: 608, F: 587, G: 750, H: 747, I: 281, J: 584, K: 719, L: 566, M: 932, N: 762, O: 770, P: 648, Q: 777, R: 656, S: 655, T: 668, U: 732, V: 746, W: 1038, X: 738, Y: 731, Z: 664,
+a: 580, b: 630, c: 588, d: 630, e: 596, f: 398, g: 632, h: 622, i: 271, j: 271, k: 580, l: 271, m: 912, n: 622, o: 614, p: 630, q: 630, r: 407, s: 560, t: 366, u: 622, v: 600, w: 850, x: 580, y: 602, z: 573,
+'0': 674, '1': 431, '2': 630, '3': 646, '4': 676, '5': 622, '6': 650, '7': 582, '8': 651, '9': 650, '&': 672, '.': 334, ',': 334, "'": 339, '-': 468, '!': 338, '/': 388 };
+function e6Wide(str, track) {
+var t = String(str || ''), w = 0, c, i;
+for (i = 0; i < t.length; i++) { c = t.charAt(i); w += (E6_W[c] || (c !== c.toLowerCase() ? 760 : 620)) / 1000 + track; }
+return w;
+}
+function e6One(v) { return String(v == null ? '' : v).replace(/\s+/g, ' ').replace(/^ | $/g, ''); }
+function e6First(name) { return e6One(name).split(' ')[0].slice(0, E6_LIMITS.first); }
+function e6Paras(text) { return String(text || '').split(/\n\s*\n/).map(e6One).filter(Boolean); }
+function e6Num(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function e6And(list) { return list.length < 2 ? list.join('') : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1]; }
+function e6Time() {
+try { return new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); } catch (e) { return 'just now'; }
+}
+function e6When(from, to) {
+var M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var day = function (s) { var p = String(s || '').split('-'); return p.length === 3 ? { y: p[0], t: M[+p[1] - 1] + ' ' + (+p[2]) } : null; };
+var a = day(from), b = day(to || from);
+if (!a || !b) return '';
+if (from === to || !to) return a.t + ', ' + a.y;
+return a.y === b.y ? a.t + ' to ' + b.t + ', ' + b.y : a.t + ', ' + a.y + ' to ' + b.t + ', ' + b.y;
+}
+function e6Plain(e) { return !!e && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && !(e.button > 0); }
+function e6Api() {
+var b = typeof window !== 'undefined' ? window.BOOKD : null;
+return b && b.artists && b.artists.manage ? b.artists : null;
+}
+function e6Board(fixed) {
+var list = (fixed || []).map(function (a) {
+var c = JSON.parse(JSON.stringify(a));
+c.status = c.status || 'live'; c.look = c.look || { bg: 'red', image: '', record: '', sign: 'left' }; c.dates = [];
+c.meta = { origin: 'builtin', changed: '', siteChanged: false, canRemove: false, canReset: false, missing: [], notes: [], lostPhotos: [], id: null, updated: '' };
+return c;
+});
+var no = function () { return Promise.resolve({ ok: false, code: 'board' }); };
+return { mode: 'board', save: no, setStatus: no, remove: no, reset: no, exportFile: no, download: no,
+load: function () { return Promise.resolve({ ok: true, mode: 'board', canWrite: true, storage: { ok: true, persisted: null }, pending: 0, artists: list }); },
+photo: function (file) { try { return Promise.resolve({ ok: true, url: URL.createObjectURL(file) }); } catch (e) { return Promise.resolve({ ok: false, code: 'photo' }); } } };
+}
+function e6Route(hash) {
+var h = String(hash || '').replace(/^#/, '');
+try { h = decodeURIComponent(h); } catch (e) {}
+if (h === '' || h === 'roster') return { view: 'list' };
+if (h === 'add') return { view: 'add' };
+var m = /^edit\/([a-z0-9-]+)$/.exec(h);
+return m ? { view: 'edit', slug: m[1] } : null;
+}
+function e6Hash(r) { return r.view === 'add' ? '#add' : r.view === 'edit' ? '#edit/' + r.slug : '#roster'; }
+function e6Same(a, b) { return !!a && !!b && a.view === b.view && (a.slug || '') === (b.slug || ''); }
+function e6Blank() {
+return { slug: '', name: '', first: '', firstAuto: true, home: '', tag: '', genres: [], img: '', px: 50, py: 30, alt: '', bio: '',
+links: [{ label: '', url: '' }], sets: [{ title: '', url: '' }], findLabel: '', findUrl: '', rider: '', riderNote: '', riderLink: '',
+bg: 'red', image: '', record: '', sign: 'left', status: 'draft', email: '', agent: '', agentEmail: '' };
+}
+function e6Form(a) {
+var f = e6Blank(), p = /^(\d{1,3})% (\d{1,3})%$/.exec(a.pos || ''), lk = a.look || {}, pv = (a.meta && a.meta.private) || {};
+f.slug = a.slug || ''; f.name = a.name || ''; f.first = a.first || ''; f.firstAuto = !a.first || a.first === e6First(a.name);
+f.home = a.home || ''; f.tag = a.tag || ''; f.genres = (a.genres || []).slice();
+f.img = a.img || ''; f.px = p ? +p[1] : 50; f.py = p ? +p[2] : 50;
+f.alt = a.alt && a.alt !== a.name ? a.alt : '';
+f.bio = (a.bio || []).join('\n\n');
+if (a.links && a.links.length) f.links = a.links.map(function (l) { return { label: l.label || '', url: l.url || '' }; });
+if (a.sets && a.sets.length) f.sets = a.sets.map(function (t) { return { title: t.title || '', url: t.url || '' }; });
+f.findLabel = a.find ? a.find.label || '' : ''; f.findUrl = a.find ? a.find.url || '' : '';
+f.rider = (a.rider || []).join('\n'); f.riderNote = a.riderNote || ''; f.riderLink = a.riderLink || '';
+f.bg = lk.bg === 'black' || lk.bg === 'cream' ? lk.bg : 'red'; f.image = lk.image || ''; f.record = lk.record || ''; f.sign = lk.sign === 'right' ? 'right' : 'left';
+f.status = a.status === 'live' ? 'live' : 'draft';
+f.email = pv.contact_email || ''; f.agent = pv.agent_name || ''; f.agentEmail = pv.agent_email || '';
+return f;
+}
+function e6Artist(f, status, withPrivate) {
+var a = { name: f.name, first: f.first, tag: f.tag, genres: f.genres.slice(), home: f.home, img: f.img, alt: f.alt, pos: f.px + '% ' + f.py + '%', bio: f.bio,
+sets: f.sets.map(function (t) { return { title: t.title, url: t.url }; }),
+find: e6One(f.findLabel) || e6One(f.findUrl) ? { label: f.findLabel, url: f.findUrl } : null,
+links: f.links.map(function (l) { return { label: l.label, url: l.url }; }),
+rider: f.rider.split('\n'), riderNote: f.riderNote, riderLink: f.riderLink,
+look: { bg: f.bg, image: f.image, record: f.record, sign: f.sign }, status: status };
+if (f.slug) a.slug = f.slug;
+if (withPrivate) a.meta = { private: { contact_email: f.email, agent_name: f.agent, agent_email: f.agentEmail } };
+return a;
+}
+function e6Link(why) {
+if (why === 'required') return 'Add the link.';
+if (why === 'long') return 'That link is too long to keep.';
+if (why === 'soundcloud') return 'This one has to be a soundcloud.com link, so it can play on their page.';
+return "That doesn't look like a web link. Paste the whole address, starting with https://";
+}
+function e6Long(max) { return 'Too long. Keep it to ' + e6Num(max) + ' letters.'; }
+function e6Why(field, why, L) {
+var m;
+if ((m = /^sets\.(\d+)\.(title|url)$/.exec(field))) return [field, m[2] === 'url' ? (why === 'required' ? 'Add the SoundCloud link for this set.' : e6Link(why)) : why === 'long' ? e6Long(L.setTitle) : 'Give this set a title.'];
+if ((m = /^links\.(\d+)\.(label|url)$/.exec(field))) return [field, m[2] === 'url' ? e6Link(why) : why === 'long' ? e6Long(L.linkLabel) : 'Say what this link is, like SoundCloud.'];
+if ((m = /^rider\.(\d+)$/.exec(field))) return ['rider', 'Line ' + (+m[1] + 1) + ' is too long. Keep each line to ' + L.riderLine + ' letters.'];
+if (field === 'name') return ['name', why === 'long' ? e6Long(L.name) : 'Add their name.'];
+if (field === 'first') return ['first', e6Long(L.first)];
+if (field === 'tag') return ['tag', why === 'long' ? e6Long(L.tag) : 'Add their sound before they go on the site.'];
+if (field === 'home') return ['home', why === 'long' ? e6Long(L.home) : 'Add where they are based before they go on the site.'];
+if (field === 'img') return ['img', why === 'required' ? 'Add a photo before they go on the site.' : "That photo can't be used. Choose it again."];
+if (field === 'alt') return ['alt', e6Long(L.alt)];
+if (field === 'bio') return ['bio', why === 'many' ? 'Keep it to ' + L.bioParas + ' paragraphs.' : why === 'long' ? 'Too long. Keep the bio to ' + e6Num(L.bioChars) + ' letters.' : 'Add a bio before they go on the site. One paragraph is enough.'];
+if (field === 'genres') return ['genres', "One of these isn't a sound the roster search knows. Tap it to take it off."];
+if (field === 'sets') return ['sets', 'Up to ' + L.sets + ' sets. Take one off.'];
+if (field === 'links') return ['links', 'Up to ' + L.links + ' links. Take one off.'];
+if (field === 'rider') return ['rider', 'Keep the rider to ' + L.rider + ' lines.'];
+if (field === 'riderNote') return ['riderNote', e6Long(L.riderNote)];
+if (field === 'riderLink') return ['riderLink', e6Link(why)];
+if (field === 'find.label') return ['findLabel', why === 'long' ? e6Long(L.findLabel) : 'Add the words for the button.'];
+if (field === 'find.url') return ['findUrl', e6Link(why)];
+if (field === 'look.image') return ['image', "That picture can't be used. Choose it again."];
+if (field === 'look.record') return ['record', "That picture can't be used. Choose it again."];
+if (field === 'private.contact_email') return ['email', why === 'long' ? e6Long(200) : "That doesn't look like an email. Check it for a typo or a space."];
+if (field === 'private.agent_email') return ['agentEmail', why === 'long' ? e6Long(200) : "That doesn't look like an email. Check it for a typo or a space."];
+return ['', ''];
+}
+function e6Problems(problems, L) {
+var out = {}, n = 0;
+(problems || []).forEach(function (p) {
+var w = e6Why(String(p.field || ''), p.why, L);
+if (!w[0] || out[w[0]]) return;
+out[w[0]] = w[1]; n++;
+});
+return { errors: out, count: n };
+}
+function e6Over(f, L) {
+var out = {}, len = function (v) { return e6One(v).length; };
+[['name', L.name], ['first', L.first], ['tag', L.tag], ['home', L.home], ['alt', L.alt], ['riderNote', L.riderNote], ['findLabel', L.findLabel]].forEach(function (x) {
+if (len(f[x[0]]) > x[1]) out[x[0]] = e6Long(x[1]);
+});
+var paras = e6Paras(f.bio);
+if (paras.length > L.bioParas) out.bio = 'Keep it to ' + L.bioParas + ' paragraphs.';
+else if (paras.join('\n\n').length > L.bioChars) out.bio = 'Too long. Keep the bio to ' + e6Num(L.bioChars) + ' letters.';
+var lines = f.rider.split('\n'), kept = 0, i;
+for (i = 0; i < lines.length; i++) {
+if (!e6One(lines[i])) continue;
+kept++;
+if (len(lines[i]) > L.riderLine && !out.rider) out.rider = 'Line ' + (i + 1) + ' is too long. Keep each line to ' + L.riderLine + ' letters.';
+}
+if (kept > L.rider && !out.rider) out.rider = 'Keep the rider to ' + L.rider + ' lines.';
+f.sets.forEach(function (t, k) { if (len(t.title) > L.setTitle) out['sets.' + k + '.title'] = e6Long(L.setTitle); });
+f.links.forEach(function (l, k) { if (len(l.label) > L.linkLabel) out['links.' + k + '.label'] = e6Long(L.linkLabel); });
+return out;
+}
+function e6Tips(a) {
+var out = {}, said = {};
+((a && a.meta && a.meta.notes) || []).forEach(function (n) {
+var k = String(n.field || '').replace(/\.\d+$/, ''), t;
+if (k === 'find.label') k = 'findLabel';
+t = n.code === 'dash' ? 'House style: no dashes. A comma or a full stop does the job.' : n.code === 'emoji' ? 'House style: no emoji.' : n.code === 'booked' ? 'House style: here it is spelled "bookd", with no e.' : '';
+if (!t || said[k + n.code]) return;
+said[k + n.code] = 1;
+out[k] = out[k] ? out[k] + ' ' + t : t;
+});
+return out;
+}
+function e6PhotoFail(code) {
+if (code === 'tooBig') return 'That file is over 40 MB. Choose a smaller one.';
+if (code === 'board') return 'This is the design board, so nothing is kept here.';
+return "That file won't open as a picture. Try a JPG or a PNG.";
+}
+function e6Fail(code) {
+if (code === 'full') return "This browser's storage is full, so nothing was saved. Download the roster file, send it to Nico, then try again with a smaller photo.";
+if (code === 'blocked') return "This browser won't keep changes, so nothing was saved. A private window does this. Open this page in a normal window.";
+if (code === 'missing') return "They aren't on the roster any more. Nothing was saved.";
+if (code === 'taken') return 'That name is too close to one already on the roster to get a page of its own. Change it a little and save again.';
+if (code === 'builtin') return "They are part of the site, so they can't be removed here. Save them as a draft instead.";
+if (code === 'noOriginal') return 'They were added on this device, so there is no earlier version to go back to.';
+if (code === 'offline') return "We couldn't reach BOOKD, so nothing was saved. Check your connection and try again.";
+if (code === 'rate') return 'Too many tries in a row. Nothing was saved. Give it a minute and try again.';
+if (code === 'signedOut') return 'You are logged out, so nothing was saved. Log in again in a new tab, then come back and press save.';
+if (code === 'forbidden') return 'Only the BOOKD admin can save here. Nothing was saved.';
+if (code === 'tooBig') return 'A picture is too big to upload, so nothing was saved. Choose a smaller one and try again.';
+if (code === 'photo') return "A picture wouldn't upload, so nothing was saved. Choose it again and try once more.";
+if (code === 'unsupported') return "That doesn't work here. Nothing was changed.";
+if (code === 'board') return 'This is the design board, so nothing is saved here. The real page saves.';
+return "That didn't go through, so nothing was saved. Check your connection and try again.";
+}
+function e6LoadFail(code) {
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try again.";
+if (code === 'rate') return 'Too many tries in a row. Give it a minute and try again.';
+return "The roster wouldn't load. Check your connection and try again.";
+}
+function e6Shown(a, device) {
+var i;
+if (!a) return false;
+if (!device) return a.status === 'live';
+for (i = 0; i < BOOKD_DJS.length; i++) if (BOOKD_DJS[i].slug === a.slug) return (BOOKD_DJS[i].status || 'live') !== 'draft';
+return false;
+}
+function e6Pill(wants, shown, device) {
+if (!device) return wants ? ['On the site', true] : ['Draft', false];
+if (wants) return shown ? ['On the site', true] : ['Not on the site yet', false];
+return shown ? ['Still on the site', true] : ['Draft', false];
+}
+function e6Saved(mode, kind, a, shown) {
+var t = e6Time();
+if (mode === 'database') return kind === 'live' ? 'Saved at ' + t + '. It is on the site now.' : kind === 'off' ? 'Taken off the site at ' + t + ' and kept as a draft.' : 'Draft saved at ' + t + '.';
+if (a && a.meta && !a.meta.changed) return 'Saved at ' + t + '. The site already shows this.';
+if (kind === 'live') return 'Saved on this device at ' + t + '. Visitors see ' + (shown ? 'the changes' : 'them') + ' once Nico has the roster file.';
+if (shown) return 'Saved as a draft on this device at ' + t + '. Visitors still see them until Nico has the roster file.';
+return 'Draft saved on this device at ' + t + '.';
+}
+var NAV6_DEFAULTS = { curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null };
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.resize = function () { if (self.state.menuOpen && !nav6Items(n)) nav6Set(self, { menuOpen: false }); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+}
+function nav6Behind(open) {
+if (typeof document === 'undefined') return;
+var head = document.querySelector('header'), kids = head && head.parentNode ? head.parentNode.children : [];
+for (var i = 0; i < kids.length; i++) if (kids[i] !== head) { if (open) kids[i].setAttribute('inert', ''); else kids[i].removeAttribute('inert'); }
+document.documentElement.classList.toggle('nav6-open', !!open);
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+if (menu !== !!st.menuOpen) self.setState({ menuOpen: menu });
+nav6Listen(self, menu); nav6Behind(menu);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+window[f]('resize', n.resize);
+}
+function nav6Off(self) { nav6Listen(self, false); nav6Behind(false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Who() {
+var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+if (!w) return null;
+if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
+return { href: 'login.html', text: 'Your inbox' };
+}
+function nav6Vals(self, cfg) {
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var who = nav6Who();
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu
+};
+}
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this, api = e6Api();
+this.M = api ? api.manage : e6Board(BOOKD_DJS);
+this.mode = api ? api.manage.mode : 'board';
+this.L = (api && api.limits) || E6_LIMITS;
+this.sounds = (api && api.genres) || E6_SOUNDS;
+this.bgs = (api && api.backgrounds) || ['red', 'black', 'cream'];
+this.route = { view: 'list' };
+this.token = 0;
+this.state = { phase: 'loading', loadCode: '', canWrite: true, artists: [], view: 'list', form: null, base: '', errors: {}, tips: {},
+busy: '', picking: '', bar: null, listMsg: null, dialog: null };
+this.set = {};
+E6_TEXT.forEach(function (k) { self.set[k] = function (e) { self.edit(k, e && e.target ? e.target.value : ''); }; });
+this.setPx = function (e) { self.spot(+e.target.value, null); };
+this.setPy = function (e) { self.spot(null, +e.target.value); };
+this.focusClick = function (e) { self.spotAt(e); };
+this.focusDown = function (e) { if (e.pointerType === 'mouse' && e.button === 0) { self.drag = true; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} } };
+this.focusMove = function (e) { if (self.drag && (e.buttons & 1)) self.spotAt(e); };
+this.focusUp = function () { self.drag = false; };
+this.pick = {}; this.clear = {};
+E6_PICS.forEach(function (k) {
+self.pick[k] = function (e) { self.pickFile(k, e); };
+self.clear[k] = function () {
+var f = self.state.form; if (!f) return;
+var n = Object.assign({}, f); n[k] = '';
+if (k === 'img') self.focusNext = '.e6-drop input';
+self.change(n, [k]);
+};
+});
+this.addLink = function () { self.rowAdd('links'); };
+this.addSet = function () { self.rowAdd('sets'); };
+this.addNew = function (e) { if (!e6Plain(e)) return; e.preventDefault(); self.go({ view: 'add' }); };
+this.toList = function (e) { if (!e6Plain(e)) return; e.preventDefault(); self.go({ view: 'list' }); };
+this.toPreview = function () { var el = self.pvEl; if (!el) return; try { el.scrollIntoView({ block: 'start' }); } catch (x) { el.scrollIntoView(); } el.focus({ preventScroll: true }); };
+this.onHash = function () {
+var r = e6Route(window.location.hash);
+if (!r || self.state.phase !== 'ready' || e6Same(r, self.route)) return;
+self.go(r, true);
+};
+this.onLeave = function (e) { if (self.leaving || !self.isDirty()) return undefined; e.preventDefault(); e.returnValue = ''; return ''; };
+this.imgGone = function (e) { if (e && e.target) e.target.style.visibility = 'hidden'; };
+this.imgBack = function (e) { if (e && e.target) e.target.style.visibility = ''; };
+this.headRef = function (el) { self.headEl = el; };
+this.pvRef = function (el) { self.pvEl = el; };
+this.msgRef = function (el) { self.msgEl = el; };
+this.noSubmit = function (e) { if (e && e.preventDefault) e.preventDefault(); };
+this.retry = function () { self.setState({ phase: 'loading', loadCode: '' }); self.start(); };
+this.saveA = function () { var f = self.state.form; if (f) self.save(f.status === 'live' ? 'off' : 'draft'); };
+this.saveB = function () { self.save('live'); };
+this.askReset = function () { self.askFor('reset'); };
+this.askRemove = function () { self.askFor('remove'); };
+this.download = function () { self.getFile(); };
+this.dlgRef = function (el) { self.dlgEl = el; if (el) { var b = el.querySelector('button'); if (b) b.focus(); } };
+this.dlgNo = function () { self.answer(false); };
+this.dlgYes = function () { self.answer(true); };
+this.dlgScrim = function (e) { if (e.target === e.currentTarget) self.answer(false); };
+this.dlgKey = function (e) {
+if (!self.state.dialog) return;
+if (e.key === 'Escape' || e.key === 'Esc') { e.preventDefault(); self.answer(false); return; }
+if (e.key !== 'Tab' || !self.dlgEl) return;
+var bs = [].slice.call(self.dlgEl.querySelectorAll('button')), i = bs.indexOf(document.activeElement);
+e.preventDefault();
+if (bs.length) bs[e.shiftKey ? (i <= 0 ? bs.length - 1 : i - 1) : (i < 0 || i >= bs.length - 1 ? 0 : i + 1)].focus();
+};
+nav6Init(this);
+}
+componentDidMount() {
+window.addEventListener('hashchange', this.onHash);
+window.addEventListener('beforeunload', this.onLeave);
+this.start();
+}
+componentWillUnmount() {
+this.gone = true;
+window.removeEventListener('hashchange', this.onHash);
+window.removeEventListener('beforeunload', this.onLeave);
+document.removeEventListener('keydown', this.dlgKey, true);
+nav6Off(this);
+this.headEl = null; this.pvEl = null; this.msgEl = null; this.dlgEl = null;
+}
+componentDidUpdate() {
+var el;
+if (this.focusHead && this.headEl) { this.focusHead = false; try { window.scrollTo(0, 0); } catch (e) {} this.headEl.focus({ preventScroll: true }); }
+if (this.focusBad) {
+el = document.querySelector('.e6-form [aria-invalid="true"]');
+if (el) { this.focusBad = false; el.focus(); if (el.scrollIntoView) { try { el.scrollIntoView({ block: 'center' }); } catch (e) {} } }
+}
+if (this.focusNext) { el = document.querySelector(this.focusNext); this.focusNext = ''; if (el && el.focus) el.focus(); }
+if (this.focusMsg && this.msgEl) { this.focusMsg = false; this.msgEl.focus(); }
+}
+start() {
+var self = this;
+if (this.mode !== 'database') { this.load(''); return; }
+window.BOOKD.auth.current().then(function (r) {
+if (self.gone) return;
+var u = r && r.ok ? r.user : null;
+if (r && r.ok && !u) { self.toLogin(); return; }
+if (!u) { self.setState({ phase: 'error', loadCode: (r && r.code) || 'unknown' }); return; }
+self.load(u.role);
+});
+}
+away(url) { this.leaving = true; window.location.replace(url); }
+toLogin() { if (window.BOOKD && window.BOOKD.next) window.BOOKD.next.set(); this.away('login.html'); }
+load(role) {
+var self = this;
+this.M.load(BOOKD_DJS).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) {
+if (r && r.code === 'signedOut') { self.toLogin(); return; }
+if (r && r.code === 'forbidden') { self.away(role === 'dj' ? 'login.html' : role === 'host' ? 'login.html' : 'login.html'); return; }
+self.setState({ phase: 'error', loadCode: (r && r.code) || 'unknown' });
+return;
+}
+var list = r.artists || [];
+self.setState({ phase: 'ready', artists: list, canWrite: r.canWrite !== false });
+var want = e6Route(window.location.hash);
+if (want && want.view !== 'list') self.enter(want, 'replace', list);
+});
+}
+refresh() {
+var self = this;
+this.M.load(BOOKD_DJS).then(function (r) {
+if (self.gone || !r || !r.ok) return;
+self.setState({ artists: r.artists || [], canWrite: r.canWrite !== false });
+});
+}
+find(slug, list) {
+var all = list || this.state.artists, i;
+for (i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
+return null;
+}
+isDirty() { var s = this.state; return !!s.form && JSON.stringify(s.form) !== s.base; }
+go(route, fromAddress) {
+var self = this;
+if (!this.isDirty()) { this.enter(route, fromAddress ? 'none' : 'push'); return; }
+if (fromAddress) { try { window.history.pushState(null, '', e6Hash(this.route)); } catch (e) {} }
+var name = e6One(this.state.form.name) || 'this DJ';
+this.ask({ title: 'Leave without\u00a0saving?', text: 'Your changes to ' + name + " aren't saved yet. Leave now and they are\u00a0gone.",
+yes: 'Leave without saving', no: 'Keep editing', onYes: function () { self.enter(route, 'push'); } });
+}
+enter(route, how, list, msg) {
+var a = route.view === 'edit' ? this.find(route.slug, list) : null, form = null;
+if (route.view === 'edit' && !a) { route = { view: 'list' }; if (how === 'none') how = 'replace'; }
+if (route.view === 'edit') form = e6Form(a); else if (route.view === 'add') form = e6Blank();
+this.route = route; this.token++; this.drag = false;
+this.focusHead = true; this.focusBad = false;
+this.setState({ view: route.view, form: form, base: form ? JSON.stringify(form) : '', errors: {}, tips: a ? e6Tips(a) : {}, busy: '', picking: '', bar: null, listMsg: msg || null, dialog: null });
+this.address(route, how);
+}
+address(route, how) {
+var want = e6Hash(route), has = window.location.hash;
+if (how === 'none' || has === want || (route.view === 'list' && (has === '' || has === '#'))) return;
+try { if (how === 'replace') window.history.replaceState(null, '', want); else window.history.pushState(null, '', want); } catch (e) {}
+}
+ask(d) {
+this.lastFocus = document.activeElement;
+document.addEventListener('keydown', this.dlgKey, true);
+this.setState({ dialog: d });
+}
+answer(yes) {
+var d = this.state.dialog, back = this.lastFocus;
+if (!d) return;
+document.removeEventListener('keydown', this.dlgKey, true);
+this.lastFocus = null;
+this.setState({ dialog: null });
+if (yes && d.onYes) { d.onYes(); return; }
+if (back && back.focus) setTimeout(function () { try { back.focus(); } catch (e) {} }, 0);
+}
+change(form, keys) {
+var s = this.state, patch = { form: form }, errs = null, tips = null;
+(keys || []).forEach(function (k) {
+Object.keys(s.errors).forEach(function (e) { if (e === k || e.indexOf(k + '.') === 0) { errs = errs || Object.assign({}, s.errors); delete errs[e]; } });
+if (s.tips[k]) { tips = tips || Object.assign({}, s.tips); delete tips[k]; }
+});
+if (errs) patch.errors = errs;
+if (tips) patch.tips = tips;
+if (s.bar) patch.bar = null;
+this.setState(patch);
+}
+edit(key, value) {
+var f = this.state.form;
+if (!f || f[key] === value) return;
+var n = Object.assign({}, f), keys = [key];
+n[key] = value;
+if (key === 'name' && f.firstAuto) { n.first = e6First(value); keys.push('first'); }
+if (key === 'first') n.firstAuto = false;
+this.change(n, keys);
+}
+spot(x, y) {
+var f = this.state.form; if (!f) return;
+var n = Object.assign({}, f);
+if (x != null && isFinite(x)) n.px = Math.max(0, Math.min(100, Math.round(x)));
+if (y != null && isFinite(y)) n.py = Math.max(0, Math.min(100, Math.round(y)));
+if (n.px !== f.px || n.py !== f.py) this.change(n, []);
+}
+spotAt(e) {
+var r = e.currentTarget.getBoundingClientRect();
+if (!r.width || !r.height) return;
+this.spot((e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100);
+}
+flip(sound) {
+var f = this.state.form; if (!f) return;
+var n = Object.assign({}, f), i = f.genres.indexOf(sound);
+n.genres = i >= 0 ? f.genres.filter(function (g) { return g !== sound; }) : f.genres.concat([sound]);
+this.change(n, ['genres']);
+}
+choose(key, value) {
+var f = this.state.form; if (!f || f[key] === value) return;
+var n = Object.assign({}, f); n[key] = value;
+this.change(n, []);
+}
+rowSet(list, i, key, value) {
+var f = this.state.form; if (!f || !f[list][i] || f[list][i][key] === value) return;
+var n = Object.assign({}, f);
+n[list] = f[list].map(function (r, k) { var c = Object.assign({}, r); if (k === i) c[key] = value; return c; });
+this.change(n, [list + '.' + i + '.' + key]);
+}
+rowAdd(list) {
+var f = this.state.form; if (!f || f[list].length >= this.L[list]) return;
+var n = Object.assign({}, f);
+n[list] = f[list].concat([list === 'sets' ? { title: '', url: '' } : { label: '', url: '' }]);
+this.focusNext = '[data-list="' + list + '"] .e6-item:last-child input';
+this.change(n, [list]);
+}
+rowRemove(list, i) {
+var f = this.state.form; if (!f) return;
+var n = Object.assign({}, f);
+n[list] = f[list].filter(function (r, k) { return k !== i; });
+if (!n[list].length) n[list] = [list === 'sets' ? { title: '', url: '' } : { label: '', url: '' }];
+this.focusNext = '[data-add="' + list + '"]';
+this.change(n, [list]);
+}
+pickFile(k, e) {
+var self = this, input = e && e.target, file = input && input.files ? input.files[0] : null, token = this.token;
+if (!file || this.state.picking || !this.state.form) { if (input) { try { input.value = ''; } catch (x) {} } return; }
+var errs = Object.assign({}, this.state.errors); delete errs[k];
+this.setState({ picking: k, errors: errs });
+this.M.photo(file, { max: k === 'record' ? 800 : 1600 }).then(function (p) {
+try { input.value = ''; } catch (x) {}
+if (self.gone || token !== self.token) return;
+var f = self.state.form, er;
+if (!p || !p.ok) { er = Object.assign({}, self.state.errors); er[k] = e6PhotoFail(p && p.code); self.setState({ picking: '', errors: er }); return; }
+var n = Object.assign({}, f); n[k] = p.url;
+if (k === 'img') { n.px = 50; n.py = 30; }
+self.setState({ picking: '', form: n, bar: null });
+});
+}
+save(kind) {
+var self = this, s = this.state, f = s.form, token = this.token;
+if (!f || s.busy) return;
+var status = kind === 'live' ? 'live' : 'draft';
+if (f.slug && f.status === status && !this.isDirty()) { this.setState({ bar: { kind: 'note', text: 'Nothing new to\u00a0save.' } }); return; }
+this.setState({ busy: kind, bar: null });
+this.M.save(e6Artist(f, status, this.mode === 'database'), BOOKD_DJS).then(function (r) {
+if (self.gone || token !== self.token) return;
+if (r && r.ok && r.artist) { self.kept(r.artist, e6Saved(self.mode, kind, r.artist, e6Shown(r.artist, self.mode === 'device'))); return; }
+var patch = { busy: '' }, code = (r && r.code) || 'unknown';
+if (code === 'invalid') {
+var pr = e6Problems(r.problems, self.L);
+patch.errors = pr.errors;
+patch.bar = { kind: 'err', text: pr.count === 1 ? 'Not saved. One thing needs fixing. It is marked in\u00a0red.' : pr.count ? 'Not saved. A few things need fixing. They are marked in\u00a0red.' : e6Fail('unknown') };
+self.focusBad = pr.count > 0;
+} else if (r && r.part === 'photo' && r.slug) {
+patch.form = Object.assign({}, self.state.form, { slug: r.slug });
+patch.bar = { kind: 'err', text: "They are saved as a draft, but a picture didn't upload. Press save to try the picture\u00a0again." };
+self.route = { view: 'edit', slug: r.slug };
+self.address(self.route, 'replace');
+self.refresh();
+} else patch.bar = { kind: 'err', text: e6Fail(code), login: code === 'signedOut' };
+self.setState(patch);
+});
+}
+kept(a, text) {
+var form = e6Form(a), had = false;
+var list = this.state.artists.map(function (x) { if (x.slug === a.slug) { had = true; return a; } return x; });
+if (!had) list = list.concat([a]);
+this.route = { view: 'edit', slug: a.slug };
+this.address(this.route, 'replace');
+this.setState({ busy: '', artists: list, view: 'edit', form: form, base: JSON.stringify(form), errors: {}, tips: e6Tips(a), bar: { kind: 'ok', text: text } });
+this.refresh();
+}
+askFor(what) {
+var self = this, f = this.state.form;
+if (!f || !f.slug || this.state.busy) return;
+var name = e6One(f.name) || 'this DJ';
+if (what === 'reset') this.ask({ title: "Go back to the site's\u00a0version?", text: 'Everything you changed for ' + name + ' on this device is dropped, and their page goes back to what the site shows\u00a0now.',
+yes: 'Undo my changes', no: 'Keep my changes', onYes: function () { self.undo(); } });
+else this.ask({ title: 'Remove ' + name + '?',
+text: this.mode === 'database' ? "Their page, sets, tour dates, contact details and photos are deleted for good. This can't be\u00a0undone." : "They were added on this device and will be gone from it. This can't be\u00a0undone.",
+yes: 'Remove them', no: 'Keep them', onYes: function () { self.remove(); } });
+}
+undo() {
+var self = this, f = this.state.form, token = this.token;
+if (!f || this.state.busy) return;
+this.setState({ busy: 'reset', bar: null });
+this.M.reset(f.slug, BOOKD_DJS).then(function (r) {
+if (self.gone || token !== self.token) return;
+if (r && r.ok && r.artist) { self.focusHead = true; self.kept(r.artist, "Back to the site's version. Your changes on this device are\u00a0gone."); return; }
+self.setState({ busy: '', bar: { kind: 'err', text: e6Fail(r && r.code) } });
+});
+}
+remove() {
+var self = this, f = this.state.form, token = this.token;
+if (!f || this.state.busy) return;
+var name = e6One(f.name) || 'They', slug = f.slug;
+this.setState({ busy: 'remove', bar: null });
+this.M.remove(slug, BOOKD_DJS).then(function (r) {
+if (self.gone || token !== self.token) return;
+if (!r || !r.ok) { self.setState({ busy: '', bar: { kind: 'err', text: e6Fail(r && r.code), login: !!r && r.code === 'signedOut' } }); return; }
+var list = self.state.artists.filter(function (x) { return x.slug !== slug; });
+self.setState({ artists: list });
+self.focusMsg = true;
+self.enter({ view: 'list' }, 'replace', list, { kind: 'ok', text: name + ' was removed' + (self.mode === 'database' ? '.' : ' from this\u00a0device.') });
+self.refresh();
+});
+}
+getFile() {
+var self = this, s = this.state;
+if (s.busy || this.mode !== 'device') return;
+if (!this.waiting().length) return;
+this.setState({ busy: 'file', listMsg: null });
+this.M.download(BOOKD_DJS).then(function (r) {
+if (self.gone) return;
+self.focusMsg = true;
+if (!r || !r.ok) {
+self.setState({ busy: '', listMsg: { kind: 'err', text: r && r.code === 'blocked' ? "This browser wouldn't save the file. Try once more, or open this page in another browser." : e6Fail(r && r.code) } });
+return;
+}
+var text = 'Downloaded ' + r.filename + '. Send it to Nico to put your changes on the\u00a0site.', lost = {};
+(r.lost || []).forEach(function (l) { var a = self.find(l.slug); lost[a ? a.name : l.slug] = 1; });
+lost = Object.keys(lost);
+if (lost.length) text += ' One thing first: a picture for ' + e6And(lost) + ' is missing from the file. Open them, choose the picture again, save, then download once\u00a0more.';
+self.setState({ busy: '', listMsg: { kind: lost.length ? 'err' : 'ok', text: text } });
+});
+}
+waiting() { return this.state.artists.filter(function (a) { return !!(a.meta && a.meta.changed); }).map(function (a) { return a.name; }); }
+renderVals() {
+var self = this, s = this.state, mode = this.mode, L = this.L;
+var device = mode === 'device', database = mode === 'database', board = mode === 'board';
+var ready = s.phase === 'ready', f = s.form, editing = ready && !!f && s.view !== 'list';
+var V = { isList: !editing, isEdit: editing, isDatabase: database, headRef: this.headRef, imgGone: this.imgGone, imgBack: this.imgBack, hasDialog: !!s.dialog, dlg: s.dialog || { title: '', text: '', yes: '', no: '' },
+dlgRef: this.dlgRef, dlgNo: this.dlgNo, dlgYes: this.dlgYes, dlgScrim: this.dlgScrim };
+if (!editing) {
+var names = this.waiting(), blockedNow = device && !s.canWrite;
+var rows = s.artists.map(function (a) {
+var m = a.meta || {}, flags = [], need = (m.missing || []).map(function (k) { return k === 'tag' ? 'their sound' : k === 'home' ? 'a city' : k === 'img' ? 'a photo' : 'a bio'; });
+var pill = e6Pill(a.status === 'live', e6Shown(a, device), device);
+if (device && m.changed) flags.push(m.changed === 'added' ? 'Added on this device.' : m.changed === 'hidden' ? 'Saved as a draft on this device.' : 'Changed on this device.');
+if (m.lostPhotos && m.lostPhotos.length) flags.push('A picture saved here has gone missing. Open them and choose it again.');
+if (m.siteChanged) flags.push("The site's own version has changed since you edited them.");
+return { name: a.name, href: '#edit/' + a.slug, city: a.home || 'No city yet', sound: a.tag || 'No sound yet',
+hasImg: !!a.img, img: a.img, pos: a.pos || '50% 50%',
+pill: pill[0], pillCls: 'e6-pill ' + (pill[1] ? 'e6-pill-live' : 'e6-pill-draft'),
+hasNeed: need.length > 0, need: a.status === 'live' ? 'Missing ' + e6And(need) + '.' : 'Needs ' + e6And(need) + ' before going on the site.',
+hasFlag: flags.length > 0, flag: flags.join(' '),
+open: function (e) { if (!e6Plain(e)) return; e.preventDefault(); self.go({ view: 'edit', slug: a.slug }); } };
+});
+var waitingText = names.length > 3 ? e6And(names.slice(0, 3).concat([(names.length - 3) + ' more'])) : e6And(names);
+return Object.assign(V, {
+loading: s.phase === 'loading', loadFailed: s.phase === 'error', loadFailText: e6LoadFail(s.loadCode), retry: this.retry, ready: ready,
+truthCls: 'e6-truth' + (blockedNow ? ' e6-truth-bad' : ''),
+truthHead: blockedNow ? "This browser won't keep your\u00a0changes." : device ? 'Preview\u00a0mode.' : database ? 'Live.' : 'Design\u00a0board.',
+truthText: blockedNow ? 'A private window or a locked down laptop does this. Open this page in a normal window before you start, or nothing you save will\u00a0stay.'
+: device ? 'Changes are saved on this device only. To put them on the site, download the roster file and send it to\u00a0Nico.'
+: database ? 'Changes are saved to the site. Visitors see them straight\u00a0away.'
+: 'This is the design, not the real page. Nothing is saved\u00a0here.',
+hasWaiting: device && ready && !blockedNow,
+waitingCls: names.length ? 'e6-waiting' : 'e6-quiet',
+waitingText: names.length ? waitingText + (names.length === 1 ? ' has' : ' have') + ' changes waiting on this device. Download the file when you finish, so nothing is\u00a0lost.' : 'Nothing has changed on this device yet, so there is nothing to\u00a0send.',
+canDownload: device && ready && !blockedNow, download: this.download,
+dlBusy: s.busy === 'file' ? 'true' : 'false', dlOff: names.length ? 'false' : 'true', dlLabel: s.busy === 'file' ? 'One sec' : 'Download the roster file',
+hasListMsg: !!s.listMsg, listMsg: s.listMsg ? s.listMsg.text : '', listMsgCls: 'e6-msg' + (s.listMsg && s.listMsg.kind === 'err' ? ' e6-msg-err' : ''), msgRef: this.msgRef,
+addNew: this.addNew, rows: rows, hasRows: rows.length > 0, noRows: !rows.length
+}, nav6Vals(this, {}));
+}
+var saved = f.slug ? this.find(f.slug) : null, meta = (saved && saved.meta) || {}, dirty = JSON.stringify(f) !== s.base;
+var isLive = f.status === 'live', clean = !!f.slug && !dirty;
+var over = e6Over(f, L), errs = Object.assign({}, over, s.errors), tips = s.tips;
+var name = e6One(f.name), first = e6One(f.first) || e6First(f.name), tag = e6One(f.tag), home = e6One(f.home);
+var called = name || 'this DJ';
+var err = {}, errText = {}, inv = {}, desc = {}, tip = {}, tipText = {};
+['name', 'first', 'home', 'tag', 'genres', 'img', 'alt', 'bio', 'links', 'sets', 'findLabel', 'findUrl', 'rider', 'riderNote', 'riderLink', 'image', 'record', 'email', 'agentEmail'].forEach(function (k) {
+err[k] = !!errs[k]; errText[k] = errs[k] || ''; inv[k] = errs[k] ? 'true' : 'false'; desc[k] = errs[k] ? 'e6-err-' + k : '';
+tip[k] = !errs[k] && !!tips[k]; tipText[k] = tips[k] || '';
+});
+var row = function (list, a, b, words) {
+return f[list].map(function (r, i) {
+var ka = list + '.' + i + '.' + a, kb = list + '.' + i + '.url', n = i + 1, o = { url: r.url };
+o[a] = r[a];
+o[a + 'L'] = words[0] + ' ' + n; o.urlL = words[1] + ' ' + n;
+o[a === 'title' ? 'setTitle' : 'setLabel'] = function (e) { self.rowSet(list, i, a, e.target.value); };
+o.setUrl = function (e) { self.rowSet(list, i, 'url', e.target.value); };
+o[a === 'title' ? 'nameTitle' : 'nameLabel'] = list + '[' + i + '][' + a + ']'; o.nameUrl = list + '[' + i + '][url]';
+o.remove = function () { self.rowRemove(list, i); };
+o.removeAria = 'Take off ' + words[2] + ' ' + n;
+var A = a === 'title' ? 'Title' : 'Label';
+o['hasErr' + A] = !!errs[ka]; o['err' + A] = errs[ka] || ''; o['inv' + A] = errs[ka] ? 'true' : 'false'; o['id' + A] = 'e6-err-' + list + '-' + i + '-' + a; o['desc' + A] = errs[ka] ? o['id' + A] : '';
+o.hasErrUrl = !!errs[kb]; o.errUrl = errs[kb] || ''; o.invUrl = errs[kb] ? 'true' : 'false'; o.idUrl = 'e6-err-' + list + '-' + i + '-url'; o.descUrl = errs[kb] ? o.idUrl : '';
+return o;
+});
+};
+var sounds = this.sounds.concat(f.genres.filter(function (g) { return self.sounds.indexOf(g) < 0; }));
+var bioLen = e6Paras(f.bio).join('\n\n').length;
+var busyA = s.busy === 'draft' || s.busy === 'off', busyB = s.busy === 'live';
+var bar = s.bar, barErr = bar && bar.kind === 'err' ? bar.text : '';
+var rest = device ? 'Preview mode. Saves stay on this device\u00a0only.' : database ? 'Saves go straight to the\u00a0site.' : 'Design board. Nothing is saved\u00a0here.';
+var lost = (meta.lostPhotos || []).map(function (k) { return k === 'img' ? 'the photo' : k === 'look.image' ? 'the picture behind the top of the page' : 'the record label picture'; });
+var warn = [];
+if (lost.length) warn.push('A picture saved on this device has gone missing: ' + e6And(lost) + '. Choose it again and\u00a0save.');
+if (meta.siteChanged) warn.push("The site's own version of this page has changed since you edited it here. The last card can take you back to\u00a0it.");
+var shown = e6Shown(saved, device), pill = e6Pill(isLive, shown, device), file = 'once Nico has the roster\u00a0file.';
+var where = !f.slug ? ''
+: database ? 'Saved to the site.' : board ? 'From the design board.'
+: !meta.changed ? 'The same as on the site.'
+: !isLive && shown ? 'A draft on this device. Visitors still see them until Nico has the roster\u00a0file.'
+: (meta.changed === 'added' ? 'Added' : 'Changed') + ' on this device.' + (!isLive ? '' : shown ? ' Visitors see the changes ' + file : ' Visitors see them ' + file);
+var nameK = Math.min(0.706, 3.35 / Math.max(0.1, e6Wide(name || 'Their name', -0.075)));
+var lblSize = Math.min(9.5, 34 / Math.max(0.1, e6Wide(name || 'Their name', -0.042)));
+var canOpen = !!saved && saved.status === 'live';
+return Object.assign(V, {
+form: f, set: this.set, err: err, errText: errText, inv: inv, desc: desc, tip: tip, tipText: tipText,
+noSubmit: this.noSubmit, toList: this.toList, toPreview: this.toPreview, pvRef: this.pvRef,
+formAria: f.slug ? 'Edit ' + called : 'Add a DJ',
+edTitle: name || 'New\u00a0DJ.',
+edPill: !f.slug ? 'Not saved yet' : pill[0], edPillCls: 'e6-pill ' + (f.slug && pill[1] ? 'e6-pill-live' : 'e6-pill-draft'),
+edWhere: where, hasEdWarn: warn.length > 0, edWarn: warn.join(' '),
+isSaved: !!f.slug,
+genres: sounds.map(function (g) { return { label: g, on: f.genres.indexOf(g) >= 0 ? 'true' : 'false', flip: function () { self.flip(g); } }; }),
+hasPhoto: !!f.img, noPhoto: !f.img, pick: this.pick, clear: this.clear,
+pickBusy: { img: s.picking === 'img' ? 'true' : 'false', image: s.picking === 'image' ? 'true' : 'false', record: s.picking === 'record' ? 'true' : 'false' },
+pickLabel: { img: s.picking === 'img' ? 'One sec' : f.img ? 'Change the photo' : 'Choose a photo', image: s.picking === 'image' ? 'One sec' : f.image ? 'Change it' : 'Choose a picture', record: s.picking === 'record' ? 'One sec' : f.record ? 'Change it' : 'Choose a picture' },
+focusClick: this.focusClick, focusDown: this.focusDown, focusMove: this.focusMove, focusUp: this.focusUp, setPx: this.setPx, setPy: this.setPy,
+pxText: f.px + ' percent from the left', pyText: f.py + ' percent from the top',
+bioCount: e6Num(bioLen) + ' of ' + e6Num(L.bioChars) + ' letters\u00a0used.',
+links: row('links', 'label', 'url', ['Link', 'Address for link', 'link']), canAddLink: f.links.length < L.links, addLink: this.addLink,
+sets: row('sets', 'title', 'url', ['Set', 'SoundCloud link for set', 'set']), canAddSet: f.sets.length < L.sets, addSet: this.addSet,
+findHolder: 'Find ' + (first || 'them') + ' on SoundCloud',
+swatches: this.bgs.map(function (b) { return { key: b, label: b.charAt(0).toUpperCase() + b.slice(1), on: f.bg === b ? 'true' : 'false', pick: function () { self.choose('bg', b); } }; }),
+sides: [['left', 'Bottom left'], ['right', 'Bottom right']].map(function (d) { return { label: d[1], on: f.sign === d[0] ? 'true' : 'false', pick: function () { self.choose('sign', d[0]); } }; }),
+hasImage: !!f.image, hasRecord: !!f.record, noRecord: !f.record,
+imageNote: f.image ? 'Shown in black and white behind their name, under a wash of the colour\u00a0above.' : 'None. The top of their page is the plain\u00a0colour.',
+recordNote: f.record ? 'Printed in black on the red label in the middle of their\u00a0record.' : 'None. The label is plain red with their name on\u00a0it.',
+claimNote: meta.claimed ? 'They have made an account and claimed this\u00a0profile.' : 'They claim their profile by making an account with this\u00a0email.',
+dates: ((saved && saved.dates) || []).map(function (d) { return { city: d.city, when: e6When(d.from, d.to) }; }),
+hasDates: !!(saved && saved.dates && saved.dates.length), noDates: !(saved && saved.dates && saved.dates.length),
+hasMore: !!f.slug && !board, canReset: !!meta.canReset, canRemove: !!meta.canRemove, builtinNote: !!f.slug && device && meta.origin === 'builtin' && !meta.canRemove,
+resetNote: 'Drop everything you changed for ' + called + ' on this device and go back to what the site\u00a0shows.',
+resetLabel: s.busy === 'reset' ? 'One sec' : "Go back to the site's version", resetBusy: s.busy === 'reset' ? 'true' : 'false', askReset: this.askReset,
+removeNote: database ? 'Removing ' + called + ' deletes their page, sets, tour dates, contact details and photos for\u00a0good.' : called + " was added on this device. Removing them can't be\u00a0undone.",
+removeLabel: s.busy === 'remove' ? 'One sec' : 'Remove them', removeBusy: s.busy === 'remove' ? 'true' : 'false', askRemove: this.askRemove,
+pv: { name: name || 'Their name', first: first || 'Name', tag: tag || 'Their sound', home: home || 'Their city', alt: e6One(f.alt) || name,
+tagLine: (tag || 'Their sound') + '.', town: 'Based in ' + (home || 'their city') + '.', pos: f.px + '% ' + f.py + '%',
+bgOn: f.image ? 'yes' : 'no', nameK: nameK.toFixed(3), lblSize: lblSize.toFixed(2), lblTrack: (-0.042 * lblSize).toFixed(2), lblName: [name || 'Their name'],
+sigCls: 'e6-hsig' + (f.sign === 'right' ? ' e6-hsig-right' : '') },
+canOpen: canOpen, profileHref: BOOKD_DJ_URL(f.slug),
+openNote: !f.slug ? 'Their page opens from here once they are\u00a0saved.'
+: !canOpen ? 'A draft has no page to\u00a0open.'
+: dirty ? 'This opens the last saved version. Save to see your changes\u00a0there.'
+: device && meta.changed ? 'Their page as this device shows it, in a new tab. Visitors see it ' + file
+: 'The real page, in a new\u00a0tab.',
+barText: barErr ? '' : bar ? bar.text : dirty ? 'Changes not saved\u00a0yet.' : rest,
+barCls: 'e6-barmsg' + (barErr ? ' e6-off' : ''),
+hasBarErr: !!barErr, barErr: barErr, barLogin: !!(bar && bar.login),
+saveA: this.saveA, saveB: this.saveB,
+labelA: busyA ? 'One sec' : isLive && !device ? 'Take off the site' : 'Save as draft', labelB: busyB ? 'One sec' : isLive ? 'Save changes' : device ? 'Save for the site' : 'Put on the site',
+busyA: busyA ? 'true' : 'false', busyB: busyB ? 'true' : 'false',
+offA: clean && !isLive ? 'true' : 'false', offB: clean && isLive ? 'true' : 'false'
+}, nav6Vals(this, {}));
+}
+}</script>
+<script src="bookd-config.js"></script>
+<script src="bookd-api.js"></script>
+<script src="bookd-manage.js"></script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>
