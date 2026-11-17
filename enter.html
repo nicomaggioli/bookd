@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Beta testers · BOOKD</title>
+<meta name="description" content="BOOKD is in private testing. Enter your code to come in.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>
+/* The code page: where a beta tester comes in while the site sits behind the waitlist. One job, so it is plain:
+   the logo, one line, one box, one button. The gate itself is the small script the build puts at the top of every other page. */
+html,body{height:100%}
+body{margin:0;background:#000000;color:#ffffff;font-family:'Inter',Helvetica,Arial,sans-serif;text-wrap:pretty}
+.pg{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,5vw,48px)}
+.logo{display:block;width:124px;line-height:0}
+.logo svg{width:100%;height:auto;fill:#ffffff}
+main{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;width:100%;max-width:440px;margin:0 auto;padding:48px 0 72px}
+h1{margin:0;font-size:clamp(44px,11vw,72px);line-height:.95;font-weight:700;letter-spacing:-0.055em;text-wrap:balance;outline:none}
+.sub{margin:18px 0 28px;font-size:18px;line-height:1.45;color:#a2a5a4}
+.pill{display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:#ffffff}
+.pill:focus-within{box-shadow:0 0 0 3px #ff3b2f}
+.pill input{flex:1 1 auto;min-width:0;height:52px;margin:0;padding:0 8px 0 20px;border:0;border-radius:999px;background:transparent;font:400 18px 'Inter',sans-serif;color:#000000;outline:none;-webkit-appearance:none;appearance:none}
+.pill input::placeholder{color:rgba(0,0,0,.6);opacity:1}
+.go{flex:none;min-height:52px;padding:0 26px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 17px 'Inter',sans-serif;letter-spacing:-0.02em;cursor:pointer;white-space:nowrap;transition:background .15s}
+.go:active{transform:translateY(1px)}
+.go[aria-disabled="true"]{opacity:.6;cursor:default}
+.go:focus-visible{outline:2px solid #000000;outline-offset:2px}
+.note{margin:12px 0 0;min-height:22px;font-size:15px;line-height:1.45;color:#ff3b2f;font-weight:700}
+.back{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:20px;padding:0 18px;border-radius:999px;background:#2f2f31;color:#ffffff;font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;transition:background .15s,color .15s}
+a:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.go:hover{background:#ffffff;color:#000000}.back:hover{background:#ffffff;color:#000000}}
+@media (max-width:420px){.pill input{padding-left:14px;font-size:16px}.go{padding:0 18px}}
+@media (prefers-reduced-motion: reduce){*{transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+<div class="pg">
+<a class="logo" href="waitlist.html" aria-label="BOOKD"><svg viewBox="80 455 1190 170" aria-hidden="true" focusable="false"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<main>
+<h1 id="h" tabindex="-1">Got a&nbsp;code?</h1>
+<p class="sub">BOOKD is in private testing. Enter your code to come&nbsp;in.</p>
+<form id="f" novalidate aria-labelledby="h">
+<div class="pill">
+<label class="vh" for="code">Code</label>
+<input id="code" type="text" name="code" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Your code" aria-describedby="note">
+<button class="go" id="go" type="submit">Come in</button>
+</div>
+<p id="note" class="note" role="alert"></p>
+</form>
+<a class="back" href="waitlist.html">Back to the waitlist</a>
+</main>
+</div>
+<script>
+(function () {
+  var HASH = '3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1', KEY = 'bookd.beta', NEXT = 'bookd.beta.next';
+  var f = document.getElementById('f'), box = document.getElementById('code'), go = document.getElementById('go'), note = document.getElementById('note');
+  // where to go once in: the page the gate turned this visitor away from (a link from a BOOKD email, say), or the homepage
+  function onward() {
+    var to = '';
+    try { to = sessionStorage.getItem(NEXT) || ''; sessionStorage.removeItem(NEXT); } catch (e) {}
+    if (!/^[a-z0-9-]+\.html([?#].*)?$/.test(to) || /^(enter|waitlist)\.html/.test(to)) to = 'index.html';
+    location.replace(to);
+  }
+  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  // already in on this device: straight through
+  try { if (HASH && localStorage.getItem(KEY) === HASH) { onward(); return; } } catch (e) {}
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = box.value.trim().toLowerCase();
+    if (go.getAttribute('aria-disabled') === 'true') return;
+    if (!v) { note.textContent = 'Add your code first.'; box.focus(); return; }
+    if (!window.crypto || !crypto.subtle) { note.textContent = "This browser can't check the code. Try a newer one."; return; }
+    go.setAttribute('aria-disabled', 'true'); note.textContent = '';
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(v)).then(function (d) {
+      go.removeAttribute('aria-disabled');
+      if (hex(d) !== HASH) { note.textContent = "That's not the code. Check it and try again."; box.focus(); box.select(); return; }
+      try { localStorage.setItem(KEY, HASH); } catch (err) { note.textContent = "This browser won't remember the code. Turn off private mode and try again."; return; }
+      onward();
+    }, function () { go.removeAttribute('aria-disabled'); note.textContent = "Something went wrong. Try again."; });
+  });
+  box.addEventListener('input', function () { note.textContent = ''; });
+})();
+</script>
+</body>
+</html>
