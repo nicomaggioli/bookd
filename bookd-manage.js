@@ -37,7 +37,7 @@ var saved = { name: r.data.display_name || '', phone: r.data.phone || '' };
 return _.describe(u).then(null, function () {}).then(function () {
 var email = _.clip(o.email, 200).toLowerCase(), old = String(u.email || '');
 if (!email || email === old.toLowerCase()) return { ok: true, name: saved.name, phone: saved.phone, email: old, emailSent: false };
-var back = location.href.split('#')[0].split('?')[0];
+var back = location.href.split('#')[0].split('?')[0].replace(/\/([A-Za-z0-9-]+)$/, '/$1.html');
 return sb.auth.updateUser({ email: email }, { emailRedirectTo: back }).then(function (e) {
 if (e.error) { var f = _.fail(e.error); f.part = 'email'; f.name = saved.name; f.phone = saved.phone; return f; }
 var now = e.data && e.data.user ? String(e.data.user.email || '') : old;
@@ -64,7 +64,7 @@ return { ok: true, photo: r.data.photo || '' };
 resendEmail: function (email) {
 return _.guard(session().then(function (u) {
 if (!u) return out;
-var back = location.href.split('#')[0].split('?')[0];
+var back = location.href.split('#')[0].split('?')[0].replace(/\/([A-Za-z0-9-]+)$/, '/$1.html');
 return sb.auth.updateUser({ email: _.clip(email, 200).toLowerCase() }, { emailRedirectTo: back }).then(function (e) {
 return e.error ? _.fail(e.error) : { ok: true };
 });
