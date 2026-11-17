@@ -6,13 +6,13 @@
 <script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <title>Log in · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="The BOOKD log in page. Accounts open soon.">
+<meta name="description" content="Log in to your BOOKD account.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://nicomaggioli.github.io/bookd/login.html">
 <meta property="og:site_name" content="BOOKD">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Log in to BOOKD">
-<meta property="og:description" content="The BOOKD log in page. Accounts open soon.">
+<meta property="og:description" content="Log in to your BOOKD account.">
 <meta property="og:url" content="https://nicomaggioli.github.io/bookd/login.html">
 <meta property="og:image" content="https://nicomaggioli.github.io/bookd/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -27,6 +27,7 @@
 <link rel="manifest" href="site.webmanifest">
 <noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
 <link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
@@ -50,7 +51,7 @@ check(); window.addEventListener('load', check); window.addEventListener('resize
 })();</script>
 </head>
 <body>
-<noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Back for another round?</h1><p>The BOOKD log in page. Accounts open soon.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
+<noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Back for another round?</h1><p>Log in to your BOOKD account.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
 <x-dc>
 <helmet>
 <link rel="preload" as="image" href="assets/62482694080a7cdf4882c52b5d6bd63d.jpg">
@@ -217,6 +218,21 @@ html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height
 html .ns-h:focus,html .ns-h:focus-visible{outline:none}
 html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
 html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <sc-if value="{{pubNav}}" hint-placeholder-val="{{ true }}">
@@ -242,6 +258,7 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
 <a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
+<a class="btn go mbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
 </nav>
 </sc-if>
 </header>
@@ -265,7 +282,7 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
 <div class="acctmenu">
 <span class="acctwho">Logged in as <strong>{{hostName}}</strong></span>
-<a href="login.html" aria-current="{{curAccount}}">Your account</a>
+<a href="account.html" aria-current="{{curAccount}}">Your account</a>
 <a href="index.html">Log out</a>
 </div>
 </sc-if>
@@ -279,7 +296,9 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
 <a class="nl nlc" href="{{inboxHref}}" aria-current="{{curInbox}}" onClick="{{closeMenu}}">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
-<a class="nl" href="login.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="account.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="index.html">Log out</a>
+<a class="btn go mbook" href="roster.html">Book a DJ</a>
 </nav>
 </sc-if>
 </header>
@@ -316,6 +335,7 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <a class="nl" href="{{dashHref}}" aria-current="{{curDash}}" onClick="{{closeMenu}}">Dashboard</a>
 <a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}" onClick="{{closeMenu}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
 <sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="nl" href="{{seeHref}}" onClick="{{closeMenu}}">See your page</a></sc-if>
+<a class="nl" href="index.html">Log out</a>
 </nav>
 </sc-if>
 </header>
@@ -396,7 +416,7 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <sc-if value="{{altOn}}" hint-placeholder-val="{{ true }}"><a class="btn btn-lg btn-pale" href="{{altHref}}">{{altLabel}}</a></sc-if>
 </div>
 <div class="lg-quiets">
-<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="btn-quiet" href="login.html">Your account</a></sc-if>
+<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}"><a class="btn-quiet" href="account.html">Your account</a></sc-if>
 <button class="btn-quiet" type="button" onClick="{{startOver}}">{{overLabel}}</button>
 </div>
 </sc-if>
@@ -451,37 +471,50 @@ if (role === 'host') n = n.split(' ')[0];
 n = n.replace(/[\s.,;:!?&+]+$/, '');
 return n || 'friend';
 }
+function lgMock() {
+var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
+return !!(c && c.demo === true);
+}
 function lgDone(role, mode, name, live) {
 if (live === 'admin') return {
 title: "You're\u00a0in.",
 line: 'The roster, applications and notes are on your\u00a0dashboard.',
-next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+next: 'Open my dashboard', nextHref: 'admin.html', alt: '', altHref: '', over: 'Not you? Log out'
+};
+if (live && !lgMock()) return role === 'dj' ? {
+title: "You're\u00a0in.",
+line: 'Your details are on your account page. Your dashboard opens here\u00a0soon.',
+next: 'Open my account', nextHref: 'account.html', alt: '', altHref: '', over: 'Not you? Log out'
+} : {
+title: mode === 'signup' ? "You're in,\u00a0" + lgName(role, name) + '.' : "You're\u00a0in.",
+line: "Have a look at who's on the\u00a0roster.",
+next: 'See the roster', nextHref: 'roster.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 if (role === 'dj' && mode === 'newpw') return {
 title: "You're\u00a0in.",
 line: 'Next up is your profile. It\'s what hosts see when you\'re in\u00a0town.',
-next: 'Build my profile', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+next: 'Build my profile', nextHref: 'account.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 if (role === 'dj') return {
 title: "You're\u00a0in.",
 line: "Your requests, offers and tour dates are all on your\u00a0dashboard.",
-next: 'Open my dashboard', nextHref: 'login.html', alt: '', altHref: '', over: 'Not you? Log out'
+next: 'Open my dashboard', nextHref: 'account.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 var who = lgName(role, name);
 if (live && mode !== 'signup') return {
 title: "You're\u00a0in.",
 line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
-next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
+next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'account.html', over: 'Not you? Log out'
 };
 if (mode === 'signup') return {
 title: "You're on the list,\u00a0" + who + '.',
 line: "Find a DJ who's in town for your party, and your chat with them lands in your\u00a0inbox.",
-next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'login.html', over: 'Not you? Log out'
+next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'account.html', over: 'Not you? Log out'
 };
 return {
 title: "You're\u00a0in.",
 line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
-next: 'Open my inbox', nextHref: 'login.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
+next: 'Open my inbox', nextHref: 'account.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
 };
 }
 var LG_DJ_REQS = ['dani', 'theo', 'priya'];
@@ -520,9 +553,9 @@ var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
 return !!(c && c.demo === false) && !lgLive();
 }
 var NAV6_DEFAULTS = {
-inboxHref: 'login.html', curInbox: 'false', curAccount: 'false',
-dashHref: 'login.html', curDash: 'false', reqHref: 'login.html', curReq: 'false',
-seeOn: true, seeHref: 'login.html', signedIn: 'Kaytran',
+inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'account.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
 curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
 waiting: 0, shell: ''
 };
@@ -602,9 +635,11 @@ if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { a
 function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
-if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
-if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
-return { href: 'login.html', text: 'Your inbox' };
+if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+var c = window.BOOKD_CONFIG;
+if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
+if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
+return { href: 'account.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;
@@ -808,24 +843,25 @@ nsBack: function () { var m = self.state.mode; self.wantName = m === 'signup'; s
 doneIn: s.done === 'in', doneReset: s.done === 'reset' || s.done === 'confirm', doneSoon: s.done === 'soon', soonOn: soon,
 doneTitle: s.done === 'reset' || s.done === 'confirm' ? 'Check your\u00a0email.' : (done ? done.title : ''),
 doneLine: s.done === 'confirm' ? ('We sent a link to ' + s.email.trim() + ". Tap it to confirm your email and you're in. Check spam too, it likes to hide there.") : s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
-nextHref: done ? done.nextHref : 'login.html', nextLabel: done ? done.next : '',
+nextHref: done ? done.nextHref : 'account.html', nextLabel: done ? done.next : '',
 altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
 acctOn: !isDJ,
 overLabel: done ? done.over : 'Not you? Log out',
 startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false }, noBad)); }
 }, nav6Vals(this, {
 curLogin: 'page',
-shell: s.done === 'in' ? (isDJ ? 'dj' : 'host') : 'public',
-inboxHref: isSignup ? 'login.html' : 'login.html',
+shell: s.done === 'in' && !(lgLive() && !lgMock()) ? (isDJ ? 'dj' : 'host') : 'public',
+inboxHref: isSignup ? 'account.html' : 'account.html',
 signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
 waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
 seeOn: !newDj,
-dashHref: newDj ? 'login.html' : 'login.html',
-reqHref: newDj ? 'login.html' : 'login.html'
+dashHref: newDj ? 'account.html' : 'account.html',
+reqHref: newDj ? 'account.html' : 'account.html'
 }));
 }
 }</script>
 <script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>

@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>Your account · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Your account. A BOOKD account page.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="bookd-manage.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
+}
+}
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+html{scroll-padding-top:88px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+#main{display:flex;flex-direction:column}
+.ac{flex:1 0 auto;background:#fffde9;color:#000000;padding:clamp(40px,calc(5 * var(--vw)),72px) 0 clamp(64px,calc(8 * var(--vw)),110px)}
+.ac :focus-visible{outline-color:#d31110}
+.ac .field{background:#ffffff}
+.ac-h:focus{outline:none}
+.ac-sub{margin:18px 0 clamp(36px,calc(5 * var(--vw)),64px);font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31}
+.ac-sec{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:18px clamp(32px,calc(5 * var(--vw)),80px);padding:clamp(36px,calc(4 * var(--vw)),56px) 0;border-top:1px solid rgba(0,0,0,.18);align-items:start}
+.ac-t{margin:0;font-size:clamp(28px,calc(2.8 * var(--vw)),40px);line-height:1;font-weight:700;letter-spacing:-0.05em}
+.ac-body{display:flex;flex-direction:column;gap:8px;min-width:0;max-width:560px;margin:0}
+.ac-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ac-f{display:flex;flex-direction:column;min-width:0}
+.ac .field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.ac-pwbox{position:relative;min-width:0}
+.ac-pwbox input{padding-right:72px}
+.ac-show{position:absolute;right:10px;top:50%;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:#ffffff;color:#000000;font:700 13px 'Inter',sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transform:translateY(-50%)}
+.ferr{display:block;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+.ac-save{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:8px}
+.ac-ok{font-size:15px;font-weight:700;color:#4d504f}
+.ac-p{margin:0;font-size:17px;line-height:1.45;color:#2f2f31}
+.ac-fine{margin:0;font-size:14px;line-height:1.45;color:#4d504f}
+.ac-group{margin:0 0 2px;font-size:15px;font-weight:700}
+.ac-group ~ .ac-group{margin-top:22px}
+.ac-tog{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;min-height:52px;padding:6px 0;border:0;background:none;color:#000000;font:400 17px/1.35 'Inter',sans-serif;text-align:left;cursor:pointer}
+.ac-sw{position:relative;flex:none;width:48px;height:28px;border-radius:999px;background:#c9cbca;transition:background .2s}
+.ac-sw::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#ffffff;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.ac-tog[aria-checked="true"] .ac-sw{background:#000000}
+.ac-tog[aria-checked="true"] .ac-sw::after{transform:translateX(20px)}
+.ac-card{font-size:20px;font-weight:700;letter-spacing:-0.03em}
+.ac-past{margin:0;padding:0;list-style:none}
+.ac-past li{border-bottom:1px solid rgba(0,0,0,.18)}
+.ac-past a{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:2px 16px;align-items:baseline;padding:15px 0;color:inherit;text-decoration:none;font-size:17px;line-height:1.35}
+.ac-pwhen{font-weight:700}
+.ac-pwhere{color:#4d504f}
+.ac-del{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:rgba(0,0,0,.08);font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .15s ease-out,color .15s ease-out;color:#d31110}
+.ac-quiet{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:rgba(0,0,0,.08);font:700 15px/1.1 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .15s ease-out,color .15s ease-out;color:#000000}
+.ac-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:8px}
+.ac-acts .ac-quiet{align-self:center}
+.ac-form{display:flex;flex-direction:column;gap:8px;min-width:0;margin:0}
+.ac-pend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:2px 0 4px;font-size:15px;line-height:1.45;color:#2f2f31}
+.ac-pend b{font-weight:700;overflow-wrap:anywhere}
+.ac-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.field select{cursor:pointer}
+.ac-quiet:active,.ac-del:active{transform:translateY(1px)}
+.ac-photo{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-bottom:10px}
+.ac-face{flex:none;display:flex;align-items:center;justify-content:center;width:96px;height:96px;border-radius:50%;overflow:hidden;background:#000000;color:#fffde9;font-size:30px;font-weight:700;letter-spacing:-0.03em}
+.ac-face img{display:block;width:100%;height:100%;object-fit:cover}
+.ac-photoacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ac-photoacts label{position:relative}
+.ac-photoacts label:focus-within{outline:2px solid #d31110;outline-offset:3px}
+.ac-photo .ac-ok,.ac-photo .ferr{flex-basis:100%}
+.acct{padding:0;overflow:hidden}
+.acct img{display:block;width:100%;height:100%;object-fit:cover}
+.ac-bye .ac-sub{margin-bottom:clamp(24px,calc(2.8 * var(--vw)),36px)}
+.ac-bye .ac-acts{margin-top:0}
+@media (hover: hover) and (pointer: fine){.ac .go:hover,.ac .ghost:hover{background:#000000;color:#ffffff;box-shadow:none}.ac-past a:hover{color:#d31110}.ac-past a:hover .ac-pwhere{color:#d31110}.ac-del:hover{background:#d31110;color:#ffffff}.ac-quiet:hover{background:#000000;color:#ffffff}.ac-show:hover{background:#000000;color:#ffffff}.ac-tog:hover .ac-sw{box-shadow:0 0 0 2px rgba(0,0,0,.12)}}
+@media (max-width:760px){.ac-sec{grid-template-columns:minmax(0,1fr)}.ac-body{max-width:none}}
+@media (max-width:480px){.ac-two{grid-template-columns:minmax(0,1fr)}.ac-past a{grid-template-columns:minmax(0,1fr)}.field input{font-size:18px}.ac-save .btn,.ac-acts .btn{width:100%;min-height:56px;font-size:17px}}
+@media (prefers-reduced-motion: reduce){.ac-sw,.ac-sw::after{transition:none}}
+.ac .field{background:#ffffff;box-shadow:inset 0 0 0 1px #d9d9d4}
+.ac .field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110}</style>
+<style>@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}</style>
+<style>.ac-past li:last-child{border-bottom:0}
+.ac-show{min-height:44px;min-width:64px;right:9px}
+@media (max-width:1100px){.ac-body{max-width:none}}
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+.footrow a{min-width:44px}
+.navgrid{box-sizing:border-box}
+.field{border-radius:var(--r-field)}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<sc-if value="{{hostNav}}" hint-placeholder-val="{{ true }}">
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html">For artists</a>
+</nav>
+<div class="navend">
+<sc-if value="{{inboxOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc navlogin" href="{{inboxHref}}" aria-current="{{curInbox}}">{{inboxText}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="roster.html">Book a DJ</a>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}"><sc-if value="{{photoOn}}" hint-placeholder-val="{{ false }}"><img sc-camel-src="{{photo}}" alt=""></sc-if><sc-if value="{{photoOff}}" hint-placeholder-val="{{ true }}">{{acctText}}</sc-if></button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{whoName}}</strong></span>
+<a href="account.html" aria-current="{{curAccount}}">Your account</a>
+<a href="index.html" onClick="{{logOut}}">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
+<sc-if value="{{inboxOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="{{inboxHref}}" aria-current="{{curInbox}}" onClick="{{closeMenu}}">{{inboxText}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+<a class="nl" href="account.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="index.html" onClick="{{logOut}}">Log out</a>
+<a class="btn go mbook" href="roster.html">Book a DJ</a>
+</nav>
+</sc-if>
+</header>
+</sc-if>
+<sc-if value="{{pubNav}}" hint-placeholder-val="{{ false }}">
+<header class="nav6">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="{{loginHref}}" aria-current="{{curLogin}}">{{loginText}}</a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" aria-current="{{curRoster}}" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
+<a class="btn go mbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
+</nav>
+</sc-if>
+</header>
+</sc-if>
+<main id="main" style="flex: 1 1 auto;">
+<div class="ac">
+<div class="wrap">
+
+<sc-if value="{{delGone}}" hint-placeholder-val="{{ false }}">
+<div class="ac-bye">
+<h1 class="h1 ac-h" tabindex="-1" ref="{{byeRef}}">All&nbsp;gone.</h1>
+<p class="ac-sub">{{byeLine}}</p>
+<div class="ac-acts">
+<a class="btn btn-lg go" href="index.html">Take me home</a>
+<sc-if value="{{byeBack}}" hint-placeholder-val="{{ true }}"><button class="ac-quiet" type="button" onClick="{{delBack}}">Bring it back</button></sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{acctOn}}" hint-placeholder-val="{{ true }}">
+<h1 class="h1 ac-h" tabindex="-1" ref="{{headRef}}">Your account.</h1>
+<p class="ac-sub">The boring page. We kept it&nbsp;short.</p>
+
+<section class="ac-sec" aria-labelledby="ac-you">
+<h2 id="ac-you" class="ac-t">Your details</h2>
+<div class="ac-body">
+<div class="ac-photo">
+<span class="ac-face" aria-hidden="true"><sc-if value="{{photoOn}}" hint-placeholder-val="{{ false }}"><img sc-camel-src="{{photo}}" alt=""></sc-if><sc-if value="{{photoOff}}" hint-placeholder-val="{{ true }}">{{initials}}</sc-if></span>
+<div class="ac-photoacts">
+<label class="ac-quiet" aria-busy="{{photoBusy}}">{{photoLabel}}<input class="vh" type="file" accept="image/jpeg,image/png,image/webp" onChange="{{pickPhoto}}" aria-describedby="{{photoDesc}}"></label>
+<sc-if value="{{photoOn}}" hint-placeholder-val="{{ false }}"><button class="ac-quiet" type="button" onClick="{{dropPhoto}}">Remove<span class="vh">&nbsp;photo</span></button></sc-if>
+</div>
+<sc-if value="{{photoSaved}}" hint-placeholder-val="{{ false }}"><span class="ac-ok" role="status">{{photoSavedText}}</span></sc-if>
+<sc-if value="{{photoFail}}" hint-placeholder-val="{{ false }}"><span id="ac-err-photo" class="ferr" role="alert">{{photoFailText}}</span></sc-if>
+</div>
+<form class="ac-form" onSubmit="{{saveYou}}" novalidate="" aria-labelledby="ac-you">
+<div class="ac-f">
+<label class="field"><span class="field-l">Name</span><input type="text" value="{{name}}" onInput="{{setName}}" ref="{{nameRef}}" autocomplete="name" aria-invalid="{{nameInv}}" aria-describedby="{{nameDesc}}"></label>
+<sc-if value="{{nameErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-name" class="ferr" role="alert">Add your name so your DJ knows who's&nbsp;asking.</span></sc-if>
+</div>
+<div class="ac-f">
+<label class="field"><span class="field-l">Email</span><input type="email" value="{{email}}" onInput="{{setEmail}}" ref="{{emailRef}}" autocomplete="email" aria-invalid="{{emailInv}}" aria-describedby="{{emailDesc}}"></label>
+<sc-if value="{{emailErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-email" class="ferr" role="alert">That email looks a little off. Mind checking&nbsp;it?</span></sc-if>
+<sc-if value="{{pendOn}}" hint-placeholder-val="{{ false }}">
+<p class="ac-pend"><span role="status">Waiting for you to confirm <b>{{pendEmail}}</b>. {{pendLine}}</span><button class="ac-quiet" type="button" aria-busy="{{pendBusy}}" onClick="{{pendAgain}}">{{pendLabel}}</button></p>
+</sc-if>
+</div>
+<div class="ac-f">
+<label class="field"><span class="field-l">Phone</span><input type="tel" value="{{phone}}" onInput="{{setPhone}}" ref="{{phoneRef}}" autocomplete="tel" aria-invalid="{{phoneInv}}" aria-describedby="{{phoneDesc}}"></label>
+<sc-if value="{{phoneErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-phone" class="ferr" role="alert">Add a phone number so your DJ can find the&nbsp;door.</span></sc-if>
+</div>
+<div class="ac-f">
+<label class="field"><span class="field-l">Your city (optional)</span><input type="text" value="{{city}}" onInput="{{setCity}}" autocomplete="address-level2" maxlength="80" placeholder="Brooklyn, NY" aria-describedby="ac-city-note"></label>
+<span id="ac-city-note" class="ac-fine" style="margin-top: 6px;">The roster opens on your&nbsp;city.</span>
+</div>
+<div class="ac-save">
+<button class="btn go" type="submit" aria-busy="{{youBusy}}">{{youLabel}}</button>
+<sc-if value="{{youSaved}}" hint-placeholder-val="{{ false }}"><span class="ac-ok" role="status">{{youSavedText}}</span></sc-if>
+</div>
+<sc-if value="{{youFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{youFailText}}</span></sc-if>
+</form>
+</div>
+</section>
+
+<section class="ac-sec" aria-labelledby="ac-pw">
+<h2 id="ac-pw" class="ac-t">Change password</h2>
+<form class="ac-body" onSubmit="{{savePw}}" novalidate="" aria-labelledby="ac-pw">
+<div class="ac-two">
+<div class="ac-f">
+<div class="ac-pwbox">
+<label class="field"><span class="field-l">Current password</span><input type="{{pwOldType}}" value="{{pwOld}}" onInput="{{setPwOld}}" ref="{{pwOldRef}}" autocomplete="current-password" aria-invalid="{{pwOldInv}}" aria-describedby="{{pwOldDesc}}"></label>
+<button class="ac-show" type="button" onClick="{{toggleOld}}">{{showOldLabel}}<span class="vh">&nbsp;current password</span></button>
+</div>
+<sc-if value="{{pwOldErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-pwold" class="ferr" role="alert">{{pwOldMsg}}</span></sc-if>
+</div>
+<div class="ac-f">
+<div class="ac-pwbox">
+<label class="field"><span class="field-l">New password</span><input type="{{pwNewType}}" value="{{pwNew}}" onInput="{{setPwNew}}" ref="{{pwNewRef}}" autocomplete="new-password" aria-invalid="{{pwNewInv}}" aria-describedby="{{pwNewDesc}}"></label>
+<button class="ac-show" type="button" onClick="{{toggleNew}}">{{showNewLabel}}<span class="vh">&nbsp;new password</span></button>
+</div>
+<sc-if value="{{pwNewErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-pwnew" class="ferr" role="alert">{{pwNewMsg}}</span></sc-if>
+</div>
+</div>
+<div class="ac-save">
+<button class="btn ghost" type="submit" aria-busy="{{pwBusy}}">{{pwLabel}}</button>
+<sc-if value="{{pwSaved}}" hint-placeholder-val="{{ false }}"><span class="ac-ok" role="status">Saved.</span></sc-if>
+</div>
+<sc-if value="{{pwFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{pwFailText}}</span></sc-if>
+<div class="ac-row">
+<a class="ac-quiet" href="login.html#reset">Forgot your password?</a>
+<button class="ac-quiet" type="button" aria-busy="{{outBusy}}" onClick="{{outAll}}">{{outLabel}}</button>
+</div>
+<sc-if value="{{outFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{outFailText}}</span></sc-if>
+</form>
+</section>
+
+<section class="ac-sec" aria-labelledby="ac-not">
+<h2 id="ac-not" class="ac-t">Notifications</h2>
+<div class="ac-body" style="gap: 0;">
+<h3 class="ac-group">Texts</h3>
+<sc-for list="{{texts}}" as="n" hint-placeholder-count="2">
+<button class="ac-tog" type="button" role="switch" aria-checked="{{n.on}}" onClick="{{n.flip}}"><span><span class="vh">Texts: </span>{{n.label}}</span><span class="ac-sw" aria-hidden="true"></span></button>
+</sc-for>
+<h3 class="ac-group">Emails</h3>
+<sc-for list="{{emails}}" as="n" hint-placeholder-count="2">
+<button class="ac-tog" type="button" role="switch" aria-checked="{{n.on}}" onClick="{{n.flip}}"><span><span class="vh">Emails: </span>{{n.label}}</span><span class="ac-sw" aria-hidden="true"></span></button>
+</sc-for>
+<sc-if value="{{notFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{notFailText}}</span></sc-if>
+</div>
+</section>
+
+<section class="ac-sec" aria-labelledby="ac-pay">
+<h2 id="ac-pay" class="ac-t">Payment method</h2>
+<sc-if value="{{cardNone}}" hint-placeholder-val="{{ false }}">
+<div class="ac-body">
+<span class="ac-card">No card yet</span>
+<p class="ac-p">You add one when you book your first DJ. Nothing is charged before&nbsp;then.</p>
+</div>
+</sc-if>
+<sc-if value="{{cardView}}" hint-placeholder-val="{{ true }}">
+<div class="ac-body">
+<span class="ac-card">Visa ending in&nbsp;4242</span>
+<p class="ac-p">Expires 08/28.</p>
+<div class="ac-save">
+<button class="btn ghost" type="button" onClick="{{cardOpen}}" ref="{{cardBtnRef}}">Change card</button>
+<sc-if value="{{cardSaved}}" hint-placeholder-val="{{ false }}"><span class="ac-ok" role="status">Saved.</span></sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{cardEdit}}" hint-placeholder-val="{{ false }}">
+<form class="ac-body" onSubmit="{{cardSave}}" novalidate="" aria-labelledby="ac-pay">
+<div class="ac-f">
+<label class="field"><span class="field-l">Card number</span><input type="text" inputmode="numeric" value="{{cNum}}" onInput="{{setCNum}}" ref="{{cNumRef}}" autocomplete="off" placeholder="0000 0000 0000 0000" aria-invalid="{{cNumInv}}" aria-describedby="{{cNumDesc}}"></label>
+<sc-if value="{{cNumErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-cnum" class="ferr" role="alert">Add a card number. All zeros is&nbsp;perfect.</span></sc-if>
+</div>
+<div class="ac-two">
+<div class="ac-f">
+<label class="field"><span class="field-l">Expires</span><input type="text" inputmode="numeric" value="{{cExp}}" onInput="{{setCExp}}" ref="{{cExpRef}}" autocomplete="off" placeholder="MM/YY" aria-invalid="{{cExpInv}}" aria-describedby="{{cExpDesc}}"></label>
+<sc-if value="{{cExpErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-cexp" class="ferr" role="alert">Add a&nbsp;date.</span></sc-if>
+</div>
+<div class="ac-f">
+<label class="field"><span class="field-l">CVC</span><input type="text" inputmode="numeric" value="{{cCvc}}" onInput="{{setCCvc}}" ref="{{cCvcRef}}" autocomplete="off" placeholder="000" aria-invalid="{{cCvcInv}}" aria-describedby="{{cCvcDesc}}"></label>
+<sc-if value="{{cCvcErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-ccvc" class="ferr" role="alert">Add three&nbsp;digits.</span></sc-if>
+</div>
+</div>
+<p class="ac-fine">Sample page. Nothing is charged and nothing is saved, so please don't use a real&nbsp;card.</p>
+<div class="ac-acts">
+<button class="btn go" type="submit">Save card</button>
+<button class="ac-quiet" type="button" onClick="{{cardCancel}}">Never mind</button>
+</div>
+</form>
+</sc-if>
+</section>
+
+<section class="ac-sec" aria-labelledby="ac-past">
+<h2 id="ac-past" class="ac-t">Past bookings</h2>
+<sc-if value="{{pastNone}}" hint-placeholder-val="{{ false }}">
+<div class="ac-body">
+<span class="ac-card">None yet</span>
+<p class="ac-p">Once you've had a party, it shows up&nbsp;here.</p>
+</div>
+</sc-if>
+<sc-if value="{{pastOn}}" hint-placeholder-val="{{ true }}">
+<div class="ac-body">
+<ul class="ac-past">
+<sc-for list="{{past}}" as="p" hint-placeholder-count="2">
+<li><a href="{{p.href}}"><span class="ac-pwhen">{{p.when}}</span><span>{{p.who}}</span><span class="ac-pwhere">{{p.where}}</span></a></li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
+</section>
+
+<section class="ac-sec" aria-labelledby="ac-del">
+<h2 id="ac-del" class="ac-t">Delete account</h2>
+<div class="ac-body">
+<sc-if value="{{delIdle}}" hint-placeholder-val="{{ true }}">
+<p class="ac-p">{{delLead}}</p>
+<button class="ac-del" type="button" onClick="{{delAsk}}" ref="{{delBtnRef}}">{{delLabel}}</button>
+</sc-if>
+<sc-if value="{{delAsking}}" hint-placeholder-val="{{ false }}">
+<form class="ac-form" onSubmit="{{delYes}}" novalidate="" aria-labelledby="ac-del">
+<p class="ac-p" tabindex="-1" ref="{{delAskRef}}" style="outline: none;">{{delSure}}</p>
+<div class="ac-f">
+<label class="field"><span class="field-l">Why are you leaving? (optional)</span><select value="{{delWhy}}" onChange="{{setDelWhy}}"><option value="">Rather not say</option><option value="not_now">I don't need it right now</option><option value="other_way">I found a DJ another way</option><option value="too_many_messages">Too many emails or texts</option><option value="privacy">Privacy</option><option value="other">Something else</option></select></label>
+</div>
+<div class="ac-f">
+<label class="field"><span class="field-l">Anything we should know? (optional)</span><textarea rows="3" maxlength="1000" value="{{delNote}}" onInput="{{setDelNote}}"></textarea></label>
+</div>
+<sc-if value="{{delFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{delFailText}}</span></sc-if>
+<div class="ac-acts">
+<button class="btn go" type="submit" aria-busy="{{delBusy}}">{{delYesLabel}}</button>
+<button class="ac-quiet" type="button" onClick="{{delNo}}">Never mind, keep it</button>
+</div>
+</form>
+</sc-if>
+</div>
+</section>
+</sc-if>
+
+</div>
+</div>
+</main>
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2547}}'>var AC_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+var AC_OK = {
+name: function (v) { return !!v.trim(); },
+email: function (v) { return AC_EMAIL.test(v.trim()); },
+phone: function (v) { return !!v.trim(); },
+pwOld: function (v) { return !!v; },
+pwNew: function (v) { return v.length >= 8; },
+cNum: function (v) { return !!v.trim(); },
+cExp: function (v) { return !!v.trim(); },
+cCvc: function (v) { return !!v.trim(); }
+};
+var AC_TEXTS = [
+{ key: 'tOffers', label: 'New offers and messages' },
+{ key: 'tRemind', label: 'Reminders about my booking' }
+];
+var AC_EMAILS = [
+{ key: 'eOffers', label: 'New offers and messages' },
+{ key: 'eRemind', label: 'Reminders about my booking' }
+];
+var AC_PAST = [
+{ when: 'Sat, Sep 19', who: 'Jude & Frank', where: 'Dumbo', href: 'account.html' },
+{ when: 'Sat, Jun 6', who: 'Kaytran', where: 'Harlem', href: 'account.html' }
+];
+function acLive() {
+var b = typeof window !== 'undefined' ? window.BOOKD : null;
+return b && b.ready && b.account ? b.account : null;
+}
+var AC_LIVE_NOTE = 'Offers, messages and reminders';
+function acMock() {
+var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
+return !!(c && c.demo === true);
+}
+function acInitials(name, email) {
+var w = String(name || '').trim().split(/\s+/).filter(Boolean);
+if (w.length) return (w[0].charAt(0) + (w.length > 1 ? w[w.length - 1].charAt(0) : '')).toUpperCase();
+return String(email || '').trim().charAt(0).toUpperCase();
+}
+var AC_PHOTO_PX = 256;
+function acSquare(file) {
+return new Promise(function (done) {
+if (!file || !/^image\/(jpeg|png|webp)$/.test(file.type || '')) { done(null); return; }
+var url = URL.createObjectURL(file), img = new Image();
+var end = function (v) { try { URL.revokeObjectURL(url); } catch (e) {} done(v); };
+img.onerror = function () { end(null); };
+img.onload = function () {
+try {
+var w = img.naturalWidth, h = img.naturalHeight, side = Math.min(w, h);
+if (!side) { end(null); return; }
+var c = document.createElement('canvas');
+c.width = c.height = AC_PHOTO_PX;
+var x = c.getContext('2d');
+x.fillStyle = '#ffffff'; x.fillRect(0, 0, AC_PHOTO_PX, AC_PHOTO_PX);
+x.drawImage(img, (w - side) / 2, (h - side) / 2, side, side, 0, 0, AC_PHOTO_PX, AC_PHOTO_PX);
+var out = c.toDataURL('image/jpeg', 0.82);
+end(out && out.indexOf('data:image/jpeg;base64,') === 0 && out.length <= 80000 ? out : null);
+} catch (e) { end(null); }
+};
+img.src = url;
+});
+}
+function acFail(code, part) {
+if (part === 'delete') {
+if (code === 'admin') return "This is the BOOKD admin account, so it can't be deleted\u00a0here.";
+if (code === 'offline') return "We couldn't reach BOOKD. Your account is still here. Check your connection and try\u00a0again.";
+if (code === 'expired') return "You've been logged out. Log in again and try\u00a0again.";
+return "That didn't go through. Your account is still here. Try\u00a0again.";
+}
+if (part === 'photo') {
+if (code === 'file') return "That file didn't open. Try a JPG or a\u00a0PNG.";
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (code === 'expired') return "You've been logged out. Log in again and try\u00a0again.";
+return "That photo didn't save. Try\u00a0again.";
+}
+if (part === 'load') return code === 'offline' ? "We couldn't reach BOOKD. Check your connection and refresh." : "We couldn't load your details. Refresh to try\u00a0again.";
+if (part === 'email') {
+if (code === 'taken') return 'Name and phone saved. That email already has an account, so we kept your old\u00a0one.';
+if (code === 'invalid') return 'Name and phone saved. That email looks a little off, so we kept your old\u00a0one.';
+if (code === 'rate') return 'Name and phone saved. Too many email changes for now. Try that part again in a\u00a0minute.';
+return "Name and phone saved. We couldn't change the email. Try\u00a0again.";
+}
+if (code === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (code === 'expired') return "You've been logged out. Log in again and try\u00a0again.";
+if (code === 'invalid') return "Something in there didn't fit. Shorten it and try\u00a0again.";
+return 'Something went wrong on our side. Try\u00a0again.';
+}
+var NAV6_DEFAULTS = {
+inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'account.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
+curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+waiting: 0, shell: ''
+};
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+self.state.acctOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.acctBtnRef = function (el) { n.acctBtn = el; };
+n.acctWrapRef = function (el) { n.acctWrap = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.down = function (e) { nav6Down(self, e); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+document[f]('pointerdown', n.down, true);
+}
+function nav6Off(self) { nav6Listen(self, false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Down(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+function nav6Who() {
+var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
+if (!w) return null;
+if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+var c = window.BOOKD_CONFIG;
+if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
+if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
+return { href: 'account.html', text: 'Your inbox' };
+}
+function nav6Vals(self, cfg) {
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var count = Math.max(0, parseInt(c.waiting, 10) || 0), who = nav6Who();
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin, loginHref: who ? who.href : c.loginHref, loginText: who ? who.text : 'Log in', bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+outsideDown: undefined
+};
+}
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+this.state = {
+name: 'Dani Rivera', email: 'dani@example.com', phone: '(555) 010 0142', youBad: {}, youSaved: false,
+pwOld: '', pwNew: '', pwBad: {}, pwSaved: false, showOld: false, showNew: false,
+tOffers: true, tRemind: true, eOffers: true, eRemind: false,
+cardEdit: false, cNum: '', cExp: '', cCvc: '', cardBad: {}, cardSaved: false,
+photo: '', photoBusy: false, photoSaved: '', photoFail: '',
+city: 'Brooklyn, NY', pendBusy: false, pendSent: false, pendFail: '', outBusy: false, outFail: '',
+del: '', delWhy: '', delNote: '', delBusy: false, delFail: ''
+};
+if (acLive()) {
+var w = window.BOOKD.who;
+Object.assign(this.state, {
+name: '', email: '', phone: '', city: '', tOffers: false, tRemind: false, eOffers: false, eRemind: false,
+loaded: false, me: { name: w ? w.name : '', email: '', pending: '', role: w ? w.role : 'host' }, nText: false, nEmail: false,
+youBusy: false, youFail: '', youFailPart: '', youNote: '', pwBusy: false, pwFail: '', notBusy: false, notFail: ''
+});
+}
+this.els = {};
+this.want = '';
+var ref = function (name) {
+return function (el) {
+self.els[name] = el;
+if (el && self.want === name) { self.want = ''; if (el.focus) el.focus(); }
+};
+};
+this.nameRef = ref('name'); this.emailRef = ref('email'); this.phoneRef = ref('phone');
+this.pwOldRef = ref('pwOld'); this.pwNewRef = ref('pwNew');
+this.cNumRef = ref('cNum'); this.cExpRef = ref('cExp'); this.cCvcRef = ref('cCvc'); this.cardBtnRef = ref('cardBtn');
+this.delBtnRef = ref('delBtn'); this.delAskRef = ref('delAsk');
+this.headRef = ref('head'); this.byeRef = ref('bye');
+nav6Init(this);
+}
+componentDidMount() {
+var self = this, api = acLive();
+if (!api) return;
+window.BOOKD.auth.current().then(function (r) {
+if (self.gone) return;
+if (r && r.ok && !r.user) { location.replace('login.html'); return; }
+api.load().then(function (a) {
+if (self.gone) return;
+var u = a && a.ok ? a.user : null;
+if (a && a.ok && !u) { location.replace('login.html'); return; }
+if (!u) { self.setState({ youFail: (a && a.code) || 'unknown', youFailPart: 'load' }); return; }
+self.setState({
+loaded: true, name: u.name, email: u.email, phone: u.phone, nText: u.notifyText, nEmail: u.notifyEmail, photo: u.photo || '', city: u.city || '',
+me: { name: u.name, email: u.email, pending: u.pendingEmail || '', role: u.role }, youFail: '', youFailPart: ''
+});
+});
+});
+}
+componentWillUnmount() {
+nav6Off(this);
+this.els = {};
+this.gone = true;
+}
+focus(name) {
+if (this.els[name] && this.els[name].focus) this.els[name].focus();
+}
+renderVals() {
+var self = this, s = this.state, api = acLive();
+var yb = s.youBad || {}, pb = s.pwBad || {}, cb = s.cardBad || {};
+var me = s.me || {};
+var put = function (key, group, extra) {
+return function (e) {
+var v = e.target.value, p = extra ? Object.assign({}, extra) : {}, b;
+p[key] = v;
+if (group && self.state[group] && self.state[group][key] && AC_OK[key](v)) { b = Object.assign({}, self.state[group]); delete b[key]; p[group] = b; }
+self.setState(p);
+};
+};
+var check = function (keys) {
+var bad = {}, first = '';
+keys.forEach(function (k) { if (!AC_OK[k](self.state[k])) { bad[k] = true; if (!first) first = k; } });
+return { bad: bad, first: first };
+};
+var inv = function (b, k) { return b[k] ? 'true' : 'false'; };
+var tog = function (n) {
+return { label: n.label, on: s[n.key] ? 'true' : 'false', flip: function () { var p = {}; p[n.key] = !self.state[n.key]; self.setState(p); } };
+};
+var liveTog = function (key, col) {
+return { label: AC_LIVE_NOTE, on: s[key] ? 'true' : 'false', flip: function () {
+var st = self.state, v = !st[key], p = { notBusy: true, notFail: '' }, o = {};
+if (!st.loaded || st.notBusy) return;
+p[key] = v; o[col] = v;
+self.setState(p);
+api.setNotify(o).then(function (r) {
+if (self.gone) return;
+var q = { notBusy: false };
+if (!r || !r.ok) { q[key] = !v; q.notFail = (r && r.code) || 'unknown'; }
+self.setState(q);
+});
+} };
+};
+var initials = api ? acInitials(me.name, me.email) : acInitials(s.name, s.email);
+var role = api ? me.role : 'host', inboxOn = !api || role === 'admin' || acMock();
+return Object.assign({
+photo: s.photo, photoOn: !!s.photo, photoOff: !s.photo, initials: initials, acctText: api ? (initials || 'YOU') : 'YOU',
+photoLabel: s.photoBusy ? 'One sec' : (s.photo ? 'Change photo' : 'Add a photo'), photoBusy: s.photoBusy ? 'true' : 'false',
+photoSaved: !!s.photoSaved, photoSavedText: s.photoSaved === 'gone' ? 'Photo removed.' : 'Saved.',
+photoFail: !!s.photoFail, photoFailText: s.photoFail ? acFail(s.photoFail, 'photo') : '', photoDesc: s.photoFail ? 'ac-err-photo' : '',
+pickPhoto: function (e) {
+var input = e && e.target, file = input && input.files ? input.files[0] : null;
+if (!file || self.state.photoBusy || (api && !self.state.loaded)) { if (input) input.value = ''; return; }
+self.setState({ photoBusy: true, photoSaved: '', photoFail: '' });
+acSquare(file).then(function (pic) {
+if (input) input.value = '';
+if (self.gone) return;
+if (!pic) { self.setState({ photoBusy: false, photoFail: 'file' }); return; }
+if (!api) { self.setState({ photoBusy: false, photo: pic, photoSaved: 'ok' }); return; }
+api.setPhoto(pic).then(function (r) {
+if (self.gone) return;
+if (r && r.ok) self.setState({ photoBusy: false, photo: r.photo, photoSaved: 'ok' });
+else self.setState({ photoBusy: false, photoFail: (r && r.code) || 'unknown' });
+});
+});
+},
+dropPhoto: function () {
+if (self.state.photoBusy) return;
+if (!api) { self.setState({ photo: '', photoSaved: 'gone', photoFail: '' }); return; }
+self.setState({ photoBusy: true, photoSaved: '', photoFail: '' });
+api.setPhoto('').then(function (r) {
+if (self.gone) return;
+if (r && r.ok) self.setState({ photoBusy: false, photo: '', photoSaved: 'gone' });
+else self.setState({ photoBusy: false, photoFail: (r && r.code) || 'unknown' });
+});
+},
+city: s.city, setCity: function (e) { self.setState({ city: e.target.value, youSaved: false }); },
+pendOn: !!(api && me.pending), pendEmail: me.pending || '',
+pendLine: s.pendFail ? (s.pendFail === 'rate' ? 'Too many tries. Give it a minute.' : "That didn't send. Try again.") : s.pendSent ? 'Sent again. Check spam too.' : 'The link is in that inbox. Until then we use ' + (me.email || 'your old one') + '.',
+pendLabel: s.pendBusy ? 'One sec' : 'Send it again', pendBusy: s.pendBusy ? 'true' : 'false',
+pendAgain: function () {
+if (!api || self.state.pendBusy || !self.state.me.pending) return;
+self.setState({ pendBusy: true, pendFail: '', pendSent: false });
+api.resendEmail(self.state.me.pending).then(function (r) {
+if (self.gone) return;
+self.setState(r && r.ok ? { pendBusy: false, pendSent: true } : { pendBusy: false, pendFail: (r && r.code) || 'unknown' });
+});
+},
+outLabel: s.outBusy ? 'One sec' : 'Log out of all devices', outBusy: s.outBusy ? 'true' : 'false',
+outFail: !!s.outFail, outFailText: s.outFail === 'offline' ? "We couldn't reach BOOKD. Check your connection and try\u00a0again." : "That didn't work. Try\u00a0again.",
+outAll: function () {
+if (!api || self.state.outBusy) return;
+self.setState({ outBusy: true, outFail: '' });
+api.signOutEverywhere().then(function (r) {
+if (self.gone) return;
+if (r && r.ok) { location.href = 'login.html'; return; }
+self.setState({ outBusy: false, outFail: (r && r.code) || 'unknown' });
+});
+},
+inboxOn: inboxOn, inboxText: api && role === 'admin' ? 'Dashboard' : 'Inbox',
+whoName: api ? (me.name || me.email || '') : 'Dani Rivera',
+logOut: api ? function (e) {
+if (e && e.preventDefault) e.preventDefault();
+if (self.leaving) return;
+self.leaving = true;
+window.BOOKD.auth.signOut().then(function () { location.href = 'index.html'; });
+} : undefined,
+youLabel: s.youBusy ? 'One sec' : 'Save changes', youBusy: s.youBusy ? 'true' : 'false',
+youSavedText: s.youNote ? 'Saved. Check ' + s.youNote + ' for a link to confirm your new\u00a0email.' : 'Saved.',
+youFail: !!s.youFail, youFailText: s.youFail ? acFail(s.youFail, s.youFailPart) : '',
+pwLabel: s.pwBusy ? 'One sec' : 'Change password', pwBusy: s.pwBusy ? 'true' : 'false',
+pwFail: !!s.pwFail, pwFailText: s.pwFail ? acFail(s.pwFail, '') : '',
+pwOldMsg: pb.pwOld === 'wrong' ? "That's not your current password. Try\u00a0again?" : 'Add your current password\u00a0first.',
+pwNewMsg: pb.pwNew === 'samePw' ? "That's your current password. Pick a new\u00a0one." : pb.pwNew === 'weak' ? 'Pick a stronger password. Longer is\u00a0better.' : 'Make it at least 8\u00a0characters.',
+notFail: !!s.notFail, notFailText: s.notFail === 'offline' ? "We couldn't reach BOOKD. Check your connection and try\u00a0again." : "That didn't save. Try\u00a0again.",
+name: s.name, email: s.email, phone: s.phone,
+nameRef: this.nameRef, emailRef: this.emailRef, phoneRef: this.phoneRef,
+setName: put('name', 'youBad', { youSaved: false }), setEmail: put('email', 'youBad', { youSaved: false }), setPhone: put('phone', 'youBad', { youSaved: false }),
+nameErr: !!yb.name, emailErr: !!yb.email, phoneErr: !!yb.phone,
+nameInv: inv(yb, 'name'), emailInv: inv(yb, 'email'), phoneInv: inv(yb, 'phone'),
+nameDesc: yb.name ? 'ac-err-name' : '', emailDesc: yb.email ? 'ac-err-email' : '', phoneDesc: yb.phone ? 'ac-err-phone' : '',
+youSaved: s.youSaved,
+saveYou: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+if (api) {
+var st = self.state, lc = check(st.me && st.me.role !== 'host' ? ['name', 'email'] : ['name', 'email', 'phone']);
+if (!st.loaded || st.youBusy) return;
+if (lc.first) { self.setState({ youBad: lc.bad, youSaved: false, youFail: '' }); self.focus(lc.first); return; }
+var typed = st.email.trim(), same = typed.toLowerCase() === String(st.me.email).toLowerCase() || typed.toLowerCase() === String(st.me.pending).toLowerCase();
+self.setState({ youBad: {}, youSaved: false, youBusy: true, youFail: '', youFailPart: '', youNote: '' });
+api.save({ name: st.name, phone: st.phone, city: st.city, email: same ? '' : typed }).then(function (r) {
+if (self.gone) return;
+var m = Object.assign({}, self.state.me);
+if (r && r.ok) {
+m.name = r.name; m.email = r.email; if (r.emailSent) m.pending = r.pendingEmail;
+self.setState({ youBusy: false, youSaved: true, youNote: r.emailSent ? r.pendingEmail : '', me: m, email: r.emailSent ? m.email : self.state.email, pendSent: false, pendFail: '' });
+return;
+}
+if (r && r.part === 'email') m.name = r.name;
+self.setState({ youBusy: false, youFail: (r && r.code) || 'unknown', youFailPart: (r && r.part) || '', me: m });
+});
+return;
+}
+var c = check(['name', 'email', 'phone']);
+self.setState({ youBad: c.bad, youSaved: !c.first });
+if (c.first) self.focus(c.first);
+},
+pwOld: s.pwOld, pwNew: s.pwNew, pwOldRef: this.pwOldRef, pwNewRef: this.pwNewRef,
+setPwOld: put('pwOld', 'pwBad', { pwSaved: false }), setPwNew: put('pwNew', 'pwBad', { pwSaved: false }),
+pwOldErr: !!pb.pwOld, pwNewErr: !!pb.pwNew,
+pwOldInv: inv(pb, 'pwOld'), pwNewInv: inv(pb, 'pwNew'),
+pwOldDesc: pb.pwOld ? 'ac-err-pwold' : '', pwNewDesc: pb.pwNew ? 'ac-err-pwnew' : '',
+pwOldType: s.showOld ? 'text' : 'password', pwNewType: s.showNew ? 'text' : 'password',
+showOldLabel: s.showOld ? 'Hide' : 'Show', showNewLabel: s.showNew ? 'Hide' : 'Show',
+toggleOld: function () { self.setState({ showOld: !self.state.showOld }); },
+toggleNew: function () { self.setState({ showNew: !self.state.showNew }); },
+pwSaved: s.pwSaved,
+savePw: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var c = check(['pwOld', 'pwNew']);
+if (c.first) { self.setState({ pwBad: c.bad, pwSaved: false }); self.focus(c.first); return; }
+if (api) {
+if (!self.state.loaded || self.state.pwBusy) return;
+self.setState({ pwBad: {}, pwSaved: false, pwBusy: true, pwFail: '' });
+api.changePassword({ current: self.state.pwOld, next: self.state.pwNew }).then(function (r) {
+if (self.gone) return;
+var code = (r && r.code) || 'unknown';
+if (r && r.ok) { self.setState({ pwBusy: false, pwBad: {}, pwOld: '', pwNew: '', pwSaved: true, showOld: false, showNew: false }); return; }
+if (code === 'badLogin') { self.setState({ pwBusy: false, pwBad: { pwOld: 'wrong' } }); self.focus('pwOld'); return; }
+if (code === 'samePw' || code === 'weak') { self.setState({ pwBusy: false, pwBad: { pwNew: code } }); self.focus('pwNew'); return; }
+self.setState({ pwBusy: false, pwFail: code });
+});
+return;
+}
+self.setState({ pwBad: {}, pwOld: '', pwNew: '', pwSaved: true, showOld: false, showNew: false });
+},
+texts: api ? [liveTog('nText', 'text')] : AC_TEXTS.map(tog), emails: api ? [liveTog('nEmail', 'email')] : AC_EMAILS.map(tog),
+cardNone: !!api, cardView: !api && !s.cardEdit, cardEdit: !api && s.cardEdit, cardSaved: s.cardSaved,
+cardBtnRef: this.cardBtnRef, cNumRef: this.cNumRef, cExpRef: this.cExpRef, cCvcRef: this.cCvcRef,
+cNum: s.cNum, cExp: s.cExp, cCvc: s.cCvc,
+setCNum: put('cNum', 'cardBad'), setCExp: put('cExp', 'cardBad'), setCCvc: put('cCvc', 'cardBad'),
+cNumErr: !!cb.cNum, cExpErr: !!cb.cExp, cCvcErr: !!cb.cCvc,
+cNumInv: inv(cb, 'cNum'), cExpInv: inv(cb, 'cExp'), cCvcInv: inv(cb, 'cCvc'),
+cNumDesc: cb.cNum ? 'ac-err-cnum' : '', cExpDesc: cb.cExp ? 'ac-err-cexp' : '', cCvcDesc: cb.cCvc ? 'ac-err-ccvc' : '',
+cardOpen: function () { self.want = 'cNum'; self.setState({ cardEdit: true, cardSaved: false }); },
+cardCancel: function () { self.want = 'cardBtn'; self.setState({ cardEdit: false, cardBad: {}, cNum: '', cExp: '', cCvc: '' }); },
+cardSave: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var c = check(['cNum', 'cExp', 'cCvc']);
+if (c.first) { self.setState({ cardBad: c.bad }); self.focus(c.first); return; }
+self.want = 'cardBtn';
+self.setState({ cardEdit: false, cardBad: {}, cardSaved: true, cNum: '', cExp: '', cCvc: '' });
+},
+past: api ? [] : AC_PAST, pastOn: !api, pastNone: !!api,
+acctOn: s.del !== 'gone', headRef: this.headRef, byeRef: this.byeRef,
+delIdle: !s.del, delAsking: s.del === 'ask', delGone: s.del === 'gone',
+delBtnRef: this.delBtnRef, delAskRef: this.delAskRef,
+delLead: 'This removes your account and your\u00a0details.',
+delLabel: 'Delete my account',
+delSure: api ? "Sure? You can't undo this. Your account and everything on this page are deleted straight\u00a0away." : "Sure? You can't undo this. You still have Kaytran on Sat, Nov\u00a014, and the usual cancellation rules\u00a0apply.",
+delWhy: s.delWhy, delNote: s.delNote,
+setDelWhy: function (e) { self.setState({ delWhy: e.target.value }); },
+setDelNote: function (e) { self.setState({ delNote: e.target.value }); },
+delYesLabel: s.delBusy ? 'One sec' : 'Yes, delete it', delBusy: s.delBusy ? 'true' : 'false',
+delFail: !!s.delFail, delFailText: s.delFail ? acFail(s.delFail, 'delete') : '',
+byeLine: api ? "Your account is deleted. Thanks for giving BOOKD a\u00a0go." : "It's a sample, so nothing really happened. We'd have missed\u00a0you.",
+byeBack: !api,
+delAsk: function () { self.want = 'delAsk'; self.setState({ del: 'ask', delFail: '' }); },
+delNo: function () { if (self.state.delBusy) return; self.want = 'delBtn'; self.setState({ del: '', delFail: '' }); },
+delYes: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var bye = function () {
+self.want = 'bye';
+self.setState({ del: 'gone', youBad: {}, youSaved: false, pwBad: {}, pwSaved: false, pwOld: '', pwNew: '', showOld: false, showNew: false, cardEdit: false, cardBad: {}, cardSaved: false, cNum: '', cExp: '', cCvc: '' });
+if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
+};
+if (!api) { bye(); return; }
+if (self.state.delBusy || !self.state.loaded) return;
+self.setState({ delBusy: true, delFail: '' });
+api.remove({ reason: self.state.delWhy, note: self.state.delNote }).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ delBusy: false, delFail: (r && r.code) || 'unknown' }); return; }
+self.setState({ delBusy: false, me: {}, loaded: false });
+bye();
+});
+},
+delBack: function () {
+self.want = 'head';
+self.setState({ del: '' });
+if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
+}
+}, nav6Vals(this, {
+curAccount: 'page', shell: s.del === 'gone' ? 'public' : 'host',
+inboxHref: api && me.role === 'dj' ? 'account.html' : api && me.role === 'admin' ? 'admin.html' : 'account.html'
+}));
+}
+}</script>
+<script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
+<script src="bookd-api.js"></script>
+<script src="bookd-manage.js"></script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

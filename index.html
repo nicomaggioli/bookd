@@ -27,6 +27,7 @@
 <link rel="manifest" href="site.webmanifest">
 <noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
 <link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
@@ -675,6 +676,21 @@ html:has(#qfcal) header:not(.nav6){position:absolute !important}
 #artists .ap-form .btn-main:not([aria-busy="true"]):hover{background:#ffffff;color:#000000}
 #artists .ap-form .btn-quiet:hover{background:#d31110;color:#ffffff}
 }</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
 </helmet>
 
 <div onClick="{{leaveCheck}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; position: relative; overflow-x: clip;">
@@ -710,6 +726,7 @@ html:has(#qfcal) header:not(.nav6){position:absolute !important}
 <a class="nl" href="#how" onClick="{{closeMenu}}" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.14);">How it works</a>
 <a class="nl" href="artists.html" onClick="{{closeMenu}}" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.14);">For artists</a>
 <a class="nl" href="{{loginHref}}" onClick="{{closeMenu}}" style="font-size: 20px; font-weight: 700; letter-spacing: -0.03em; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.14);">{{loginText}}</a>
+<a class="btn go mbook" href="#find" onClick="{{bookNow}}">Book a DJ</a>
 </nav>
 </sc-if>
 </header>
@@ -1479,8 +1496,8 @@ heroRef: this.heroRef,
 menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false', menuLabel: s.menu ? 'Close' : 'Menu',
 toggleMenu: function () { self.setMenu(!self.state.menu); },
 closeMenu: function () { self.setMenu(false); }, menuBtnRef: this.menuBtnRef,
-loginHref: (function (w) { return !w ? 'login.html' : (w.role === 'admin' ? 'login.html' : (w.role === 'dj' ? 'login.html' : 'login.html')); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null),
-loginText: (function (w) { return !w ? 'Log in' : (w.role === 'host' ? 'Your inbox' : 'Your dashboard'); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null),
+loginHref: (function (w, mock) { return !w ? 'login.html' : (w.role === 'admin' ? 'admin.html' : (!mock ? 'account.html' : (w.role === 'dj' ? 'account.html' : 'account.html'))); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null, !!(window.BOOKD_CONFIG && window.BOOKD_CONFIG.demo === true)),
+loginText: (function (w, mock) { return !w ? 'Log in' : (w.role === 'admin' ? 'Your dashboard' : (!mock ? 'Your account' : (w.role === 'host' ? 'Your inbox' : 'Your dashboard'))); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null, !!(window.BOOKD_CONFIG && window.BOOKD_CONFIG.demo === true)),
 navBg: s.navSolid || s.menu ? '#000000' : 'transparent', navPad: s.navSolid ? '12px' : '20px',
 bookNow: function (e) {
 e.preventDefault(); self.setMenu(false);
@@ -1529,6 +1546,7 @@ apKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName === 
 }
 }</script>
 <script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>

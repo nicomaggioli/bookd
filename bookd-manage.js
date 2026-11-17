@@ -12,14 +12,14 @@ B.account = {
 load: function () {
 return _.guard(session().then(function (u) {
 if (!u) return { ok: true, user: null };
-return sb.from('profiles').select('role, display_name, phone, notify_text, notify_email').eq('id', u.id).maybeSingle().then(function (r) {
+return sb.from('profiles').select('role, display_name, phone, notify_text, notify_email, photo, city').eq('id', u.id).maybeSingle().then(function (r) {
 var b = _.bad(r);
 if (b) return b;
 var p = r.data || {}, meta = u.user_metadata || {};
 return { ok: true, user: {
 id: u.id, email: u.email || '', pendingEmail: u.new_email || '',
 name: p.display_name || meta.name || '', phone: p.phone || '', role: p.role || 'host',
-notifyText: p.notify_text !== false, notifyEmail: p.notify_email !== false
+notifyText: p.notify_text !== false, notifyEmail: p.notify_email !== false, photo: p.photo || '', city: p.city || ''
 } };
 });
 }));
@@ -28,6 +28,7 @@ save: function (o) {
 return _.guard(session().then(function (u) {
 if (!u) return out;
 var row = { display_name: _.clip(o.name, 120), phone: _.clip(o.phone, 40) || null };
+if (typeof o.city === 'string') row.city = _.clip(o.city, 80) || null;
 return sb.from('profiles').update(row).eq('id', u.id).select('display_name, phone').maybeSingle().then(function (r) {
 var b = _.bad(r);
 if (b) return b;
@@ -44,6 +45,47 @@ var changed = now.toLowerCase() === email;
 return { ok: true, name: saved.name, phone: saved.phone, email: changed ? now : old, emailSent: !changed, pendingEmail: changed ? '' : email };
 });
 });
+});
+}));
+},
+setPhoto: function (photo) {
+return _.guard(session().then(function (u) {
+if (!u) return out;
+var v = String(photo || '');
+if (v && (v.length > 80000 || !/^data:image\/(jpeg|webp|png);base64,[A-Za-z0-9+\/]+=*$/.test(v))) return { ok: false, code: 'invalid' };
+return sb.from('profiles').update({ photo: v || null }).eq('id', u.id).select('photo').maybeSingle().then(function (r) {
+var b = _.bad(r);
+if (b) return b;
+if (!r.data) return { ok: false, code: 'unknown' };
+return { ok: true, photo: r.data.photo || '' };
+});
+}));
+},
+resendEmail: function (email) {
+return _.guard(session().then(function (u) {
+if (!u) return out;
+var back = location.href.split('#')[0].split('?')[0];
+return sb.auth.updateUser({ email: _.clip(email, 200).toLowerCase() }, { emailRedirectTo: back }).then(function (e) {
+return e.error ? _.fail(e.error) : { ok: true };
+});
+}));
+},
+signOutEverywhere: function () {
+try { localStorage.removeItem('bookd.who'); } catch (e) {}
+B.who = null;
+return _.guard(sb.auth.signOut({ scope: 'global' }).then(function (r) { return r.error ? _.fail(r.error) : { ok: true }; }));
+},
+remove: function (o) {
+return _.guard(session().then(function (u) {
+if (!u) return out;
+return sb.rpc('delete_my_account', { p_reason: _.clip(o && o.reason, 40) || null, p_note: _.clip(o && o.note, 1000) || null }).then(function (r) {
+if (r && r.error) {
+if (/admin account/i.test(String(r.error.message || ''))) return { ok: false, code: 'admin' };
+return _.bad(r);
+}
+try { localStorage.removeItem('bookd.who'); } catch (e) {}
+B.who = null;
+return sb.auth.signOut({ scope: 'local' }).then(function () { return { ok: true }; }, function () { return { ok: true }; });
 });
 }));
 },

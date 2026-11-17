@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>Dashboard · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Dashboard. A BOOKD account page.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="bookd-manage.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<script>(function () {
+var still = function () {
+var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
+return h > 2000 || (inFrame && page > 400 && h >= page * 0.95);
+};
+var css = document.createElement('style');
+css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
+document.head.appendChild(css);
+var check = function () {
+var on = still();
+document.documentElement.classList.toggle('oncanvas', on);
+if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
+};
+document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
+check(); window.addEventListener('load', check); window.addEventListener('resize', check);
+[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
+})();</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
+}
+}
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+body{text-wrap:pretty}
+h1,h2,h3{text-wrap:balance}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+input::placeholder,textarea::placeholder{color:#636665}
+a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;border:0;white-space:nowrap}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.ink{background:#000000;color:#ffffff}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn-off{background:#e4e3d6;color:#6b6e6d;cursor:default}
+.btn:active{transform:translateY(1px)}
+.btn-off:active{transform:none}
+.chip{flex:0 0 auto;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #2f2f31;background:transparent;color:#a2a5a4;font:700 13px 'Inter',sans-serif;white-space:nowrap;cursor:pointer}
+.chip[aria-pressed="true"]{background:#ffffff;color:#000000;border-color:#ffffff}
+html{scroll-padding-top:88px}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+.go{background:#d31110;color:#ffffff}
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}}
+.adm{max-width:1440px;margin:0 auto;padding:clamp(24px,calc(4 * var(--vw)),56px) var(--gut) 72px;box-sizing:border-box}
+.vw{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(32px,calc(4 * var(--vw)),56px)}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px 48px;margin-bottom:clamp(36px,calc(5 * var(--vw)),72px)}
+.h1{margin:0 0 0 -0.03em;font-size:clamp(60px,calc(10.4 * var(--vw)),150px);line-height:.86;letter-spacing:-0.07em;font-weight:700}
+.lede{margin:20px 0 0;max-width:30em;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9}
+.count{margin:14px 0 0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9}
+.ap-head{margin-bottom:clamp(40px,calc(5 * var(--vw)),80px)}
+.ap-list{margin:0;padding:0;list-style:none}
+.ap-row{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:24px clamp(32px,calc(5 * var(--vw)),80px);padding:clamp(28px,calc(3.4 * var(--vw)),48px) 0;border-bottom:1px solid #2f2f31}
+.ap-who{min-width:0}
+.ap-name{margin:0 0 0 -0.03em;font-size:clamp(46px,calc(6.6 * var(--vw)),96px);line-height:.92;font-weight:700;letter-spacing:-0.07em;color:#fffde9}
+.ap-city{margin:14px 0 0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.4;color:#fffde9}
+.ap-sent{margin:4px 0 0;font-size:14px;color:#a2a5a4}
+.ap-side{display:flex;flex-direction:column;gap:22px;min-width:0}
+.ap-facts{margin:0}
+.ap-facts div{display:grid;grid-template-columns:minmax(96px,130px) minmax(0,1fr);gap:4px 20px;align-items:baseline;padding:12px 0;border-bottom:1px solid #2f2f31;font-size:16px;line-height:1.4}
+.ap-facts div:first-child{padding-top:4px}
+.ap-facts dt{color:#a2a5a4}
+.ap-facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.ap-sets{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.ap-sets a{display:inline-flex;align-items:center;min-height:44px}
+.ap-sets a,.ap-facts dd a{font-weight:700;color:#ffffff;text-underline-offset:3px}
+.ap-acts{display:flex;flex-wrap:wrap;gap:10px}
+.ap-acts .btn{min-width:120px}
+.ap-doneline{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:0 16px;font-size:15px;line-height:1.4;color:#a2a5a4}
+.ap-doneline > span{flex:1 1 100%;box-sizing:border-box;min-height:44px;padding:11px 0}
+.ap-doneline b{color:#ffffff}
+[tabindex="-1"]:focus{outline:none}
+.ap-link{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#2f2f31;color:#ffffff;font:700 15px/1.1 'Inter',sans-serif;white-space:nowrap;cursor:pointer;transition:background .15s ease-out,color .15s ease-out}
+.bgh{background:transparent;color:#ffffff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
+@media (hover: hover) and (pointer: fine){.ap-sets a:hover,.ap-facts dd a:hover{color:#ff3b2f}.ap-link:hover{background:#ffffff;color:#000000}.bgh:hover{background:#ffffff;color:#000000;box-shadow:none}}
+@media (max-width:900px){.ap-row{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.ap-facts div{grid-template-columns:minmax(0,1fr);gap:2px}}
+@media (max-width:760px){.top{grid-template-columns:minmax(0,1fr)}.top .btn{justify-self:start}}
+.grid{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);gap:clamp(24px,calc(4 * var(--vw)),64px);align-items:start}
+.list{display:flex;flex-direction:column;gap:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.rows{display:flex;flex-direction:column;gap:2px}
+.djrow{display:flex;align-items:center;gap:14px;width:100%;box-sizing:border-box;padding:12px;border:0;border-radius:var(--r-bar);background:transparent;color:#ffffff;font:inherit;text-align:left;cursor:pointer}
+.djrow[aria-current="true"]{background:#fffde9;color:#000000}
+.av{flex:0 0 auto;width:52px;height:52px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.2)}
+.av-blank{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:#2f2f31;color:#a2a5a4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.rowtx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}
+.rowname{font-size:17px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rowmeta{font-size:13px;color:#a2a5a4}
+.djrow[aria-current="true"] .rowmeta{color:#4d504f}
+.rowdates{font-size:13px;font-weight:700;color:#a2a5a4}
+.rowdates-warn{color:#ff3b2f}
+.djrow[aria-current="true"] .rowdates{color:#4d504f}
+.djrow[aria-current="true"] .rowdates-warn{color:#d31110}
+.pill{flex:0 0 auto;font-size:13px;font-weight:700}
+.pill-live{color:#ffffff}
+.pill-draft{color:#a2a5a4}
+.djrow[aria-current="true"] .pill-live{color:#000000}
+.djrow[aria-current="true"] .pill-draft{color:#4d504f}
+.listnote{margin:4px 0 0;font-size:13px;color:#a2a5a4}
+@media (min-width:981px) and (min-height:720px){.list{position:sticky;top:88px;max-height:calc(calc(100 * var(--vh)) - 104px);overflow-y:auto;margin:-6px;padding:6px}}
+.ed{background:#fffde9;color:#000000;border-radius:var(--r-card);padding:clamp(20px,calc(3 * var(--vw)),40px);display:flex;flex-direction:column;gap:28px}
+.ed :focus-visible{outline-color:#d31110}
+.edhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.edwho{display:flex;align-items:center;gap:16px;min-width:0}
+.edav{width:72px;height:72px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.2)}
+.edav-blank{width:72px;height:72px;border-radius:50%;background:#e4e3d6;color:#6b6e6d;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.h2{margin:0;font-size:clamp(28px,calc(3 * var(--vw)),40px);line-height:1;letter-spacing:-0.04em;font-weight:700}
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:#ffffff;box-shadow:inset 0 0 0 1.5px #000000}
+.seg button{min-height:40px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:#000000;font:700 14px 'Inter',sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#000000;color:#ffffff}
+.seg .seg-live[aria-pressed="true"]{background:#d31110}
+.err{margin:0;font-size:13px;font-weight:700;color:#d31110}
+.sec{display:flex;flex-direction:column;gap:14px}
+.h3{margin:0;font-size:20px;letter-spacing:-0.02em;font-weight:700}
+.note{margin:0;font-size:14px;line-height:1.45;color:#4d504f}
+.ed-extra a{font-weight:700;color:#000000;text-underline-offset:3px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.f-wide{grid-column:1/-1}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.field:has(input[aria-invalid="true"]),.field:has(textarea[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.ed .field{background:#ffffff}
+.ed .field input{font-size:18px}
+.field input[type="date"]{min-height:28px;font-size:18px;letter-spacing:-0.02em}
+.field input[type="date"][data-empty="true"]:not(:focus){color:#636665;font-weight:400}
+.photo{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.photo label:has(> input.vh:focus-visible){outline:2px solid #d31110;outline-offset:3px}
+.photo label:has(> input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.dates{display:flex;flex-direction:column}
+.drow{display:flex;align-items:center;gap:14px;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.18)}
+.drange{flex:0 0 140px;font-size:15px;font-weight:700}
+.dcity{flex:1 1 auto;min-width:0;font-size:15px}
+.dlink{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;background:#ffffff;border:0;border-radius:999px;min-height:44px;padding:0 18px;font:700 15px/1.1 'Inter',sans-serif;color:#000000;white-space:nowrap;cursor:pointer;transition:background .15s ease-out,color .15s ease-out}
+.dempty{margin:0;font-size:15px;font-weight:700;color:#d31110}
+.addrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) auto;gap:10px;align-items:stretch}
+@media (min-width:1321px){.addrow .btn{padding:0 28px}}
+@media (min-width:641px) and (max-width:1320px){.addrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.addrow .f-city{grid-column:1/-1}.addrow .btn{grid-column:1/-1;justify-self:start}}
+.ra{display:flex;flex-direction:column;gap:10px;padding-top:6px}
+.rarow{font-size:15px}
+.rabtns{display:flex;flex-wrap:wrap;gap:10px}
+.foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-top:20px;border-top:1px solid #e4e3d6}
+.foot-on{position:sticky;bottom:0;z-index:2;background:#fffde9;padding-bottom:16px}
+html:has(.foot-on){scroll-padding-bottom:130px}
+.saved{margin:0;font-size:13px;color:#4d504f}
+.saved-err{font-weight:700;color:#d31110}
+@media (hover: hover) and (pointer: fine){
+.djrow[aria-current="false"]:hover{background:#222224}
+.chip[aria-pressed="false"]:hover{color:#ffffff;border-color:#a2a5a4}
+.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}
+.ed .go:hover,.ed .ghost:hover{background:#000000;color:#ffffff;box-shadow:none}
+.ed .ink:hover{background:#d31110}
+.ed-extra a:hover{color:#d31110}.dlink:hover{background:#000000;color:#ffffff}
+}
+@media (max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+.fields{grid-template-columns:minmax(0,1fr)}
+.addrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.addrow .f-city,.addrow .btn{grid-column:1/-1}
+.drange{flex-basis:96px}
+}
+@media (max-width:480px){.field input[type="date"]{font-size:16px}}</style>
+<style>@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}</style>
+<style>.ed .field{box-shadow:inset 0 0 0 1px #d9d9d4}
+.ed .field:focus-within,.ed .field:has(input[aria-invalid="true"]),.ed .field:has(textarea[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+@media (max-width:760px){.chip,.seg button,.btn-sm{min-height:44px}.ap-facts dd > a{position:relative}.ap-facts dd > a::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
+@media (min-width:981px) and (max-width:1180px){.fields{grid-template-columns:minmax(0,1fr)}}
+.btn-off,.edav-blank{color:#4d504f}
+.ap-head .lede{margin-top:clamp(20px,calc(2.2 * var(--vw)),32px)}
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+.footrow a{min-width:44px}
+.navgrid{box-sizing:border-box}
+.field{border-radius:var(--r-field)}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
+</helmet>
+
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+<defs>
+<g id="bk-word-i">
+<path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path>
+<path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.050ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path>
+<path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path>
+<path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path>
+<path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path>
+<path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path>
+</g>
+</defs>
+</svg>
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="index.html#how">How it works</a>
+<a class="nl" href="artists.html">For artists</a>
+</nav>
+<div class="navend">
+<a class="nl navlogin" href="#main" aria-current="page">Dashboard</a>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<a class="btn go navbook" href="index.html" target="_blank" rel="noopener">View the site<span class="vh">&nbsp;(opens in a new tab)</span></a>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{acctName}}</strong></span>
+<a href="index.html" onClick="{{logOut}}">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
+<a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="#main" aria-current="page" onClick="{{closeMenu}}">Dashboard</a>
+<a class="nl" href="index.html" target="_blank" rel="noopener" onClick="{{closeMenu}}">View the site<span class="vh">&nbsp;(opens in a new tab)</span></a>
+<a class="nl" href="index.html" onClick="{{logOut}}">Log out</a>
+</nav>
+</sc-if>
+</header>
+<main class="adm" id="main">
+<div class="vw" role="group" aria-label="Show">
+<sc-for list="{{views}}" as="v" hint-placeholder-count="2"><button class="chip" type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}">{{v.label}}&nbsp;·&nbsp;{{v.count}}</button></sc-for>
+</div>
+
+<sc-if value="{{isApps}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="ap-h">
+<div class="ap-head">
+<h1 id="ap-h" class="h1">{{apTitle}}</h1>
+<p class="lede">{{apLede}}</p>
+</div>
+<sc-if value="{{hasApps}}" hint-placeholder-val="{{ true }}">
+<ol class="ap-list">
+<sc-for list="{{apps}}" as="a" hint-placeholder-count="3">
+<li class="ap-row">
+<div class="ap-who">
+<h2 class="ap-name">{{a.name}}</h2>
+<p class="ap-city">{{a.cityLine}}</p>
+<p class="ap-sent">{{a.sentLine}}</p>
+</div>
+<div class="ap-side">
+<dl class="ap-facts">
+<div><dt>Their sets</dt><dd><span class="ap-sets"><sc-for list="{{a.sets}}" as="l" hint-placeholder-count="2"><a href="{{l.href}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-for></span></dd></div>
+<div><dt>Fee range</dt><dd>{{a.fee}}</dd></div>
+<div><dt>Playing next</dt><dd>{{a.next}}</dd></div>
+<div><dt>Email</dt><dd><a href="{{a.mailto}}">{{a.email}}</a></dd></div>
+</dl>
+<sc-if value="{{a.waiting}}" hint-placeholder-val="{{ true }}">
+<div class="ap-acts" data-app="{{a.key}}"><button class="btn go" type="button" onClick="{{a.approve}}" aria-label="{{a.approveAria}}" aria-busy="{{a.busyYes}}">{{a.approveLabel}}</button><button class="btn bgh" type="button" onClick="{{a.pass}}" aria-label="{{a.passAria}}" aria-busy="{{a.busyNo}}">{{a.passLabel}}</button></div>
+</sc-if>
+<sc-if value="{{a.decided}}" hint-placeholder-val="{{ false }}">
+<p class="ap-doneline" role="status" tabindex="-1" data-app="{{a.key}}"><span><b>{{a.name}}</b>&nbsp;{{a.doneLine}}</span><sc-if value="{{a.canOpen}}" hint-placeholder-val="{{ false }}"><button class="ap-link" type="button" onClick="{{a.open}}">{{a.openLabel}}</button></sc-if><sc-if value="{{a.canUndo}}" hint-placeholder-val="{{ true }}"><button class="ap-link" type="button" onClick="{{a.undo}}" aria-label="{{a.undoAria}}" aria-busy="{{a.busyUndo}}">{{a.undoLabel}}</button></sc-if></p>
+</sc-if>
+<sc-if value="{{a.hasErr}}" hint-placeholder-val="{{ false }}"><p class="err" role="alert">{{a.err}}</p></sc-if>
+</div>
+</li>
+</sc-for>
+</ol>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isRoster}}" hint-placeholder-val="{{ false }}">
+<div class="top">
+<div>
+<h1 class="h1">Your roster.</h1>
+<p class="count">{{countLine}}</p>
+</div>
+<button class="btn go" type="button" onClick="{{addDj}}">Add a DJ</button>
+</div>
+<div class="grid">
+<section class="list" aria-label="DJs on the roster">
+<div class="chips" role="group" aria-label="Show">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4"><button class="chip" type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="rows">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3"><button class="djrow" type="button" aria-current="{{r.current}}" onClick="{{r.pick}}"><sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ true }}"><img class="av" sc-camel-src="{{r.img}}" alt="" style="filter: {{r.grade}}; object-position: {{r.pos}};"></sc-if><sc-if value="{{r.noImg}}" hint-placeholder-val="{{ false }}"><span class="av-blank" aria-hidden="true">{{r.initials}}</span></sc-if><span class="rowtx"><span class="rowname">{{r.name}}</span><span class="rowmeta">{{r.meta}}</span><span class="{{r.datesCls}}">{{r.datesText}}</span></span><span class="{{r.pillCls}}">{{r.pillText}}</span></button></sc-for>
+</div>
+<sc-if value="{{emptyList}}" hint-placeholder-val="{{ false }}"><p class="listnote">{{emptyLine}}</p></sc-if>
+</section>
+<sc-if value="{{hasSel}}" hint-placeholder-val="{{ true }}">
+<section class="ed" aria-labelledby="ed-title">
+<div class="edhead">
+<div class="edwho">
+<sc-if value="{{e.hasImg}}" hint-placeholder-val="{{ true }}"><img class="edav" sc-camel-src="{{e.img}}" alt="{{e.imgAlt}}" style="filter: {{e.grade}}; object-position: {{e.pos}};"></sc-if>
+<sc-if value="{{e.noImg}}" hint-placeholder-val="{{ false }}"><span class="edav-blank" aria-hidden="true">{{e.initials}}</span></sc-if>
+<h2 class="h2" id="ed-title">{{e.title}}</h2>
+</div>
+<div class="seg" role="group" aria-label="Status">
+<button type="button" aria-pressed="{{draftOn}}" onClick="{{setDraft}}">Draft</button>
+<button class="seg-live" type="button" aria-pressed="{{liveOn}}" onClick="{{setLive}}">Live</button>
+</div>
+</div>
+<sc-if value="{{topErr}}" hint-placeholder-val="{{ false }}"><p class="err" id="ed-err" role="alert">{{errText}}</p></sc-if>
+<div class="sec">
+<h3 class="h3">Profile</h3>
+<div class="photo">
+<label class="btn btn-sm ghost">{{photoLabel}}<input class="vh" type="file" accept="image/*" onChange="{{pickPhoto}}" aria-invalid="{{inv.img}}" aria-describedby="{{desc.img}}"></label>
+<span class="note">{{photoNote}}</span>
+</div>
+<sc-if value="{{photoErr}}" hint-placeholder-val="{{ false }}"><p class="err" id="ed-photo-err" role="alert">That file won't open. Try a JPG or&nbsp;PNG.</p></sc-if>
+<div class="fields">
+<label class="field"><span class="field-l">DJ name</span><input type="text" value="{{e.name}}" onInput="{{set.name}}" ref="{{nameRef}}" aria-invalid="{{inv.name}}" aria-describedby="{{desc.name}}" placeholder="What goes on the flyer"></label>
+<label class="field"><span class="field-l">Home city</span><input type="text" value="{{e.home}}" onInput="{{set.home}}" aria-invalid="{{inv.home}}" aria-describedby="{{desc.home}}" placeholder="Where they live"></label>
+<label class="field"><span class="field-l">Sound</span><input type="text" value="{{e.genres}}" onInput="{{set.genres}}" aria-invalid="{{inv.genres}}" aria-describedby="{{desc.genres}}" placeholder="Afro, house"></label>
+<label class="field"><span class="field-l">Fee range</span><input type="text" value="{{e.fee}}" onInput="{{set.fee}}" aria-invalid="{{inv.fee}}" aria-describedby="{{desc.fee}}" placeholder="Like $1,000 to $2,500"></label>
+<label class="field"><span class="field-l">SoundCloud</span><input type="url" value="{{e.sc}}" onInput="{{set.sc}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="soundcloud.com/..."></label>
+<label class="field"><span class="field-l">Mixcloud</span><input type="url" value="{{e.mc}}" onInput="{{set.mc}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="mixcloud.com/..."></label>
+<label class="field"><span class="field-l">YouTube</span><input type="url" value="{{e.yt}}" onInput="{{set.yt}}" aria-invalid="{{inv.links}}" aria-describedby="{{desc.links}}" placeholder="youtube.com/..."></label>
+<label class="field"><span class="field-l">Email</span><input type="email" value="{{e.email}}" onInput="{{set.email}}" placeholder="dj@example.com"></label>
+<label class="field"><span class="field-l">Agent name</span><input type="text" value="{{e.agent}}" onInput="{{set.agent}}" placeholder="If they have one"></label>
+<label class="field"><span class="field-l">Agent email</span><input type="email" value="{{e.agentEmail}}" onInput="{{set.agentEmail}}" placeholder="agent@example.com"></label>
+<label class="field f-wide"><span class="field-l">One line about them</span><textarea rows="3" maxlength="120" value="{{e.bio}}" onInput="{{set.bio}}" placeholder="What they play and why people lose it."></textarea></label>
+</div>
+<sc-if value="{{e.hasExtra}}" hint-placeholder-val="{{ false }}"><p class="note ed-extra">Also in their application: <sc-for list="{{e.extra}}" as="x" hint-placeholder-count="1">{{x.sep}}<a href="{{x.href}}" target="_blank" rel="noopener">{{x.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-for></p></sc-if>
+<p class="note">Hear a set on the site opens SoundCloud first, then Mixcloud, then&nbsp;YouTube.</p>
+</div>
+<div class="sec">
+<h3 class="h3">Tour dates</h3>
+<p class="note">{{remindLine}}</p>
+<sc-if value="{{hasDates}}" hint-placeholder-val="{{ true }}">
+<div class="dates">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="3"><div class="drow"><span class="drange">{{d.range}}</span><span class="dcity">{{d.city}}</span><button class="dlink" type="button" onClick="{{d.remove}}" aria-label="{{d.removeAria}}">Remove</button></div></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{noDates}}" hint-placeholder-val="{{ false }}"><p class="dempty">No dates yet. Until there are, the site only shows them at home, or flying in with a travel&nbsp;fee.</p></sc-if>
+<div class="addrow">
+<label class="field f-city"><span class="field-l">City</span><input type="text" value="{{nd.city}}" onInput="{{ndSet.city}}" aria-invalid="{{ndInv.city}}" aria-describedby="{{ndDescribe.city}}" placeholder="Chicago, IL"></label>
+<label class="field"><span class="field-l">From</span><input type="date" value="{{nd.from}}" onInput="{{ndSet.from}}" data-empty="{{ndEmpty.from}}" aria-invalid="{{ndInv.from}}" aria-describedby="{{ndDescribe.from}}"></label>
+<label class="field"><span class="field-l">To</span><input type="date" value="{{nd.to}}" onInput="{{ndSet.to}}" data-empty="{{ndEmpty.to}}" aria-invalid="{{ndInv.to}}" aria-describedby="{{ndDescribe.to}}"></label>
+<button class="btn ink" type="button" onClick="{{addDate}}">Add it</button>
+</div>
+<sc-if value="{{hasDateErr}}" hint-placeholder-val="{{ false }}"><p class="err" id="err-nd" role="alert">{{dateErr}}</p></sc-if>
+<sc-if value="{{noDateErr}}" hint-placeholder-val="{{ true }}"><p class="note">Only there one night? Leave To&nbsp;empty.</p></sc-if>
+<div class="ra">
+<sc-if value="{{raIdle}}" hint-placeholder-val="{{ true }}">
+<p class="note">We can also look for public gigs on Resident Advisor and ask before adding&nbsp;them.</p>
+<div class="rabtns"><button class="btn btn-sm ghost" type="button" onClick="{{raCheck}}">Check Resident Advisor</button></div>
+</sc-if>
+<sc-if value="{{raFound}}" hint-placeholder-val="{{ false }}">
+<p class="note">{{raFoundLine}}</p>
+<sc-for list="{{raRows}}" as="x" hint-placeholder-count="2"><p class="rarow" style="margin: 0;"><strong>{{x.range}}</strong> · {{x.city}} · {{x.venue}}</p></sc-for>
+<div class="rabtns"><button class="btn btn-sm go" type="button" onClick="{{raAdd}}">{{raAddLabel}}</button><button class="btn btn-sm ghost" type="button" onClick="{{raSkip}}">{{raSkipLabel}}</button></div>
+</sc-if>
+<sc-if value="{{raDone}}" hint-placeholder-val="{{ false }}"><p class="note" id="ra-done" role="status" tabindex="-1">{{raDoneLine}}</p></sc-if>
+</div>
+</div>
+<div class="{{footCls}}">
+<button class="{{saveCls}}" type="button" onClick="{{save}}" aria-disabled="{{saveDisabled}}" aria-busy="{{saveBusy}}">{{saveLabel}}</button>
+<sc-if value="{{dirty}}" hint-placeholder-val="{{ false }}"><button class="dlink" type="button" onClick="{{neverMind}}">Never mind</button></sc-if>
+<sc-if value="{{hostsOn}}" hint-placeholder-val="{{ true }}"><a class="dlink" href="{{hostsHref}}" target="_blank" rel="noopener">See it the way hosts&nbsp;do<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if>
+<p class="{{savedCls}}" id="ed-saved" role="status">{{savedLine}}</p>
+</div>
+</section>
+</sc-if>
+</div>
+</sc-if>
+</main>
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v118.24h-49.1v-151.89Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2253}}'>var AD_DJS = [
+{ key: 'kaytran', name: 'Kaytran', home: 'Atlanta, GA', genres: 'Afro / Amapiano', fee: '$1,500 to $3,000', email: 'kaytran@example.com', agent: 'Mara', agentEmail: 'mara@example.com', sc: 'soundcloud.com/kaytran', mc: 'mixcloud.com/kaytran', yt: 'youtube.com/kaytran', bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.", img: 'assets/eb426020ba85d14f593a6dfca9a06bf9.jpg', live: true,
+dates: [{ city: 'New York, NY', from: '2026-11-13', to: '2026-11-15' }, { city: 'Boston, MA', from: '2026-11-21', to: '2026-11-21' }, { city: 'Chicago, IL', from: '2026-11-28', to: '2026-11-28' }] },
+{ key: 'jude', name: 'Jude & Frank', home: 'Brooklyn / Rome', genres: 'House / Tech house', fee: '$1,200 to $2,500', email: 'judeandfrank@example.com', agent: 'Leo Marchetti', agentEmail: '', sc: 'soundcloud.com/judeandfrank', mc: '', yt: '', bio: 'Two friends, one booth, zero arguments about the next track. Allegedly.', img: 'assets/9727366bd492f3a9fa0ecdb3a550c959.jpg', live: true, dates: [{ city: 'Atlanta, GA', from: '2026-11-21', to: '2026-11-21' }, { city: 'Chicago, IL', from: '2026-12-05', to: '2026-12-05' }] },
+{ key: 'dial', name: 'Dial Tone', home: 'Chicago, IL', genres: 'Techno / EBM', fee: '$1,800 to $3,500', email: 'dialtone@example.com', agent: 'Ines Park', agentEmail: '', sc: 'soundcloud.com/dial-tone', mc: '', yt: '', bio: '', img: 'assets/0b36152bd9c0d304ad0b7de5985f6865.jpg', grade: 'grayscale(1) brightness(.7) contrast(2.6)', pos: '38% 18%', live: true,
+dates: [{ city: 'Boston, MA', from: '2026-11-06', to: '2026-11-08' }, { city: 'New York, NY', from: '2026-11-20', to: '2026-11-20' }] }
+];
+var AD_RA = [{ city: 'Chicago, IL', venue: 'Smart Bar', from: '2026-12-12', to: '2026-12-12' }, { city: 'Detroit, MI', venue: 'TV Lounge', from: '2026-12-19', to: '2026-12-19' }];
+var AD_APPS = [
+{ key: 'soft', name: 'Soft Static', city: 'Portland, OR', sound: 'House and disco', fee: '$800 to $1,500', email: 'softstatic@example.com', sent: 'Sent today', next: 'New York, Nov 20 to 21',
+dates: [{ city: 'New York, NY', from: '2026-11-20', to: '2026-11-21' }],
+sets: [{ label: 'Warehouse set on SoundCloud', url: 'soundcloud.com/soft-static/warehouse-set' }, { label: 'Rooftop set on Mixcloud', url: 'mixcloud.com/soft-static/rooftop-set' }] },
+{ key: 'tamarind', name: 'Tamarind', city: 'Houston, TX', sound: 'Afro house and baile funk', fee: '$1,000 to $2,000', email: 'tamarind@example.com', sent: 'Sent yesterday', next: 'Los Angeles, Nov 27 to 28',
+dates: [{ city: 'Los Angeles, CA', from: '2026-11-27', to: '2026-11-28' }],
+sets: [{ label: 'Block party set on SoundCloud', url: 'soundcloud.com/tamarind/block-party' }, { label: 'Live in Houston on YouTube', url: 'youtube.com/tamarind/live-in-houston' }, { label: 'Late night mix on SoundCloud', url: 'soundcloud.com/tamarind/late-night-mix' }] },
+{ key: 'odd', name: 'Odd Hours', city: 'Philadelphia, PA', sound: 'Garage and UK bass', fee: '$900 to $1,800', email: 'oddhours@example.com', sent: 'Sent Fri, Oct 30', next: 'Boston, Dec 4',
+dates: [{ city: 'Boston, MA', from: '2026-12-04', to: '2026-12-04' }],
+sets: [{ label: 'Basement set on SoundCloud', url: 'soundcloud.com/odd-hours/basement-set' }, { label: 'Radio hour on Mixcloud', url: 'mixcloud.com/odd-hours/radio-hour' }] }
+];
+var AD_COUNT = ['Nobody', 'One', 'Two', 'Three', 'Four', 'Five'];
+var AD_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var AD_DAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+function AD_PARSE(iso) {
+var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+}
+function AD_SHORT(d) { return AD_MON[d.getMonth()] + ' ' + d.getDate(); }
+function AD_RANGE(from, to) {
+var a = AD_PARSE(from), b = AD_PARSE(to) || a;
+if (!a) return '';
+if (b.getTime() === a.getTime()) return AD_SHORT(a);
+if (a.getMonth() === b.getMonth()) return AD_SHORT(a) + ' to ' + b.getDate();
+return AD_SHORT(a) + ' to ' + AD_SHORT(b);
+}
+var AD_TODAY = new Date(2026, 10, 3);
+function AD_NEXT_ASK() {
+var today = AD_TODAY;
+for (var k = 0; k < 2; k++) {
+var d = new Date(today.getFullYear(), today.getMonth() + k, 1);
+while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
+if (d >= today) return AD_DAY[1] + ', ' + AD_SHORT(d);
+}
+return '';
+}
+function AD_INITIALS(name) {
+var w = (name || '').replace(/&/g, ' ').split(/\s+/).filter(Boolean);
+return w.length ? (w[0][0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase() : 'DJ';
+}
+function AD_SORT(list) { return list.slice().sort(function (a, b) { return a.from < b.from ? -1 : a.from > b.from ? 1 : 0; }); }
+function AD_NEEDS(d, noPhoto) {
+var out = [], t = function (v) { return (v || '').trim(); };
+if (!d.img && !noPhoto) out.push({ k: 'img', w: 'a photo' });
+if (!t(d.name)) out.push({ k: 'name', w: 'a name' });
+if (!t(d.home)) out.push({ k: 'home', w: 'a home city' });
+if (!t(d.genres)) out.push({ k: 'genres', w: 'their sound' });
+if (!t(d.fee)) out.push({ k: 'fee', w: 'a fee range' });
+if (!(t(d.sc) || t(d.mc) || t(d.yt))) out.push({ k: 'links', w: 'a set link' });
+return out;
+}
+function AD_AND(w) { return w.length < 2 ? (w[0] || '') : w.slice(0, -1).join(', ') + ' and ' + w[w.length - 1]; }
+function AD_NB(t) { return t.replace(/ (\S+)$/, '\u00a0$1'); }
+function AD_MATCH(f, d) { return f === 'live' ? !!d.live : f === 'draft' ? !d.live : f === 'dates' ? !d.dates.length : true; }
+function AD_FIRST(f, djs) { for (var i = 0; i < djs.length; i++) if (AD_MATCH(f, djs[i])) return i; return -1; }
+function AD_BLANK(d) {
+if (!d || d.id || d.key.indexOf('new') !== 0 || d.img || d.live || d.dates.length) return false;
+return ['name', 'home', 'genres', 'fee', 'email', 'agent', 'agentEmail', 'sc', 'mc', 'yt', 'bio'].every(function (k) { return !(d[k] || '').trim(); });
+}
+function AD_CITY(c) { return String(c || '').split(',')[0].trim().toLowerCase(); }
+function AD_SAME(a, b) { return AD_CITY(a.city) === AD_CITY(b.city) && a.from === b.from; }
+function AD_RA_NEW(d) { return AD_RA.filter(function (x) { return !d.dates.some(function (y) { return AD_SAME(y, x); }); }); }
+var AD_GRADE = 'grayscale(1) contrast(1.2)';
+var AD_HOSTS = { kaytran: 'account.html', jude: 'roster.html#lineup', dial: 'roster.html#lineup' };
+function AD_API() { return typeof window !== 'undefined' && window.BOOKD && window.BOOKD.ready ? window.BOOKD.admin || null : null; }
+function AD_WHY(code) {
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (code === 'rate') return 'Too many tries in a row. Give it a minute and try\u00a0again.';
+if (code === 'invalid') return 'Something in there is too long or not in the right shape. Check it and try\u00a0again.';
+if (code === 'taken') return 'A few DJs already have that name. Change it a little and try\u00a0again.';
+if (code === 'expired') return 'You got logged out. Log in and try\u00a0again.';
+return 'Something went wrong on our side. What you typed is still here, so try\u00a0again.';
+}
+var AD_NOBODY = { key: '', name: '', home: '', genres: '', fee: '', email: '', agent: '', agentEmail: '', sc: '', mc: '', yt: '', bio: '', img: '', live: false, dates: [] };
+function AD_USD(n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function AD_FEE_TEXT(lo, hi) {
+if (lo == null && hi == null) return '';
+if (lo == null || hi == null || lo === hi) return AD_USD(lo == null ? hi : lo);
+return AD_USD(lo) + ' to ' + AD_USD(hi);
+}
+function AD_FEE_PARSE(text) {
+var m = String(text || '').replace(/,/g, '').match(/\d+(\.\d+)?\s*k?/gi) || [];
+var n = m.slice(0, 2).map(function (x) { return Math.round(parseFloat(x) * (/k$/i.test(x) ? 1000 : 1)); });
+if (!n.length) return { ok: false, lo: null, hi: null };
+var lo = n[0], hi = n.length > 1 ? n[1] : n[0];
+return { ok: true, lo: Math.min(lo, hi), hi: Math.max(lo, hi) };
+}
+function AD_URL_SHOW(u) { return String(u || '').trim().replace(/^https?:\/\//i, '').replace(/^www\./i, ''); }
+function AD_URL_SAVE(u) { var x = AD_URL_SHOW(u); return x ? 'https://' + x : ''; }
+function AD_MAIL_OK(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+function AD_ROW_DATE(t) { return { id: t.id, city: t.city, from: t.starts_on, to: t.ends_on || t.starts_on }; }
+function AD_ROW_DJ(r) {
+var p = r.private || {};
+return { key: 'dj-' + r.id, id: r.id, slug: r.slug, name: r.name || '', home: r.home_city || '', genres: r.sound || '', fee: AD_FEE_TEXT(r.fee_low, r.fee_high),
+email: p.contact_email || '', agent: p.agent_name || '', agentEmail: p.agent_email || '',
+sc: AD_URL_SHOW(r.soundcloud_url), mc: AD_URL_SHOW(r.mixcloud_url), yt: AD_URL_SHOW(r.youtube_url), bio: r.bio || '', img: r.photo || '', live: r.status === 'live',
+dates: AD_SORT((r.dates || []).map(AD_ROW_DATE)) };
+}
+function AD_BYNAME(list) {
+var saved = list.filter(function (d) { return d.id; }), rest = list.filter(function (d) { return !d.id; });
+saved.sort(function (a, b) { var x = a.name.toLowerCase(), y = b.name.toLowerCase(); return x < y ? -1 : x > y ? 1 : 0; });
+return saved.concat(rest);
+}
+function AD_LINKS(text) {
+var out = [];
+String(text || '').split(/\s+/).forEach(function (t) {
+t = t.replace(/[,;]+$/, '');
+if (!/^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(t)) return;
+var url = AD_URL_SHOW(t);
+out.push({ label: url.length > 60 ? url.slice(0, 57) + '...' : url, url: url });
+});
+return out;
+}
+function AD_WHEN(iso) {
+var d = new Date(iso);
+if (!iso || isNaN(d.getTime())) return null;
+var now = new Date(), days = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5);
+return { d: d, days: days, text: AD_SHORT(d) + (d.getFullYear() !== now.getFullYear() ? ', ' + d.getFullYear() : '') };
+}
+function AD_ROW_APP(r) {
+var w = AD_WHEN(r.created_at), v = AD_WHEN(r.reviewed_at);
+return { key: 'a' + r.id, id: r.id, name: r.name || '', city: r.home_city || '', sound: '', fee: r.fee_range || '', email: r.email || '', next: r.upcoming || '',
+sent: !w ? '' : w.days <= 0 ? 'Sent today' : w.days === 1 ? 'Sent yesterday' : 'Sent ' + AD_DAY[w.d.getDay()] + ', ' + w.text,
+dates: [], sets: AD_LINKS(r.set_links), status: r.status,
+answered: r.status === 'pending' || !v ? '' : 'Answered ' + v.text + (r.reviewer ? ' by ' + r.reviewer : '') + '.' };
+}
+function AD_APP_DRAFT(a) {
+var slot = { sc: '', mc: '', yt: '' }, extra = [];
+a.sets.forEach(function (x) {
+var k = x.url.indexOf('soundcloud') === 0 ? 'sc' : x.url.indexOf('mixcloud') === 0 ? 'mc' : x.url.indexOf('youtube') === 0 ? 'yt' : '';
+if (k && !slot[k]) slot[k] = x.url; else extra.push({ label: x.label, url: x.url });
+});
+return { key: 'app-' + a.key, name: a.name, home: a.city, genres: a.sound, fee: a.fee, email: a.email, agent: '', agentEmail: '', sc: slot.sc, mc: slot.mc, yt: slot.yt, extra: extra, bio: '', img: '', live: false, dates: a.dates.slice() };
+}
+function AD_DJ_OUT(d, was) {
+var fee = AD_FEE_PARSE(d.fee);
+return { id: d.id || null, slug: d.slug || null, name: (d.name || '').trim(), home_city: d.home, sound: d.genres, fee_low: fee.lo, fee_high: fee.hi, bio: d.bio,
+soundcloud_url: AD_URL_SAVE(d.sc), mixcloud_url: AD_URL_SAVE(d.mc), youtube_url: AD_URL_SAVE(d.yt), status: d.live ? 'live' : 'draft',
+contact_email: (d.email || '').trim(), agent_name: d.agent, agent_email: (d.agentEmail || '').trim(),
+removeDates: (was ? was.dates : []).filter(function (x) { return x.id && !d.dates.some(function (y) { return y.id === x.id; }); }).map(function (x) { return x.id; }),
+addDates: d.dates.filter(function (x) { return !x.id; }).map(function (x) { return { city: x.city, starts_on: x.from, ends_on: x.to || x.from }; }) };
+}
+function AD_TIDY(d) {
+var fee = AD_FEE_PARSE(d.fee);
+return { name: (d.name || '').trim(), fee: AD_FEE_TEXT(fee.lo, fee.hi), sc: AD_URL_SHOW(d.sc), mc: AD_URL_SHOW(d.mc), yt: AD_URL_SHOW(d.yt), email: (d.email || '').trim(), agentEmail: (d.agentEmail || '').trim() };
+}
+var NAV6_DEFAULTS = {
+inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'account.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
+curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+waiting: 0, shell: ''
+};
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+self.state.acctOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.acctBtnRef = function (el) { n.acctBtn = el; };
+n.acctWrapRef = function (el) { n.acctWrap = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.down = function (e) { nav6Down(self, e); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+document[f]('pointerdown', n.down, true);
+}
+function nav6Off(self) { nav6Listen(self, false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Down(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+function nav6Vals(self, cfg) {
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+outsideDown: undefined
+};
+}
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+this.state = { view: 'apps', decided: {}, made: {}, djs: AD_DJS, sel: 0, filter: 'all', dirtyKeys: {}, base: {}, saved: false, liveErr: false, nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {}, ra: '', raN: 0, newN: 0, photoErr: false };
+this.nameEl = null;
+this.nameRef = function (el) { self.nameEl = el; };
+this.reduce = typeof window !== 'undefined' && !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+this.answeredAt = {};
+this.undoneAt = {};
+this.api = AD_API();
+Object.assign(this.state, { loading: !!this.api, loadErr: '', me: '', apps: [], answered: {}, appBusy: {}, appErr: {}, saving: '', saveErr: '' });
+if (this.api) Object.assign(this.state, { djs: [], sel: -1 });
+nav6Init(this);
+}
+componentDidMount() {
+if (typeof location !== 'undefined' && location.hash === '#roster') this.setState({ view: 'roster' });
+var self = this;
+if (!this.api) return;
+window.BOOKD.auth.current().then(function (r) {
+if (self.gone) return;
+var u = r && r.ok ? r.user : null;
+if (r && r.ok && !u) { location.replace('login.html'); return; }
+if (u && u.role !== 'admin') { location.replace(u.role === 'dj' ? 'account.html' : 'account.html'); return; }
+if (!u) { self.setState({ loading: false, loadErr: AD_WHY(r && r.code) }); return; }
+self.setState({ me: u.name || u.email || '' });
+self.load();
+});
+}
+componentWillUnmount() { this.gone = true; nav6Off(this); clearTimeout(this.laterT); }
+load() {
+var self = this;
+this.api.load().then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ loading: false, loadErr: AD_WHY(r && r.code) }); return; }
+var djs = AD_BYNAME((r.djs || []).map(AD_ROW_DJ)), apps = (r.applications || []).map(AD_ROW_APP), decided = {}, answered = {}, used = {};
+apps.forEach(function (a) {
+if (a.status === 'pending') return;
+decided[a.key] = a.status === 'approved' ? 'yes' : 'no';
+answered[a.key] = a.answered;
+var em = a.email.trim().toLowerCase();
+if (a.status !== 'approved' || !em) return;
+for (var i = 0; i < djs.length; i++) {
+var d = djs[i];
+if (used[d.id] || d.email.trim().toLowerCase() !== em) continue;
+used[d.id] = true;
+d.key = 'app-' + a.key;
+d.extra = a.sets.filter(function (x) { return x.url !== d.sc && x.url !== d.mc && x.url !== d.yt; });
+break;
+}
+});
+self.setState(Object.assign({ loading: false, loadErr: '', djs: djs, apps: apps, decided: decided, answered: answered, made: {}, dirtyKeys: {}, base: {}, sel: AD_FIRST(self.state.filter, djs), saved: false }, self.fresh()));
+});
+}
+appList() { return this.api ? this.state.apps : AD_APPS; }
+appBusy(key, what) {
+var busy = Object.assign({}, this.state.appBusy), err = Object.assign({}, this.state.appErr);
+if (what) busy[key] = what; else delete busy[key];
+delete err[key];
+this.setState({ appBusy: busy, appErr: err });
+}
+appFail(key, code) {
+var busy = Object.assign({}, this.state.appBusy), err = Object.assign({}, this.state.appErr);
+delete busy[key]; err[key] = AD_WHY(code);
+this.setState({ appBusy: busy, appErr: err });
+}
+cur() { var s = this.state; return s.sel >= 0 ? s.djs[s.sel] || null : null; }
+fresh() { return { liveErr: false, ra: '', nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {}, photoErr: false, saveErr: '' }; }
+leave(i) {
+var s = this.state, d = this.cur(), out = { djs: s.djs, dirtyKeys: s.dirtyKeys, base: s.base, i: i };
+if (!AD_BLANK(d) || i === s.sel) return out;
+out.djs = s.djs.slice(); out.djs.splice(s.sel, 1);
+out.dirtyKeys = Object.assign({}, s.dirtyKeys); delete out.dirtyKeys[d.key];
+out.base = Object.assign({}, s.base); delete out.base[d.key];
+if (i > s.sel) out.i = i - 1;
+return out;
+}
+later(fn) { var self = this; clearTimeout(this.laterT); this.laterT = setTimeout(function () { self.laterT = 0; if (typeof document !== 'undefined') fn(); }, 0); }
+reveal(el, below) {
+if (!el || !el.focus) return;
+try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+var r = el.getBoundingClientRect(), h = window.innerHeight || 0;
+if ((r.top < 88 || r.bottom > h - (below == null ? 120 : below)) && el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: this.reduce ? 'auto' : 'smooth' });
+}
+decide(a, how, byKey) {
+if (this.state.decided[a.key] || (byKey && Date.now() - (this.undoneAt[a.key] || 0) < 500)) return;
+var self = this, api = this.api, draft = how === 'yes' ? AD_APP_DRAFT(a) : null;
+if (!api) { this.decided(a, how, draft); return; }
+if (this.state.appBusy[a.key]) return;
+this.appBusy(a.key, how);
+if (draft) Object.assign(draft, AD_TIDY(draft));
+(draft ? api.approve(a.id, AD_DJ_OUT(draft, null)) : api.pass(a.id)).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.appFail(a.key, r && r.code); return; }
+if (draft) Object.assign(draft, { id: r.id, slug: r.slug, dates: AD_SORT((r.dates || []).map(AD_ROW_DATE)) });
+self.decided(a, how, draft);
+});
+}
+decided(a, how, draft) {
+var self = this, decided = Object.assign({}, this.state.decided), made = Object.assign({}, this.state.made), djs = this.state.djs;
+var busy = Object.assign({}, this.state.appBusy), answered = Object.assign({}, this.state.answered);
+delete busy[a.key]; delete answered[a.key];
+decided[a.key] = how;
+this.answeredAt[a.key] = Date.now();
+if (how === 'yes') {
+made[a.key] = draft;
+djs = djs.concat([made[a.key]]);
+}
+var next = { decided: decided, made: made, djs: djs, appBusy: busy, answered: answered };
+if (this.api && how === 'yes') {
+var open = this.cur();
+next.djs = AD_BYNAME(djs);
+if (open) next.sel = next.djs.map(function (x) { return x.key; }).indexOf(open.key);
+}
+this.setState(next);
+this.later(function () { self.reveal(document.querySelector('.ap-doneline[data-app="' + a.key + '"]'), -44); });
+}
+justAnswered(a) {
+if (Date.now() - (this.answeredAt[a.key] || 0) >= 500) return false;
+var el = typeof document !== 'undefined' && document.querySelector('.ap-doneline[data-app="' + a.key + '"]');
+if (el && el.focus) { try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); } }
+return true;
+}
+undecide(a) {
+var self = this, s = this.state, api = this.api;
+if (!api) { this.undecided(a); return; }
+if (s.appBusy[a.key]) return;
+var mine = s.decided[a.key] === 'yes' ? s.djs.filter(function (x) { return x.key === 'app-' + a.key; })[0] : null;
+if (s.decided[a.key] === 'yes' && !(mine && mine.id)) return;
+this.appBusy(a.key, 'undo');
+api.reopen(a.id, mine ? mine.id : null).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.appFail(a.key, r && r.code); return; }
+self.undecided(a);
+});
+}
+undecided(a) {
+var self = this, s = this.state, decided = Object.assign({}, s.decided), made = Object.assign({}, s.made), key = 'app-' + a.key, d = this.cur();
+var busy = Object.assign({}, s.appBusy), answered = Object.assign({}, s.answered);
+delete busy[a.key]; delete answered[a.key];
+delete decided[a.key]; delete made[a.key];
+var djs = s.djs.filter(function (x) { return x.key !== key; });
+var dirtyKeys = Object.assign({}, s.dirtyKeys), base = Object.assign({}, s.base);
+delete dirtyKeys[key]; delete base[key];
+var sel = d ? djs.map(function (x) { return x.key; }).indexOf(d.key) : -1, next = { decided: decided, made: made, djs: djs, dirtyKeys: dirtyKeys, base: base, sel: sel, appBusy: busy, answered: answered };
+if (sel < 0) Object.assign(next, { sel: AD_FIRST(s.filter, djs), saved: false }, this.fresh());
+this.undoneAt[a.key] = Date.now();
+this.setState(next);
+this.later(function () { self.reveal(document.querySelector('.ap-acts[data-app="' + a.key + '"] .go'), -44); });
+}
+openDraft(a) {
+var w = this.leave(-1), i = w.djs.map(function (d) { return d.key; }).indexOf('app-' + a.key);
+if (i >= 0) this.setState(Object.assign({ view: 'roster', djs: w.djs, dirtyKeys: w.dirtyKeys, base: w.base, filter: w.djs[i].live ? 'all' : 'draft', sel: i, saved: false }, this.fresh()));
+if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
+this.later(function () { var r = document.querySelector('.djrow[aria-current="true"]'); if (r) { try { r.focus({ preventScroll: true }); } catch (e) { r.focus(); } } });
+}
+patch(fields, extra) {
+var s = this.state, i = s.sel;
+if (i < 0 || !s.djs[i]) return;
+var djs = s.djs.slice(), old = djs[i], dj = Object.assign({}, old, fields);
+djs[i] = dj;
+var dirtyKeys = Object.assign({}, s.dirtyKeys), base = Object.assign({}, s.base);
+if (!Object.prototype.hasOwnProperty.call(base, dj.key)) base[dj.key] = old;
+dirtyKeys[dj.key] = true;
+var next = { djs: djs, dirtyKeys: dirtyKeys, base: base, saved: false, saveErr: '' };
+if (s.liveErr && !AD_NEEDS(dj, !!this.api).length) next.liveErr = false;
+this.setState(Object.assign(next, extra || {}));
+}
+pick(i) {
+var self = this, w = this.leave(i), dropped = w.djs !== this.state.djs;
+if (i !== this.state.sel) this.setState(Object.assign({ djs: w.djs, dirtyKeys: w.dirtyKeys, base: w.base, sel: w.i, saved: false }, this.fresh()));
+var below = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:980px)').matches;
+if (!below && !dropped) return;
+this.later(function () {
+var a = document.activeElement, row = document.querySelector('.djrow[aria-current="true"]');
+if (row && (!a || a === document.body)) { try { row.focus({ preventScroll: true }); } catch (e) { row.focus(); } }
+var ed = below && document.querySelector('.ed');
+if (ed && ed.scrollIntoView) ed.scrollIntoView({ block: 'start', behavior: self.reduce ? 'auto' : 'smooth' });
+});
+}
+setFilter(f) {
+var s = this.state, d = this.cur();
+if (d && AD_MATCH(f, d)) { this.setState(Object.assign({ filter: f }, this.fresh())); return; }
+var w = this.leave(-1);
+this.setState(Object.assign({ filter: f, djs: w.djs, dirtyKeys: w.dirtyKeys, base: w.base, sel: AD_FIRST(f, w.djs), saved: false }, this.fresh()));
+}
+addDj() {
+var s = this.state, n = s.newN + 1, key = 'new' + n, self = this, w = this.leave(-1);
+var djs = w.djs.concat([{ key: key, name: '', home: '', genres: '', fee: '', email: '', agent: '', agentEmail: '', sc: '', mc: '', yt: '', bio: '', img: '', live: false, dates: [] }]);
+var dirtyKeys = Object.assign({}, w.dirtyKeys), base = Object.assign({}, w.base);
+dirtyKeys[key] = true; base[key] = null;
+this.setState(Object.assign({ djs: djs, sel: djs.length - 1, newN: n, filter: 'all', dirtyKeys: dirtyKeys, base: base, saved: false }, this.fresh()));
+setTimeout(function () { if (self.nameEl && self.nameEl.focus) self.nameEl.focus(); }, 30);
+}
+neverMind(byKey) {
+var s = this.state, d = this.cur(), self = this;
+if (!d || !s.dirtyKeys[d.key] || s.saving) return;
+var djs = s.djs.slice(), was = s.base[d.key], sel = s.sel;
+var dirtyKeys = Object.assign({}, s.dirtyKeys), base = Object.assign({}, s.base);
+delete dirtyKeys[d.key]; delete base[d.key];
+if (was) djs[sel] = was; else { djs.splice(sel, 1); sel = AD_FIRST(s.filter, djs); }
+this.setState(Object.assign({ djs: djs, sel: sel, dirtyKeys: dirtyKeys, base: base, saved: false }, this.fresh()));
+if (byKey) this.later(function () { self.reveal(document.querySelector('.foot .btn') || document.querySelector('.top .btn')); });
+}
+goLive() {
+var d = this.cur(), self = this;
+if (!d || d.live) return;
+if (AD_NEEDS(d, !!this.api).length) { this.setState({ liveErr: 'live' }); this.later(function () { self.reveal(document.querySelector('.ed [aria-invalid="true"]')); }); return; }
+this.patch({ live: true }, { liveErr: false });
+}
+save() {
+var s = this.state, d = this.cur(), self = this;
+if (!d || !s.dirtyKeys[d.key]) return;
+if (d.live && AD_NEEDS(d, !!this.api).length) { this.setState({ liveErr: 'save', saved: false }); this.later(function () { self.reveal(document.querySelector('.ed [aria-invalid="true"]')); }); return; }
+if (this.api) { this.saveLive(d); return; }
+var dirtyKeys = Object.assign({}, s.dirtyKeys), base = Object.assign({}, s.base);
+delete dirtyKeys[d.key]; delete base[d.key];
+this.setState({ dirtyKeys: dirtyKeys, base: base, saved: true, liveErr: false, photoErr: false });
+}
+saveLive(d) {
+var s = this.state, self = this, key = d.key, why = '';
+if (s.saving) return;
+if (!(d.name || '').trim()) why = 'Add a name\u00a0first.';
+else if ((d.email || '').trim() && !AD_MAIL_OK(d.email.trim())) why = 'Check their email. It needs an @ and a\u00a0dot.';
+else if ((d.agentEmail || '').trim() && !AD_MAIL_OK(d.agentEmail.trim())) why = 'Check the agent email. It needs an @ and a\u00a0dot.';
+else if ((d.fee || '').trim() && !AD_FEE_PARSE(d.fee).ok) why = 'Write the fee in dollars, like $1,000 to\u00a0$2,500.';
+if (why) { this.setState({ saveErr: why, saved: false, liveErr: false }); return; }
+this.setState({ saving: key, saveErr: '', saved: false, liveErr: false, photoErr: false });
+this.api.saveDj(AD_DJ_OUT(d, s.base[key])).then(function (r) { if (!self.gone) self.saveDone(key, d, r || {}); });
+}
+saveDone(key, sent, r) {
+var s = this.state, i = s.djs.map(function (x) { return x.key; }).indexOf(key);
+if (i < 0) { this.setState({ saving: '' }); return; }
+var now = s.djs[i], djs = s.djs.slice(), dirtyKeys = Object.assign({}, s.dirtyKeys), base = Object.assign({}, s.base);
+var ids = r.id ? { id: r.id, slug: r.slug } : {}, open = this.cur(), openKey = open ? open.key : '';
+if (!r.ok) {
+djs[i] = Object.assign({}, now, ids);
+if (r.id && !base[key]) base[key] = Object.assign({}, sent, ids, { email: '', agent: '', agentEmail: '', dates: [] });
+this.setState({ djs: djs, base: base, saving: '', saveErr: AD_WHY(r.code) });
+return;
+}
+var dates = AD_SORT((r.dates || []).map(AD_ROW_DATE)), snap = Object.assign({}, sent, ids, AD_TIDY(sent), { dates: dates });
+if (now === sent) { djs[i] = snap; delete dirtyKeys[key]; delete base[key]; }
+else {
+djs[i] = Object.assign({}, now, ids, { dates: now.dates.map(function (x) { return x.id ? x : dates.filter(function (y) { return AD_SAME(x, y) && x.to === y.to; })[0] || x; }) });
+base[key] = snap;
+}
+djs = AD_BYNAME(djs);
+this.setState({ djs: djs, dirtyKeys: dirtyKeys, base: base, saving: '', saveErr: '', saved: now === sent, sel: openKey ? djs.map(function (x) { return x.key; }).indexOf(openKey) : s.sel });
+}
+addDate() {
+var nd = this.state.nd, bad = {}, err = '', d = this.cur(), self = this;
+if (!d) return;
+var to = nd.to || nd.from;
+if (!nd.city.trim()) bad.city = true;
+if (!AD_PARSE(nd.from)) bad.from = true;
+if (bad.city || bad.from) err = 'Add a city and a first\u00a0night.';
+else if (to < nd.from) { bad.to = true; err = 'The last night has to come after the first\u00a0one.'; }
+else if (d.dates.some(function (x) { return AD_SAME(x, nd); })) { bad.from = true; err = 'That one\'s already on the\u00a0list.'; }
+if (err) { this.setState({ ndErr: err, ndBad: bad }); this.later(function () { self.reveal(document.querySelector('.addrow [aria-invalid="true"]')); }); return; }
+var dates = AD_SORT(d.dates.concat([{ city: nd.city.trim(), from: nd.from, to: to }]));
+this.patch({ dates: dates }, { nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {} });
+}
+removeDate(i) {
+var d = this.cur(), self = this;
+if (!d) return;
+var dates = d.dates.slice(); dates.splice(i, 1);
+this.patch({ dates: dates });
+this.later(function () {
+var a = document.activeElement;
+if (a && a !== document.body && document.contains(a)) return;
+var rm = document.querySelectorAll('.dates .dlink');
+self.reveal(rm.length ? rm[Math.min(i, rm.length - 1)] : document.querySelector('.addrow .f-city input'));
+});
+}
+renderVals() {
+var self = this, s = this.state, live = !!this.api, cur = this.cur(), dj = cur || s.djs[0] || AD_NOBODY, apps = this.appList();
+var nLive = 0, needs = 0;
+s.djs.forEach(function (d) { if (d.live) nLive++; if (!d.dates.length) needs++; });
+var drafts = s.djs.length - nLive;
+var countLine = AD_NB(s.djs.length + (s.djs.length === 1 ? ' DJ. ' : ' DJs. ') + nLive + ' live, ' + (drafts ? drafts + (drafts === 1 ? ' draft.' : ' drafts.') : 'no drafts.') + (needs ? ' ' + needs + ' need' + (needs === 1 ? 's' : '') + ' dates.' : ''));
+var chips = [['all', 'All'], ['live', 'Live'], ['draft', 'Drafts'], ['dates', 'Needs dates']].map(function (c) {
+return { label: c[1], on: s.filter === c[0] ? 'true' : 'false', pick: function () { self.setFilter(c[0]); } };
+});
+var rows = [];
+s.djs.forEach(function (d, i) {
+if (i !== s.sel && !AD_MATCH(s.filter, d)) return;
+var last = d.dates.length ? d.dates[d.dates.length - 1] : null;
+rows.push({ name: d.name || 'New DJ', meta: [d.home, d.genres].filter(Boolean).join(' · ') || 'Nothing filled in yet',
+img: d.img, hasImg: !!d.img, noImg: !d.img, initials: AD_INITIALS(d.name), grade: d.grade || AD_GRADE, pos: d.pos || '50% 50%',
+datesText: last ? 'Dates through ' + AD_SHORT(AD_PARSE(last.to)) : 'No dates yet', datesCls: last ? 'rowdates' : 'rowdates rowdates-warn',
+pillText: d.live ? 'Live' : 'Draft', pillCls: d.live ? 'pill pill-live' : 'pill pill-draft',
+current: i === s.sel ? 'true' : 'false', pick: function () { self.pick(i); } });
+});
+var first = dj.name || 'them';
+var set = {};
+['name', 'home', 'genres', 'fee', 'email', 'agent', 'agentEmail', 'sc', 'mc', 'yt', 'bio'].forEach(function (k) {
+set[k] = function (e) { var o = {}; o[k] = (e && e.target && e.target.value) || ''; self.patch(o); };
+});
+var ndSet = {};
+['city', 'from', 'to'].forEach(function (k) {
+ndSet[k] = function (e) { var nd = Object.assign({}, self.state.nd); nd[k] = (e && e.target && e.target.value) || ''; var b = Object.assign({}, self.state.ndBad); delete b[k]; self.setState({ nd: nd, ndBad: b, ndErr: Object.keys(b).length ? self.state.ndErr : '' }); };
+});
+var dirty = !!(cur && s.dirtyKeys[cur.key]);
+var miss = cur && s.liveErr ? AD_NEEDS(cur, live) : [], bad = {};
+miss.forEach(function (m) { bad[m.k] = true; });
+var words = miss.map(function (m) { return m.w; }), nm = (dj.name || '').trim();
+var errText = !miss.length ? '' : AD_NB(nm ? nm + ' still needs ' + AD_AND(words) + '.' : 'Add ' + AD_AND(words) + (s.liveErr === 'save' ? ' to keep them live.' : ' before going live.'));
+var errId = s.liveErr === 'save' ? 'ed-saved' : 'ed-err', inv = {}, desc = {};
+['img', 'name', 'home', 'genres', 'fee', 'links'].forEach(function (k) { inv[k] = bad[k] ? 'true' : 'false'; desc[k] = bad[k] ? errId : ''; });
+if (s.photoErr) { inv.img = 'true'; desc.img = (desc.img ? desc.img + ' ' : '') + 'ed-photo-err'; }
+var saveErr = s.liveErr === 'save' && miss.length > 0;
+var raNew = AD_RA_NEW(dj), raOne = raNew.length === 1, ra = live ? 'off' : s.ra === 'found' && !raNew.length ? 'none' : s.ra;
+var raLine = ra === 'added' ? (s.raN === 1 ? 'Added one gig from Resident Advisor. Remove it if it looks wrong.' : 'Added ' + (AD_COUNT[s.raN] || String(s.raN)).toLowerCase() + ' gigs from Resident Advisor. Remove any that look wrong.')
+: ra === 'none' ? 'Nothing new on Resident Advisor.' : 'Skipped. We\'ll ask ' + first + ' instead.';
+var ask = AD_NEXT_ASK();
+var nWait = apps.filter(function (a) { return !s.decided[a.key]; }).length;
+var saving = !!(cur && s.saving && s.saving === cur.key), liveSaveErr = live && !!s.saveErr;
+return Object.assign({
+views: [['apps', 'Applications', nWait], ['roster', 'Roster', s.djs.length]].map(function (v) {
+return { label: v[1], count: v[2], on: s.view === v[0] ? 'true' : 'false', pick: function () { self.setState({ view: v[0] }); } };
+}),
+isApps: s.view === 'apps', isRoster: s.view === 'roster',
+apTitle: s.loading ? 'One\u00a0sec.' : s.loadErr ? 'That didn\'t\u00a0load.' : nWait ? (AD_COUNT[nWait] || String(nWait)) + (nWait === 1 ? ' DJ wants\u00a0in.' : ' DJs want\u00a0in.') : 'Nobody waiting.',
+apLede: s.loading ? '' : s.loadErr ? s.loadErr : nWait && live ? 'Hear their sets, then approve or pass. Approve puts them in Drafts with their email on the profile. Pass sets them aside. No email goes out yet, so write to them\u00a0yourself.' : nWait ? 'Hear their sets, then approve or pass. Approve puts them in Drafts and sends the welcome email. Pass sends a kind\u00a0no.' : 'All caught up. New ones land here as soon as a DJ sends the form on For\u00a0artists.',
+hasApps: apps.length > 0,
+apps: apps.map(function (a) {
+var how = s.decided[a.key], key = 'app-' + a.key, busy = s.appBusy[a.key] || '', err = s.appErr[a.key] || '', ans = s.answered[a.key] || '';
+var mine = how === 'yes' ? s.djs.filter(function (x) { return x.key === key; })[0] : null, isLive = !!(mine && mine.live), touched = !!(mine && mine !== s.made[a.key]);
+return { key: a.key, name: a.name, city: a.city, sound: a.sound, fee: a.fee || 'Not given', next: a.next || 'Not given', email: a.email, mailto: 'mailto:' + a.email, sent: a.sent,
+cityLine: AD_NB([a.city, a.sound].filter(Boolean).map(function (x) { return x + '.'; }).join(' ') || 'No city given.'), sentLine: AD_NB(a.sent),
+approveLabel: busy === 'yes' ? 'One sec' : 'Approve', passLabel: busy === 'no' ? 'One sec' : 'Pass', undoLabel: busy === 'undo' ? 'One sec' : 'Undo',
+busyYes: busy === 'yes' ? 'true' : 'false', busyNo: busy === 'no' ? 'true' : 'false', busyUndo: busy === 'undo' ? 'true' : 'false', hasErr: !!err, err: err,
+sets: a.sets.map(function (x) { return { label: x.label, href: 'https://' + x.url }; }),
+waiting: !how, decided: !!how, doneLine: (how === 'yes' ? (isLive ? 'is\u00a0live.' : mine || !live ? 'is in\u00a0Drafts.' : 'was\u00a0approved.') : 'is a\u00a0no.') + (ans ? ' ' + ans : ''), canOpen: how === 'yes' && (!live || !!mine),
+openLabel: isLive ? 'Open in the roster' : 'Open the draft', canUndo: how !== 'yes' || (!touched && (!live || !!mine)),
+approve: function (e) { self.decide(a, 'yes', !!e && e.detail === 0); }, pass: function (e) { self.decide(a, 'no', !!e && e.detail === 0); },
+approveAria: 'Approve ' + a.name, passAria: 'Pass on ' + a.name,
+open: function () { if (!self.justAnswered(a)) self.openDraft(a); }, undo: function () { if (!self.justAnswered(a)) self.undecide(a); }, undoAria: 'Undo ' + a.name };
+}),
+countLine: s.loading ? 'One\u00a0sec.' : s.loadErr ? s.loadErr : countLine, chips: chips, rows: rows, emptyList: !rows.length,
+emptyLine: s.filter === 'live' ? 'Nobody\'s live right\u00a0now.' : s.filter === 'draft' ? 'No drafts. Nice\u00a0work.' : s.filter === 'dates' ? 'Everyone has dates. Nice\u00a0work.' : 'No DJs\u00a0yet.',
+hasSel: !!cur,
+addDj: function () { self.addDj(); },
+e: { title: dj.name || 'New DJ', name: dj.name, home: dj.home, genres: dj.genres, fee: dj.fee, email: dj.email || '', agent: dj.agent, agentEmail: dj.agentEmail, sc: dj.sc || '', mc: dj.mc || '', yt: dj.yt || '', bio: dj.bio,
+img: dj.img, imgAlt: dj.name ? dj.name + ', profile photo' : 'Profile photo', hasImg: !!dj.img, noImg: !dj.img, initials: AD_INITIALS(dj.name),
+grade: dj.grade || AD_GRADE, pos: dj.pos || '50% 50%',
+extra: (dj.extra || []).map(function (x, i) { return { sep: i ? ', ' : '', label: x.label, href: 'https://' + x.url }; }), hasExtra: !!(dj.extra && dj.extra.length) },
+set: set, inv: inv, desc: desc, nameRef: this.nameRef,
+photoLabel: dj.img ? 'Change photo' : 'Add a photo',
+photoNote: live ? 'Photos aren\'t hooked up yet, so nothing uploads from\u00a0here.' : 'A square photo works best. Black and white is fine, we grade it\u00a0anyway.',
+pickPhoto: function (e) {
+var input = e && e.target, f = input && input.files && input.files[0], d = self.cur();
+if (live) { try { input.value = ''; } catch (err0) {} return; }
+if (!f || !d || typeof URL === 'undefined' || !URL.createObjectURL) return;
+var key = d.key, url = URL.createObjectURL(f), im = new Image();
+try { input.value = ''; } catch (err) {}
+var still = function () { var c = self.cur(); return !!(c && c.key === key); };
+var fail = function () { URL.revokeObjectURL(url); if (still()) self.setState({ photoErr: true }); };
+im.onload = function () { if (!im.naturalWidth || !still()) { fail(); return; } self.patch({ img: url, grade: '', pos: '' }, { photoErr: false }); };
+im.onerror = fail;
+if (f.type && !/^image\//.test(f.type)) fail(); else im.src = url;
+},
+photoErr: !!s.photoErr,
+draftOn: dj.live ? 'false' : 'true', liveOn: dj.live ? 'true' : 'false',
+setDraft: function () { var d = self.cur(); if (d && d.live) self.patch({ live: false }, { liveErr: false }); },
+setLive: function () { self.goLive(); },
+topErr: s.liveErr === 'live' && miss.length > 0, errText: errText,
+remindLine: live ? 'Add where they\'ll be and when. Hosts in that city can find them on those nights once you\u00a0save.' : ask ? 'We text ' + first + ' for new dates on the first Monday of every month. Next one: ' + ask + '.' : 'We text ' + first + ' for new dates on the first Monday of every month.',
+dates: dj.dates.map(function (d, i) {
+return { range: AD_RANGE(d.from, d.to), city: d.city, removeAria: 'Remove ' + d.city + ', ' + AD_RANGE(d.from, d.to).replace(/ /g, ' '), remove: function () { self.removeDate(i); } };
+}),
+hasDates: dj.dates.length > 0, noDates: dj.dates.length === 0,
+nd: s.nd, ndSet: ndSet, ndInv: { city: s.ndBad.city ? 'true' : 'false', from: s.ndBad.from ? 'true' : 'false', to: s.ndBad.to ? 'true' : 'false' },
+ndEmpty: { from: s.nd.from ? 'false' : 'true', to: s.nd.to ? 'false' : 'true' }, ndDescribe: { city: s.ndErr && s.ndBad.city ? 'err-nd' : '', from: s.ndErr && s.ndBad.from ? 'err-nd' : '', to: s.ndErr && s.ndBad.to ? 'err-nd' : '' },
+addDate: function () { self.addDate(); }, hasDateErr: !!s.ndErr, noDateErr: !s.ndErr, dateErr: s.ndErr,
+raIdle: ra === '', raFound: ra === 'found', raDone: ra === 'added' || ra === 'skipped' || ra === 'none', raDoneLine: AD_NB(raLine),
+raFoundLine: AD_NB(raOne ? 'Found one gig that isn\'t on the list. Sample results for now.' : 'Found ' + (AD_COUNT[raNew.length] || String(raNew.length)).toLowerCase() + ' gigs that aren\'t on the list. Sample results for now.'),
+raAddLabel: raOne ? 'Add it' : 'Add both', raSkipLabel: raOne ? 'Not this one' : 'Not these',
+raRows: raNew.map(function (x) { return { range: AD_RANGE(x.from, x.to), city: x.city, venue: x.venue }; }),
+raCheck: function () {
+var d = self.cur();
+if (!d) return;
+var n = AD_RA_NEW(d).length;
+self.setState({ ra: n ? 'found' : 'none' });
+self.later(function () { self.reveal(document.querySelector(n ? '.ra .rabtns .go' : '#ra-done')); });
+},
+raAdd: function () {
+var d = self.cur();
+if (!d) return;
+var fresh = AD_RA_NEW(d).map(function (x) { return { city: x.city, from: x.from, to: x.to }; });
+if (fresh.length) self.patch({ dates: AD_SORT(d.dates.concat(fresh)) }, { ra: 'added', raN: fresh.length });
+else self.setState({ ra: 'none' });
+self.later(function () { self.reveal(document.getElementById('ra-done')); });
+},
+raSkip: function () { self.setState({ ra: 'skipped' }); self.later(function () { self.reveal(document.getElementById('ra-done')); }); },
+dirty: dirty, footCls: dirty ? 'foot foot-on' : 'foot',
+saveCls: dirty ? 'btn go' : 'btn btn-off', saveDisabled: dirty ? 'false' : 'true',
+save: function () { self.save(); }, neverMind: function (e) { self.neverMind(!!e && e.detail === 0); },
+hostsOn: live ? !!(cur && cur.live && !dirty && cur.id) : !!(cur && cur.live && !dirty && AD_HOSTS[cur.key]),
+hostsHref: live ? (cur && cur.slug === 'kaytran' ? 'account.html' : 'roster.html#lineup') : (cur && AD_HOSTS[cur.key]) || 'roster.html',
+saveLabel: saving ? 'One sec' : 'Save changes', saveBusy: saving ? 'true' : 'false',
+acctName: live ? s.me : 'Erika',
+logOut: live ? function (e) {
+if (e && e.preventDefault) e.preventDefault();
+if (self.leaving) return;
+self.leaving = true;
+window.BOOKD.auth.signOut().then(function () { location.href = 'index.html'; });
+} : undefined,
+savedCls: saveErr || liveSaveErr ? 'saved saved-err' : 'saved',
+savedLine: saveErr ? errText : liveSaveErr ? s.saveErr : live ? (s.saved ? 'Saved.' : dirty ? 'Unsaved\u00a0changes.' : '') : s.saved ? 'Saved. This is a sample, so nothing left the\u00a0page.' : (dirty ? 'Unsaved\u00a0changes.' : 'Sample page. Changes stay on this page for\u00a0now.')
+}, nav6Vals(this, {}));
+}
+}</script>
+<script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
+<script src="bookd-api.js"></script>
+<script src="bookd-manage.js"></script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

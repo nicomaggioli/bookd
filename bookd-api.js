@@ -531,6 +531,21 @@ showDb: showDb, datesOf: datesOf }
 (function () {
 var B = window.BOOKD; if (!B || !B.ready) return;
 var _ = B._, sb = _.sb;
+B.me = {
+city: function () {
+return _.guard(sb.auth.getSession().then(function (r) {
+var u = r && r.data && r.data.session ? r.data.session.user : null;
+if (!u) return { ok: true, city: '' };
+return sb.from('profiles').select('city').eq('id', u.id).maybeSingle().then(function (q) {
+return _.bad(q) || { ok: true, city: (q.data && q.data.city) || '' };
+});
+}));
+}
+};
+})();
+(function () {
+var B = window.BOOKD; if (!B || !B.ready) return;
+var _ = B._, sb = _.sb;
 B.waitlist = {
 join: function (o) {
 return _.guard(sb.rpc('join_waitlist', { p_email: _.clip(o && o.email, 200), p_who: o && o.who === 'dj' ? 'dj' : 'host' }).then(function (r) {

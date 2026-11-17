@@ -26,6 +26,7 @@
 <link rel="manifest" href="site.webmanifest">
 <noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
 <link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
@@ -268,6 +269,21 @@ html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height
 html .ns-h:focus,html .ns-h:focus-visible{outline:none}
 html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
 html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
 </helmet>
 <div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
 <header class="nav6">
@@ -292,6 +308,7 @@ html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" aria-current="{{curJoin}}" onClick="{{closeMenu}}">For artists</a>
 <a class="nl" href="{{loginHref}}" aria-current="{{curLogin}}" onClick="{{closeMenu}}">{{loginText}}</a>
+<a class="btn go mbook" href="{{bookHref}}" onClick="{{bookNow}}">Book a DJ</a>
 </nav>
 </sc-if>
 </header>
@@ -491,9 +508,11 @@ items[0].focus();
 function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
-if (w.role === 'admin') return { href: 'login.html', text: 'Your dashboard' };
-if (w.role === 'dj') return { href: 'login.html', text: 'Your dashboard' };
-return { href: 'login.html', text: 'Your inbox' };
+if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+var c = window.BOOKD_CONFIG;
+if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
+if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
+return { href: 'account.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;
@@ -634,6 +653,7 @@ apDoneText: 'The BOOKD team listens to every set and replies within 5 days. Keep
 }
 }</script>
 <script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
 <script src="bookd-api.js"></script>
 <script src="dc-runtime.js"></script>
 </body>
