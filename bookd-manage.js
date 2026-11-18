@@ -346,6 +346,14 @@ return sb.storage.from(PHOTOS).remove(gone).then(function () { return tidy; }, f
 }, function () { return tidy; });
 } catch (e) { return Promise.resolve(tidy); }
 },
+tourDates: function (djId) { return _.guard(datesOf(djId)); },
+addDate: function (djId, d) {
+var row = { dj_id: djId, city: _.clip(d && d.city, 120), starts_on: d && d.starts_on, ends_on: (d && d.ends_on) || (d && d.starts_on), source: 'admin' };
+return _.guard(sb.from('tour_dates').insert(row).then(function (r) { return _.bad(r) || datesOf(djId); }));
+},
+removeDate: function (djId, dateId) {
+return _.guard(sb.from('tour_dates').delete().eq('dj_id', djId).eq('id', dateId).then(function (r) { return _.bad(r) || datesOf(djId); }));
+},
 load: function () {
 return _.guard(Promise.all([
 sb.from('djs').select('*').order('name'),
