@@ -747,8 +747,14 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 
 <section class="e6-card" data-s="rider" aria-labelledby="e6-c-rider">
 <h2 id="e6-c-rider" tabindex="-1">What they&nbsp;need.</h2>
+<h3 class="e6-h3" id="e6-l-equip" style="margin-top: 0;">Equipment&nbsp;provided?</h3>
+<div class="e6-chips" role="group" aria-labelledby="e6-l-equip">
+<sc-for list="{{equips}}" as="q" hint-placeholder-count="2"><button type="button" class="e6-chip" aria-pressed="{{q.on}}" onClick="{{q.pick}}">{{q.label}}</button></sc-for>
+</div>
+<sc-if value="{{equipNo}}" hint-placeholder-val="{{ false }}"><p class="e6-note">They bring their own. Their page says&nbsp;so.</p></sc-if>
+<sc-if value="{{equipYes}}" hint-placeholder-val="{{ true }}">
 <div class="e6-f">
-<label class="field"><span class="field-l">The rider, one need on each line</span><textarea rows="6" name="rider_lines" value="{{form.rider}}" onInput="{{set.rider}}" placeholder="2 x Pioneer CDJ-3000" aria-invalid="{{inv.rider}}" aria-describedby="{{desc.rider}}"></textarea></label>
+<label class="field"><span class="field-l">What they need, one on each line</span><textarea rows="6" name="rider_lines" value="{{form.rider}}" onInput="{{set.rider}}" placeholder="2 x Pioneer CDJ-3000" aria-invalid="{{inv.rider}}" aria-describedby="{{desc.rider}}"></textarea></label>
 <sc-if value="{{err.rider}}" hint-placeholder-val="{{ false }}"><span id="e6-err-rider" class="e6-err ferr" role="alert">{{errText.rider}}</span></sc-if>
 <sc-if value="{{tip.rider}}" hint-placeholder-val="{{ false }}"><span class="e6-hint fhint">{{tipText.rider}}</span></sc-if>
 </div>
@@ -764,6 +770,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <span id="e6-hint-riderLink" class="e6-hint fhint">Anyone can open this link. Check the file has no phone&nbsp;numbers.</span>
 </div>
 </div>
+</sc-if>
 </section>
 
 <section class="e6-card" data-s="look" aria-labelledby="e6-c-look">
@@ -1192,10 +1199,11 @@ return m ? { view: 'edit', slug: m[1] } : null;
 }
 function e6Hash(r) { return r.view === 'add' ? '#add' : r.view === 'edit' ? '#edit/' + r.slug : '#roster'; }
 function e6Same(a, b) { return !!a && !!b && a.view === b.view && (a.slug || '') === (b.slug || ''); }
+var E6_OWN = 'Brings their own equipment.';
 function e6Blank() {
 return { slug: '', name: '', first: '', firstAuto: true, home: '', tag: '', genres: [], img: '', px: 50, py: 30, alt: '', bio: '',
 links: [{ label: '', url: '' }], sets: [{ title: '', url: '' }], findLabel: '', findUrl: '', rider: '', riderNote: '', riderLink: '',
-bg: 'red', image: '', record: '', sign: 'left', status: 'draft', email: '', agent: '', agentEmail: '' };
+bg: 'red', image: '', record: '', sign: 'left', status: 'draft', email: '', agent: '', agentEmail: '', equip: '' };
 }
 function e6Form(a) {
 var f = e6Blank(), p = /^(\d{1,3})% (\d{1,3})%$/.exec(a.pos || ''), lk = a.look || {}, pv = (a.meta && a.meta.private) || {};
@@ -1208,17 +1216,20 @@ if (a.links && a.links.length) f.links = a.links.map(function (l) { return { lab
 if (a.sets && a.sets.length) f.sets = a.sets.map(function (t) { return { title: t.title || '', url: t.url || '' }; });
 f.findLabel = a.find ? a.find.label || '' : ''; f.findUrl = a.find ? a.find.url || '' : '';
 f.rider = (a.rider || []).join('\n'); f.riderNote = a.riderNote || ''; f.riderLink = a.riderLink || '';
+f.equip = e6One(f.rider) || e6One(f.riderLink) ? 'yes' : e6One(f.riderNote) === E6_OWN ? 'no' : e6One(f.riderNote) ? 'yes' : '';
+if (f.equip === 'no') f.riderNote = '';
 f.bg = lk.bg === 'black' || lk.bg === 'cream' ? lk.bg : 'red'; f.image = lk.image || ''; f.record = lk.record || ''; f.sign = lk.sign === 'right' ? 'right' : 'left';
 f.status = a.status === 'live' ? 'live' : 'draft';
 f.email = pv.contact_email || ''; f.agent = pv.agent_name || ''; f.agentEmail = pv.agent_email || '';
 return f;
 }
 function e6Artist(f, status, withPrivate) {
+var own = f.equip === 'no';
 var a = { name: f.name, first: f.first, tag: f.tag, genres: f.genres.slice(), home: f.home, img: f.img, alt: f.alt, pos: f.px + '% ' + f.py + '%', bio: f.bio,
 sets: f.sets.map(function (t) { return { title: t.title, url: t.url }; }),
 find: e6One(f.findLabel) || e6One(f.findUrl) ? { label: f.findLabel, url: f.findUrl } : null,
 links: f.links.map(function (l) { return { label: l.label, url: l.url }; }),
-rider: f.rider.split('\n'), riderNote: f.riderNote, riderLink: f.riderLink,
+rider: own ? [''] : f.rider.split('\n'), riderNote: own ? E6_OWN : f.riderNote, riderLink: own ? '' : f.riderLink,
 look: { bg: f.bg, image: f.image, record: f.record, sign: f.sign }, status: status };
 if (f.slug) a.slug = f.slug;
 if (withPrivate) a.meta = { private: { contact_email: f.email, agent_name: f.agent, agent_email: f.agentEmail } };
@@ -2007,7 +2018,7 @@ this.stepKeys = defs.map(function (d) { return d[0]; });
 var cur = this.stepKeys.indexOf(s.step) >= 0 ? s.step : 'basics', at = this.stepKeys.indexOf(cur), next = defs[at + 1];
 var hasBio = e6Paras(f.bio).length > 0;
 var filled = { basics: !!(name && tag && home && f.genres.length), photo: !!f.img, about: hasBio,
-sets: f.sets.some(function (t) { return !!e6One(t.url); }) || !!e6One(f.findUrl), rider: !!(e6One(f.rider) || e6One(f.riderNote) || e6One(f.riderLink)),
+sets: f.sets.some(function (t) { return !!e6One(t.url); }) || !!e6One(f.findUrl), rider: f.equip === 'no' || !!(e6One(f.rider) || e6One(f.riderNote) || e6One(f.riderLink)),
 look: !!(f.image || f.record || f.bg !== 'red' || f.sign !== 'left'), private: !!e6One(f.email),
 dates: s.dateList ? s.dateList.length > 0 : !!(saved && saved.dates && saved.dates.length) };
 var marked = {};
@@ -2042,6 +2053,8 @@ bioCount: e6Num(bioLen) + ' of ' + e6Num(L.bioChars) + ' letters\u00a0used.',
 links: row('links', 'label', 'url', ['Link', 'Address for link', 'link']), canAddLink: f.links.length < L.links, addLink: this.addLink,
 sets: row('sets', 'title', 'url', ['Set', 'SoundCloud link for set', 'set']), canAddSet: f.sets.length < L.sets, addSet: this.addSet,
 findHolder: 'Find ' + (first || 'them') + ' on SoundCloud',
+equips: [['yes', 'Yes'], ['no', 'No']].map(function (q) { return { label: q[1], on: f.equip === q[0] ? 'true' : 'false', pick: function () { self.choose('equip', q[0]); } }; }),
+equipYes: f.equip === 'yes', equipNo: f.equip === 'no',
 swatches: this.bgs.map(function (b) { return { key: b, label: b.charAt(0).toUpperCase() + b.slice(1), on: f.bg === b ? 'true' : 'false', pick: function () { self.choose('bg', b); } }; }),
 sides: [['left', 'Bottom left'], ['right', 'Bottom right']].map(function (d) { return { label: d[1], on: f.sign === d[0] ? 'true' : 'false', pick: function () { self.choose('sign', d[0]); } }; }),
 hasImage: !!f.image, hasRecord: !!f.record, noRecord: !f.record,
