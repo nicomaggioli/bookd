@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
+<head><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
 <meta charset="utf-8">
 <style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
 <script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
@@ -190,6 +190,7 @@ html .e6 .e6-dl[aria-disabled="true"]{background:rgba(255,255,255,.2);color:#a2a
 .e6-card h2{margin:0 0 8px;font-size:clamp(28px,calc(2.4 * var(--vw)),36px);line-height:1;font-weight:700;letter-spacing:-0.06em}
 .e6-h3{margin:16px 0 0;font-size:17px;line-height:1.2;font-weight:700;letter-spacing:-0.02em}
 .e6-note{margin:0;font-size:15px;line-height:1.45;color:rgba(0,0,0,.7)}
+.e6-claim .btn{align-self:flex-start;margin-top:10px}
 html .e6-card > .ferr{padding:0}
 .e6-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .e6-f{display:flex;flex-direction:column;min-width:0}
@@ -818,6 +819,12 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <label class="field"><span class="field-l">Their email</span><input type="email" name="contact_email" value="{{form.email}}" onInput="{{set.email}}" placeholder="name@example.com" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{inv.email}}" aria-describedby="{{desc.email}}"></label>
 <sc-if value="{{err.email}}" hint-placeholder-val="{{ false }}"><span id="e6-err-email" class="e6-err ferr" role="alert">{{errText.email}}</span></sc-if>
 </div>
+<sc-if value="{{hasClaim}}" hint-placeholder-val="{{ false }}">
+<div class="e6-f e6-claim">
+<label class="field"><span class="field-l">Their sign up link</span><input type="text" name="claim_link" value="{{claimLink}}" readonly onFocus="{{claimPick}}" spellcheck="false"></label>
+<button type="button" class="btn btn-sm" onClick="{{claimCopy}}">{{claimLabel}}</button>
+</div>
+</sc-if>
 <div class="e6-two">
 <div class="e6-f">
 <label class="field"><span class="field-l">Agent's name</span><input type="text" name="agent_name" value="{{form.agent}}" onInput="{{set.agent}}" autocomplete="off"></label>
@@ -1223,6 +1230,17 @@ f.status = a.status === 'live' ? 'live' : 'draft';
 f.email = pv.contact_email || ''; f.agent = pv.agent_name || ''; f.agentEmail = pv.agent_email || '';
 return f;
 }
+function e6ClaimLink(code) {
+var l = window.location, local = /^(localhost|127\.0\.0\.1)$/.test(l.hostname);
+return l.origin + l.pathname.replace(/[^/]*$/, '') + (local ? 'login.html' : 'login') + '#claim=' + code;
+}
+function e6Print(f) {
+if (!f) return '';
+var c = Object.assign({}, f);
+if (c.equip === 'no') { c.rider = ''; c.riderNote = ''; c.riderLink = ''; }
+else c.equip = e6One(c.rider) || e6One(c.riderNote) || e6One(c.riderLink) ? 'yes' : '';
+return JSON.stringify(c);
+}
 function e6Artist(f, status, withPrivate) {
 var own = f.equip === 'no';
 var a = { name: f.name, first: f.first, tag: f.tag, genres: f.genres.slice(), home: f.home, img: f.img, alt: f.alt, pos: f.px + '% ' + f.py + '%', bio: f.bio,
@@ -1279,13 +1297,15 @@ return { errors: out, count: n };
 }
 function e6Over(f, L) {
 var out = {}, len = function (v) { return e6One(v).length; };
+var own = f.equip === 'no';
 [['name', L.name], ['first', L.first], ['tag', L.tag], ['home', L.home], ['alt', L.alt], ['riderNote', L.riderNote], ['findLabel', L.findLabel]].forEach(function (x) {
+if (own && x[0] === 'riderNote') return;
 if (len(f[x[0]]) > x[1]) out[x[0]] = e6Long(x[1]);
 });
 var paras = e6Paras(f.bio);
 if (paras.length > L.bioParas) out.bio = 'Keep it to ' + L.bioParas + ' paragraphs.';
 else if (paras.join('\n\n').length > L.bioChars) out.bio = 'Too long. Keep the bio to ' + e6Num(L.bioChars) + ' letters.';
-var lines = f.rider.split('\n'), kept = 0, i;
+var lines = own ? [] : f.rider.split('\n'), kept = 0, i;
 for (i = 0; i < lines.length; i++) {
 if (!e6One(lines[i])) continue;
 kept++;
@@ -1327,6 +1347,7 @@ if (code === 'forbidden') return 'Only the BOOKD admin can save here. Nothing wa
 if (code === 'tooBig') return 'A picture is too big to upload, so nothing was saved. Choose a smaller one and try again.';
 if (code === 'photo') return "A picture wouldn't upload, so nothing was saved. Choose it again and try once more.";
 if (code === 'unsupported') return "That doesn't work here. Nothing was changed.";
+if (code === 'kept') return 'Their profile is live or claimed now, so it stays. Nothing was changed.';
 if (code === 'board') return 'This is the design board, so nothing is saved here. The real page saves.';
 return "That didn't go through, so nothing was saved. Check your connection and try again.";
 }
@@ -1492,6 +1513,14 @@ this.noSubmit = function (e) { if (e && e.preventDefault) e.preventDefault(); };
 this.retry = function () { self.setState({ phase: 'loading', loadCode: '' }); self.start(); };
 this.saveA = function () { var f = self.state.form; if (f) self.save(f.status === 'live' ? 'off' : 'draft'); };
 this.saveB = function () { self.save('live'); };
+this.claimPick = function (e) { try { e.target.select(); } catch (x) {} };
+this.claimCopy = function (e) {
+var box = document.querySelector('.e6-claim input'), link = box ? box.value : '';
+if (!link) return;
+var done = function () { self.setState({ copied: true }); clearTimeout(self.copyT); self.copyT = setTimeout(function () { if (!self.gone) self.setState({ copied: false }); }, 2000); };
+var old = function () { try { box.select(); if (document.execCommand('copy')) done(); } catch (x) {} };
+try { navigator.clipboard.writeText(link).then(done, old); } catch (x) { old(); }
+};
 this.askReset = function () { self.askFor('reset'); };
 this.askRemove = function () { self.askFor('remove'); };
 this.download = function () { self.getFile(); };
@@ -1608,7 +1637,7 @@ var all = list || this.state.artists, i;
 for (i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
 return null;
 }
-isDirty() { var s = this.state; return !!s.form && JSON.stringify(s.form) !== s.base; }
+isDirty() { var s = this.state; return !!s.form && e6Print(s.form) !== s.base; }
 go(route, fromAddress) {
 var self = this;
 if (!this.isDirty()) { this.enter(route, fromAddress ? 'none' : 'push'); return; }
@@ -1623,7 +1652,7 @@ if (route.view === 'edit' && !a) { route = { view: 'list' }; if (how === 'none')
 if (route.view === 'edit') form = e6Form(a); else if (route.view === 'add') form = e6Blank();
 this.route = route; this.token++; this.drag = false; this.datesFor = '';
 this.focusHead = true; this.focusBad = false;
-this.setState({ view: route.view, form: form, base: form ? JSON.stringify(form) : '', errors: {}, tips: a ? e6Tips(a) : {}, busy: '', picking: '', bar: null, listMsg: msg || null, dialog: null, step: 'basics', pvTab: 'card', dateList: null, dateForm: { city: '', from: '', to: '' }, dateErr: '', dateBusy: '' });
+this.setState({ view: route.view, form: form, base: e6Print(form), errors: {}, tips: a ? e6Tips(a) : {}, busy: '', picking: '', bar: null, listMsg: msg || null, dialog: null, copied: false, step: 'basics', pvTab: 'card', dateList: null, dateForm: { city: '', from: '', to: '' }, dateErr: '', dateBusy: '' });
 this.address(route, how);
 }
 address(route, how) {
@@ -1666,6 +1695,12 @@ if (!r || !r.ok) { self.setState({ appsPhase: 'error' }); return; }
 self.setState({ appsPhase: 'ready', apps: (r.applications || []).map(e6App) });
 });
 }
+askUndo(a) {
+var self = this;
+if (a.status !== 'approved' || !this.made[a.id]) { this.decide(a, 'undo'); return; }
+this.ask({ title: 'Undo the\u00a0approval?', text: 'The draft made for ' + (e6One(a.name) || 'this DJ') + ' is deleted, with anything added to it\u00a0since.',
+yes: 'Undo and delete the draft', no: 'Keep it', onYes: function () { self.decide(a, 'undo'); } });
+}
 decide(a, how) {
 var self = this, A = e6Admin(), s = this.state;
 if (!A || s.appBusy[a.id]) return;
@@ -1688,14 +1723,16 @@ datesLoad() {
 var self = this, A = e6Admin(), id = this.datesId();
 if (!A || !id || this.datesFor === id) return;
 this.datesFor = id;
+var n = this.datesSeq = (this.datesSeq || 0) + 1;
 A.tourDates(id).then(function (r) {
-if (self.gone || self.datesFor !== id) return;
+if (self.gone || self.datesFor !== id || n !== self.datesSeq) return;
 if (!r || !r.ok) { self.datesFor = ''; self.setState({ dateList: [], dateErr: "The dates wouldn't load. Open this step again to retry." }); return; }
 self.setState({ dateList: r.dates || [] });
 });
 }
 datesDone(id, r, what) {
 if (this.gone || this.datesFor !== id) return;
+this.datesSeq = (this.datesSeq || 0) + 1;
 if (!r || !r.ok) { this.setState({ dateBusy: '', dateErr: e6Fail((r && r.code) || 'unknown') }); return; }
 var patch = { dateBusy: '', dateErr: '', dateList: r.dates || [] };
 if (what === 'add') { patch.dateForm = { city: '', from: '', to: '' }; this.focusNext = '.e6-dadd input[name="date_city"]'; }
@@ -1806,15 +1843,22 @@ if (k === 'img') { n.px = 50; n.py = 30; }
 self.setState({ picking: '', form: n, bar: null });
 });
 }
-save(kind) {
+save(kind, sure) {
 var self = this, s = this.state, f = s.form, token = this.token;
 if (!f || s.busy) return;
 var status = kind === 'live' ? 'live' : 'draft';
 if (f.slug && f.status === status && !this.isDirty()) { this.setState({ bar: { kind: 'note', text: 'Nothing new to\u00a0save.' } }); return; }
+var was = null; try { was = s.base ? JSON.parse(s.base) : null; } catch (e) {}
+if (f.equip === 'no' && !sure && was && was.equip === 'yes') {
+this.ask({ title: 'Remove their equipment\u00a0list?', text: 'Saving No takes the list, the note and the rider link off ' + (e6One(f.name) || 'this DJ') + "'s page for\u00a0good.",
+yes: 'Remove and save', no: 'Keep the list', onYes: function () { self.save(kind, true); } });
+return;
+}
 this.setState({ busy: kind, bar: null });
 this.M.save(e6Artist(f, status, this.mode === 'database'), BOOKD_DJS).then(function (r) {
-if (self.gone || token !== self.token) return;
-if (r && r.ok && r.artist) { self.kept(r.artist, e6Saved(self.mode, kind, r.artist, e6Shown(r.artist, self.mode === 'device'))); return; }
+if (self.gone) return;
+if (token !== self.token) { if (r && r.ok) self.refresh(); return; }
+if (r && r.ok && r.artist) { self.kept(r.artist, e6Saved(self.mode, kind, r.artist, e6Shown(r.artist, self.mode === 'device')), f); return; }
 var patch = { busy: '' }, code = (r && r.code) || 'unknown';
 if (code === 'invalid') {
 var pr = e6Problems(r.problems, self.L);
@@ -1838,13 +1882,20 @@ self.refresh();
 self.setState(patch);
 });
 }
-kept(a, text) {
-var form = e6Form(a), had = false;
+kept(a, text, sent) {
+var form = e6Form(a), had = false, now = this.state.form, late = false;
+if (form.equip === '' && now && now.equip === 'yes') form.equip = 'yes';
+var base = e6Print(form);
+if (sent && now && now !== sent) Object.keys(now).forEach(function (k) {
+if (k === 'slug' || k === 'status' || JSON.stringify(now[k]) === JSON.stringify(sent[k])) return;
+form[k] = now[k]; late = true;
+});
+if (late) text += ' What you changed since still needs\u00a0saving.';
 var list = this.state.artists.map(function (x) { if (x.slug === a.slug) { had = true; return a; } return x; });
 if (!had) list = list.concat([a]);
 this.route = { view: 'edit', slug: a.slug };
 this.address(this.route, 'replace');
-this.setState({ busy: '', artists: list, view: 'edit', form: form, base: JSON.stringify(form), errors: {}, tips: e6Tips(a), bar: { kind: 'ok', text: text }, sent: '' });
+this.setState({ busy: '', artists: list, view: 'edit', form: form, base: base, errors: {}, tips: e6Tips(a), bar: { kind: 'ok', text: text }, sent: '' });
 this.refresh();
 }
 askFor(what) {
@@ -1952,7 +2003,7 @@ hasAppsNote: s.appsPhase !== 'ready' || !s.apps.length,
 appsNote: s.appsPhase === 'error' ? "The applications wouldn't load. Check your connection, then open this tab again." : s.appsPhase !== 'ready' ? 'One sec. Getting the applications.' : 'No applications yet. They land here when a DJ sends the form on For artists.',
 apps: s.apps.map(function (a) {
 var busy = s.appBusy[a.id] || '', err = s.appErr[a.id] || '', mine = self.made[a.id], yes = a.status === 'approved', waiting = a.status === 'pending';
-return { name: a.name, meta: [a.city, a.sent].filter(Boolean).join(' · '), fee: a.fee || 'Not given', next: a.next || 'Not given', email: a.email, mailto: 'mailto:' + a.email,
+return { name: a.name, meta: [a.city, a.sent].filter(Boolean).join(' · '), fee: a.fee || 'Not given', next: a.next || 'Not given', email: a.email, mailto: 'mailto:' + encodeURIComponent(a.email).replace(/%40/g, '@'),
 sets: a.sets.map(function (x) { return { label: x.label, href: 'https://' + x.url }; }), noSets: !a.sets.length,
 waiting: waiting, decided: !waiting, doneWord: yes ? 'Approved' : 'Passed', pillCls: 'e6-pill ' + (yes ? 'e6-pill-live' : 'e6-pill-draft'),
 canOpen: yes && !!mine, canUndo: !waiting && (!yes || !!mine),
@@ -1960,12 +2011,13 @@ approveLabel: busy === 'yes' ? 'One sec' : 'Approve', passLabel: busy === 'no' ?
 busyYes: busy === 'yes' ? 'true' : 'false', busyNo: busy === 'no' ? 'true' : 'false', busyUndo: busy === 'undo' ? 'true' : 'false',
 approveAria: 'Approve ' + a.name, passAria: 'Pass on ' + a.name, undoAria: 'Undo ' + a.name,
 hasErr: !!err, err: err,
-approve: function () { self.decide(a, 'yes'); }, pass: function () { self.decide(a, 'no'); }, undo: function () { self.decide(a, 'undo'); },
+approve: function () { self.decide(a, 'yes'); }, pass: function () { self.decide(a, 'no'); }, undo: function () { self.askUndo(a); },
 open: function () { if (mine) self.go({ view: 'edit', slug: mine.slug }); } };
 })
 }, nav6Vals(this, {}));
 }
-var saved = f.slug ? this.find(f.slug) : null, meta = (saved && saved.meta) || {}, dirty = JSON.stringify(f) !== s.base;
+var saved = f.slug ? this.find(f.slug) : null, meta = (saved && saved.meta) || {}, dirty = e6Print(f) !== s.base;
+var pvSaved = meta.private || {}, claim = !meta.claimed && pvSaved.claim_code && pvSaved.contact_email && e6One(f.email).toLowerCase() === String(pvSaved.contact_email).toLowerCase() ? e6ClaimLink(pvSaved.claim_code) : '';
 var isLive = f.status === 'live', clean = !!f.slug && !dirty;
 var over = e6Over(f, L), errs = Object.assign({}, over, s.errors), tips = s.tips;
 var name = e6One(f.name), first = e6One(f.first) || e6First(f.name), tag = e6One(f.tag), home = e6One(f.home);
@@ -2060,7 +2112,8 @@ sides: [['left', 'Bottom left'], ['right', 'Bottom right']].map(function (d) { r
 hasImage: !!f.image, hasRecord: !!f.record, noRecord: !f.record,
 imageNote: f.image ? 'Shown in black and white behind their name, under a wash of the colour\u00a0above.' : 'None. The top of their page is the plain\u00a0colour.',
 recordNote: f.record ? 'Printed in black on the red label in the middle of their\u00a0record.' : 'None. The label is plain red with their name on\u00a0it.',
-claimNote: meta.claimed ? 'They have made an account and claimed this\u00a0profile.' : 'They claim their profile by making an account with this\u00a0email.',
+claimNote: meta.claimed ? 'They have made an account and claimed this\u00a0profile.' : claim ? 'Send them the link. They make an account with this email and the profile is\u00a0theirs.' : 'Add their email and save. Their sign up link shows\u00a0here.',
+hasClaim: !!claim, claimLink: claim, claimPick: this.claimPick, claimCopy: this.claimCopy, claimLabel: s.copied ? 'Copied' : 'Copy the link',
 dates: (s.dateList || []).map(function (d) { return { city: d.city, when: e6When(d.starts_on, d.ends_on), busy: s.dateBusy === d.id ? 'true' : 'false', removeAria: 'Remove ' + d.city, remove: function () { self.dateRemove(d.id); } }; }),
 hasDates: !!(s.dateList && s.dateList.length), noDates: !(s.dateList && s.dateList.length), noDatesText: s.dateList ? 'No dates\u00a0yet.' : 'One\u00a0sec.',
 dateForm: s.dateForm, setDate: this.setDate, addDate: this.addDate, dateBusy: s.dateBusy === 'add' ? 'true' : 'false', dateAddLabel: s.dateBusy === 'add' ? 'One sec' : 'Add',

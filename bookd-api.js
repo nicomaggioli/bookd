@@ -31,6 +31,16 @@ var sb = lib.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
 auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'bookd.auth' }
 });
 BOOKD.client = sb;
+var CLAIM = 'bookd.claim';
+try { var cm = /[#&]claim=([0-9a-f]{16})(?![0-9a-f])/.exec(location.hash); if (cm) localStorage.setItem(CLAIM, cm[1]); } catch (e) {}
+function claimCode() { try { var c = localStorage.getItem(CLAIM) || ''; return /^[0-9a-f]{16}$/.test(c) ? c : ''; } catch (e) { return ''; } }
+function claimNow(user) {
+var c = claimCode();
+if (!c || !user) return Promise.resolve();
+return sb.rpc('claim_profile', { p_code: c }).then(function (r) {
+if (r && !r.error) { try { localStorage.removeItem(CLAIM); } catch (e) {} }
+}, function () {});
+}
 function page(file) { return location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '') + file; }
 function code(err) {
 if (!err) return 'unknown';
@@ -62,13 +72,13 @@ return remember(me);
 BOOKD.auth.current = function () {
 return guard(sb.auth.getSession().then(function (r) {
 var u = r && r.data && r.data.session ? r.data.session.user : null;
-return describe(u).then(function (me) { return { ok: true, user: me }; });
+return claimNow(u).then(function () { return describe(u); }).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signUp = function (o) {
 return guard(sb.auth.signUp({
 email: o.email, password: o.password,
-options: { data: { name: o.name || '' }, emailRedirectTo: page('login.html') }
+options: { data: claimCode() ? { name: o.name || '', claim: claimCode() } : { name: o.name || '' }, emailRedirectTo: page('login.html') }
 }).then(function (r) {
 if (r.error) return fail(r.error);
 var u = r.data && r.data.user;
@@ -80,7 +90,7 @@ return describe(u).then(function (me) { return { ok: true, needsConfirm: false, 
 BOOKD.auth.signIn = function (o) {
 return guard(sb.auth.signInWithPassword({ email: o.email, password: o.password }).then(function (r) {
 if (r.error) return fail(r.error);
-return describe(r.data.user).then(function (me) { return { ok: true, user: me }; });
+return claimNow(r.data.user).then(function () { return describe(r.data.user); }).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signOut = function () {

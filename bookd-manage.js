@@ -213,15 +213,16 @@ return { ok: true, reviewed_at: at };
 });
 }
 function dropDraft(djId) {
-return sb.from('djs').delete().eq('id', djId).eq('status', 'draft').is('owner_id', null).then(function (r) {
-return _.bad(r) || { ok: true };
+return sb.from('djs').delete().eq('id', djId).eq('status', 'draft').is('owner_id', null).select('id').then(function (r) {
+var b = _.bad(r); if (b) return b;
+return r.data && r.data.length ? { ok: true } : { ok: false, code: 'kept' };
 });
 }
 var ART = 'id, owner_id, slug, name, first_name, sound, genres, home_city, bio, cover_path, cover_alt, cover_pos, find_label, find_url, links, ' +
 'rider_lines, rider_note, rider_link, plays_on, room_needs, table_needs, arrival, hospitality, soundcloud_url, mixcloud_url, youtube_url, ' +
 'look_bg, look_image, look_record, look_sign, status, updated_at';
 var ART_WRITE = ['name', 'first_name', 'sound', 'genres', 'home_city', 'bio', 'cover_path', 'cover_alt', 'cover_pos', 'find_label', 'find_url',
-'links', 'rider_lines', 'rider_note', 'rider_link', 'look_bg', 'look_image', 'look_record', 'look_sign', 'soundcloud_url', 'mixcloud_url',
+'links', 'rider_lines', 'rider_note', 'rider_link', 'plays_on', 'room_needs', 'table_needs', 'arrival', 'hospitality', 'look_bg', 'look_image', 'look_record', 'look_sign', 'soundcloud_url', 'mixcloud_url',
 'youtube_url', 'status'];
 var PHOTOS = 'dj-photos';
 function artRow(row) {
@@ -266,7 +267,7 @@ artists: function () {
 return _.guard(Promise.all([
 sb.from('djs').select(ART).order('name'),
 sb.from('dj_tracks').select('dj_id, position, title, url').order('position'),
-sb.from('dj_private').select('dj_id, contact_email, agent_name, agent_email'),
+sb.from('dj_private').select('dj_id, contact_email, agent_name, agent_email, claim_code'),
 sb.from('tour_dates').select('dj_id, city, starts_on, ends_on').order('starts_on')
 ]).then(function (rs) {
 for (var i = 0; i < rs.length; i++) { var b = _.bad(rs[i]); if (b) return b; }
@@ -280,7 +281,7 @@ var d = r.data && r.data[0];
 if (!d) return { ok: true, row: null };
 return Promise.all([
 sb.from('dj_tracks').select('dj_id, position, title, url').eq('dj_id', d.id).order('position'),
-sb.from('dj_private').select('dj_id, contact_email, agent_name, agent_email').eq('dj_id', d.id),
+sb.from('dj_private').select('dj_id, contact_email, agent_name, agent_email, claim_code').eq('dj_id', d.id),
 sb.from('tour_dates').select('dj_id, city, starts_on, ends_on').eq('dj_id', d.id).order('starts_on')
 ]).then(function (x) {
 var b2 = _.bad(x[0]) || _.bad(x[1]) || _.bad(x[2]); if (b2) return b2;
@@ -476,6 +477,7 @@ slug: a.slug, name: a.name, first_name: a.first, sound: a.tag, genres: a.genres,
 cover_path: a.img || null, cover_alt: a.alt, cover_pos: a.pos,
 find_label: a.find ? a.find.label : '', find_url: a.find ? a.find.url : null,
 links: a.links, rider_lines: a.rider, rider_note: a.riderNote, rider_link: a.riderLink || null,
+plays_on: null, room_needs: null, table_needs: null, arrival: null, hospitality: null,
 look_bg: a.look.bg, look_image: a.look.image || null, look_record: a.look.record || null, look_sign: a.look.sign,
 soundcloud_url: first('soundcloud.com'), mixcloud_url: first('mixcloud.com'), youtube_url: first('youtube.com'),
 status: a.status
@@ -684,7 +686,7 @@ a.dates = datesOf(row);
 a.meta = { origin: 'database', changed: '', siteChanged: false, id: row.id, updated: row.updated_at || '', canRemove: true, canReset: false,
 missing: t.missing, notes: t.notes, lostPhotos: [],
 claimed: !!row.owner_id,
-private: { contact_email: (p && p.contact_email) || '', agent_name: (p && p.agent_name) || '', agent_email: (p && p.agent_email) || '' } };
+private: { contact_email: (p && p.contact_email) || '', agent_name: (p && p.agent_name) || '', agent_email: (p && p.agent_email) || '', claim_code: (p && p.claim_code) || '' } };
 return a;
 }
 function dbLoad() {
