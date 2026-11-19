@@ -30,17 +30,23 @@ try { var w = JSON.parse(localStorage.getItem(WHO) || 'null'); if (w && typeof w
 var sb = lib.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
 auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'bookd.auth' }
 });
-BOOKD.client = sb;
 var CLAIM = 'bookd.claim';
 try { var cm = /[#&]claim=([0-9a-f]{16})(?![0-9a-f])/.exec(location.hash); if (cm) localStorage.setItem(CLAIM, cm[1]); } catch (e) {}
 function claimCode() { try { var c = localStorage.getItem(CLAIM) || ''; return /^[0-9a-f]{16}$/.test(c) ? c : ''; } catch (e) { return ''; } }
+var CLAIM_ASKED = 'bookd.claim.asked';
+function dropClaim() { try { localStorage.removeItem(CLAIM); sessionStorage.removeItem(CLAIM_ASKED); } catch (e) {} }
 function claimNow(user) {
 var c = claimCode();
 if (!c || !user) return Promise.resolve();
+var asked = user.id + ':' + c;
+try { if (sessionStorage.getItem(CLAIM_ASKED) === asked) return Promise.resolve(); } catch (e) {}
 return sb.rpc('claim_profile', { p_code: c }).then(function (r) {
-if (r && !r.error) { try { localStorage.removeItem(CLAIM); } catch (e) {} }
+if (!r || r.error) return;
+if (r.data === true) dropClaim();
+else { try { sessionStorage.setItem(CLAIM_ASKED, asked); } catch (e) {} }
 }, function () {});
 }
+function settle(me) { if (me && me.role !== 'host' && claimCode()) dropClaim(); return me; }
 function page(file) { return location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '') + file; }
 function code(err) {
 if (!err) return 'unknown';
@@ -50,7 +56,7 @@ if (c === 'email_not_confirmed' || m.indexOf('not confirmed') >= 0) return 'unco
 if (c === 'user_already_exists' || c === 'email_exists' || m.indexOf('already registered') >= 0) return 'taken';
 if (c === 'same_password' || m.indexOf('different from the old') >= 0) return 'samePw';
 if (c === 'weak_password' || m.indexOf('password should') >= 0) return 'weak';
-if (s === 429 || c.indexOf('rate_limit') >= 0 || m.indexOf('rate limit') >= 0) return 'rate';
+if (s === 429 || c === 'BK429' || c.indexOf('rate_limit') >= 0 || m.indexOf('rate limit') >= 0) return 'rate';
 if (c === '23514' || c === '23502' || c === '22001') return 'invalid';
 if (c === 'otp_expired' || c === 'session_not_found' || m.indexOf('session missing') >= 0) return 'expired';
 if (err.name === 'AuthRetryableFetchError' || err.status === 0 || s === 0 && err.name === 'TypeError') return 'offline';
@@ -72,10 +78,11 @@ return remember(me);
 BOOKD.auth.current = function () {
 return guard(sb.auth.getSession().then(function (r) {
 var u = r && r.data && r.data.session ? r.data.session.user : null;
-return claimNow(u).then(function () { return describe(u); }).then(function (me) { return { ok: true, user: me }; });
+return claimNow(u).then(function () { return describe(u); }).then(settle).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signUp = function (o) {
+o = o || {};
 return guard(sb.auth.signUp({
 email: o.email, password: o.password,
 options: { data: claimCode() ? { name: o.name || '', claim: claimCode() } : { name: o.name || '' }, emailRedirectTo: page('login.html') }
@@ -88,9 +95,10 @@ return describe(u).then(function (me) { return { ok: true, needsConfirm: false, 
 }));
 };
 BOOKD.auth.signIn = function (o) {
+o = o || {};
 return guard(sb.auth.signInWithPassword({ email: o.email, password: o.password }).then(function (r) {
 if (r.error) return fail(r.error);
-return claimNow(r.data.user).then(function () { return describe(r.data.user); }).then(function (me) { return { ok: true, user: me }; });
+return claimNow(r.data.user).then(function () { return describe(r.data.user); }).then(settle).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signOut = function () {
@@ -99,7 +107,7 @@ return guard(sb.auth.signOut().then(function (r) { return r.error ? fail(r.error
 };
 BOOKD.auth.sendReset = function (email) {
 return guard(sb.auth.resetPasswordForEmail(email, { redirectTo: page('login.html') }).then(function (r) {
-if (r.error && code(r.error) !== 'unknown') return fail(r.error);
+if (r.error) return fail(r.error);
 return { ok: true };
 }));
 };
@@ -118,18 +126,21 @@ return fail({ code: r.error.code, message: r.error.message, status: r.status });
 function clip(v, n) { return String(v == null ? '' : v).trim().slice(0, n); }
 function isEmail(v) { v = String(v == null ? '' : v); return v.length <= 200 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
 BOOKD.contact.send = function (o) {
+o = o || {};
 return add('contact_messages', {
 name: clip(o.name, 120) || 'No name given', email: clip(o.email, 200),
 who: /^(host|dj|agent|other)$/.test(o.who) ? o.who : 'other', message: clip(o.message, 4000)
 });
 };
 BOOKD.apply.send = function (o) {
+o = o || {};
 return add('dj_applications', {
 name: clip(o.name, 120), email: clip(o.email, 200), set_links: clip(o.links, 2000),
 home_city: clip(o.city, 120), upcoming: clip(o.next, 500), fee_range: clip(o.fee, 120)
 });
 };
 BOOKD._ = { sb: sb, guard: guard, fail: fail, clip: clip, isEmail: isEmail, describe: describe,
+BUCKET: 'dj-photos', forget: function () { remember(null); },
 bad: function (r) { return r && r.error ? fail({ code: r.error.code, message: r.error.message, status: r.status }) : null; } };
 BOOKD.auth.current();
 })();
@@ -141,7 +152,7 @@ var MODE = LIVE ? 'database' : 'device';
 var PREFIX = 'bookd.roster.v1';
 var KEY = PREFIX + '.artists';
 var PHOTO_DB = PREFIX, PHOTO_STORE = 'photos';
-var BUCKET = 'dj-photos';
+var BUCKET = LIVE ? B._.BUCKET : 'dj-photos';
 var FILE = 'bookd-roster.json';
 var GENRES = ['Afro / Amapiano', 'House / Tech house', 'Techno / EBM', 'Disco', 'R&B', 'Rap'];
 var BGS = ['red', 'black', 'cream'];
@@ -284,10 +295,7 @@ s = one(x.status);
 if (s && s !== 'live' && s !== 'draft') { if (strict) flag('status', 'choice'); s = ''; }
 a.status = s || (strict ? 'draft' : 'live');
 var missing = [];
-if (!a.tag) missing.push('tag');
-if (!a.home) missing.push('home');
-if (!a.img) missing.push('img');
-if (!a.bio.length) missing.push('bio');
+for (i = 0; i < NEEDED.length; i++) if (!(NEEDED[i] === 'bio' ? a.bio.length : a[NEEDED[i]])) missing.push(NEEDED[i]);
 if (strict && a.status === 'live') for (i = 0; i < missing.length; i++) flag(missing[i], 'required');
 hints('tag', a.tag, notes); hints('alt', a.alt, notes); hints('riderNote', a.riderNote, notes);
 for (i = 0; i < a.bio.length; i++) hints('bio.' + i, a.bio[i], notes);

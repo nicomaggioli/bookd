@@ -71,8 +71,7 @@ return e.error ? _.fail(e.error) : { ok: true };
 }));
 },
 signOutEverywhere: function () {
-try { localStorage.removeItem('bookd.who'); } catch (e) {}
-B.who = null;
+_.forget();
 return _.guard(sb.auth.signOut({ scope: 'global' }).then(function (r) { return r.error ? _.fail(r.error) : { ok: true }; }));
 },
 remove: function (o) {
@@ -83,8 +82,7 @@ if (r && r.error) {
 if (/admin account/i.test(String(r.error.message || ''))) return { ok: false, code: 'admin' };
 return _.bad(r);
 }
-try { localStorage.removeItem('bookd.who'); } catch (e) {}
-B.who = null;
+_.forget();
 return sb.auth.signOut({ scope: 'local' }).then(function () { return { ok: true }; }, function () { return { ok: true }; });
 });
 }));
@@ -123,7 +121,7 @@ var _ = B._, sb = _.sb;
 function photo(path) {
 if (!path) return '';
 if (/^(https:\/\/|assets\/)/.test(path)) return path;
-try { return sb.storage.from('dj-photos').getPublicUrl(path).data.publicUrl || ''; } catch (e) { return ''; }
+try { return sb.storage.from(_.BUCKET).getPublicUrl(path).data.publicUrl || ''; } catch (e) { return ''; }
 }
 function nul(v, n) { var s = _.clip(v, n); return s ? s : null; }
 function badEmail(o) {
@@ -135,12 +133,7 @@ function money(v) { var n = parseInt(v, 10); return isFinite(n) && n >= 0 ? n : 
 function myId() {
 return sb.auth.getSession().then(function (r) { return r && r.data && r.data.session ? r.data.session.user.id : null; });
 }
-function slugOf(name) {
-var s = String(name || '').toLowerCase();
-try { s = s.normalize('NFD').replace(/[̀-ͯ]/g, ''); } catch (e) {}
-s = s.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60).replace(/-+$/, '');
-return s || 'dj';
-}
+function slugOf(name) { return B.artists._.slugOf(name); }
 function djRow(o) {
 return {
 name: _.clip(o.name, 120), home_city: _.clip(o.home_city, 120), sound: _.clip(o.sound, 200), bio: _.clip(o.bio, 2000),
@@ -224,7 +217,7 @@ var ART = 'id, owner_id, slug, name, first_name, sound, genres, home_city, bio, 
 var ART_WRITE = ['name', 'first_name', 'sound', 'genres', 'home_city', 'bio', 'cover_path', 'cover_alt', 'cover_pos', 'find_label', 'find_url',
 'links', 'rider_lines', 'rider_note', 'rider_link', 'plays_on', 'room_needs', 'table_needs', 'arrival', 'hospitality', 'look_bg', 'look_image', 'look_record', 'look_sign', 'soundcloud_url', 'mixcloud_url',
 'youtube_url', 'status'];
-var PHOTOS = 'dj-photos';
+var PHOTOS = _.BUCKET;
 function artRow(row) {
 var out = {}, i, k;
 for (i = 0; i < ART_WRITE.length; i++) { k = ART_WRITE[i]; if (row && k in row) out[k] = row[k]; }
@@ -749,7 +742,7 @@ if (status) c.status = status;
 for (k in IDS) known.push(k);
 if (!c.slug) c.slug = freeSlug(slugOf(c.name), known) || slugOf(c.name);
 var r = toRow(c);
-return B.admin.saveArtist({ id: IDS[a.slug] || null, isNew: isNew && !IDS[a.slug], row: r.row, tracks: r.tracks, private: priv });
+return B.admin.saveArtist({ id: IDS[a.slug] || null, row: r.row, tracks: r.tracks, private: priv });
 }
 function upload(id) {
 return pics.reduce(function (chain, p) {
@@ -823,7 +816,7 @@ return (LIVE ? whoAmI().then(function (w) { return w.ok ? dbOne(slug) : w; }) : 
 if (!r.ok) return r;
 var a = r.artist; a.status = status;
 if (!LIVE) return deviceSave(a, fixed);
-var t = tidy(a, { strict: true });
+var t = status === 'live' ? tidy(a, { strict: true }) : { ok: true };
 if (!t.ok) return fail('invalid', { field: t.field, problems: t.problems, missing: t.missing, notes: t.notes });
 return B.admin.setStatus(a.meta.id, status).then(function (s) { return s.ok ? dbOne(slug) : s; });
 });
@@ -875,7 +868,7 @@ return isFinite(n) && n >= 0 && n <= 100000000 ? n : NaN;
 function cover(path) {
 if (!path) return '';
 if (/^(https:\/\/|\/|assets\/)/.test(path)) return path;
-try { return sb.storage.from('dj-photos').getPublicUrl(path).data.publicUrl || ''; } catch (e) { return ''; }
+try { return sb.storage.from(_.BUCKET).getPublicUrl(path).data.publicUrl || ''; } catch (e) { return ''; }
 }
 function tidyDj(d, priv) {
 var agent = priv && priv.agent_name;
@@ -931,7 +924,6 @@ if ('fee_low' in o) { mine.fee_low = money(o.fee_low); m++; }
 if ('fee_high' in o) { mine.fee_high = money(o.fee_high); m++; }
 if (mine.fee_low !== mine.fee_low || mine.fee_high !== mine.fee_high) return Promise.resolve(INVALID);
 if (mine.fee_low != null && mine.fee_high != null && mine.fee_low > mine.fee_high) return Promise.resolve(INVALID);
-if ('status' in o) { if (o.status !== 'draft' && o.status !== 'live') return Promise.resolve(INVALID); patch.status = o.status; n++; }
 if ('agent_name' in o) { mine.agent_name = _.clip(o.agent_name, 120) || null; m++; }
 if (!id || (!n && !m)) return Promise.resolve(INVALID);
 var first = n ? sb.from('djs').update(patch).eq('id', id).select(COLS) : sb.from('djs').select(COLS).eq('id', id).limit(1);

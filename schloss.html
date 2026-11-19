@@ -1,55 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
-<meta charset="utf-8">
+<head>
+<meta charset="utf-8"><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
 <style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
 <script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <title>Schloss · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Schloss is a DJ based in New York, NY. House, deep cuts. Read the bio and hear a set on BOOKD.">
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://bookdplatform.com/schloss.html">
+<link rel="canonical" href="https://bookdplatform.com/schloss">
 <meta property="og:site_name" content="BOOKD">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Schloss on BOOKD">
 <meta property="og:description" content="Schloss is a DJ based in New York, NY. House, deep cuts. Read the bio and hear a set on BOOKD.">
-<meta property="og:url" content="https://bookdplatform.com/schloss.html">
+<meta property="og:url" content="https://bookdplatform.com/schloss">
 <meta property="og:image" content="https://bookdplatform.com/assets/share-schloss.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Schloss in a cap behind the decks on a rooftop, the skyline behind him, beside the BOOKD wordmark">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","url":"https://bookdplatform.com/schloss.html","name":"Schloss · BOOKD","mainEntity":{"@type":"Person","name":"Schloss","jobTitle":"DJ","description":"Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.","image":"https://bookdplatform.com/assets/49ebfbf8a8ad11de483b2adf16534760.webp","homeLocation":{"@type":"Place","name":"New York, NY"},"sameAs":["https://soundcloud.com/maxschlossberg"]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","url":"https://bookdplatform.com/schloss","name":"Schloss · BOOKD","mainEntity":{"@type":"Person","name":"Schloss","jobTitle":"DJ","description":"Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.","image":"https://bookdplatform.com/assets/49ebfbf8a8ad11de483b2adf16534760.webp","homeLocation":{"@type":"Place","name":"New York, NY"},"sameAs":["https://soundcloud.com/maxschlossberg"]}}</script>
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700;text-decoration:none}</style></noscript>
 <link rel="preload" href="bookd-config.js" as="script">
 <link rel="preload" href="bookd-supabase.js" as="script">
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
-<script>(function () {
-var still = function () {
-var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
-};
-var css = document.createElement('style');
-css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-document.head.appendChild(css);
-var check = function () {
-var on = still();
-document.documentElement.classList.toggle('oncanvas', on);
-if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-};
-document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();</script>
 </head>
 <body>
 <noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Schloss</h1><p>House, deep cuts. Based in New York, NY.</p><p>Schloss is a NYC-based DJ and founder of Not So Static, a collective focused on selector-driven lineups and curated concepts. He has supported artists including Ky William, AVÖ, Jack Mulqueen, and Murda Beatz, with appearances at venues such as Outer Heaven, The Edge, and Laissez Faire.</p><p>His sets blend technical precision with a selector&#x27;s taste for forward sounds that give each experience its own identity. Shaped by his time living in Spain and years immersed in nightlife and music culture, Schloss plays across the house spectrum, emphasizing deep cuts and unique energy.</p><p>Schloss is represented by Proper Rhythm Creative, an artist-focused collective supporting talent across bookings, branding, and development.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
@@ -201,7 +183,7 @@ min-height:min(var(--hh),calc(60 * var(--u)));padding:var(--pt) 0 var(--pb)}
 .k6ledger dt{font-weight:400}
 .k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
 .k6costfoot{margin:16px 0 0;font-size:15px;line-height:1.45;color:#000000}
-.k6costfoot a{display:inline-block;padding:12px 0;margin:-12px 0;font-weight:700;text-underline-offset:3px}
+.k6costfoot a{display:inline-block;padding:12px 0;margin:-12px 0;font-weight:700}
 .k6lines{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0;padding:0;list-style:none}
 .k6lines li{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4;font-weight:700}
 .k6riderbtn{align-self:flex-start;margin-top:clamp(28px,calc(3 * var(--vw)),44px)}
@@ -314,7 +296,6 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .navmenu:hover{background:#d31110;color:#ffffff}
 .go:hover{background:#ffffff;color:#000000}
 .paper:hover{background:#d31110;color:#ffffff}
-.footrow a:hover{text-decoration:underline;text-underline-offset:3px}
 .a6req:hover{background:var(--b1h);color:var(--b1ht)}
 .a6hear:hover{background:var(--b2h);color:var(--b2ht)}
 button.k6big:hover{transform:rotate(24deg)}
@@ -356,7 +337,7 @@ html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1
 html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
 html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
 html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
-html .fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+html .fine a{font-weight:700;color:#000000}
 html .cap{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
 @media (max-width:899px){html .cap{font-size:12px;letter-spacing:.16em}}
 html .ns{display:flex;flex-direction:column;align-items:flex-start;gap:14px;outline:none}
@@ -835,9 +816,9 @@ self.state.menuOpen = false;
 n.btnRef = function (el) { n.btn = el; };
 n.key = function (e) { nav6Key(self, e); };
 n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.resize = function () { if (self.state.menuOpen && !nav6Items(n)) nav6Set(self, { menuOpen: false }); };
 n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen }); };
 n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
-n.resize = function () { if (self.state.menuOpen && !nav6Items(n)) nav6Set(self, { menuOpen: false }); };
 }
 function nav6Set(self, patch) {
 var st = self.state || {};

@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
-<head><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
-<meta charset="utf-8">
+<head>
+<meta charset="utf-8"><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
 <style>html[data-bookd-wait]{background:#d31110}x-dc{display:none}</style>
 <script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <title>Join the waitlist · BOOKD</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="The waitlist page for BOOKD. DJs for private parties.">
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://bookdplatform.com/waitlist.html">
+<link rel="canonical" href="https://bookdplatform.com/waitlist">
 <meta property="og:site_name" content="BOOKD">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The BOOKD waitlist">
 <meta property="og:description" content="The waitlist page for BOOKD. DJs for private parties.">
-<meta property="og:url" content="https://bookdplatform.com/waitlist.html">
+<meta property="og:url" content="https://bookdplatform.com/waitlist">
 <meta property="og:image" content="https://bookdplatform.com/assets/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,30 +25,12 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<noscript><style>html,body{margin:0;background:#d31110}.bookd-plain{min-height:100vh;background:#d31110}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<noscript><style>html,body{margin:0;background:#d31110}.bookd-plain{min-height:100vh;background:#d31110}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700;text-decoration:none}</style></noscript>
 <link rel="preload" href="bookd-config.js" as="script">
 <link rel="preload" href="bookd-supabase.js" as="script">
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
-<script>(function () {
-var still = function () {
-var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
-};
-var css = document.createElement('style');
-css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-document.head.appendChild(css);
-var check = function () {
-var on = still();
-document.documentElement.classList.toggle('oncanvas', on);
-if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-};
-document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();</script>
 </head>
 <body>
 <noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Join the waitlist.</h1><p>The waitlist page for BOOKD. DJs for private parties.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
@@ -98,7 +80,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .wl-go[aria-disabled="true"]{opacity:.6;cursor:default}
 .wl-go:focus-visible{outline:2px solid #000000;outline-offset:2px}
 .wl-note{margin:10px 0 0;min-height:19px;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
-.wl-note a{color:#000000;font-weight:700;text-underline-offset:2px}
+.wl-note a{color:#000000;font-weight:700}
 .wl-err{display:inline-block;padding:7px 14px;border-radius:999px;background:#d31110;color:#ffffff;font-weight:700}
 .wl-again{margin:20px 0 0;min-height:48px;padding:0 24px;border:0;border-radius:999px;background:#000000;color:#ffffff;font:700 15px 'Inter',sans-serif;letter-spacing:-0.01em;cursor:pointer;transition:background .15s,color .15s}
 .wl-again:active{transform:translateY(1px)}

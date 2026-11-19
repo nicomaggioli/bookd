@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-<head><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('/enter.html');return}}catch(e){}location.replace('/waitlist.html')})();</script>
-<meta charset="utf-8">
+<head>
+<meta charset="utf-8"><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('/enter.html');return}}catch(e){}location.replace('/waitlist.html')})();</script>
 <style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
 <script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
 <script>(function () {
@@ -32,26 +32,8 @@ if (a) { e.preventDefault(); location.hash = a.getAttribute('href'); }
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700}</style></noscript>
+<noscript><style>html,body{margin:0;background:#000000}.bookd-plain{min-height:100vh;background:#000000}.bookd-plain div{box-sizing:border-box;max-width:680px;margin:0 auto;padding:56px 24px;font:400 17px/1.5 Inter,sans-serif;color:#ffffff}.bookd-plain h1{font-size:40px;line-height:1.05;margin:0 0 20px}.bookd-plain p{margin:0 0 16px}.bookd-plain ul{list-style:none;margin:32px 0;padding:0}.bookd-plain li{margin:0}.bookd-plain a{display:inline-block;padding:10px 0;color:#ffffff;font-weight:700;text-decoration:none}</style></noscript>
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
-<script>(function () {
-var still = function () {
-var inFrame = false; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
-var h = window.innerHeight || 0, page = document.documentElement.scrollHeight || 0;
-return inFrame && (h > 2000 || (page > 400 && h >= page * 0.95));
-};
-var css = document.createElement('style');
-css.textContent = 'html.oncanvas *,html.oncanvas *::before,html.oncanvas *::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important}';
-document.head.appendChild(css);
-var check = function () {
-var on = still();
-document.documentElement.classList.toggle('oncanvas', on);
-if (on) Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) { if (!v.paused) v.pause(); });
-};
-document.addEventListener('play', function (e) { if (e.target && e.target.pause && still()) e.target.pause(); }, true);
-check(); window.addEventListener('load', check); window.addEventListener('resize', check);
-[500, 1500, 4000].forEach(function (ms) { setTimeout(check, ms); });
-})();</script>
 </head>
 <body>
 <noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>404. Wrong party.</h1><p>That page isn&#x27;t here. Head home or see the roster.</p><ul><li><a href="https://bookdplatform.com/">Home</a></li><li><a href="https://bookdplatform.com/roster.html">The roster</a></li><li><a href="https://bookdplatform.com/julian-gjaci.html">Julian Gjaci</a></li><li><a href="https://bookdplatform.com/kozlow.html">Kozlow</a></li><li><a href="https://bookdplatform.com/schloss.html">Schloss</a></li><li><a href="https://bookdplatform.com/artists.html">For artists</a></li><li><a href="https://bookdplatform.com/contact.html">Contact</a></li><li><a href="https://bookdplatform.com/terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
@@ -104,7 +86,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
 .footrow a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
 @media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
-@media (hover:hover) and (pointer:fine){.footrow a:hover{text-decoration:underline;text-underline-offset:3px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
 body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .53 0 0 0 0 .5 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");background-size:220px 220px}
 @media print{body::after{display:none}}
@@ -157,7 +138,7 @@ html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1
 html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
 html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
 html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
-html .fine a{font-weight:700;color:#000000;text-underline-offset:2px}
+html .fine a{font-weight:700;color:#000000}
 html .cap{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
 @media (max-width:899px){html .cap{font-size:12px;letter-spacing:.16em}}
 html .ns{display:flex;flex-direction:column;align-items:flex-start;gap:14px;outline:none}
