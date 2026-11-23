@@ -419,11 +419,13 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <sc-if value="{{hasBgImg}}" hint-placeholder-val="{{ false }}"><span class="k6bgimg" ref="{{bgRef}}" aria-hidden="true"></span></sc-if>
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><path id="k6arc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs></svg>
 <div class="wrap">
-<h1 id="k6name" class="{{nameCls}}">{{dj.name}}</h1>
+<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><h1 id="k6name" class="{{nameCls}}">{{dj.name}}</h1></sc-if>
 <div class="k6hgrid">
 <div class="k6copy">
+<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}">
 <p class="k6lede"><sc-if value="{{hasImg}}" hint-placeholder-val="{{ true }}"><span class="vh">The photo: {{dj.alt}}. </span></sc-if>{{tagLine}}</p>
 <sc-if value="{{hasHome}}" hint-placeholder-val="{{ true }}"><p class="k6town">Based in {{dj.home}}.</p></sc-if>
+</sc-if>
 <div class="k6acts">
 <a class="btn btn-lg a6req" href="{{hrefs.request}}"><span>Request {{dj.first}}</span></a>
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-lg a6hear" onClick="{{heroToggle}}" aria-pressed="{{recPressed}}" aria-label="{{hearAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg><span>{{hearText}}</span></button></sc-if>
@@ -467,7 +469,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <div class="wrap k6about">
 <h2 id="about-h" class="h2">About {{dj.first}}.</h2>
 <div class="k6aboutbody">
-<div class="k6bio"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></div>
+<div class="k6bio"><sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></sc-if></div>
 <sc-if value="{{hasLinks}}" hint-placeholder-val="{{ false }}">
 <ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="btn btn-sm" href="{{l.url}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
 </sc-if>
@@ -493,7 +495,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <div class="k6col" id="{{ids.needs}}">
 <div class="k6colhead">
 <h2 class="h2 k6h2s">What {{dj.first}}&nbsp;needs.</h2>
-<p class="k6colnote">{{riderNote}}</p>
+<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><p class="k6colnote">{{riderNote}}</p></sc-if>
 </div>
 <sc-if value="{{hasRider}}" hint-placeholder-val="{{ true }}">
 <ul class="k6lines" role="list"><sc-for list="{{rider}}" as="r" hint-placeholder-count="5"><li>{{r.t}}</li></sc-for></ul>
@@ -892,9 +894,9 @@ curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin
 bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu
 };
 }
-var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, noBio: false,
+var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, bar: false, hasLines: false, noLines: false, hasTag: false,
 open: {}, is: {}, f: {}, set: {}, err: {}, inv: {}, errText: {}, pick: {}, clear: {}, pickBusy: {}, pickLabel: {}, nd: {}, ndSet: {}, pv: {}, pvSet: {},
-genres: [], bgs: [], signs: [], links: [], sets: [], dates: [] };
+at: {}, bioRows: [], riderRows: [], genres: [], bgs: [], signs: [], links: [], sets: [], dates: [] };
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -1043,6 +1045,7 @@ try { el.scrollIntoView({ behavior: (jump || this.reduce) ? 'auto' : 'smooth', b
 componentDidUpdate() {
 this.setTitle();
 this.paintBg();
+if (this.ed) this.ed.painted();
 if (this.errFocus) this.focusErr();
 }
 componentWillUnmount() {
@@ -1190,7 +1193,7 @@ this.dockCompact = dockCompact;
 var edit = !!this.ed;
 if (edit) dockOn = false;
 return Object.assign({
-hasDj: true, noDj: false, ed: edit ? this.ed.vals() : K6_NOED, reqOn: !edit,
+hasDj: true, noDj: false, ed: edit ? this.ed.vals() : K6_NOED, reqOn: !edit, pub: !edit,
 dj: dj, tagLine: dj.tag ? dj.tag + '.' : '', hasImg: !!dj.img, hasHome: !!dj.home,
 nameCls: 'k6name k6name-front' + (longName ? ' k6name-long' : ''),
 ids: { sets: dj.slug + '-sets', about: dj.slug + '-about', needs: dj.slug + '-needs', request: dj.slug + '-request' },
@@ -1222,8 +1225,8 @@ hasAbout: edit || bio.length > 0 || links.length > 0,
 bio: bio.map(function (t) { return { t: t }; }),
 hasLinks: links.length > 0, links: links, linksAria: his + ' links',
 costAria: 'How you pay and what ' + dj.first + ' needs',
-riderNote: riderNote, hasRider: rider.length > 0, rider: rider.map(function (t) { return { t: t }; }),
-hasRiderLink: !rider.length && !!d.riderLink, riderLink: d.riderLink || '',
+riderNote: riderNote, hasRider: !edit && rider.length > 0, rider: rider.map(function (t) { return { t: t }; }),
+hasRiderLink: !edit && !rider.length && !!d.riderLink, riderLink: d.riderLink || '',
 formRef: this.formRef,
 whoLine: (dj.tag ? dj.tag + '.' : '') + (dj.tag && dj.home ? ' ' : '') + (dj.home ? 'Based in ' + dj.home + '.' : ''),
 form: f, set: this.setters, fieldRef: this.fieldRef,

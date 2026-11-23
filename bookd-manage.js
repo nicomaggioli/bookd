@@ -1035,16 +1035,28 @@ var W = typeof window !== 'undefined' ? window : {};
 var B = W.BOOKD;
 if (!B || !B.ready || !B.dj || !B.artists || !B.artists.manage || !B.artists.manage.mine) return;
 var A = B.artists, M = A.manage, L = A.limits, tidy = A._.tidy;
+var NB = String.fromCharCode(160);
 var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 var PARTS = {
-basics: { title: 'Name and details.', side: 'right', fields: ['name', 'first', 'tag', 'genres', 'home'] },
+basics: { title: 'More details.', side: 'right', fields: ['first', 'genres'] },
 photo: { title: 'Your photo.', side: 'left', fields: ['img', 'alt', 'pos'] },
-about: { title: 'About you.', side: 'right', fields: ['bio', 'links'] },
+about: { title: 'Your links.', side: 'right', fields: ['links'] },
 sets: { title: 'Your sets.', side: 'right', fields: ['sets', 'find'] },
-rider: { title: 'What you need.', side: 'left', fields: ['rider', 'riderNote', 'riderLink'] },
+rider: { title: 'Your full rider.', side: 'left', fields: ['riderLink'] },
 look: { title: 'How your page looks.', side: 'left', fields: ['look'] }
 };
+var PLACE = {
+name: { label: 'Your DJ name', hint: 'Your DJ name' },
+tag: { label: 'Your sound, in a few words', hint: 'Your sound, in a few words' },
+home: { label: 'Your home city', hint: 'your city' },
+riderNote: { label: 'A short note about what you need', hint: 'Or type one short note here' }
+};
+var LISTS = {
+bio: { label: 'About you, paragraph ', hint: 'Write a few words about you. Press Enter for a new paragraph.', max: function () { return L.bioParas; } },
+rider: { label: 'What you need, line ', hint: 'Type what you need. Press Enter for the next thing.', max: function () { return L.rider; } }
+};
+var NAMES = { name: 'your name', tag: 'your sound', home: 'your home city', bio: 'About', rider: 'what you need', riderNote: 'the note about what you need', first: 'your first name' };
 var NEEDS = { tag: 'your sound', home: 'a home city', img: 'a photo', bio: 'a few words about you' };
 var BG_NAMES = { red: 'Red', black: 'Black', cream: 'Cream' };
 function str(v) { return v == null ? '' : String(v); }
@@ -1053,18 +1065,20 @@ function today() { var t = new Date(); return t.getFullYear() + '-' + ('0' + (t.
 function day(iso) {
 var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str(iso)); if (!p) return str(iso);
 var t = new Date(+p[1], +p[2] - 1, +p[3]);
-return DOW[t.getDay()] + ', ' + MON[t.getMonth()] + '\u00a0' + t.getDate();
+return DOW[t.getDay()] + ', ' + MON[t.getMonth()] + NB + t.getDate();
 }
 function when(from, to) { return !to || to === from ? day(from) : day(from) + ' to ' + day(to); }
 function and(list) { return list.length < 2 ? list.join('') : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1]; }
+function same(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
+function tie(t) { var i = t.lastIndexOf(' '); return i < 0 ? t : t.slice(0, i) + NB + t.slice(i + 1); }
 function formOf(a) {
 var p = /^(\d{1,3})% (\d{1,3})%$/.exec(a.pos || '') || [0, 50, 50];
 return {
 name: a.name, first: a.first, tag: a.tag, genres: a.genres.filter(function (g) { return A.genres.indexOf(g) >= 0; }), home: a.home,
 img: a.img, alt: a.alt === a.name ? '' : a.alt, px: +p[1], py: +p[2],
-bio: a.bio.join('\n\n'), links: a.links.map(copy), sets: a.sets.map(copy),
+bio: a.bio.slice(), links: a.links.map(copy), sets: a.sets.map(copy),
 findLabel: a.find ? a.find.label : '', findUrl: a.find ? a.find.url : '',
-rider: a.rider.join('\n'), riderNote: a.riderNote, riderLink: a.riderLink,
+rider: a.rider.slice(), riderNote: a.riderNote, riderLink: a.riderLink,
 bg: a.look.bg, image: a.look.image, record: a.look.record, sign: a.look.sign
 };
 }
@@ -1077,36 +1091,71 @@ rider: f.rider, riderNote: f.riderNote, riderLink: f.riderLink,
 look: { bg: f.bg, image: f.image, record: f.record, sign: f.sign }
 };
 }
-function same(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
+function lean(f) { var n = copy(f); n.bio = f.bio.filter(Boolean); n.rider = f.rider.filter(Boolean); return n; }
 function say(field, why) {
-var row = /^(sets|links)\.\d+\.(title|label|url)$/.exec(field), k = row ? row[1] + '.' + row[2] : field;
-if (why === 'long') return 'Too long. Make it a little\u00a0shorter.';
-if (why === 'many') return k === 'bio' ? 'Too many paragraphs. Keep it to ' + L.bioParas + '.' : 'That is more than fits. Take one\u00a0out.';
-if (why === 'soundcloud') return 'Sets play from SoundCloud, so this has to be a SoundCloud\u00a0link.';
-if (why === 'https') return "That link doesn't look right. Mind checking\u00a0it?";
+var row = /^(sets|links)\.\d+\.(title|label|url)$/.exec(field), k = row ? row[1] + '.' + row[2] : field, top = field.split('.')[0];
+if (why === 'long') return tie(NAMES[top] ? 'Too long: ' + NAMES[top] + '. Make it a little shorter.' : 'Too long. Make it a little shorter.');
+if (why === 'many') return top === 'bio' ? 'Too many paragraphs. Keep About to ' + L.bioParas + '.' : top === 'rider' ? 'Too many lines. Keep what you need to ' + L.rider + '.' : tie('That is more than fits. Take one out.');
+if (why === 'soundcloud') return tie('Sets play from SoundCloud, so this has to be a SoundCloud link.');
+if (why === 'https') return tie("That link doesn't look right. Mind checking it?");
 if (why === 'required') {
-if (k === 'name') return 'Add your DJ\u00a0name.';
-if (k === 'sets.title') return 'Give this set a\u00a0title.';
-if (k === 'sets.url') return 'Add the SoundCloud link for this\u00a0set.';
-if (k === 'links.label') return 'Name this\u00a0link.';
-if (k === 'links.url' || k === 'find.url') return 'Add the\u00a0link.';
-if (k === 'find.label') return 'Say what the link\u00a0is.';
-return 'Your page is live, so it needs\u00a0this.';
+if (k === 'name') return tie('Add your DJ name.');
+if (k === 'sets.title') return tie('Give this set a title.');
+if (k === 'sets.url') return tie('Add the SoundCloud link for this set.');
+if (k === 'links.label') return tie('Name this link.');
+if (k === 'links.url' || k === 'find.url') return tie('Add the link.');
+if (k === 'find.label') return tie('Say what the link is.');
+return tie('Your page is live, so it needs this.');
 }
-return 'Pick one of the\u00a0choices.';
+return tie('Pick one of the choices.');
 }
 function photoFail(code) {
-if (code === 'tooBig') return 'That file is too big. Pick one under 40\u00a0MB.';
-if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
-return "We couldn't read that picture. Try a JPG or a\u00a0PNG.";
+if (code === 'tooBig') return tie('That file is too big. Pick one under 40 MB.');
+if (code === 'offline') return tie("We couldn't reach BOOKD. Check your connection and try again.");
+return tie("We couldn't read that picture. Try a JPG or a PNG.");
 }
 function fail(code) {
-if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
-if (code === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
-if (code === 'signedOut') return 'You were logged out. Log in again, then\u00a0save.';
-if (code === 'forbidden' || code === 'missing') return "This account can't change that\u00a0page.";
+if (code === 'offline') return tie("We couldn't reach BOOKD. Check your connection and try again.");
+if (code === 'rate') return tie('Too many tries. Give it a minute and try again.');
+if (code === 'signedOut') return tie('You were logged out. Log in again, then save.');
+if (code === 'forbidden' || code === 'missing') return tie("This account can't change that page.");
 if (code === 'photo' || code === 'tooBig') return photoFail(code);
-return 'Something went wrong on our side. Try\u00a0again.';
+return tie('Something went wrong on our side. Try again.');
+}
+function textOf(el) { return str(el.innerText != null ? el.innerText : el.textContent).split(NB).join(' ').replace(/\r?\n/g, ' '); }
+function caretOf(el) {
+try {
+var sel = W.getSelection(), r = sel && sel.rangeCount ? sel.getRangeAt(0) : null;
+if (!r || !el.contains(r.startContainer)) return null;
+var pre = W.document.createRange(); pre.selectNodeContents(el); pre.setEnd(r.startContainer, r.startOffset);
+return { at: pre.toString().length, open: !r.collapsed };
+} catch (e) { return null; }
+}
+function caretTo(el, at) {
+try {
+el.focus();
+var sel = W.getSelection(), r = W.document.createRange(), n = el.firstChild;
+if (n && n.nodeType === 3) r.setStart(n, Math.max(0, Math.min(at, n.nodeValue.length))); else r.selectNodeContents(el);
+r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
+} catch (e) {}
+}
+function isIn(el) { return !!el && W.document && W.document.activeElement === el; }
+function setText(el, t) { if (el.textContent !== t) el.textContent = t; }
+function arm(el, label, hint) {
+el.setAttribute('aria-label', label); el.setAttribute('data-ph', hint);
+if (el.peArmed) return false;
+el.peArmed = true;
+try { el.contentEditable = 'plaintext-only'; } catch (e) {}
+if (el.contentEditable !== 'plaintext-only') {
+el.contentEditable = 'true';
+el.addEventListener('paste', function (e) {
+var t = e.clipboardData ? e.clipboardData.getData('text/plain') : '';
+e.preventDefault();
+try { W.document.execCommand('insertText', false, t.replace(/\s+/g, ' ')); } catch (x) {}
+});
+}
+el.setAttribute('role', 'textbox'); el.setAttribute('spellcheck', 'true');
+return true;
 }
 function attach(page, links) {
 links = links || {};
@@ -1114,13 +1163,13 @@ var s = {
 phase: 'loading', code: '', user: null, id: '', saved: null, form: null, part: '', busy: false, msg: '', bad: false,
 errs: {}, picking: '', flash: '',
 dates: [], nd: { city: '', from: '', to: '' }, dateErr: '', dateBusy: false, dateMsg: '',
-pv: { low: '', high: '', agent: '' }, pvWas: null, pvBusy: false, pvMsg: '', pvBad: false
+pv: { low: '', high: '', agent: '' }, pvBusy: false, pvMsg: '', pvBad: false
 };
-var gone = false, tick = 0, opener = null, flashT = null, headEl = null, wantHead = false;
+var gone = false, tick = 0, opener = null, flashT = null, wantHead = false;
+var els = {}, rows = { bio: [], rider: [] }, refs = {}, rowRefs = { bio: [], rider: [] }, want = null;
 function draw() { if (!gone) page.setState({ edTick: ++tick }); }
 function shown() {
-if (!s.saved) return null;
-if (!s.part || !s.form) return s.saved;
+if (!s.saved || !s.form) return null;
 var t = tidy(inputOf(s.form, s.saved), { strict: true }).artist;
 t.slug = s.saved.slug; t.status = s.saved.status;
 return t;
@@ -1130,8 +1179,14 @@ var a = shown();
 page.djs = a ? [a] : []; page.ready = true;
 if (first) page.show({ dj: a, part: '' }, true); else draw();
 }
-function dirty() { return !!(s.part && s.form && s.saved && !same(s.form, formOf(s.saved))); }
+function fresh() {
+s.form = formOf(s.saved);
+if (!s.form.bio.length) s.form.bio = [''];
+if (!s.form.rider.length) s.form.rider = [''];
+}
+function dirty() { return !!(s.form && s.saved && !same(lean(s.form), formOf(s.saved))); }
 function go(to) { try { W.location.replace(to); } catch (e) {} }
+function clearMsg() { if (s.msg) { s.msg = ''; s.bad = false; } }
 function load() {
 s.phase = 'loading'; s.code = ''; draw();
 B.dj.load().then(function (r) {
@@ -1143,12 +1198,11 @@ s.user = r.user;
 if (!r.dj) { s.phase = 'none'; return draw(); }
 s.id = r.dj.id; s.dates = (r.dates || []).slice();
 s.pv = { low: r.dj.fee_low == null ? '' : str(r.dj.fee_low), high: r.dj.fee_high == null ? '' : str(r.dj.fee_high), agent: r.dj.agent_name || '' };
-s.pvWas = copy(s.pv);
 return M.mine().then(function (m) {
 if (gone) return;
 if (!m || !m.ok) { s.phase = 'failed'; s.code = (m && m.code) || 'unknown'; return draw(); }
 if (!m.artist) { s.phase = 'none'; return draw(); }
-s.saved = m.artist; s.form = formOf(m.artist); s.phase = 'ready';
+s.saved = m.artist; fresh(); s.phase = 'ready';
 put(true);
 });
 });
@@ -1158,30 +1212,18 @@ s.flash = text;
 if (flashT) clearTimeout(flashT);
 flashT = setTimeout(function () { flashT = null; s.flash = ''; draw(); }, 6000);
 }
-function open(part, e) {
-if (!PARTS[part] || s.phase !== 'ready' || s.busy) return;
-if (s.part && s.part !== part && dirty()) { s.msg = 'Save or cancel this part\u00a0first.'; s.bad = true; return draw(); }
-opener = e && e.currentTarget ? e.currentTarget : null;
-s.part = part; s.form = formOf(s.saved); s.errs = {}; s.msg = ''; s.bad = false; wantHead = true;
-put();
-}
-function close(back) {
-s.part = ''; s.form = s.saved ? formOf(s.saved) : null; s.errs = {}; s.msg = ''; s.bad = false; s.picking = '';
-put();
-if (back && opener && opener.focus) { try { opener.focus(); } catch (e) {} }
-opener = null;
-}
 function edit(key, value) {
 if (!s.form || s.form[key] === value) return;
 s.form[key] = value;
 if (s.errs[key]) delete s.errs[key];
-if (s.bad) { s.msg = ''; s.bad = false; }
+clearMsg();
 put();
 }
 function rowSet(list, i, key, value) {
-var rows = s.form[list]; if (!rows[i] || rows[i][key] === value) return;
-rows[i][key] = value;
+var r = s.form[list]; if (!r[i] || r[i][key] === value) return;
+r[i][key] = value;
 delete s.errs[list + '.' + i];
+clearMsg();
 put();
 }
 function rowAdd(list) {
@@ -1190,7 +1232,7 @@ if (s.form[list].length >= max) return;
 s.form[list].push(list === 'sets' ? { title: '', url: '' } : { label: '', url: '' });
 put();
 }
-function rowRemove(list, i) { s.form[list].splice(i, 1); s.errs = {}; put(); }
+function rowRemove(list, i) { s.form[list].splice(i, 1); s.errs = {}; clearMsg(); put(); }
 function pickFile(k, e) {
 var input = e && e.target, file = input && input.files ? input.files[0] : null;
 function clearBox() { if (input) { try { input.value = ''; } catch (x) {} } }
@@ -1203,39 +1245,127 @@ s.picking = '';
 if (!p || !p.ok) { s.errs[k] = photoFail(p && p.code); return draw(); }
 s.form[k] = p.url;
 if (k === 'img') { s.form.px = 50; s.form.py = 30; }
+clearMsg();
 put();
 });
 }
+function open(part, e) {
+if (!PARTS[part] || s.phase !== 'ready' || s.busy) return;
+opener = e && e.currentTarget ? e.currentTarget : null;
+s.part = part; wantHead = true;
+draw();
+}
+function close(back) {
+s.part = ''; s.picking = '';
+draw();
+if (back && opener && opener.focus) { try { opener.focus(); } catch (e) {} }
+opener = null;
+}
+function bind(key) {
+if (refs[key]) return refs[key];
+refs[key] = function (el) {
+els[key] = el;
+if (!el) return;
+if (arm(el, PLACE[key].label, PLACE[key].hint)) {
+el.addEventListener('input', function () { edit(key, textOf(el)); });
+el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } });
+}
+if (!isIn(el)) setText(el, s.form ? str(s.form[key]) : '');
+};
+return refs[key];
+}
+function bindRow(list, i) {
+if (rowRefs[list][i]) return rowRefs[list][i];
+rowRefs[list][i] = function (el) {
+rows[list][i] = el;
+if (!el) return;
+if (arm(el, LISTS[list].label + (i + 1), i === 0 ? LISTS[list].hint : '')) {
+el.addEventListener('input', function () {
+var r = s.form[list], t = textOf(el);
+if (r[i] === t) return;
+r[i] = t; delete s.errs[list]; clearMsg(); put();
+});
+el.addEventListener('keydown', function (e) {
+var r = s.form[list], c, t;
+if (e.key === 'Enter' && !e.isComposing) {
+e.preventDefault();
+if (r.length >= LISTS[list].max()) return;
+c = caretOf(el); t = textOf(el);
+var cut = c ? c.at : t.length;
+r.splice(i, 1, t.slice(0, cut), t.slice(cut));
+setText(el, r[i]);
+want = { list: list, i: i + 1, at: 0 };
+clearMsg(); put();
+} else if (e.key === 'Backspace' && i > 0) {
+c = caretOf(el);
+if (!c || c.open || c.at !== 0) return;
+e.preventDefault();
+var before = r[i - 1];
+r.splice(i - 1, 2, before + textOf(el));
+want = { list: list, i: i - 1, at: before.length, text: r[i - 1] };
+clearMsg(); put();
+}
+});
+el.addEventListener('blur', function () {
+var r = s.form[list];
+if (want || r.length < 2 || r[i] || textOf(el)) return;
+r.splice(i, 1); put();
+});
+}
+if (!isIn(el)) setText(el, s.form && s.form[list][i] != null ? s.form[list][i] : '');
+};
+return rowRefs[list][i];
+}
+function painted() {
+if (gone || !s.form) return;
+var k, i, el, w = want;
+if (w && rows[w.list][w.i]) {
+want = null; el = rows[w.list][w.i];
+setText(el, w.text != null ? w.text : str(s.form[w.list][w.i]));
+caretTo(el, w.at);
+}
+for (k in els) if (els[k] && !isIn(els[k])) setText(els[k], str(s.form[k]));
+for (k in rows) for (i = 0; i < rows[k].length; i++) {
+el = rows[k][i];
+if (el && !isIn(el) && s.form[k][i] != null) setText(el, s.form[k][i]);
+}
+}
+function undo() {
+if (s.busy || !s.saved) return;
+var a = W.document && W.document.activeElement;
+if (a && a.peArmed && a.blur) a.blur();
+fresh(); s.errs = {}; s.msg = ''; s.bad = false; s.picking = ''; want = null;
+put();
+}
 function save(e) {
 if (e && e.preventDefault) e.preventDefault();
-if (!s.part || s.busy || !s.form) return;
-if (!dirty()) return close(true);
+if (s.busy || !s.form || !dirty()) return;
 s.busy = true; s.msg = ''; s.bad = false; s.errs = {}; draw();
-M.saveMine(inputOf(s.form, s.saved)).then(function (r) {
+M.saveMine(inputOf(lean(s.form), s.saved)).then(function (r) {
 if (gone) return;
 s.busy = false;
 if (r && r.ok && r.artist) {
-s.saved = r.artist;
+s.saved = r.artist; fresh();
 flash('Saved.');
-return close(true);
+return put();
 }
 if (r && r.code === 'invalid') {
-var here = PARTS[s.part].fields, needs = [], others = [], marked = 0;
+var needs = [], parts = [], first = '', to = '';
 (r.problems || []).forEach(function (p) {
 var top = p.field.split('.')[0], row = /^(sets|links)\.(\d+)\./.exec(p.field), key = row ? row[1] + '.' + row[2] : (top === 'find' ? p.field : top), k, name;
-if (here.indexOf(top) < 0) {
-if (p.why === 'required' && NEEDS[top]) { if (needs.indexOf(NEEDS[top]) < 0) needs.push(NEEDS[top]); return; }
-for (k in PARTS) if (PARTS[k].fields.indexOf(top) >= 0) { name = PARTS[k].title.replace(/\.$/, ''); if (others.indexOf(name) < 0) others.push(name); }
-return;
-}
+if (p.why === 'required' && NEEDS[top]) { if (needs.indexOf(NEEDS[top]) < 0) needs.push(NEEDS[top]); if (!to) to = top === 'img' ? '>photo' : top; return; }
 if (!s.errs[key]) s.errs[key] = say(p.field, p.why);
-marked++;
+if (PLACE[top] || LISTS[top]) { if (!first) first = s.errs[key]; if (!to) to = top; return; }
+for (k in PARTS) if (PARTS[k].fields.indexOf(top) >= 0) { name = PARTS[k].title.replace(/\.$/, ''); if (parts.indexOf(name) < 0) parts.push(name); if (!to) to = '>' + k; }
 });
 s.bad = true;
-s.msg = marked ? 'Have a look at the boxes marked in\u00a0red.'
-: needs.length ? 'Your page is live, so it also needs ' + and(needs) + '.'
-: others.length ? 'Another part needs a look first: ' + and(others) + '.'
-: 'Something went wrong on our side. Try\u00a0again.';
+s.msg = needs.length ? 'Your page is live, so it needs ' + and(needs) + '.'
+: first ? first
+: parts.length ? 'Something needs a look in ' + and(parts) + '.'
+: fail('unknown');
+if (to.charAt(0) === '>') { s.part = to.slice(1); wantHead = true; }
+else if (els[to]) { try { els[to].focus(); } catch (x) {} }
+else if (rows[to] && rows[to][0]) { try { rows[to][0].focus(); } catch (x) {} }
 return draw();
 }
 s.bad = true; s.msg = fail(r && r.code);
@@ -1247,15 +1377,15 @@ if (e && e.preventDefault) e.preventDefault();
 if (s.dateBusy) return;
 var city = str(s.nd.city).replace(/\s+/g, ' ').replace(/^ | $/g, ''), from = s.nd.from, to = s.nd.to || s.nd.from, now = today();
 s.dateMsg = '';
-if (!city) { s.dateErr = 'Add the\u00a0city.'; return draw(); }
-if (!from) { s.dateErr = 'Pick the first\u00a0night.'; return draw(); }
-if (from < now || to < now) { s.dateErr = 'That night has passed. Pick one coming\u00a0up.'; return draw(); }
-if (to < from) { s.dateErr = 'The last night is before the first\u00a0one.'; return draw(); }
+if (!city) { s.dateErr = tie('Add the city.'); return draw(); }
+if (!from) { s.dateErr = tie('Pick the first night.'); return draw(); }
+if (from < now || to < now) { s.dateErr = tie('That night has passed. Pick one coming up.'); return draw(); }
+if (to < from) { s.dateErr = tie('The last night is before the first one.'); return draw(); }
 s.dateErr = ''; s.dateBusy = true; draw();
 B.dj.addDate(s.id, { city: city, from: from, to: to }).then(function (r) {
 if (gone) return;
 s.dateBusy = false;
-if (!r || !r.ok) { s.dateErr = r && r.code === 'invalid' ? "We couldn't save that date. Check the city and the\u00a0nights." : fail(r && r.code); return draw(); }
+if (!r || !r.ok) { s.dateErr = r && r.code === 'invalid' ? tie("We couldn't save that date. Check the city and the nights.") : fail(r && r.code); return draw(); }
 s.dates.push(r.date);
 s.dates.sort(function (a, b) { return a.from < b.from ? -1 : a.from > b.from ? 1 : 0; });
 s.nd = { city: '', from: '', to: '' }; s.dateMsg = 'Added ' + city + '.';
@@ -1281,20 +1411,20 @@ if (e && e.preventDefault) e.preventDefault();
 if (s.pvBusy) return;
 var num = function (v) { v = str(v).replace(/[$,\s]/g, ''); return v === '' ? null : (/^\d+$/.test(v) ? +v : NaN); };
 var lo = num(s.pv.low), hi = num(s.pv.high);
-if (lo !== lo || hi !== hi) { s.pvBad = true; s.pvMsg = 'Type the fee as a number, like\u00a01500.'; return draw(); }
-if (lo != null && hi != null && lo > hi) { s.pvBad = true; s.pvMsg = 'The first number is bigger than the second\u00a0one.'; return draw(); }
+if (lo !== lo || hi !== hi) { s.pvBad = true; s.pvMsg = tie('Type the fee as a number, like 1500.'); return draw(); }
+if (lo != null && hi != null && lo > hi) { s.pvBad = true; s.pvMsg = tie('The first number is bigger than the second one.'); return draw(); }
 s.pvBusy = true; s.pvMsg = ''; s.pvBad = false; draw();
 B.dj.save(s.id, { fee_low: lo, fee_high: hi, agent_name: s.pv.agent }).then(function (r) {
 if (gone) return;
 s.pvBusy = false;
 if (!r || !r.ok) { s.pvBad = true; s.pvMsg = fail(r && r.code); return draw(); }
 s.pv = { low: r.dj.fee_low == null ? '' : str(r.dj.fee_low), high: r.dj.fee_high == null ? '' : str(r.dj.fee_high), agent: r.dj.agent_name || '' };
-s.pvWas = copy(s.pv); s.pvMsg = 'Saved.';
+s.pvMsg = 'Saved.';
 draw();
 });
 }
-var set = {}, pick = {}, clear = {}, openers = {}, ndSet = {}, pvSet = {};
-['name', 'first', 'tag', 'home', 'alt', 'bio', 'findLabel', 'findUrl', 'rider', 'riderNote', 'riderLink'].forEach(function (k) {
+var set = {}, pick = {}, clear = {}, openers = {}, ndSet = {}, pvSet = {}, at = {};
+['first', 'alt', 'findLabel', 'findUrl', 'riderLink'].forEach(function (k) {
 set[k] = function (e) { edit(k, e && e.target ? e.target.value : ''); };
 });
 set.px = function (e) { edit('px', Math.max(0, Math.min(100, Math.round(+e.target.value || 0)))); };
@@ -1304,13 +1434,13 @@ pick[k] = function (e) { pickFile(k, e); };
 clear[k] = function () { if (!s.form) return; delete s.errs[k]; edit(k, ''); };
 });
 Object.keys(PARTS).forEach(function (k) { openers[k] = function (e) { open(k, e); }; });
+Object.keys(PLACE).forEach(function (k) { at[k] = bind(k); });
 ['city', 'from', 'to'].forEach(function (k) { ndSet[k] = function (e) { s.nd[k] = e && e.target ? e.target.value : ''; if (s.dateErr) s.dateErr = ''; draw(); }; });
 ['low', 'high', 'agent'].forEach(function (k) { pvSet[k] = function (e) { s.pv[k] = e && e.target ? e.target.value : ''; s.pvMsg = ''; s.pvBad = false; draw(); }; });
 var h = {
-cancel: function () { close(true); },
-save: save,
-key: function (e) { if (e && (e.key === 'Escape' || e.key === 'Esc') && !s.busy) { e.stopPropagation(); close(true); } },
-headRef: function (el) { headEl = el; if (el && wantHead) { wantHead = false; try { el.focus(); } catch (x) {} } },
+done: function (e) { if (e && e.preventDefault) e.preventDefault(); close(true); },
+key: function (e) { if (e && (e.key === 'Escape' || e.key === 'Esc')) { e.stopPropagation(); close(true); } },
+headRef: function (el) { if (el && wantHead) { wantHead = false; try { el.focus(); } catch (x) {} } },
 spotAt: function (e) {
 var r = e.currentTarget.getBoundingClientRect();
 if (!r.width || !r.height || !s.form) return;
@@ -1322,7 +1452,7 @@ addLink: function () { rowAdd('links'); },
 addSet: function () { rowAdd('sets'); },
 retry: load,
 logOut: function () { B.auth.signOut().then(function () { go(links.home || 'index.html'); }); },
-addDate: addDate, savePv: savePv,
+addDate: addDate, savePv: savePv, save: save, undo: undo,
 leave: function (e) { if (!dirty()) return undefined; e.preventDefault(); e.returnValue = ''; return ''; }
 };
 var OFF_PART = { basics: false, photo: false, about: false, sets: false, rider: false, look: false };
@@ -1330,41 +1460,44 @@ function vals() {
 var ready = s.phase === 'ready' && !!s.saved, f = s.form || {}, live = ready && s.saved.status === 'live', part = s.part, P = PARTS[part] || null;
 var is = copy(OFF_PART); if (P) is[part] = true;
 var errs = s.errs, err = {}, inv = {}, k;
-['name', 'tag', 'home', 'img', 'image', 'record', 'alt', 'bio', 'rider', 'riderNote', 'riderLink', 'find.label', 'find.url', 'sets', 'links', 'first'].forEach(function (key) {
+['img', 'image', 'record', 'alt', 'riderLink', 'find.label', 'find.url', 'sets', 'links', 'first'].forEach(function (key) {
 var n = key.replace('.', '_'); err[n] = !!errs[key]; inv[n] = errs[key] ? 'true' : 'false';
 });
 var errText = {}; for (k in errs) errText[k.replace('.', '_')] = errs[k];
-var rows = function (list, a, b) {
-return (f[list] || []).map(function (r, i) {
-var o = { n: String(i + 1), bad: !!errs[list + '.' + i], err: errs[list + '.' + i] || '', inv: errs[list + '.' + i] ? 'true' : 'false',
-remove: function () { rowRemove(list, i); }, removeAria: 'Remove ' + (r[a] || (list === 'sets' ? 'set ' : 'link ') + (i + 1)) };
+var list = function (name, a, b) {
+return (f[name] || []).map(function (r, i) {
+var o = { n: String(i + 1), bad: !!errs[name + '.' + i], err: errs[name + '.' + i] || '', inv: errs[name + '.' + i] ? 'true' : 'false',
+remove: function () { rowRemove(name, i); }, removeAria: 'Remove ' + (r[a] || (name === 'sets' ? 'set ' : 'link ') + (i + 1)) };
 o[a] = r[a]; o[b] = r[b];
-o.setA = function (e) { rowSet(list, i, a, e.target.value); };
-o.setB = function (e) { rowSet(list, i, b, e.target.value); };
+o.setA = function (e) { rowSet(name, i, a, e.target.value); };
+o.setB = function (e) { rowSet(name, i, b, e.target.value); };
 return o;
 });
 };
-var now = today();
+var changed = ready && dirty(), lines = (f.rider || []).filter(Boolean);
 return {
 on: true,
 dotCls: 'pe-dot0' + (live ? ' pe-live' : ''),
-head: !ready ? 'Your dashboard.' : live ? 'Your page is\u00a0live.' : 'Your page is a\u00a0draft.',
-line: s.flash || (!ready ? '' : live ? 'This is what hosts see. Change any part with its Edit\u00a0button.' : "Hosts can't see it yet. BOOKD puts it live when it's\u00a0ready."),
+head: !ready ? 'Your dashboard.' : tie(live ? 'Your page is live.' : 'Your page is a draft.'),
+line: s.flash || (!ready ? '' : tie(live ? 'This is what hosts see. Click any words to change them.' : "Hosts can't see it yet. Click any words to change them. BOOKD puts it live when it's ready.")),
 canSee: live && typeof links.artistUrl === 'function', seeHref: live && typeof links.artistUrl === 'function' ? links.artistUrl(s.saved.slug) : '',
 logOut: h.logOut,
 waiting: s.phase === 'loading', failed: s.phase === 'failed', failText: fail(s.code), retry: h.retry, noPage: s.phase === 'none',
 ready: ready,
-open: openers, photoPill: ready && s.saved.img ? 'Change photo' : 'Add a photo',
-panel: !!P, side: P ? P.side : 'right', title: P ? P.title : '', is: is, key: h.key, headRef: h.headRef,
-cancel: h.cancel, save: h.save, busy: s.busy ? 'true' : 'false', saveLabel: s.busy ? 'Saving' : 'Save',
-hasMsg: !!s.msg, msg: s.msg, msgCls: 'pe-msg' + (s.bad ? ' pe-msgbad' : ''),
-f: { name: f.name || '', first: f.first || '', tag: f.tag || '', home: f.home || '', alt: f.alt || '', bio: f.bio || '', img: f.img || '',
-px: f.px == null ? 50 : f.px, py: f.py == null ? 50 : f.py, findLabel: f.findLabel || '', findUrl: f.findUrl || '',
-rider: f.rider || '', riderNote: f.riderNote || '', riderLink: f.riderLink || '' },
+at: at, hasTag: !!str(f.tag).replace(/\s+/g, ''),
+bioRows: (f.bio || []).map(function (t, i) { return { ref: bindRow('bio', i) }; }),
+riderRows: (f.rider || []).map(function (t, i) { return { ref: bindRow('rider', i) }; }),
+hasLines: lines.length > 0, noLines: !lines.length,
+open: openers, photoPill: ready && f.img ? 'Change photo' : 'Add a photo',
+setsPill: ready && (f.sets || []).length ? 'Edit sets' : 'Add your sets', linksPill: ready && (f.links || []).length ? 'Edit links' : 'Add links',
+riderPill: ready && f.riderLink ? 'Change the rider link' : 'Add a link to your full rider',
+panel: !!P, side: P ? P.side : 'right', title: P ? P.title : '', is: is, key: h.key, headRef: h.headRef, done: h.done,
+f: { first: f.first || '', alt: f.alt || '', img: f.img || '', px: f.px == null ? 50 : f.px, py: f.py == null ? 50 : f.py,
+findLabel: f.findLabel || '', findUrl: f.findUrl || '', riderLink: f.riderLink || '' },
 set: set, err: err, inv: inv, errText: errText,
 genres: A.genres.map(function (g) {
 var on = (f.genres || []).indexOf(g) >= 0;
-return { label: g, on: on ? 'true' : 'false', flip: function () { var list = (s.form.genres || []).slice(), i = list.indexOf(g); if (i >= 0) list.splice(i, 1); else list.push(g); edit('genres', list); } };
+return { label: g, on: on ? 'true' : 'false', flip: function () { var l = (s.form.genres || []).slice(), i = l.indexOf(g); if (i >= 0) l.splice(i, 1); else l.push(g); edit('genres', l); } };
 }),
 hasPhoto: !!f.img, noPhoto: !f.img, hasImage: !!f.image, hasRecord: !!f.record, spotAt: h.spotAt,
 pick: pick, clear: clear,
@@ -1374,22 +1507,23 @@ image: s.picking === 'image' ? 'One sec' : (f.image ? 'Choose another picture' :
 record: s.picking === 'record' ? 'One sec' : (f.record ? 'Choose another picture' : 'Choose a picture') },
 bgs: A.backgrounds.map(function (c) { return { key: c, label: BG_NAMES[c] || c, on: f.bg === c ? 'true' : 'false', pick: function () { edit('bg', c); } }; }),
 signs: ['left', 'right'].map(function (c) { return { label: c === 'left' ? 'Left' : 'Right', on: f.sign === c ? 'true' : 'false', pick: function () { edit('sign', c); } }; }),
-links: rows('links', 'label', 'url'), addLink: h.addLink, canAddLink: (f.links || []).length < L.links,
-sets: rows('sets', 'title', 'url'), addSet: h.addSet, canAddSet: (f.sets || []).length < L.sets, noSetRows: !(f.sets || []).length,
-noBio: ready && !shownBio(),
+links: list('links', 'label', 'url'), addLink: h.addLink, canAddLink: (f.links || []).length < L.links,
+sets: list('sets', 'title', 'url'), addSet: h.addSet, canAddSet: (f.sets || []).length < L.sets, noSetRows: !(f.sets || []).length,
+bar: changed || s.busy || !!s.msg, barPanel: P ? P.side : 'no',
+barText: s.msg || (s.busy ? 'Saving your page.' : tie('You have changes that are not saved yet.')), barCls: 'pe-bartext' + (s.bad ? ' pe-msgbad' : ''),
+save: h.save, undo: h.undo, busy: s.busy ? 'true' : 'false', saveLabel: s.busy ? 'Saving' : 'Save',
 dates: s.dates.map(function (d) { return { when: when(d.from, d.to), city: d.city, remove: function () { removeDate(d.id); }, removeAria: 'Remove ' + d.city + ', ' + when(d.from, d.to) }; }),
-noDates: !s.dates.length, nd: s.nd, ndSet: ndSet, ndMin: now, ndInv: s.dateErr ? 'true' : 'false',
+noDates: !s.dates.length, nd: s.nd, ndSet: ndSet, ndMin: today(), ndInv: s.dateErr ? 'true' : 'false',
 addDate: h.addDate, addBusy: s.dateBusy ? 'true' : 'false', addLabel: s.dateBusy ? 'One sec' : 'Add the date',
 hasDateErr: !!s.dateErr, dateErr: s.dateErr, hasDateMsg: !s.dateErr && !!s.dateMsg, dateMsg: s.dateMsg,
 pv: s.pv, pvSet: pvSet, savePv: h.savePv, pvBusy: s.pvBusy ? 'true' : 'false', pvLabel: s.pvBusy ? 'Saving' : 'Save',
 hasPvMsg: !!s.pvMsg, pvMsg: s.pvMsg, pvMsgCls: 'pe-msg' + (s.pvBad ? ' pe-msgbad' : '')
 };
 }
-function shownBio() { var a = shown(); return !!(a && a.bio && a.bio.length); }
 return {
 start: function () { if (W.addEventListener) W.addEventListener('beforeunload', h.leave); load(); },
 stop: function () { gone = true; if (flashT) clearTimeout(flashT); if (W.removeEventListener) W.removeEventListener('beforeunload', h.leave); },
-vals: vals
+vals: vals, painted: painted
 };
 }
 B.pageEditor = { attach: attach };
