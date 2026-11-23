@@ -519,7 +519,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <ol class="e6-how" aria-label="How your changes get on the site">
 <li class="e6-howc" data-state="{{how.s1}}"><span class="e6-hown" aria-hidden="true">1</span><div><h2 class="e6-howh">Add or edit a&nbsp;DJ.</h2><p>Each save is kept on this device&nbsp;only.</p></div></li>
 <li class="e6-howc" data-state="{{how.s2}}"><span class="e6-hown" aria-hidden="true">2</span><div><h2 class="e6-howh">Download the roster&nbsp;file.</h2><p>{{waitingText}}</p><button class="btn paper e6-dl" type="button" onClick="{{download}}" aria-busy="{{dlBusy}}" aria-disabled="{{dlOff}}">{{dlLabel}}</button></div></li>
-<li class="e6-howc" data-state="{{how.s3}}"><span class="e6-hown" aria-hidden="true">3</span><div><h2 class="e6-howh">Send it to&nbsp;Nico.</h2><p role="status">{{sendText}}</p></div></li>
+<li class="e6-howc" data-state="{{how.s3}}"><span class="e6-hown" aria-hidden="true">3</span><div><h2 class="e6-howh">Send it to your&nbsp;developer.</h2><p role="status">{{sendText}}</p></div></li>
 </ol>
 </sc-if>
 <sc-if value="{{hasListMsg}}" hint-placeholder-val="{{ false }}"><p class="{{listMsgCls}}" role="status" tabindex="-1" ref="{{msgRef}}">{{listMsg}}</p></sc-if>
@@ -1316,7 +1316,7 @@ if (code === 'board') return 'This is the design board, so nothing is kept here.
 return "That file won't open as a picture. Try a JPG or a PNG.";
 }
 function e6Fail(code) {
-if (code === 'full') return "This browser's storage is full, so nothing was saved. Download the roster file, send it to Nico, then try again with a smaller photo.";
+if (code === 'full') return "This browser's storage is full, so nothing was saved. Download the roster file, send it to your developer, then try again with a smaller photo.";
 if (code === 'blocked') return "This browser won't keep changes, so nothing was saved. A private window does this. Open this page in a normal window.";
 if (code === 'missing') return "They aren't on the roster any more. Nothing was saved.";
 if (code === 'taken') return 'That name is too close to one already on the roster to get a page of its own. Change it a little and save again.';
@@ -1354,8 +1354,8 @@ function e6Saved(mode, kind, a, shown) {
 var t = e6Time();
 if (mode === 'database') return kind === 'live' ? 'Saved at ' + t + '.' : kind === 'off' ? 'Now a draft. Saved at ' + t + '.' : 'Draft saved at ' + t + '.';
 if (a && a.meta && !a.meta.changed) return 'Saved at ' + t + '. The site already shows this.';
-if (kind === 'live') return 'Saved on this device at ' + t + '. Visitors see ' + (shown ? 'the changes' : 'them') + ' once Nico has the roster file.';
-if (shown) return 'Saved as a draft on this device at ' + t + '. Visitors still see them until Nico has the roster file.';
+if (kind === 'live') return 'Saved on this device at ' + t + '. Visitors see ' + (shown ? 'the changes' : 'them') + ' once your developer has the roster file.';
+if (shown) return 'Saved as a draft on this device at ' + t + '. Visitors still see them until your developer has the roster file.';
 return 'Draft saved on this device at ' + t + '.';
 }
 var NAV6_DEFAULTS = { curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null };
@@ -1927,7 +1927,7 @@ self.focusMsg = true;
 self.setState({ busy: '', listMsg: { kind: 'err', text: r && r.code === 'blocked' ? "This browser wouldn't save the file. Try once more, or open this page in another browser." : e6Fail(r && r.code) } });
 return;
 }
-var text = 'Downloaded ' + r.filename + '. Send it to Nico to put your changes on the\u00a0site.', lost = {};
+var text = 'Downloaded ' + r.filename + '. Send it to your developer to put your changes on the\u00a0site.', lost = {};
 (r.lost || []).forEach(function (l) { var a = self.find(l.slug); lost[a ? a.name : l.slug] = 1; });
 lost = Object.keys(lost);
 if (lost.length) text += ' One thing first: a picture for ' + e6And(lost) + ' is missing from the file. Open them, choose the picture again, save, then download once\u00a0more.';
@@ -1963,7 +1963,7 @@ loading: s.phase === 'loading', loadFailed: s.phase === 'error', loadFailText: e
 truthCls: 'e6-truth' + (blockedNow ? ' e6-truth-bad' : ''),
 truthHead: blockedNow ? "This browser won't keep your\u00a0changes." : device ? 'Preview\u00a0mode.' : database ? 'Live.' : 'Design\u00a0board.',
 truthText: blockedNow ? 'A private window or a locked down laptop does this. Open this page in a normal window before you start, or nothing you save will\u00a0stay.'
-: device ? 'Changes are saved on this device only. To put them on the site, download the roster file and send it to\u00a0Nico.'
+: device ? 'Changes are saved on this device only. To put them on the site, download the roster file and send it to your\u00a0developer.'
 : database ? 'Changes are saved to the site. Visitors see them straight\u00a0away.'
 : 'This is the design, not the real page. Nothing is saved\u00a0here.',
 showHow: showHow, showTruth: !showHow && !database && !(device && s.phase === 'loading'),
@@ -1971,7 +1971,7 @@ how: { s1: names.length || sent ? 'done' : 'now', s2: sent ? 'done' : names.leng
 waitingText: sent ? s.sent + ' is downloaded. Changed something since? Download it\u00a0again.'
 : names.length ? waitingText + (names.length === 1 ? ' has' : ' have') + ' changes waiting on this device. Download when you\u00a0finish.'
 : 'Nothing has changed on this device yet, so there is nothing to\u00a0download.',
-sendText: sent ? 'Text or email ' + s.sent + ' to Nico. Look in your Downloads\u00a0folder.' : 'Text or email the file to Nico, and your changes go on the\u00a0site.',
+sendText: sent ? 'Text or email ' + s.sent + ' to your developer. Look in your Downloads\u00a0folder.' : 'Text or email the file to your developer, and your changes go on the\u00a0site.',
 download: this.download,
 dlBusy: s.busy === 'file' ? 'true' : 'false', dlOff: names.length ? 'false' : 'true', dlLabel: s.busy === 'file' ? 'One sec' : sent ? 'Download it again' : 'Download the roster file',
 hasListMsg: !!s.listMsg, listMsg: s.listMsg ? s.listMsg.text : '', listMsgCls: 'e6-msg' + (s.listMsg && s.listMsg.kind === 'err' ? ' e6-msg-err' : ''), msgRef: this.msgRef,
@@ -2034,11 +2034,11 @@ var lost = (meta.lostPhotos || []).map(function (k) { return k === 'img' ? 'the 
 var warn = [];
 if (lost.length) warn.push('A picture saved on this device has gone missing: ' + e6And(lost) + '. Choose it again and\u00a0save.');
 if (meta.siteChanged) warn.push("The site's own version of this page has changed since you edited it here. The last card can take you back to\u00a0it.");
-var shown = e6Shown(saved, device), pill = e6Pill(isLive, shown, device), file = 'once Nico has the roster\u00a0file.';
+var shown = e6Shown(saved, device), pill = e6Pill(isLive, shown, device), file = 'once your developer has the roster\u00a0file.';
 var where = !f.slug ? ''
 : database ? '' : board ? 'From the design board.'
 : !meta.changed ? 'The same as on the site.'
-: !isLive && shown ? 'A draft on this device. Visitors still see them until Nico has the roster\u00a0file.'
+: !isLive && shown ? 'A draft on this device. Visitors still see them until your developer has the roster\u00a0file.'
 : (meta.changed === 'added' ? 'Added' : 'Changed') + ' on this device.' + (!isLive ? '' : shown ? ' Visitors see the changes ' + file : ' Visitors see them ' + file);
 var nameK = Math.min(0.706, 3.35 / Math.max(0.1, e6Wide(name || 'Their name', -0.075)));
 var lblSize = Math.min(9.5, 34 / Math.max(0.1, e6Wide(name || 'Their name', -0.042)));
