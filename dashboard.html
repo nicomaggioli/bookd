@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>Your dashboard · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Your dashboard. A BOOKD account page.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="bookd-manage.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
+}
+}
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px);--sec:clamp(64px,calc(8 * var(--vw)),110px)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.h1{margin:0;font-size:clamp(48px,calc(7 * var(--vw)),112px);line-height:.88;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h2{margin:0;font-size:clamp(44px,calc(6 * var(--vw)),92px);line-height:.9;font-weight:700;letter-spacing:-0.065em;text-wrap:balance}
+.h3{margin:0;font-size:clamp(24px,calc(2.4 * var(--vw)),32px);line-height:1;font-weight:700;letter-spacing:-0.045em}
+.lede{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#fffde9;max-width:34em}
+.muted{color:#a2a5a4}
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+html{scroll-padding-top:88px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border:0;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.go{background:#d31110;color:#ffffff}
+.ink{background:#000000;color:#ffffff}
+.paper{background:#ffffff;color:#000000}
+.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn:active{transform:translateY(1px)}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip-on{background:#ffffff;color:#000000;border-color:#ffffff}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field input,.field select,.field textarea{width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;-webkit-appearance:none;appearance:none;outline:none}
+.field textarea{font-weight:400;font-size:17px;letter-spacing:0;resize:vertical;min-height:84px}
+.field input::placeholder,.field textarea::placeholder{color:#636665;font-weight:400;opacity:1}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.card{border-radius:var(--r-card);overflow:hidden}
+.card-cream{background:#fffde9;color:#000000}
+.card-dark{background:#0e0e0f;box-shadow:inset 0 0 0 1px #1f1f21}
+.card-red{background:#d31110;color:#ffffff}
+.vidbtn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);font:700 12px 'Inter',sans-serif;letter-spacing:.06em;white-space:nowrap;cursor:pointer}
+.dflash{position:relative;display:block;width:100%;overflow:hidden;background:#000000}
+.dflash img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(1.12) contrast(1.5)}
+.dflash .dfx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 36%,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 42%,rgba(0,0,0,.2) 74%,rgba(0,0,0,.6) 100%)}
+.dflash .dgrain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.fav{display:block;width:40px;height:40px;margin:4px;border-radius:50%;overflow:hidden;flex:none;background:#000000;box-shadow:0 0 0 2px #000000,0 0 0 4px #2f2f31}
+.fav-dj{box-shadow:0 0 0 2px #000000,0 0 0 4px #d31110}
+.fav img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.14) 140px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#ff3b2f}
+.footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.footrow a{display:inline-flex;align-items:center;min-height:44px;padding:0;color:#ff3b2f;font-weight:700;text-decoration:none}
+@media (max-width:480px){.footrow nav{display:grid;grid-template-columns:repeat(3,max-content);gap:0 24px}}
+@media (hover: hover) and (pointer: fine){.go:hover{background:#ffffff;color:#000000}.ink:hover{background:#d31110}.paper:hover{background:#d31110;color:#ffffff}.ghost:hover{background:#ffffff;color:#000000;box-shadow:none}.chip[aria-pressed="false"]:hover{background:rgba(255,255,255,.12)}.vidbtn:hover{box-shadow:inset 0 0 0 1px #ffffff}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+.k6sec{overflow-x:clip}
+.k6h2s{font-size:clamp(40px,calc(4.6 * var(--vw)),72px)}
+.k6side-note{margin:0;font-size:clamp(18px,calc(1.55 * var(--vw)),23px);line-height:1.35;letter-spacing:-0.015em;max-width:22em}
+.k6head{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px 56px;align-items:end;margin-bottom:clamp(28px,calc(4 * var(--vw)),52px)}
+@media (max-width:860px){.k6head{grid-template-columns:minmax(0,1fr)}}
+.k6town-sec{position:relative;background:#d31110;color:#fffde9;padding:var(--sec) 0}
+.k6town-sec :focus-visible{outline-color:#ffffff}
+.k6town-sec .k6card :focus-visible{outline-color:#d31110}
+.k6dates{margin:0;padding:0;list-style:none}
+.k6dates li{border-bottom:1px solid rgba(0,0,0,.4)}
+.k6drow{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr) minmax(150px,auto);align-items:baseline;gap:6px 24px;padding:clamp(14px,calc(1.6 * var(--vw)),22px) 0;color:inherit;text-decoration:none;transition:color .15s}
+.k6dwhen,.k6dcity{font-size:clamp(34px,calc(5.8 * var(--vw)),84px);font-weight:700;letter-spacing:-0.065em;line-height:.95;font-variant-numeric:tabular-nums;white-space:nowrap}
+.k6drow-ny{color:#000000}
+.k6dask{justify-self:start;font-size:15px;font-weight:700}
+.k6dtaken{opacity:.55}
+.k6dtaken .k6dcity{text-decoration:line-through;text-decoration-thickness:.07em}
+.k6dtaken .k6dask{text-decoration:none}
+.k6fine{margin:clamp(20px,calc(2 * var(--vw)),28px) 0 0;font-size:15px;line-height:1.5;color:#fffde9;max-width:44em}
+@media (hover: hover) and (pointer: fine){a.k6drow:hover{color:#000000}}
+@media (max-width:760px){.k6drow{grid-template-columns:minmax(0,1fr)}.k6dwhen,.k6dcity{font-size:clamp(34px,calc(11 * var(--vw)),72px)}.k6dask{margin-top:6px}}
+.k6costs{background:#fffde9;color:#000000;padding:var(--sec) 0}
+.k6costs :focus-visible{outline-color:#d31110}
+.k6costgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(48px,calc(7 * var(--vw)),112px);align-items:start}
+.k6col{display:flex;flex-direction:column;min-width:0}
+.k6colhead{display:flex;flex-direction:column;gap:14px}
+.k6price{margin:6px 0 0;font-size:clamp(44px,calc(5.6 * var(--vw)),84px);line-height:.95;font-weight:700;letter-spacing:-0.06em;color:#d31110;white-space:nowrap}
+.k6colnote{margin:0;font-size:clamp(17px,calc(1.4 * var(--vw)),20px);line-height:1.45;color:#2f2f31;max-width:26em}
+.k6ledger{margin:clamp(28px,calc(3 * var(--vw)),44px) 0 0}
+.k6ledger div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:baseline;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.18);font-size:17px;line-height:1.4}
+.k6ledger dt{font-weight:400}
+.k6ledger dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.k6need div{grid-template-columns:minmax(96px,120px) minmax(0,1fr)}
+.k6need dt{font-weight:700}
+.k6need dd{font-weight:400}
+.k6costfoot{margin:16px 0 0;font-size:15px;line-height:1.45;color:#2f2f31}
+@media (min-width:901px){.k6colhead{min-height:clamp(200px,calc(17 * var(--vw)),250px)}}
+@media (max-width:900px){.k6costgrid{grid-template-columns:minmax(0,1fr)}}
+.k6card{min-width:0;box-sizing:border-box;padding:clamp(12px,calc(1.4 * var(--vw)),18px);border-radius:30px;background:#ffffff;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25)}
+.k6form{margin:0}
+.k6fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.k6f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.k6wide{grid-column:1 / -1}
+.k6err{padding:0 8px;font-size:13px;font-weight:700;color:#d31110}
+.k6hint{padding:0 8px;font-size:13px;color:#4d504f}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+@media (max-width:480px){.k6fgrid{grid-template-columns:minmax(0,1fr)}.k6card{border-radius:24px}.field input{font-size:18px}}
+.djlink{background:none;border:0;padding:0;min-height:44px;display:inline-flex;align-items:center;color:inherit;font:700 15px 'Inter',sans-serif;cursor:pointer}
+.djtop{padding:clamp(24px,calc(2.8 * var(--vw)),40px) 0 clamp(56px,calc(6 * var(--vw)),88px)}
+.djtop .k6head{margin-bottom:clamp(24px,calc(3 * var(--vw)),40px)}
+.djtop .k6side-note b{display:block;margin-bottom:8px;font-weight:700}
+.djdrow{grid-template-columns:minmax(0,6fr) minmax(0,5fr) minmax(170px,auto);padding:clamp(12px,calc(.9 * var(--vw)),14px) 0}
+.djdrow .k6dwhen,.djdrow .k6dcity{white-space:normal;overflow-wrap:anywhere;text-wrap:balance}
+@media (min-width:761px) and (max-width:1180px){.djdrow .k6dwhen,.djdrow .k6dcity{font-size:clamp(34px,calc(4.6 * var(--vw)),84px)}}
+.djend{display:inline-flex;flex-wrap:wrap;align-items:center;gap:0 14px;font-size:15px;font-weight:700}
+.djhome{color:#fffde9}
+.djhome .k6dwhen,.djhome .k6dcity{opacity:.72}
+.djhome .k6dask{text-decoration:none}
+.djnone{color:#000000}
+.djadd{margin-top:clamp(20px,calc(2.4 * var(--vw)),32px);border-radius:30px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.djaddrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:stretch}
+.djaddbtn{min-height:62px;padding:0 36px}
+.djndhint,.djnderr{margin:10px 8px 2px}
+.field input[type="date"]{min-height:28px;font-size:18px;letter-spacing:-0.02em}
+.field input[type="date"][data-empty="true"]:not(:focus){color:#636665;font-weight:400}
+.djadded{font-weight:700;color:#000000}
+.djra{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:18px;min-height:44px}
+.djranote{font-size:15px;line-height:1.4;color:#fffde9}
+.djstat{margin:0;font-size:15px;line-height:1.4;font-weight:700;color:#fffde9}
+.djstat .djlink{margin:-11px 0}
+.djgone{padding:clamp(22px,calc(1.6 * var(--vw)),24px) 0}
+.dots{display:block;clip-path:inset(-24px -24px -24px -3px)}
+.dots > span{display:flex;flex-wrap:wrap;margin-left:-.9em}
+.dots > span > span{position:relative;min-width:0;padding-left:.9em}
+.dots > span > span::before{content:"\00b7";position:absolute;left:0;width:.9em;text-align:center}
+.djreq{background:#000000;color:#fffde9;padding:var(--sec) 0}
+.djlist{margin:0;padding:0;list-style:none}
+.djr{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,370px);gap:10px 32px;align-items:center;padding:clamp(18px,calc(2 * var(--vw)),26px) 0;border-bottom:1px solid #2f2f31}
+.djwhen{font-size:clamp(30px,calc(3.4 * var(--vw)),48px);font-weight:700;letter-spacing:-0.055em;line-height:1;font-variant-numeric:tabular-nums}
+.djwho{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:15px;line-height:1.4;color:#a2a5a4}
+.djwho b{font-size:clamp(20px,calc(1.7 * var(--vw)),24px);letter-spacing:-0.03em;line-height:1.15;color:#ffffff}
+.djtownyes{font-weight:700;color:#ff3b2f}
+.djtownno{color:#a2a5a4}
+.djacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-width:0}
+.djanswer{font-size:15px;line-height:1.35;color:#fffde9}
+.djanswer > span{flex:1 1 100%;font-weight:700}
+.djr-off .djwhen,.djr-off .djwho b{color:#a2a5a4}
+.djr-off .djtownyes{color:#a2a5a4;font-weight:400}
+.djall{margin-top:clamp(24px,calc(3 * var(--vw)),36px)}
+.djprogrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,calc(6 * var(--vw)),96px);align-items:start}
+.djpic{display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-width:0}
+.djphoto{aspect-ratio:4 / 5}
+.djphoto img{object-position:50% 30%;filter:grayscale(1) contrast(1.1)}
+.djnoimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 24px;text-align:center;text-wrap:balance;font-size:15px;font-weight:700;color:#a2a5a4}
+.djpicbtn:has(> input.vh:focus-visible){outline:2px solid #d31110;outline-offset:3px}
+.djphotoerr{margin:0;padding:0}
+.djbio{margin-top:18px}
+.djneed{margin-top:clamp(24px,calc(2.6 * var(--vw)),36px)}
+.djneed dd{overflow-wrap:anywhere;font-variant-numeric:normal}
+.djproacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:24px}
+.djpro .k6costfoot{margin-top:8px;min-height:1.45em}
+.djform{margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
+.djform .field{background:#ffffff}
+.djform .field input{font-size:18px}
+.djpro .go:hover,.djpro .ghost:hover{background:#000000;color:#ffffff}
+.djmoney{background:#000000;color:#fffde9;padding:var(--sec) 0 0}
+.djmoney .k6colnote{color:#a2a5a4}
+.djmoney .k6price{color:#ff3b2f}
+.djmoney .k6ledger{border-top-color:#fffde9}
+.djmoney .k6ledger div{border-bottom-color:#2f2f31}
+.djmoney .k6ledger dt{display:flex;flex-direction:column;gap:2px}
+.djmoney .k6ledger dt b{font-size:clamp(24px,calc(2.2 * var(--vw)),30px);letter-spacing:-0.045em;line-height:1.05}
+.djmoney .k6ledger dt > span{font-size:15px;color:#a2a5a4}
+.djmoney + .foot6,.foot6{margin-top:0}
+@media (hover: hover) and (pointer: fine){
+.djtop .paper:hover{background:#000000;color:#ffffff}
+.djadd .go:hover{background:#000000;color:#ffffff}
+.djlink:hover{color:#ff3b2f}
+.djtop .djlink:hover{color:#000000}
+.djpro .djlink:hover{color:#d31110}
+.djreq .ghost:hover{background:#ffffff;color:#000000}
+}
+@media (max-width:1180px){.djr{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}.djacts{grid-column:1 / -1}}
+@media (max-width:980px){.djaddrow{grid-template-columns:repeat(2,minmax(0,1fr))}.djaddrow > label:first-child,.djaddbtn{grid-column:1 / -1}}
+@media (max-width:760px){.djprogrid{grid-template-columns:minmax(0,1fr)}.djpic{max-width:420px}}
+@media (max-width:760px){
+.djdrow{grid-template-columns:minmax(0,1fr)}
+.djend{margin-top:2px}
+.djr{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.djadd{border-radius:24px}.field input[type="date"]{font-size:16px}}</style>
+<style>@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}</style>
+<style>.djphoto{border-radius:var(--r-card);overflow:hidden}</style>
+<style>.djform .field{box-shadow:inset 0 0 0 1px #d9d9d4}
+.djform .field:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+.k6drow-ny .djlink,.djnone .djlink{color:#fffde9}
+.djsample{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;box-shadow:inset 0 0 0 1px currentColor;color:#fffde9;font-size:12px;letter-spacing:.04em}
+@media (max-width:360px){.djaddrow{grid-template-columns:minmax(0,1fr)}}
+.djform .field input{text-overflow:ellipsis}
+@media (max-width:480px){.footrow nav{grid-template-columns:repeat(4,max-content);gap:0 clamp(12px,calc(4.5 * var(--vw)),24px);flex-basis:100%}}
+.footrow a{min-width:44px}
+.navgrid{box-sizing:border-box}
+.field{border-radius:var(--r-field)}
+.k6card,.djadd{border-radius:var(--r-card)}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
+<style>html body *,html body *:hover,html body *:focus{text-decoration-line:none !important}
+html body .k6dtaken .k6dcity{text-decoration-line:line-through !important}
+html p a:not([class]),html dd a:not([class]),html li a:not([class]),html span a:not([class]),html .ja-login a,html .k6mine a,html .k6dask,html .djlink{font-weight:700}
+html .decl,html .bk-quiet,html .listlink{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border-radius:999px;background:rgba(128,128,128,.2);background:color-mix(in srgb,currentColor 12%,transparent);font-weight:700;line-height:1.1;transition:background .15s ease-out,color .15s ease-out}
+html .decl:active,html .bk-quiet:active,html .listlink:active{transform:translateY(1px)}
+@media (hover:hover) and (pointer:fine){
+html .decl:hover,html .bk-quiet:hover,html .listlink:hover{background:#d31110;color:#ffffff}
+html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
+}</style>
+</helmet>
+<div style="min-height: calc(100 * var(--vh)); display: flex; flex-direction: column; background: #000000;">
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M529.45,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM529.45,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.53-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM529.45,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM529.45,497.86c-33.6,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M747.47,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM747.47,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.52-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM747.47,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM747.47,497.86c-33.61,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1054.41,620.37h-66.9l-3.05-3.07-70.16-70.64v73.71h-54.79v-160.65h54.79v69.6l73.54-69.6h64.86l-82.45,76.91,84.16,83.74ZM989.81,611.62h50.45l-78.29-75.04,76.29-71.17h-48.17l-76.64,72.54,76.35,73.66ZM865.2,611.62h43.42v-146.2h-43.42v146.2Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v119.4h-49.1v-153.05Z"></path><path d="M1117.74,620.37h-6.62l-14.44-42.41h16.73c34.86,0,57.38-15.53,57.38-39.56s-22.52-39.34-57.38-39.34h-23.41v121.31h-54.79v-160.65h78.2c33.42,0,61.78,7.4,82.03,21.4,20.52,14.19,31.37,34.16,31.37,57.73,0,46.92-43.83,81.52-109.08,81.52ZM1115.1,611.62h2.65c61.84,0,103.39-29.24,103.39-72.76s-42.28-73.44-107.72-73.44h-72.51v149.28h43.42v-121.31h29.09c37.72,0,63.06,18.09,63.06,45.02s-24.75,45.25-63.06,45.25h-8.59l10.27,27.97Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}">Dashboard</a>
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+</nav>
+<div class="navend">
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="btn go navbook" href="{{seeHref}}">See your page</a></sc-if>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{signedIn}}</strong></span>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a href="{{seeHref}}">See your page</a></sc-if>
+<a href="account.html">Your account</a>
+<a href="index.html">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<a class="nl" href="{{dashHref}}" aria-current="{{curDash}}" onClick="{{closeMenu}}">Dashboard</a>
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="{{reqHref}}" aria-current="{{curReq}}" onClick="{{closeMenu}}">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+<sc-if value="{{seeOn}}" hint-placeholder-val="{{ true }}"><a class="nl" href="{{seeHref}}" onClick="{{closeMenu}}">See your page</a></sc-if>
+<a class="nl" href="account.html" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="index.html">Log out</a>
+</nav>
+</sc-if>
+</header>
+<main id="main" style="flex: 1 1 auto;">
+
+<section id="dates" class="k6town-sec k6sec djtop" aria-labelledby="dates-h">
+<div class="wrap">
+<div class="k6head">
+<h1 id="dates-h" class="h1">Where you'll&nbsp;be.</h1>
+<p class="k6side-note"><b>{{remind}}</b>Hosts check this list first. In town means no flight, no hotel and an easy&nbsp;yes.</p>
+</div>
+<ul class="k6dates">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="3">
+<li><sc-if value="{{d.row}}" hint-placeholder-val="{{ true }}"><div class="{{d.cls}}"><span class="k6dwhen">{{d.when}}</span><span class="k6dcity">{{d.city}}</span><span class="djend"><button class="djlink" type="button" onClick="{{d.remove}}" ref="{{d.rmRef}}" aria-label="{{d.removeAria}}">Remove</button><sc-if value="{{d.sample}}" hint-placeholder-val="{{ false }}"><span class="djsample">Sample</span></sc-if></span></div></sc-if><sc-if value="{{d.gone}}" hint-placeholder-val="{{ false }}"><p class="djstat djgone" role="status"><span id="gone-t">{{d.text}}</span>&nbsp; <button class="djlink" type="button" onClick="{{d.undo}}" ref="{{d.undoRef}}" aria-describedby="gone-t">Undo</button></p></sc-if></li>
+</sc-for>
+<sc-if value="{{noDates}}" hint-placeholder-val="{{ false }}">
+<li><div class="k6drow djdrow djnone"><span class="k6dwhen">Nowhere yet.</span><span class="k6dcity"></span><span class="djend"><button class="djlink" type="button" onClick="{{focusCity}}">Add a city</button></span></div></li>
+</sc-if>
+<li><div class="k6drow djdrow djhome"><span class="k6dwhen">Most weekends</span><span class="k6dcity">{{homeShort}}</span><span class="k6dask">Home</span></div></li>
+</ul>
+
+<div class="k6card djadd">
+<form class="k6form" aria-label="Add a date" onSubmit="{{addDate}}" novalidate="">
+<div class="djaddrow">
+<label class="field"><span class="field-l">City</span><input type="text" value="{{nd.city}}" onInput="{{ndSet.city}}" ref="{{cityRef}}" maxlength="32" placeholder="Where to?" autocomplete="off" autocapitalize="words" aria-invalid="{{ndInv.city}}" aria-describedby="{{ndDescribe}}"></label>
+<label class="field"><span class="field-l">From</span><input type="date" value="{{nd.from}}" onInput="{{ndSet.from}}" ref="{{fromRef}}" min="{{ndMin}}" data-empty="{{ndEmpty.from}}" aria-invalid="{{ndInv.from}}" aria-describedby="{{ndDescribe}}"></label>
+<label class="field"><span class="field-l">To</span><input type="date" value="{{nd.to}}" onInput="{{ndSet.to}}" ref="{{toRef}}" min="{{ndMin}}" data-empty="{{ndEmpty.to}}" aria-invalid="{{ndInv.to}}" aria-describedby="{{ndDescribe}}"></label>
+<button class="btn go btn-lg djaddbtn" type="submit" aria-busy="{{addBusy}}">{{addLabel}}</button>
+</div>
+<sc-if value="{{hasDateErr}}" hint-placeholder-val="{{ false }}"><p id="err-nd" class="k6err djnderr" role="alert">{{dateErr}}</p></sc-if>
+<sc-if value="{{noDateErr}}" hint-placeholder-val="{{ true }}"><p class="k6hint djndhint"><span class="djadded" role="status">{{added}}</span>{{ndHint}}</p></sc-if>
+</form>
+</div>
+
+<sc-if value="{{raShow}}" hint-placeholder-val="{{ true }}">
+<div class="djra">
+<sc-if value="{{raIdle}}" hint-placeholder-val="{{ true }}">
+<button class="btn paper" type="button" onClick="{{pullRa}}" ref="{{pullRef}}">Pull from Resident Advisor</button>
+<span class="djranote">One click, no typing. It adds sample dates for&nbsp;now.</span>
+</sc-if>
+<sc-if value="{{hasStat}}" hint-placeholder-val="{{ false }}">
+<p class="djstat" role="status" tabindex="-1" ref="{{statRef}}">{{stat}}<sc-if value="{{canUndo}}" hint-placeholder-val="{{ true }}">&nbsp; <button class="djlink" type="button" onClick="{{undoDates}}">Undo</button></sc-if></p>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</section>
+
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
+<section id="requests" class="djreq k6sec" aria-labelledby="req-h">
+<div class="wrap">
+<div class="k6head">
+<h2 id="req-h" class="h2">{{reqHead}}</h2>
+<p class="k6side-note">{{reqNote}}</p>
+</div>
+<sc-if value="{{hasReqs}}" hint-placeholder-val="{{ true }}">
+<ul class="djlist">
+<sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
+<li class="{{r.cls}}">
+<span class="djwhen">{{r.date}}</span>
+<span class="djwho"><b>{{r.who}}</b><span class="dots"><span><sc-for list="{{r.bits}}" as="x" hint-placeholder-count="4"><span>{{x.t}}</span></sc-for></span></span><span class="{{r.townCls}}">{{r.town}}</span></span>
+<sc-if value="{{r.waiting}}" hint-placeholder-val="{{ true }}">
+<span class="djacts"><button class="btn go" type="button" onClick="{{r.accept}}" ref="{{r.accRef}}" aria-label="{{r.acceptAria}}">Accept</button><a class="btn ghost" href="{{r.offerHref}}" aria-label="{{r.offerAria}}">Send an offer</a><button class="djlink" type="button" onClick="{{r.decline}}" aria-label="{{r.declineAria}}">Decline</button></span>
+</sc-if>
+<sc-if value="{{r.answered}}" hint-placeholder-val="{{ false }}">
+<span class="djacts djanswer" role="status" tabindex="-1" ref="{{r.ansRef}}"><span>{{r.line}}</span><a class="djlink" href="{{r.chatHref}}">Open the chat</a><sc-if value="{{r.canUndo}}" hint-placeholder-val="{{ true }}"><button class="djlink" type="button" onClick="{{r.undo}}">Undo</button></sc-if></span>
+</sc-if>
+</li>
+</sc-for>
+</ul>
+</sc-if>
+<sc-if value="{{showAll}}" hint-placeholder-val="{{ true }}"><a class="btn ghost djall" href="account.html">See every request</a></sc-if>
+</div>
+</section>
+
+</sc-if>
+
+<section id="profile" class="k6costs k6sec djpro" aria-labelledby="pro-h">
+<div class="wrap djprogrid" onKeyDown="{{editKey}}">
+<div class="djpic">
+<span class="dflash djphoto"><sc-if value="{{p.hasImg}}" hint-placeholder-val="{{ true }}"><img sc-camel-src="{{p.img}}" alt="{{p.imgAlt}}"></sc-if><sc-if value="{{p.noImg}}" hint-placeholder-val="{{ false }}"><span class="djnoimg">{{p.noImgText}}</span></sc-if><span class="dfx"></span><span class="dgrain"></span></span>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+<label class="btn ghost djpicbtn">Change photo<input class="vh" type="file" accept="image/*" onChange="{{pickPhoto}}"></label>
+<sc-if value="{{photoErr}}" hint-placeholder-val="{{ false }}"><p class="k6err djphotoerr" role="alert">{{photoErrText}}</p></sc-if>
+</sc-if>
+</div>
+<div class="k6col">
+<h2 id="pro-h" class="h2">{{p.nameNb}}.</h2>
+<sc-if value="{{reading}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{p.hasBio}}" hint-placeholder-val="{{ true }}"><p class="k6side-note djbio">{{p.bio}}</p></sc-if>
+<dl class="k6ledger k6need djneed">
+<div><dt>Sound</dt><dd>{{p.sound}}</dd></div>
+<div><dt>Home city</dt><dd>{{p.home}}</dd></div>
+<div><dt>Fee range</dt><dd>{{p.fee}}</dd></div>
+<div><dt>Agent</dt><dd>{{p.agent}}</dd></div>
+<div><dt>SoundCloud</dt><dd>{{p.sc}}</dd></div>
+<div><dt>Mixcloud</dt><dd>{{p.mc}}</dd></div>
+<div><dt>YouTube</dt><dd>{{p.yt}}</dd></div>
+</dl>
+<div class="djproacts">
+<button class="btn go" type="button" onClick="{{startEdit}}" ref="{{editBtnRef}}">Edit my profile</button>
+<sc-if value="{{seeHosts}}" hint-placeholder-val="{{ true }}"><a class="djlink" href="{{seeHref}}">See it the way hosts&nbsp;do</a></sc-if>
+</div>
+<p class="k6costfoot" role="status">{{savedLine}}</p>
+</sc-if>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+<form class="k6form djform" aria-label="Edit your profile" onSubmit="{{saveEdit}}" novalidate="">
+<div class="k6fgrid">
+<div class="k6f">
+<label class="field"><span class="field-l">DJ name</span><input type="text" value="{{ed.name}}" onInput="{{edSet.name}}" ref="{{nameRef}}" aria-invalid="{{edInv.name}}" aria-describedby="{{edDesc.name}}"></label>
+<sc-if value="{{edBad.name}}" hint-placeholder-val="{{ false }}"><span id="err-ed-name" class="k6err" role="alert">Add your DJ name so hosts know who's&nbsp;playing.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Sound</span><input type="text" value="{{ed.sound}}" onInput="{{edSet.sound}}" placeholder="Afro, house"></label>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Home city</span><input type="text" value="{{ed.home}}" onInput="{{edSet.home}}" ref="{{homeRef}}" placeholder="Where you live" aria-invalid="{{edInv.home}}" aria-describedby="{{edDesc.home}}"></label>
+<sc-if value="{{edBad.home}}" hint-placeholder-val="{{ false }}"><span id="err-ed-home" class="k6err" role="alert">Add your home city so hosts know where home&nbsp;is.</span></sc-if>
+</div>
+<div class="k6f">
+<label class="field"><span class="field-l">Fee range</span><input type="text" value="{{ed.fee}}" onInput="{{edSet.fee}}" placeholder="$800 to $1,500"></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">One line about you</span><textarea rows="3" maxlength="120" value="{{ed.bio}}" onInput="{{edSet.bio}}" placeholder="The first thing hosts read"></textarea></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">Agent name</span><input type="text" value="{{ed.agent}}" onInput="{{edSet.agent}}" placeholder="If you have one"></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">SoundCloud</span><input type="text" value="{{ed.sc}}" onInput="{{edSet.sc}}" ref="{{scRef}}" placeholder="soundcloud.com/you" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">Mixcloud</span><input type="text" value="{{ed.mc}}" onInput="{{edSet.mc}}" placeholder="mixcloud.com/you" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+</div>
+<div class="k6f k6wide">
+<label class="field"><span class="field-l">YouTube</span><input type="text" value="{{ed.yt}}" onInput="{{edSet.yt}}" placeholder="youtube.com/you" aria-invalid="{{edInv.links}}" aria-describedby="{{edDesc.links}}"></label>
+<sc-if value="{{edBad.links}}" hint-placeholder-val="{{ false }}"><span id="err-ed-links" class="k6err" role="alert">Add one set so hosts can hear you&nbsp;play.</span></sc-if>
+</div>
+</div>
+<div class="djproacts">
+<button class="btn go" type="submit" aria-busy="{{saveBusy}}">{{saveLabel}}</button>
+<button class="djlink" type="button" onClick="{{cancelEdit}}">Never mind</button>
+</div>
+<sc-if value="{{hasSaveErr}}" hint-placeholder-val="{{ false }}"><p class="k6err" role="alert">{{saveErr}}</p></sc-if>
+</form>
+</sc-if>
+</div>
+</div>
+</section>
+
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
+<section class="djmoney k6sec" aria-label="Your booked nights and what you've been paid">
+<div class="wrap k6costgrid">
+<div class="k6col">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">{{bookedHead}}</h2>
+<p class="k6colnote">{{bookedNote}}</p>
+</div>
+<sc-if value="{{hasBooked}}" hint-placeholder-val="{{ true }}">
+<dl class="k6ledger">
+<sc-for list="{{booked}}" as="b" hint-placeholder-count="2">
+<div><dt><b>{{b.date}}</b><span>{{b.meta}}</span></dt><dd><a class="djlink" href="{{b.chatHref}}" aria-label="{{b.chatAria}}">Open the chat</a></dd></div>
+</sc-for>
+</dl>
+</sc-if>
+</div>
+<div class="k6col">
+<div class="k6colhead">
+<h2 class="h2 k6h2s">What you've&nbsp;made.</h2>
+<p class="k6price">{{madePrice}}</p>
+<p class="k6colnote">{{madeNote}}</p>
+</div>
+<dl class="k6ledger">
+<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}">
+<div><dt>October</dt><dd>$3,150</dd></div>
+<div><dt>September</dt><dd>$1,980</dd></div>
+</sc-if>
+<div><dt>You keep</dt><dd>100% of your&nbsp;rate</dd></div>
+<sc-if value="{{hasMonths}}" hint-placeholder-val="{{ true }}"><div><dt>Next payout</dt><dd>Thu, Nov&nbsp;12</dd></div></sc-if>
+</dl>
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer class="foot6">
+<div class="wrap">
+<svg class="bigmark" viewBox="80 455 1190 170" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M529.45,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM529.45,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.53-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM529.45,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM529.45,497.86c-33.6,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M747.47,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM747.47,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.52-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM747.47,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM747.47,497.86c-33.61,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1054.41,620.37h-66.9l-3.05-3.07-70.16-70.64v73.71h-54.79v-160.65h54.79v69.6l73.54-69.6h64.86l-82.45,76.91,84.16,83.74ZM989.81,611.62h50.45l-78.29-75.04,76.29-71.17h-48.17l-76.64,72.54,76.35,73.66ZM865.2,611.62h43.42v-146.2h-43.42v146.2Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v119.4h-49.1v-153.05Z"></path><path d="M1117.74,620.37h-6.62l-14.44-42.41h16.73c34.86,0,57.38-15.53,57.38-39.56s-22.52-39.34-57.38-39.34h-23.41v121.31h-54.79v-160.65h78.2c33.42,0,61.78,7.4,82.03,21.4,20.52,14.19,31.37,34.16,31.37,57.73,0,46.92-43.83,81.52-109.08,81.52ZM1115.1,611.62h2.65c61.84,0,103.39-29.24,103.39-72.76s-42.28-73.44-107.72-73.44h-72.51v149.28h43.42v-121.31h29.09c37.72,0,63.06,18.09,63.06,45.02s-24.75,45.25-63.06,45.25h-8.59l10.27,27.97Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg>
+<div class="footrow">
+<span>© 2026 BOOKD. DJs for private&nbsp;parties.</span>
+<nav aria-label="Footer"><a class="ft-decks" href="index.html#booth">Take the decks</a><a href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a><a href="contact.html">Contact</a><a href="terms.html#terms">Terms</a><a href="terms.html#privacy">Privacy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3955}}'>var DJ_KEY = 'bookd.dj';
+var DJ_NEW_KEY = 'bookd.newdj';
+var DJ_TODAY = '2026-11-02';
+var DJ_YEAR_ON = '2027-11-02';
+var DJ_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var DJ_DATES = [
+{ city: 'New York', from: '2026-11-13', to: '2026-11-15' },
+{ city: 'Boston', from: '2026-11-21', to: '2026-11-21' },
+{ city: 'Chicago', from: '2026-11-28', to: '2026-11-28' },
+{ city: 'Chicago', from: '2026-12-31', to: '2026-12-31' }
+];
+var DJ_RA = [
+{ city: 'Chicago', from: '2026-12-12', to: '2026-12-12', sample: true },
+{ city: 'Detroit', from: '2026-12-19', to: '2026-12-19', sample: true }
+];
+var DJ_PROFILE = {
+name: 'Kaytran', sound: 'Afro / Amapiano', home: 'Atlanta, GA', fee: '$1,500 to $3,000', agent: 'Mara',
+bio: "Afro and amapiano from Atlanta. Yes, that's a Sade shirt. Yes, she'll play Sade.",
+sc: 'soundcloud.com/kaytran', mc: 'mixcloud.com/kaytran', yt: 'youtube.com/kaytran',
+img: ''
+};
+var DJ_NEW = {
+name: 'Soft Static', sound: 'House and disco', home: 'Portland, OR', fee: '$800 to $1,500', agent: '', bio: '',
+sc: 'soundcloud.com/soft-static/warehouse-set', mc: 'mixcloud.com/soft-static/rooftop-set', yt: '', img: ''
+};
+var DJ_REQS = [
+{ key: 'dani', who: 'Dani R.', date: 'Sat, Nov 14', iso: '2026-11-14', city: 'Brooklyn', metro: 'New York', meta: 'Brooklyn · Loft party · About 120 · Budget $2,500', budget: '2,500', stage: 'sent' },
+{ key: 'theo', who: 'Theo M.', date: 'Sat, Nov 21', iso: '2026-11-21', city: 'Boston', metro: 'Boston', meta: 'Boston · 40th birthday · About 60 · Budget $1,800', budget: '1,800', stage: 'sent' },
+{ key: 'priya', who: 'Priya S.', date: 'Fri, Nov 27', iso: '2026-11-27', city: 'Austin', metro: 'Austin', meta: 'Austin · Wedding afterparty · About 80 · Budget $3,000', budget: '3,000', stage: 'sent' }
+];
+var DJ_BOOKED = [
+{ key: 'sam', who: 'Sam & Lou', date: 'Sat, Nov 7', iso: '2026-11-07', city: 'Atlanta', fee: '1,500' },
+{ key: 'noor', who: 'Noor K.', date: 'Thu, Dec 31', iso: '2026-12-31', city: 'Chicago', fee: '2,200' }
+];
+var DJ_DUE = [
+{ y: 2026, m: 10, name: 'November', next: "December's", due: 'Mon, Dec 7' },
+{ y: 2026, m: 11, name: 'December', next: "January's", due: 'Mon, Jan 4' }
+];
+var DJ_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+function djLoad() { try { var o = JSON.parse(sessionStorage.getItem(DJ_KEY) || 'null'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function djSave(patch) { try { var o = djLoad(); for (var k in patch) o[k] = patch[k]; sessionStorage.setItem(DJ_KEY, JSON.stringify(o)); } catch (e) {} }
+function djNewLoad() {
+var o = null;
+try { o = JSON.parse(sessionStorage.getItem(DJ_NEW_KEY) || 'null'); } catch (e) { o = null; }
+if (!o || typeof o !== 'object') o = {};
+var src = o.profile && typeof o.profile === 'object' ? o.profile : o;
+var str = function (v) { return typeof v === 'string' ? v : ''; };
+var name = str(o.name).trim() || str(src.name).trim();
+var fee = str(src.fee).trim() || (str(src.low).trim() && str(src.high).trim() ? djMoney(src.low) + ' to ' + djMoney(src.high) : '');
+var img = str(src.img || src.cover);
+var profile = name ? {
+name: name, sound: str(src.sound), home: str(src.home), fee: fee, agent: str(src.agent), bio: str(src.bio || src.line),
+sc: str(src.sc), mc: str(src.mc), yt: str(src.yt), img: /^blob:/.test(img) ? '' : img
+} : Object.assign({}, DJ_NEW);
+var dates = (Array.isArray(o.dates) ? o.dates : []).filter(function (d) { return d && typeof d.city === 'string' && d.city.trim() && djParse(d.from); })
+.map(function (d) { var o = { city: djTitle(d.city), from: d.from, to: djParse(d.to) && d.to >= d.from ? d.to : d.from }; if (d.sample) o.sample = true; return o; });
+return { profile: profile, dates: djSort(dates), lost: !!(name && o.live && !profile.img) };
+}
+function djNewSave(patch) { try { var o = JSON.parse(sessionStorage.getItem(DJ_NEW_KEY) || 'null'); if (!o || typeof o !== 'object') o = {}; for (var k in patch) o[k] = patch[k]; sessionStorage.setItem(DJ_NEW_KEY, JSON.stringify(o)); } catch (e) {} }
+function djMoney(v) { v = String(v || '').replace(/[^\d]/g, ''); return v ? '$' + v.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''; }
+function djParse(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+function djYear(v) { v = String(v || ''); return /^00\d\d-/.test(v) ? '20' + v.slice(2) : v; }
+function djShort(d) { return DJ_MON[d.getMonth()] + ' ' + d.getDate(); }
+function djRange(from, to, yearOn) {
+var a = djParse(from), b = djParse(to) || a;
+if (!a) return '';
+var out = b.getTime() === a.getTime() ? djShort(a) : a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() ? djShort(a) + ' to ' + b.getDate() : djShort(a) + ' to ' + djShort(b);
+return from >= (yearOn || DJ_YEAR_ON) ? out + ', ' + b.getFullYear() : out;
+}
+function djSort(list) { return list.slice().sort(function (a, b) { return a.from < b.from ? -1 : a.from > b.from ? 1 : 0; }); }
+function djCity(s) { return String(s || '').split(',')[0].trim(); }
+function djTitle(s) { return String(s || '').trim().replace(/\s+/g, ' ').replace(/(^|\s)(\S)/g, function (m, sp, c) { return sp + c.toUpperCase(); }); }
+function djUrl(s) { s = String(s || '').trim(); return s ? s.replace(/-/g, '-' + String.fromCharCode(8288)).replace(/\/(?!\/)/g, '/' + String.fromCharCode(8203)) : 'Not added yet'; }
+function djOr(s) { return String(s || '').trim() || 'Not added yet'; }
+function djNb(s) { s = String(s || '').trim(); var i = s.lastIndexOf(' '); return i > 0 ? s.slice(0, i) + ' ' + s.slice(i + 1) : s; }
+function djInTown(dates, r) {
+return dates.some(function (d) { var c = djCity(d.city).toLowerCase(); return (c === r.metro.toLowerCase() || c === r.city.toLowerCase()) && d.from <= r.iso && d.to >= r.iso; });
+}
+function djHas(dates, y, m) { return dates.some(function (d) { var a = djParse(d.from); return a.getFullYear() === y && a.getMonth() === m; }); }
+function djRemind(dates) {
+var nov = djHas(dates, 2026, 10), dec = djHas(dates, 2026, 11);
+if (!nov && dec) return "November's looking empty, but December's are in. January's are due Mon, Jan 4.";
+if (!nov) return "November's looking empty. December's are due Mon, Dec 7.";
+if (dec) return "Your November and December dates are in. January's are due Mon, Jan 4.";
+return "Your November dates are in. December's are due Mon, Dec 7.";
+}
+function djLive() { var b = typeof window !== 'undefined' ? window.BOOKD : null; return b && b.ready && b.dj ? b.dj : null; }
+function djFail(code) {
+if (code === 'rate') return 'Too many tries in a row. Give it a minute and try\u00a0again.';
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (code === 'invalid') return 'That did not look right to us. Check what you typed and try\u00a0again.';
+if (code === 'expired') return 'You got logged out. Log in and try\u00a0again.';
+return 'Something went wrong on our side. Nothing was saved, so try\u00a0again.';
+}
+var DJ_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function djIso(d) { var z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); }
+function djFirstMon(y, m) { var d = new Date(y, m, 1); d.setDate(1 + (8 - d.getDay()) % 7); return 'Mon, ' + djShort(d); }
+function djRemindLive(dates, today) {
+var a = djParse(today);
+if (!a) return '';
+var at = function (k) { var d = new Date(a.getFullYear(), a.getMonth() + k, 1); return { y: d.getFullYear(), m: d.getMonth(), name: DJ_MONTHS[d.getMonth()] }; };
+var c = at(0), n = at(1), n2 = at(2), cur = djHas(dates, c.y, c.m), nxt = djHas(dates, n.y, n.m);
+if (!cur && nxt) return c.name + "'s looking empty, but " + n.name + "'s are in. " + n2.name + "'s are due " + djFirstMon(n2.y, n2.m) + '.';
+if (!cur) return c.name + "'s looking empty. " + n.name + "'s are due " + djFirstMon(n.y, n.m) + '.';
+if (nxt) return 'Your ' + c.name + ' and ' + n.name + ' dates are in. ' + n2.name + "'s are due " + djFirstMon(n2.y, n2.m) + '.';
+return 'Your ' + c.name + ' dates are in. ' + n.name + "'s are due " + djFirstMon(n.y, n.m) + '.';
+}
+function djFeeText(lo, hi) {
+if (lo == null && hi == null) return '';
+if (lo == null || hi == null || lo === hi) return djMoney(String(lo == null ? hi : lo));
+return djMoney(String(lo)) + ' to ' + djMoney(String(hi));
+}
+function djFeeParse(s) {
+s = String(s || '').trim();
+if (!s) return { low: null, high: null };
+var out = [], re = /(\d[\d,]*(?:\.\d+)?)\s*(k\b)?/gi, m;
+while ((m = re.exec(s)) && out.length < 3) { var n = parseFloat(m[1].replace(/,/g, '')); if (m[2]) n *= 1000; out.push(Math.round(n)); }
+if (!out.length || out.length > 2) return null;
+var a = out[0], b = out.length > 1 ? out[1] : out[0];
+return { low: Math.min(a, b), high: Math.max(a, b) };
+}
+function djLink(s) {
+s = String(s || '').trim().replace(/^https?:\/\//i, '');
+if (!s) return '';
+return /^[^\s\/]+\.[^\s\/]+(\/\S*)?$/.test(s) ? 'https://' + s : null;
+}
+function djBare(u) { return String(u || '').replace(/^https?:\/\//i, ''); }
+function djBlank(name) { return { name: name || '', sound: '', home: '', fee: '', agent: '', bio: '', sc: '', mc: '', yt: '', img: '' }; }
+function djFromRow(d) {
+return { name: d.name, sound: d.sound, home: d.home_city, fee: djFeeText(d.fee_low, d.fee_high), agent: d.agent_name, bio: d.bio,
+sc: djBare(d.soundcloud_url), mc: djBare(d.mixcloud_url), yt: djBare(d.youtube_url), img: d.cover };
+}
+var NAV6_DEFAULTS = {
+inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
+curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+waiting: 0, shell: ''
+};
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+self.state.acctOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.acctBtnRef = function (el) { n.acctBtn = el; };
+n.acctWrapRef = function (el) { n.acctWrap = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.down = function (e) { nav6Down(self, e); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+document[f]('pointerdown', n.down, true);
+}
+function nav6Off(self) { nav6Listen(self, false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Down(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+function nav6Vals(self, cfg) {
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+outsideDown: undefined
+};
+}
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+var saved = djLoad();
+this.state = {
+dates: saved.dates || DJ_DATES, nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {},
+stat: '', prev: null, gone: null, added: '',
+stage: saved.stage || {}, fee: saved.fee || {}, by: saved.by || {},
+profile: saved.profile || DJ_PROFILE, editing: false, ed: null, edErr: false, savedAt: false, photoErr: false,
+newDj: ''
+};
+this.live = !!djLive();
+this.today = this.live ? djIso(new Date()) : DJ_TODAY;
+this.yearOn = this.live ? (+this.today.slice(0, 4) + 1) + this.today.slice(4) : DJ_YEAR_ON;
+if (this.live) Object.assign(this.state, {
+dates: [], stage: {}, fee: {}, by: {}, profile: djBlank(''),
+load: 'wait', loadCode: '', djId: '', slug: '', status: '', tracks: [], acct: '',
+ndBusy: false, rmBusy: false, edBusy: false, saveErr: ''
+});
+this.cityEl = null; this.fromEl = null; this.toEl = null; this.nameEl = null; this.homeEl = null; this.scEl = null; this.editBtn = null; this.undoEl = null;
+this.pullEl = null; this.statEl = null;
+this.rmEls = {}; this.ansEls = {}; this.accEls = {};
+this.wantName = false; this.wantEdit = false; this.wantUndo = false; this.wantRow = ''; this.wantNd = ''; this.wantEd = '';
+this.wantAns = ''; this.wantAcc = ''; this.wantStat = false; this.wantPull = false;
+this.cityRef = function (el) { self.cityEl = el; };
+this.fromRef = function (el) { self.fromEl = el; };
+this.toRef = function (el) { self.toEl = el; };
+this.nameRef = function (el) { self.nameEl = el; };
+this.homeRef = function (el) { self.homeEl = el; };
+this.scRef = function (el) { self.scEl = el; };
+this.editBtnRef = function (el) { self.editBtn = el; };
+this.undoRef = function (el) { self.undoEl = el; };
+this.pullRef = function (el) { self.pullEl = el; };
+this.statRef = function (el) { self.statEl = el; };
+this.onHash = function () {
+if (self.live) return;
+var h = typeof location !== 'undefined' ? location.hash : '';
+if (h === '#new') { if (!self.state.newDj) self.openNew(); return; }
+if (self.state.newDj && typeof history !== 'undefined' && history.replaceState) {
+try { history.replaceState(history.state, '', location.pathname + location.search + '#new'); } catch (e) {}
+}
+};
+this.onLogOut = function (e) {
+var a = e && e.target && e.target.closest ? e.target.closest('.acctmenu a, #mnav a') : null, api = djLive();
+if (!a || !api || String(a.textContent || '').trim() !== 'Log out') return;
+e.preventDefault();
+var href = a.getAttribute('href') || 'index.html';
+api.signOut().then(function () { location.href = href; });
+};
+nav6Init(this);
+}
+componentDidMount() {
+var self = this, api = djLive();
+if (!api && typeof location !== 'undefined' && location.hash === '#new') this.openNew();
+if (typeof window !== 'undefined') window.addEventListener('hashchange', this.onHash);
+if (!api) return;
+document.addEventListener('click', this.onLogOut);
+api.load().then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ load: 'fail', loadCode: (r && r.code) || 'unknown' }); return; }
+var u = r.user;
+if (!u) { location.replace('login.html'); return; }
+if (u.role === 'admin') { location.replace('admin.html'); return; }
+if (u.role !== 'dj') { location.replace('account.html'); return; }
+if (!r.dj) { self.setState({ load: 'none', acct: u.name || '', profile: djBlank(u.name) }); return; }
+var today = self.today;
+self.setState({
+load: 'ready', acct: u.name || '', djId: r.dj.id, slug: r.dj.slug, status: r.dj.status, tracks: r.tracks || [],
+profile: djFromRow(r.dj),
+dates: djSort((r.dates || []).filter(function (d) { return d && d.to >= today; }))
+});
+});
+}
+componentDidUpdate() {
+var el = null;
+if (this.wantName && this.nameEl) { this.wantName = false; this.nameEl.focus(); }
+if (this.wantEdit && this.editBtn) { this.wantEdit = false; this.editBtn.focus(); }
+if (this.wantUndo && this.undoEl) { this.wantUndo = false; this.undoEl.focus(); }
+if (this.wantRow) { el = this.rmEls[this.wantRow]; this.wantRow = ''; if (el && el.isConnected) el.focus(); }
+if (this.wantNd) { el = { city: this.cityEl, from: this.fromEl, to: this.toEl }[this.wantNd]; this.wantNd = ''; if (el) el.focus(); }
+if (this.wantEd) { el = { name: this.nameEl, home: this.homeEl, links: this.scEl }[this.wantEd]; this.wantEd = ''; if (el) el.focus(); }
+if (this.wantAns) { el = this.ansEls[this.wantAns]; this.wantAns = ''; if (el && el.isConnected) el.focus(); }
+if (this.wantAcc) { el = this.accEls[this.wantAcc]; this.wantAcc = ''; if (el && el.isConnected) el.focus(); }
+if (this.wantStat) { el = this.statEl; this.wantStat = false; if (el && el.isConnected) el.focus(); }
+if (this.wantPull) { el = this.pullEl; this.wantPull = false; if (el && el.isConnected) el.focus(); }
+}
+componentWillUnmount() {
+nav6Off(this);
+this.gone = true;
+if (this.live && typeof document !== 'undefined') document.removeEventListener('click', this.onLogOut);
+if (typeof window !== 'undefined') window.removeEventListener('hashchange', this.onHash);
+}
+openNew() {
+var n = djNewLoad();
+this.setState({
+newDj: n.profile.name, coverLost: n.lost, profile: n.profile, dates: n.dates, stage: {}, fee: {}, by: {},
+nd: { city: '', from: '', to: '' }, ndErr: '', ndBad: {}, stat: '', prev: null, gone: null, added: '',
+editing: false, ed: null, edErr: false, savedAt: false, photoErr: false
+});
+}
+keep(patch) {
+if (this.live) return;
+if (!this.state.newDj) { djSave(patch); return; }
+var o = {};
+if (patch.dates) o.dates = patch.dates;
+if (patch.profile) { o.profile = patch.profile; o.name = patch.profile.name; }
+djNewSave(o);
+}
+putDates(dates, extra) {
+this.keep({ dates: dates });
+this.setState(Object.assign({ dates: dates, stat: '', prev: null, gone: null, added: '', ndErr: '', ndBad: {} }, extra || {}));
+}
+addDate(e) {
+if (e && e.preventDefault) e.preventDefault();
+if (this.live && (this.state.ndBusy || this.state.rmBusy)) return;
+if (this.live && this.state.load !== 'ready') {
+if (this.state.load === 'none') this.setState({ ndErr: 'Your profile is not set up yet, so dates can\'t be added.', ndBad: {}, added: '', gone: null });
+return;
+}
+var nd = this.state.nd, bad = {}, err = '';
+var from = djYear(nd.from), to = djYear(nd.to) || from, city = djTitle(nd.city);
+if (!city) bad.city = true;
+if (!djParse(from)) bad.from = true;
+if (bad.city || bad.from) err = 'Add a city and a first night.';
+else if (from < this.today) { bad.from = true; err = 'That date\'s already gone.'; }
+else if (!djParse(to) || to < from) { bad.to = true; err = 'The last night has to come after the first one.'; }
+else {
+var hit = this.state.dates.filter(function (d) { return d.from <= to && d.to >= from; })[0];
+if (hit && djCity(hit.city).toLowerCase() === djCity(city).toLowerCase() && hit.from === from) { bad.from = true; err = 'That one\'s already on the list.'; }
+else if (hit) { bad.from = true; if (nd.to) bad.to = true; err = 'You\'ll be in ' + djCity(hit.city) + ' then.'; }
+}
+if (err) {
+this.wantNd = bad.city ? 'city' : bad.from ? 'from' : 'to';
+this.setState({ ndErr: err, ndBad: bad, added: '', gone: null });
+return;
+}
+if (this.live) { this.addLive({ city: city, from: from, to: to }, false); return; }
+var dates = djSort(this.state.dates.concat([{ city: city, from: from, to: to }]));
+this.putDates(dates, { nd: { city: '', from: '', to: '' }, added: 'Added ' + djCity(city) + '.' });
+if (this.cityEl && this.cityEl.focus) this.cityEl.focus();
+}
+addLive(row, undo) {
+var self = this, api = djLive();
+if (!api || this.state.ndBusy || this.state.rmBusy) return;
+this.setState(undo ? { rmBusy: true } : { ndBusy: true, ndErr: '', ndBad: {}, added: '', gone: null });
+api.addDate(this.state.djId, row).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ ndBusy: false, rmBusy: false, ndErr: djFail(r && r.code), ndBad: {}, added: '' }); return; }
+var dates = djSort(self.state.dates.concat([r.date]));
+if (undo) { self.wantRow = r.date.id; self.putDates(dates, { rmBusy: false }); return; }
+self.putDates(dates, { ndBusy: false, nd: { city: '', from: '', to: '' }, added: 'Added ' + djCity(r.date.city) + '.' });
+if (self.cityEl && self.cityEl.focus) self.cityEl.focus();
+});
+}
+setStage(key, stage, fee, who) {
+var s = Object.assign({}, this.state.stage), f = Object.assign({}, this.state.fee), b = Object.assign({}, this.state.by);
+if (stage) s[key] = stage; else delete s[key];
+if (fee) f[key] = fee; else delete f[key];
+if (who) b[key] = who; else delete b[key];
+djSave({ stage: s, fee: f, by: b });
+this.setState({ stage: s, fee: f, by: b });
+}
+renderVals() {
+var self = this, s = this.state, p = s.profile, live = this.live, isNew = !!s.newDj || live, ready = live && s.load === 'ready';
+var yearOn = this.yearOn;
+var seeLive = ready && s.status === 'live' && !!s.slug;
+var hasTracks = live && s.tracks && s.tracks.length > 0;
+var t = function (v) { return String(v || '').trim(); };
+var first = function (r) { return r.who.split(' ')[0]; };
+var reqs = [];
+var waiting = 0;
+if (!isNew) DJ_REQS.forEach(function (r) {
+var stage = s.stage[r.key] || r.stage;
+if (stage === 'booked' || stage === 'cancelled') return;
+var inTown = djInTown(s.dates, r);
+var open = stage === 'sent';
+if (open || stage === 'countered') waiting++;
+var fee = s.fee[r.key] || r.budget, by = s.by[r.key];
+var line = stage === 'closed' ? 'You passed. Mara will let ' + first(r) + ' down gently.'
+: stage === 'offer' ? 'Offer sent at $' + fee + '. Waiting on ' + first(r) + '.'
+: stage === 'countered' ? first(r) + ' countered at $' + fee + '.'
+: by === 'host' ? first(r) + ' said yes at $' + fee + '. Waiting on the deposit.'
+: by === 'mara' ? 'Mara said yes at $' + fee + '. Waiting on ' + first(r) + '\'s deposit.'
+: 'You said yes at $' + fee + '. Waiting on ' + first(r) + '\'s deposit.';
+reqs.push({
+key: r.key, date: r.date, who: r.who, bits: r.meta.split(' · ').map(function (x, i) { return { key: 'b' + i, t: x }; }),
+cls: stage === 'closed' ? 'djr djr-off' : 'djr',
+town: inTown ? 'You\'re in town' : 'Not in town. Travel is $450.', townCls: inTown ? 'djtownyes' : 'djtownno',
+waiting: open, answered: !open, canUndo: stage !== 'countered', line: line,
+offerHref: 'account.html#' + r.key + '-offer', chatHref: 'account.html#' + r.key,
+acceptAria: 'Accept ' + r.who + ', ' + r.date, offerAria: 'Send ' + r.who + ' an offer', declineAria: 'Decline ' + r.who + ', ' + r.date,
+accRef: function (el) { if (el) self.accEls[r.key] = el; },
+ansRef: function (el) { if (el) self.ansEls[r.key] = el; },
+accept: function () { self.wantAns = r.key; self.setStage(r.key, 'accepted', r.budget, 'you'); },
+decline: function () { self.wantAns = r.key; self.setStage(r.key, 'closed'); },
+undo: function () { self.wantAcc = r.key; self.setStage(r.key, null); }
+});
+});
+var reqHead = isNew ? 'Quiet for now.' : waiting === 0 ? 'You\'re all caught up.' : waiting === 1 ? 'One host is waiting.' : DJ_WORDS[waiting] + ' hosts are waiting.';
+var reqNote = live ? (!ready ? '' : s.status !== 'live' ? 'Your profile is a draft. Hosts can find you once it is\u00a0live.' : s.dates.length ? 'Your dates are in. Hosts in those cities can find you\u00a0now.' : 'Add your dates and hosts in those cities can find you.')
+: isNew ? (s.dates.length ? 'Your dates are in. Hosts in those cities can find you\u00a0now.' : 'Add your dates and hosts in those cities can find you.')
+: waiting ? 'Say yes, say no or name your price. Mara can answer too. Mara\'s in every chat.'
+: 'Nobody\'s waiting on you. Go enjoy your coffee. We\'ll text you when someone new asks.';
+var bookedList = isNew ? [] : DJ_BOOKED.filter(function (b) { return s.stage[b.key] !== 'cancelled'; })
+.map(function (b) { return { iso: b.iso, date: b.date, meta: b.city + ', ' + b.who + ' · $' + b.fee, chatHref: 'account.html#' + b.key, chatAria: 'Open the chat with ' + b.who }; });
+if (!isNew) DJ_REQS.forEach(function (r) {
+if ((s.stage[r.key] || r.stage) === 'booked') bookedList.push({ iso: r.iso, date: r.date, meta: r.city + ', ' + r.who + ' · $' + (s.fee[r.key] || r.budget), chatHref: 'account.html#' + r.key, chatAria: 'Open the chat with ' + r.who });
+});
+bookedList.sort(function (a, b) { return a.iso < b.iso ? -1 : 1; });
+var nb = bookedList.length;
+var bookedHead = isNew ? 'Nothing booked yet.' : (DJ_WORDS[nb] || nb) + (nb === 1 ? ' night booked.' : ' nights booked.');
+var hasSample = s.dates.some(function (d) { return d.sample; });
+var undoRemove = function () {
+var g = self.state.gone;
+if (!g) return;
+if (live) { self.addLive({ city: g.row.city, from: g.row.from, to: g.row.to }, true); return; }
+self.wantRow = g.key;
+self.putDates(g.prev);
+};
+var dates = s.dates.map(function (d, i) {
+var key = d.id || d.city + d.from;
+return {
+key: key, row: true, gone: false, when: djRange(d.from, d.to, yearOn), city: djCity(d.city), sample: !!d.sample,
+cls: 'k6drow djdrow' + (i === 0 ? ' k6drow-ny' : ''),
+removeAria: 'Remove ' + djCity(d.city) + ', ' + djRange(d.from, d.to, yearOn),
+rmRef: function (el) { if (el) self.rmEls[key] = el; },
+remove: function () {
+if (live) {
+var api = djLive();
+if (!api || self.state.rmBusy || self.state.ndBusy) return;
+self.setState({ rmBusy: true });
+api.removeDate(d.id).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ rmBusy: false, ndErr: djFail(r && r.code), ndBad: {}, added: '' }); return; }
+self.wantUndo = true;
+self.putDates(self.state.dates.filter(function (x) { return x.id !== d.id; }), { rmBusy: false, gone: { at: i, key: key, text: 'Removed ' + djCity(d.city) + '.', row: d } });
+});
+return;
+}
+var before = self.state.dates, list = before.slice();
+list.splice(i, 1);
+self.wantUndo = true;
+self.putDates(list, { gone: { at: i, key: key, text: 'Removed ' + djCity(d.city) + '.', prev: before } });
+}
+};
+});
+if (s.gone) dates.splice(Math.min(s.gone.at, dates.length), 0, { key: 'gone', row: false, gone: true, text: s.gone.text, undo: undoRemove, undoRef: this.undoRef });
+var ndSet = {};
+['city', 'from', 'to'].forEach(function (k) {
+ndSet[k] = function (e) {
+var nd = Object.assign({}, self.state.nd), bad = Object.assign({}, self.state.ndBad);
+nd[k] = (e && e.target && e.target.value) || '';
+delete bad[k];
+self.setState({ nd: nd, ndBad: bad, ndErr: Object.keys(bad).length ? self.state.ndErr : '', added: '', gone: null });
+};
+});
+var ed = s.ed || p;
+var edSet = {};
+['name', 'sound', 'home', 'fee', 'bio', 'sc', 'mc', 'yt', 'agent'].forEach(function (k) {
+edSet[k] = function (e) {
+var o = Object.assign({}, self.state.ed);
+o[k] = (e && e.target && e.target.value) || '';
+self.setState({ ed: o, edErr: self.state.edErr && (!t(o.name) || !t(o.home) || !(t(o.sc) || t(o.mc) || t(o.yt) || hasTracks)) });
+};
+});
+var noLink = !(t(ed.sc) || t(ed.mc) || t(ed.yt) || hasTracks);
+var edInv = { name: s.edErr && !t(ed.name) ? 'true' : 'false', home: s.edErr && !t(ed.home) ? 'true' : 'false', links: s.edErr && noLink ? 'true' : 'false' };
+var cancel = function () { if (live && self.state.edBusy) return; if (live && self.state.saveErr) self.setState({ saveErr: '' }); self.wantEdit = true; self.setState({ editing: false, ed: null, edErr: false, photoErr: false }); };
+var save = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var d = self.state.ed;
+if (!d) return;
+if (live && self.state.edBusy) return;
+var miss = !t(d.name) ? 'name' : !t(d.home) ? 'home' : !(t(d.sc) || t(d.mc) || t(d.yt) || hasTracks) ? 'links' : '';
+if (miss) { self.wantEd = miss; self.setState({ edErr: true }); return; }
+if (live) {
+var api = djLive(), cur = self.state.profile;
+var sc = djLink(d.sc), mc = djLink(d.mc), yt = djLink(d.yt), feeNew = t(d.fee) !== t(cur.fee), fee = djFeeParse(d.fee);
+if (!api || !self.state.djId) return;
+if (sc === null || mc === null || yt === null) { self.setState({ edErr: false, saveErr: 'Check your links. Each one should look like soundcloud.com/you.' }); return; }
+if (feeNew && !fee) { self.setState({ edErr: false, saveErr: 'Write your fee as numbers, like $800 to\u00a0$1,500.' }); return; }
+var o = { name: d.name, sound: d.sound, home_city: d.home, bio: d.bio, soundcloud_url: sc, mixcloud_url: mc, youtube_url: yt };
+if (feeNew) { o.fee_low = fee.low; o.fee_high = fee.high; }
+if (t(d.agent) !== t(cur.agent)) o.agent_name = d.agent;
+self.setState({ edBusy: true, edErr: false, saveErr: '' });
+api.save(self.state.djId, o).then(function (r) {
+if (self.gone) return;
+if (!r || !r.ok) { self.setState({ edBusy: false, saveErr: djFail(r && r.code) }); return; }
+self.wantEdit = true;
+self.setState({ profile: djFromRow(r.dj), status: r.dj.status, editing: false, ed: null, edErr: false, edBusy: false, saveErr: '', savedAt: true, photoErr: false });
+});
+return;
+}
+self.keep({ profile: d });
+self.wantEdit = true;
+self.setState({ profile: d, editing: false, ed: null, edErr: false, savedAt: true, photoErr: false, newDj: self.state.newDj ? t(d.name) : '' });
+};
+var pick = function (e) {
+var input = e && e.target, f = input && input.files && input.files[0];
+if (!f) return;
+if (live) { self.setState({ photoErr: true }); try { input.value = ''; } catch (err) {} return; }
+var fail = function () { if (self.state.editing) self.setState({ photoErr: true }); };
+var use = function (url) { if (self.state.editing && self.state.ed) self.setState({ ed: Object.assign({}, self.state.ed, { img: url }), photoErr: false }); };
+if (f.type && !/^image\//.test(f.type)) fail();
+else {
+try {
+var rd = new FileReader();
+rd.onerror = fail;
+rd.onload = function () {
+var im = new Image();
+im.onerror = fail;
+im.onload = function () {
+try {
+var w = im.naturalWidth, h = im.naturalHeight;
+if (!w || !h) { fail(); return; }
+var k = Math.min(1, 1200 / Math.max(w, h)), c = document.createElement('canvas');
+c.width = Math.max(1, Math.round(w * k)); c.height = Math.max(1, Math.round(h * k));
+var g = c.getContext('2d');
+g.fillStyle = '#000000'; g.fillRect(0, 0, c.width, c.height);
+g.drawImage(im, 0, 0, c.width, c.height);
+use(c.toDataURL('image/jpeg', 0.85));
+} catch (err) { fail(); }
+};
+im.src = rd.result;
+};
+rd.readAsDataURL(f);
+} catch (err) { fail(); }
+}
+try { input.value = ''; } catch (err) {}
+};
+var shown = (s.editing && s.ed && s.ed.img) || p.img || '';
+return Object.assign({
+remind: !live ? djRemind(s.dates) : ready ? djRemindLive(s.dates, this.today) : s.load === 'none' ? 'Your profile is not set up yet.' : s.load === 'fail' ? (s.loadCode === 'offline' ? djFail('offline') : 'We couldn\'t load your profile. Refresh the page to try\u00a0again.') : '',
+dates: dates, noDates: live ? ready && !s.dates.length : !s.dates.length, homeShort: djCity(p.home),
+ndMin: this.today, addLabel: live && s.ndBusy ? 'One sec' : 'Add it', addBusy: live && s.ndBusy ? 'true' : 'false',
+saveLabel: live && s.edBusy ? 'One sec' : 'Save changes', saveBusy: live && s.edBusy ? 'true' : 'false',
+hasSaveErr: live && !!s.saveErr, saveErr: live ? s.saveErr : '',
+photoErrText: live ? 'Photos can\'t be changed here\u00a0yet.' : 'That file won\'t open. Try a JPG or\u00a0PNG.',
+nd: s.nd, ndSet: ndSet, ndInv: { city: s.ndBad.city ? 'true' : 'false', from: s.ndBad.from ? 'true' : 'false', to: s.ndBad.to ? 'true' : 'false' },
+ndEmpty: { from: s.nd.from ? 'false' : 'true', to: s.nd.to ? 'false' : 'true' },
+ndDescribe: s.ndErr ? 'err-nd' : '', hasDateErr: !!s.ndErr, noDateErr: !s.ndErr, dateErr: s.ndErr,
+added: s.added, ndHint: s.added ? '' : 'Only there one night? Leave To empty.',
+cityRef: this.cityRef, fromRef: this.fromRef, toRef: this.toRef, addDate: function (e) { self.addDate(e); },
+raShow: !live && (!hasSample || !!s.stat), raIdle: !live && !hasSample && !s.stat,
+pullRa: function () {
+var before = self.state.dates;
+var fresh = DJ_RA.filter(function (x) { return !before.some(function (d) { return d.from <= x.to && d.to >= x.from; }); });
+var n = fresh.length;
+self.wantStat = true;
+if (!n) { self.setState({ stat: 'Those dates are already on your list.', prev: null, gone: null, added: '', ndErr: '', ndBad: {} }); return; }
+self.putDates(djSort(before.concat(fresh)), { stat: 'Pulled ' + DJ_WORDS[n].toLowerCase() + (n === 1 ? ' date' : ' dates') + ' from Resident Advisor. They\'re samples, nothing\'s hooked up yet.', prev: before });
+},
+hasStat: !!s.stat, stat: s.stat, canUndo: !!s.prev, pullRef: this.pullRef, statRef: this.statRef,
+undoDates: function () { var prev = self.state.prev; if (prev) { self.wantPull = true; self.putDates(prev); } },
+focusCity: function () { var el = self.cityEl; if (el && el.focus) el.focus(); },
+reqs: reqs, hasReqs: reqs.length > 0, reqHead: reqHead, reqNote: reqNote, showAll: !isNew,
+booked: bookedList, hasBooked: nb > 0, bookedHead: bookedHead,
+bookedNote: isNew ? 'Your first yes lands here.' : nb ? 'The address, the rider and the songs they begged for are all in the chat.' : 'Your next yes lands here.',
+madePrice: isNew ? '$0' : '$14,620', hasMonths: !isNew,
+madeNote: isNew ? 'Your first payout lands 5 days after your first party.' : 'Paid out so far this year. Money lands 5 days after each party.',
+p: {
+name: p.name, nameNb: djNb(p.name) || (live ? 'Your\u00a0profile' : ''), sound: djOr(p.sound), home: live ? djOr(p.home) : p.home, fee: djOr(p.fee), agent: djOr(p.agent),
+bio: djNb(p.bio), hasBio: !!t(p.bio), sc: djUrl(p.sc), mc: djUrl(p.mc), yt: djUrl(p.yt),
+img: shown, hasImg: !!shown, noImg: !shown, imgAlt: p.name + ', profile photo',
+noImgText: isNew && s.coverLost ? 'Your cover got lost on the way. Add it again in Edit my\u00a0profile.' : 'No photo\u00a0yet'
+},
+seeHosts: live ? seeLive : !isNew, reqOn: !live,
+reading: !s.editing, editing: s.editing, ed: ed, edSet: edSet, edInv: edInv,
+edBad: { name: edInv.name === 'true', home: edInv.home === 'true', links: edInv.links === 'true' },
+edDesc: { name: edInv.name === 'true' ? 'err-ed-name' : '', home: edInv.home === 'true' ? 'err-ed-home' : '', links: edInv.links === 'true' ? 'err-ed-links' : '' },
+nameRef: this.nameRef, homeRef: this.homeRef, scRef: this.scRef, editBtnRef: this.editBtnRef,
+startEdit: function () { if (live && !ready) return; self.wantName = true; self.setState({ editing: true, ed: Object.assign({}, self.state.profile), edErr: false, savedAt: false, photoErr: false }); },
+cancelEdit: cancel, saveEdit: save,
+editKey: function (e) { if (e && e.key === 'Escape' && self.state.editing) cancel(); },
+pickPhoto: pick, photoErr: s.photoErr,
+savedLine: live ? (s.load === 'none' ? 'Your profile is not set up yet. Once BOOKD adds it, you can edit it\u00a0here.'
+: s.load === 'fail' ? (s.loadCode === 'offline' ? djFail('offline') : 'We couldn\'t load your profile. Refresh the page to try\u00a0again.')
+: !ready ? '' : s.savedAt ? 'Saved.' : s.status === 'live' ? 'This is what hosts see on your\u00a0profile.' : 'Your profile is a draft. Hosts can\'t see it\u00a0yet.')
+: s.savedAt ? 'Saved. This is a sample, so nothing left the page.' : 'This is what hosts see on your profile.'
+}, nav6Vals(this, {
+dashHref: '#main', curDash: 'page', reqHref: 'account.html',
+waiting: waiting, signedIn: live ? (p.name || s.acct || 'you') : (s.newDj || p.name), seeOn: live ? seeLive : !isNew, seeHref: live && seeLive ? 'artist.html#' + s.slug : 'account.html'
+}));
+}
+}</script>
+<script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
+<script src="bookd-api.js"></script>
+<script src="bookd-manage.js"></script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>

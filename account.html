@@ -569,7 +569,7 @@ return 'Something went wrong on our side. Try\u00a0again.';
 }
 var NAV6_DEFAULTS = {
 inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
-dashHref: 'account.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
 seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
 curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
 waiting: 0, shell: ''
@@ -644,9 +644,9 @@ function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
 var c = window.BOOKD_CONFIG;
 if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
 return { href: 'account.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
@@ -767,7 +767,7 @@ self.setState(q);
 } };
 };
 var initials = api ? acInitials(me.name, me.email) : acInitials(s.name, s.email);
-var role = api ? me.role : 'host', inboxOn = !api || role === 'admin' || acMock();
+var role = api ? me.role : 'host', inboxOn = !api || role === 'admin' || role === 'dj' || acMock();
 return Object.assign({
 photo: s.photo, photoOn: !!s.photo, photoOff: !s.photo, initials: initials, acctText: api ? (initials || 'YOU') : 'YOU',
 photoLabel: s.photoBusy ? 'One sec' : (s.photo ? 'Change photo' : 'Add a photo'), photoBusy: s.photoBusy ? 'true' : 'false',
@@ -822,7 +822,7 @@ if (r && r.ok) { location.href = 'login.html'; return; }
 self.setState({ outBusy: false, outFail: (r && r.code) || 'unknown' });
 });
 },
-inboxOn: inboxOn, inboxText: api && role === 'admin' ? 'Dashboard' : 'Inbox',
+inboxOn: inboxOn, inboxText: api && (role === 'admin' || role === 'dj') ? 'Dashboard' : 'Inbox',
 whoName: api ? (me.name || me.email || '') : 'Dani Rivera',
 logOut: api ? function (e) {
 if (e && e.preventDefault) e.preventDefault();
@@ -956,7 +956,7 @@ if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
 }
 }, nav6Vals(this, {
 curAccount: 'page', shell: s.del === 'gone' ? 'public' : 'host',
-inboxHref: api && me.role === 'dj' ? 'account.html' : api && me.role === 'admin' ? 'admin.html' : 'account.html'
+inboxHref: api && me.role === 'dj' ? 'dashboard.html' : api && me.role === 'admin' ? 'admin.html' : 'account.html'
 }));
 }
 }</script>

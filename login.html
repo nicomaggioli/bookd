@@ -473,8 +473,8 @@ next: 'Open my dashboard', nextHref: 'admin.html', alt: '', altHref: '', over: '
 };
 if (live && !lgMock()) return role === 'dj' ? {
 title: "You're\u00a0in.",
-line: 'Your details are on your account page. Your dashboard opens here\u00a0soon.',
-next: 'Open my account', nextHref: 'account.html', alt: '', altHref: '', over: 'Not you? Log out'
+line: 'Your tour dates and your profile are on your\u00a0dashboard.',
+next: 'Open my dashboard', nextHref: 'dashboard.html', alt: '', altHref: '', over: 'Not you? Log out'
 } : {
 title: mode === 'signup' ? "You're in,\u00a0" + lgName(role, name) + '.' : "You're\u00a0in.",
 line: "Have a look at who's on the\u00a0roster.",
@@ -488,7 +488,7 @@ next: 'Build my profile', nextHref: 'account.html', alt: '', altHref: '', over: 
 if (role === 'dj') return {
 title: "You're\u00a0in.",
 line: "Your requests, offers and tour dates are all on your\u00a0dashboard.",
-next: 'Open my dashboard', nextHref: 'account.html', alt: '', altHref: '', over: 'Not you? Log out'
+next: 'Open my dashboard', nextHref: 'dashboard.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 var who = lgName(role, name);
 if (live && mode !== 'signup') return {
@@ -544,7 +544,7 @@ return !!(c && c.demo === false) && !lgLive();
 }
 var NAV6_DEFAULTS = {
 inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
-dashHref: 'account.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
 seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
 curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
 waiting: 0, shell: ''
@@ -626,9 +626,9 @@ function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
 var c = window.BOOKD_CONFIG;
 if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
 return { href: 'account.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
@@ -849,7 +849,7 @@ inboxHref: 'account.html',
 signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
 waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
 seeOn: !newDj,
-dashHref: 'account.html',
+dashHref: newDj ? 'dashboard.html#new' : 'dashboard.html',
 reqHref: 'account.html'
 }));
 }

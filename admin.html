@@ -1423,9 +1423,9 @@ function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
+if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
 var c = window.BOOKD_CONFIG;
 if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-if (w.role === 'dj') return { href: 'account.html', text: 'Your dashboard' };
 return { href: 'account.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
@@ -1596,7 +1596,7 @@ this.M.load(BOOKD_DJS).then(function (r) {
 if (self.gone) return;
 if (!r || !r.ok) {
 if (r && r.code === 'signedOut') { self.toLogin(); return; }
-if (r && r.code === 'forbidden') { self.away(role === 'dj' ? 'account.html' : role === 'host' ? 'account.html' : 'login.html'); return; }
+if (r && r.code === 'forbidden') { self.away(role === 'dj' ? 'dashboard.html' : role === 'host' ? 'account.html' : 'login.html'); return; }
 self.setState({ phase: 'error', loadCode: (r && r.code) || 'unknown' });
 return;
 }
