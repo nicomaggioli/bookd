@@ -465,10 +465,10 @@ function lgMock() {
 var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
 return !!(c && c.demo === true);
 }
-function lgDone(role, mode, name, live, notDj) {
+function lgDone(role, mode, name, live, notDj, viaLink) {
 if (live === 'admin') return {
 title: "You're\u00a0in.",
-line: 'The roster, applications and notes are on your\u00a0dashboard.',
+line: viaLink ? "This is a DJ's sign up link. Log out to use it as\u00a0them." : 'The roster, applications and notes are on your\u00a0dashboard.',
 next: 'Open my dashboard', nextHref: 'admin.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 if (live && notDj) return {
@@ -748,7 +748,7 @@ var mode = s.mode;
 var stage = LG_STAGE[role][mode] || LG_STAGE[role].login;
 var card = LG_CARD[mode] || LG_CARD.login;
 var isSignup = mode === 'signup', isLogin = mode === 'login', isReset = mode === 'reset', isNewPw = mode === 'newpw';
-var done = s.done ? lgDone(role, mode, s.name, s.liveRole, s.notDj) : null;
+var done = s.done ? lgDone(role, mode, s.name, s.liveRole, s.notDj, s.viaLink) : null;
 var isDJ = role === 'dj';
 var newDj = isDJ && isNewPw;
 var noBad = { badName: '', badEmail: '', badPw: '' };

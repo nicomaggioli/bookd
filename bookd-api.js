@@ -54,17 +54,18 @@ var CLAIM_ASKED = 'bookd.claim.asked';
 function dropClaim() { try { localStorage.removeItem(CLAIM); sessionStorage.removeItem(CLAIM_ASKED); } catch (e) {} }
 function claimNow(user) {
 var c = claimCode();
-if (!c || !user) return Promise.resolve();
+if (!c || !user) return Promise.resolve(false);
 var asked = user.id + ':' + c;
-try { if (sessionStorage.getItem(CLAIM_ASKED) === asked) return Promise.resolve(); } catch (e) {}
+try { if (sessionStorage.getItem(CLAIM_ASKED) === asked) return Promise.resolve(false); } catch (e) {}
 return sb.rpc('claim_profile', { p_code: c }).then(function (r) {
-if (!r || r.error) return;
-if (r.data === true) dropClaim();
-else { try { sessionStorage.setItem(CLAIM_ASKED, asked); } catch (e) {} }
-}, function () {});
+if (!r || r.error) return false;
+if (r.data === true) { dropClaim(); return true; }
+try { sessionStorage.setItem(CLAIM_ASKED, asked); } catch (e) {}
+return false;
+}, function () { return false; });
 }
 BOOKD.auth.linkWaiting = function () { return !!claimCode(); };
-function settle(me) { if (me && me.role !== 'host' && claimCode()) dropClaim(); return me; }
+function settle(me) { if (me && me.role === 'dj' && claimCode()) dropClaim(); return me; }
 function page(file) { return location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '') + file; }
 function code(err) {
 if (!err) return 'unknown';
@@ -93,10 +94,16 @@ if (r.data) { me.role = r.data.role || 'host'; me.name = r.data.display_name || 
 return remember(me);
 });
 }
+function arrive(user) {
+return describe(user).then(function (me) {
+if (!me || me.role !== 'host' || !claimCode()) return settle(me);
+return claimNow(user).then(function (got) { return got ? describe(user) : me; });
+});
+}
 BOOKD.auth.current = function () {
 return guard(landed.then(function () { return sb.auth.getSession(); }).then(function (r) {
 var u = r && r.data && r.data.session ? r.data.session.user : null;
-return claimNow(u).then(function () { return describe(u); }).then(settle).then(function (me) { return { ok: true, user: me }; });
+return arrive(u).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signUp = function (o) {
@@ -116,7 +123,7 @@ BOOKD.auth.signIn = function (o) {
 o = o || {};
 return guard(sb.auth.signInWithPassword({ email: o.email, password: o.password }).then(function (r) {
 if (r.error) return fail(r.error);
-return claimNow(r.data.user).then(function () { return describe(r.data.user); }).then(settle).then(function (me) { return { ok: true, user: me }; });
+return arrive(r.data.user).then(function (me) { return { ok: true, user: me }; });
 }));
 };
 BOOKD.auth.signOut = function () {
