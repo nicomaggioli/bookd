@@ -4,6 +4,11 @@ var lib = window.supabase;
 var ready = !!(cfg.supabaseUrl && cfg.supabaseAnonKey && lib && lib.createClient);
 var hash = String(location.hash || '');
 var arrived = /[#&]type=recovery\b/.test(hash) ? 'recovery' : (/[#&]type=invite\b/.test(hash) ? 'invite' : (/[#&]error(_code)?=/.test(hash) ? 'expired' : ''));
+var query = String(location.search || '');
+var linkToken = /[?&]token_hash=([A-Za-z0-9_-]{8,200})(?:&|$)/.exec(query);
+var linkType = /[?&]type=(signup|email|recovery|invite|email_change)(?:&|$)/.exec(query);
+var link = linkToken && linkType ? { token_hash: linkToken[1], type: linkType[1] } : null;
+if (link && (link.type === 'recovery' || link.type === 'invite')) arrived = link.type;
 var BOOKD = window.BOOKD = { ready: ready, arrived: arrived, who: null, auth: {}, contact: {}, apply: {}, next: {} };
 var NEXT = 'bookd.next';
 function nextOk(v) { return typeof v === 'string' && v.length <= 200 && /^[A-Za-z0-9][A-Za-z0-9._-]*(#[A-Za-z0-9._~%\/=&+-]*)?$/.test(v); }
@@ -30,6 +35,18 @@ try { var w = JSON.parse(localStorage.getItem(WHO) || 'null'); if (w && typeof w
 var sb = lib.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
 auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'bookd.auth' }
 });
+var landed = Promise.resolve({ ok: true });
+if (link) {
+var linkDone = function () { try { history.replaceState(history.state, '', location.pathname + location.hash); } catch (e) {} };
+landed = sb.auth.verifyOtp(link).then(function (r) {
+if (!r || !r.error) { linkDone(); return { ok: true }; }
+var c = code(r.error);
+if (c === 'offline') return { ok: false, code: c };
+linkDone(); BOOKD.arrived = 'expired';
+return { ok: false, code: 'expired' };
+}, function (err) { return { ok: false, code: code(err) }; });
+}
+BOOKD.landed = landed;
 var CLAIM = 'bookd.claim';
 try { var cm = /[#&]claim=([0-9a-f]{16})(?![0-9a-f])/.exec(location.hash); if (cm) localStorage.setItem(CLAIM, cm[1]); } catch (e) {}
 function claimCode() { try { var c = localStorage.getItem(CLAIM) || ''; return /^[0-9a-f]{16}$/.test(c) ? c : ''; } catch (e) { return ''; } }
@@ -76,7 +93,7 @@ return remember(me);
 });
 }
 BOOKD.auth.current = function () {
-return guard(sb.auth.getSession().then(function (r) {
+return guard(landed.then(function () { return sb.auth.getSession(); }).then(function (r) {
 var u = r && r.data && r.data.session ? r.data.session.user : null;
 return claimNow(u).then(function () { return describe(u); }).then(settle).then(function (me) { return { ok: true, user: me }; });
 }));

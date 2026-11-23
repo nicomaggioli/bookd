@@ -707,6 +707,9 @@ if (!api) return;
 var arrived = window.BOOKD.arrived;
 if (arrived === 'recovery' || arrived === 'invite') this.setMode('newpw');
 else if (arrived === 'expired') { this.setMode('reset'); this.setState({ badEmail: 'expired' }); }
+if (window.BOOKD.landed) window.BOOKD.landed.then(function (r) {
+if (r && r.ok === false && r.code === 'expired' && !self.state.done) { self.setMode('reset'); self.setState({ badEmail: 'expired' }); }
+});
 api.current().then(function (r) {
 var u = r && r.ok ? r.user : null;
 if (!u || self.state.done) return;
