@@ -282,6 +282,20 @@ return { ok: true, row: withExtras([d], x[0].data, x[1].data, x[2].data)[0] };
 });
 }));
 },
+mine: function (userId) {
+return _.guard(sb.from('djs').select(ART).eq('owner_id', String(userId || '')).order('created_at').limit(1).then(function (r) {
+var b = _.bad(r); if (b) return b;
+var d = r.data && r.data[0];
+if (!d) return { ok: true, row: null };
+return Promise.all([
+sb.from('dj_tracks').select('dj_id, position, title, url').eq('dj_id', d.id).order('position'),
+sb.from('tour_dates').select('dj_id, city, starts_on, ends_on').eq('dj_id', d.id).order('starts_on')
+]).then(function (x) {
+var b2 = _.bad(x[0]) || _.bad(x[1]); if (b2) return b2;
+return { ok: true, row: withExtras([d], x[0].data, [], x[1].data)[0] };
+});
+}));
+},
 saveArtist: function (o) {
 o = o || {};
 var row = artRow(o.row), id = o.id || null, slug = null, wrong = o.private ? badEmail(o.private) : '';
@@ -727,7 +741,7 @@ if (v && !B._.isEmail(v)) out.push({ field: 'private.' + k, why: v.length > 200 
 });
 return out;
 }
-function dbSave(input) {
+function dbSave(input, again) {
 var t = tidy(input, { strict: true });
 var priv = input && input.meta && input.meta.private ? input.meta.private : undefined, bad = (t.problems || []).concat(privateProblems(priv));
 if (bad.length) return Promise.resolve(fail('invalid', { field: bad[0].field, problems: bad, missing: t.missing, notes: t.notes }));
@@ -772,7 +786,37 @@ B.admin.clearPhotos(r.id, pics.map(function (p) { return p.path; }).filter(Boole
 return r2;
 });
 });
-}).then(function (r) { return r.ok ? dbOne(r.slug) : r; });
+}).then(function (r) { return r.ok ? (again ? again() : dbOne(r.slug)) : r; });
+});
+}
+function mineRow() {
+return B.auth.current().then(function (r) {
+if (!r || !r.ok) return r || fail('unknown');
+if (!r.user) return fail('signedOut');
+if (r.user.role !== 'dj') return fail('forbidden');
+if (!B.admin || !B.admin.mine) return fail('unsupported');
+return B.admin.mine(r.user.id);
+});
+}
+function mineOne() {
+return mineRow().then(function (r) {
+if (!r.ok) return r;
+var a = r.row ? fromRow(r.row, showDb) : null;
+if (!a) return { ok: true, mode: MODE, artist: null };
+a = dbMeta(r.row, a);
+a.meta.canRemove = false; delete a.meta.private;
+return { ok: true, mode: MODE, artist: a };
+});
+}
+function mineSave(input) {
+return mineRow().then(function (m) {
+if (!m.ok) return m;
+if (!m.row) return fail('missing');
+var a = {}, k;
+for (k in (input || {})) if (k !== 'meta') a[k] = input[k];
+a.slug = m.row.slug; a.status = m.row.status === 'live' ? 'live' : 'draft';
+IDS[m.row.slug] = m.row.id;
+return dbSave(a, mineOne);
 });
 }
 function dbExport() {
@@ -833,6 +877,8 @@ return B.admin.removeArtist(r.id).then(function (d) { if (d.ok) { delete IDS[slu
 });
 },
 reset: function (slug, fixed) { return LIVE ? Promise.resolve(fail('unsupported')) : run(function () { return deviceDrop(str(slug).toLowerCase(), fixed, 'reset'); }); },
+mine: function () { return run(function () { return LIVE ? mineOne() : fail('unsupported'); }); },
+saveMine: function (artist) { return run(function () { return LIVE ? mineSave(artist) : fail('unsupported'); }); },
 photo: photo,
 exportFile: function (fixed) { return run(function () { return LIVE ? dbExport() : deviceExport(fixed); }); },
 download: function (fixed) {
@@ -932,11 +978,12 @@ var e = _.bad(r); if (e) return e;
 var d = r.data && r.data[0];
 if (!d) return { ok: false, code: 'unknown' };
 var second = m
-? sb.from('dj_private').upsert(Object.assign({ dj_id: id }, mine), { onConflict: 'dj_id' }).select('agent_name, fee_low, fee_high')
+? sb.from('dj_private').update(mine).eq('dj_id', id).select('agent_name, fee_low, fee_high')
 : sb.from('dj_private').select('agent_name, fee_low, fee_high').eq('dj_id', id).limit(1);
 return second.then(function (p) {
 var e2 = _.bad(p); if (e2) return e2;
 var priv = p.data && p.data[0];
+if (m && !priv) return { ok: false, code: 'unknown' };
 return { ok: true, dj: tidyDj(d, priv) };
 });
 }));
@@ -982,4 +1029,368 @@ return _.guard(sb.from('dj_tracks').delete().eq('dj_id', djId).eq('position', po
 },
 signOut: function () { return B.auth.signOut(); }
 };
+})();
+(function () {
+var W = typeof window !== 'undefined' ? window : {};
+var B = W.BOOKD;
+if (!B || !B.ready || !B.dj || !B.artists || !B.artists.manage || !B.artists.manage.mine) return;
+var A = B.artists, M = A.manage, L = A.limits, tidy = A._.tidy;
+var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var PARTS = {
+basics: { title: 'Name and details.', side: 'right', fields: ['name', 'first', 'tag', 'genres', 'home'] },
+photo: { title: 'Your photo.', side: 'left', fields: ['img', 'alt', 'pos'] },
+about: { title: 'About you.', side: 'right', fields: ['bio', 'links'] },
+sets: { title: 'Your sets.', side: 'right', fields: ['sets', 'find'] },
+rider: { title: 'What you need.', side: 'left', fields: ['rider', 'riderNote', 'riderLink'] },
+look: { title: 'How your page looks.', side: 'left', fields: ['look'] }
+};
+var NEEDS = { tag: 'your sound', home: 'a home city', img: 'a photo', bio: 'a few words about you' };
+var BG_NAMES = { red: 'Red', black: 'Black', cream: 'Cream' };
+function str(v) { return v == null ? '' : String(v); }
+function copy(o) { var n = {}, k; for (k in o) n[k] = o[k]; return n; }
+function today() { var t = new Date(); return t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2); }
+function day(iso) {
+var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str(iso)); if (!p) return str(iso);
+var t = new Date(+p[1], +p[2] - 1, +p[3]);
+return DOW[t.getDay()] + ', ' + MON[t.getMonth()] + '\u00a0' + t.getDate();
+}
+function when(from, to) { return !to || to === from ? day(from) : day(from) + ' to ' + day(to); }
+function and(list) { return list.length < 2 ? list.join('') : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1]; }
+function formOf(a) {
+var p = /^(\d{1,3})% (\d{1,3})%$/.exec(a.pos || '') || [0, 50, 50];
+return {
+name: a.name, first: a.first, tag: a.tag, genres: a.genres.filter(function (g) { return A.genres.indexOf(g) >= 0; }), home: a.home,
+img: a.img, alt: a.alt === a.name ? '' : a.alt, px: +p[1], py: +p[2],
+bio: a.bio.join('\n\n'), links: a.links.map(copy), sets: a.sets.map(copy),
+findLabel: a.find ? a.find.label : '', findUrl: a.find ? a.find.url : '',
+rider: a.rider.join('\n'), riderNote: a.riderNote, riderLink: a.riderLink,
+bg: a.look.bg, image: a.look.image, record: a.look.record, sign: a.look.sign
+};
+}
+function inputOf(f, saved) {
+return {
+slug: saved.slug, status: saved.status, name: f.name, first: f.first, tag: f.tag, genres: f.genres, home: f.home,
+img: f.img, alt: f.alt, pos: f.px + '% ' + f.py + '%', bio: f.bio, sets: f.sets,
+find: f.findLabel || f.findUrl ? { label: f.findLabel, url: f.findUrl } : null, links: f.links,
+rider: f.rider, riderNote: f.riderNote, riderLink: f.riderLink,
+look: { bg: f.bg, image: f.image, record: f.record, sign: f.sign }
+};
+}
+function same(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
+function say(field, why) {
+var row = /^(sets|links)\.\d+\.(title|label|url)$/.exec(field), k = row ? row[1] + '.' + row[2] : field;
+if (why === 'long') return 'Too long. Make it a little\u00a0shorter.';
+if (why === 'many') return k === 'bio' ? 'Too many paragraphs. Keep it to ' + L.bioParas + '.' : 'That is more than fits. Take one\u00a0out.';
+if (why === 'soundcloud') return 'Sets play from SoundCloud, so this has to be a SoundCloud\u00a0link.';
+if (why === 'https') return "That link doesn't look right. Mind checking\u00a0it?";
+if (why === 'required') {
+if (k === 'name') return 'Add your DJ\u00a0name.';
+if (k === 'sets.title') return 'Give this set a\u00a0title.';
+if (k === 'sets.url') return 'Add the SoundCloud link for this\u00a0set.';
+if (k === 'links.label') return 'Name this\u00a0link.';
+if (k === 'links.url' || k === 'find.url') return 'Add the\u00a0link.';
+if (k === 'find.label') return 'Say what the link\u00a0is.';
+return 'Your page is live, so it needs\u00a0this.';
+}
+return 'Pick one of the\u00a0choices.';
+}
+function photoFail(code) {
+if (code === 'tooBig') return 'That file is too big. Pick one under 40\u00a0MB.';
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+return "We couldn't read that picture. Try a JPG or a\u00a0PNG.";
+}
+function fail(code) {
+if (code === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
+if (code === 'rate') return 'Too many tries. Give it a minute and try\u00a0again.';
+if (code === 'signedOut') return 'You were logged out. Log in again, then\u00a0save.';
+if (code === 'forbidden' || code === 'missing') return "This account can't change that\u00a0page.";
+if (code === 'photo' || code === 'tooBig') return photoFail(code);
+return 'Something went wrong on our side. Try\u00a0again.';
+}
+function attach(page, links) {
+links = links || {};
+var s = {
+phase: 'loading', code: '', user: null, id: '', saved: null, form: null, part: '', busy: false, msg: '', bad: false,
+errs: {}, picking: '', flash: '',
+dates: [], nd: { city: '', from: '', to: '' }, dateErr: '', dateBusy: false, dateMsg: '',
+pv: { low: '', high: '', agent: '' }, pvWas: null, pvBusy: false, pvMsg: '', pvBad: false
+};
+var gone = false, tick = 0, opener = null, flashT = null, headEl = null, wantHead = false;
+function draw() { if (!gone) page.setState({ edTick: ++tick }); }
+function shown() {
+if (!s.saved) return null;
+if (!s.part || !s.form) return s.saved;
+var t = tidy(inputOf(s.form, s.saved), { strict: true }).artist;
+t.slug = s.saved.slug; t.status = s.saved.status;
+return t;
+}
+function put(first) {
+var a = shown();
+page.djs = a ? [a] : []; page.ready = true;
+if (first) page.show({ dj: a, part: '' }, true); else draw();
+}
+function dirty() { return !!(s.part && s.form && s.saved && !same(s.form, formOf(s.saved))); }
+function go(to) { try { W.location.replace(to); } catch (e) {} }
+function load() {
+s.phase = 'loading'; s.code = ''; draw();
+B.dj.load().then(function (r) {
+if (gone) return;
+if (!r || !r.ok) { s.phase = 'failed'; s.code = (r && r.code) || 'unknown'; return draw(); }
+if (!r.user) { try { B.next.set(); } catch (e) {} return go(links.login || 'login.html'); }
+if (r.user.role !== 'dj') return go(links.account || 'account.html');
+s.user = r.user;
+if (!r.dj) { s.phase = 'none'; return draw(); }
+s.id = r.dj.id; s.dates = (r.dates || []).slice();
+s.pv = { low: r.dj.fee_low == null ? '' : str(r.dj.fee_low), high: r.dj.fee_high == null ? '' : str(r.dj.fee_high), agent: r.dj.agent_name || '' };
+s.pvWas = copy(s.pv);
+return M.mine().then(function (m) {
+if (gone) return;
+if (!m || !m.ok) { s.phase = 'failed'; s.code = (m && m.code) || 'unknown'; return draw(); }
+if (!m.artist) { s.phase = 'none'; return draw(); }
+s.saved = m.artist; s.form = formOf(m.artist); s.phase = 'ready';
+put(true);
+});
+});
+}
+function flash(text) {
+s.flash = text;
+if (flashT) clearTimeout(flashT);
+flashT = setTimeout(function () { flashT = null; s.flash = ''; draw(); }, 6000);
+}
+function open(part, e) {
+if (!PARTS[part] || s.phase !== 'ready' || s.busy) return;
+if (s.part && s.part !== part && dirty()) { s.msg = 'Save or cancel this part\u00a0first.'; s.bad = true; return draw(); }
+opener = e && e.currentTarget ? e.currentTarget : null;
+s.part = part; s.form = formOf(s.saved); s.errs = {}; s.msg = ''; s.bad = false; wantHead = true;
+put();
+}
+function close(back) {
+s.part = ''; s.form = s.saved ? formOf(s.saved) : null; s.errs = {}; s.msg = ''; s.bad = false; s.picking = '';
+put();
+if (back && opener && opener.focus) { try { opener.focus(); } catch (e) {} }
+opener = null;
+}
+function edit(key, value) {
+if (!s.form || s.form[key] === value) return;
+s.form[key] = value;
+if (s.errs[key]) delete s.errs[key];
+if (s.bad) { s.msg = ''; s.bad = false; }
+put();
+}
+function rowSet(list, i, key, value) {
+var rows = s.form[list]; if (!rows[i] || rows[i][key] === value) return;
+rows[i][key] = value;
+delete s.errs[list + '.' + i];
+put();
+}
+function rowAdd(list) {
+var max = list === 'sets' ? L.sets : L.links;
+if (s.form[list].length >= max) return;
+s.form[list].push(list === 'sets' ? { title: '', url: '' } : { label: '', url: '' });
+put();
+}
+function rowRemove(list, i) { s.form[list].splice(i, 1); s.errs = {}; put(); }
+function pickFile(k, e) {
+var input = e && e.target, file = input && input.files ? input.files[0] : null;
+function clearBox() { if (input) { try { input.value = ''; } catch (x) {} } }
+if (!file || s.picking || !s.form) return clearBox();
+s.picking = k; delete s.errs[k]; draw();
+M.photo(file, { max: k === 'record' ? 800 : 1600 }).then(function (p) {
+clearBox();
+if (gone || !s.form) return;
+s.picking = '';
+if (!p || !p.ok) { s.errs[k] = photoFail(p && p.code); return draw(); }
+s.form[k] = p.url;
+if (k === 'img') { s.form.px = 50; s.form.py = 30; }
+put();
+});
+}
+function save(e) {
+if (e && e.preventDefault) e.preventDefault();
+if (!s.part || s.busy || !s.form) return;
+if (!dirty()) return close(true);
+s.busy = true; s.msg = ''; s.bad = false; s.errs = {}; draw();
+M.saveMine(inputOf(s.form, s.saved)).then(function (r) {
+if (gone) return;
+s.busy = false;
+if (r && r.ok && r.artist) {
+s.saved = r.artist;
+flash('Saved.');
+return close(true);
+}
+if (r && r.code === 'invalid') {
+var here = PARTS[s.part].fields, needs = [], others = [], marked = 0;
+(r.problems || []).forEach(function (p) {
+var top = p.field.split('.')[0], row = /^(sets|links)\.(\d+)\./.exec(p.field), key = row ? row[1] + '.' + row[2] : (top === 'find' ? p.field : top), k, name;
+if (here.indexOf(top) < 0) {
+if (p.why === 'required' && NEEDS[top]) { if (needs.indexOf(NEEDS[top]) < 0) needs.push(NEEDS[top]); return; }
+for (k in PARTS) if (PARTS[k].fields.indexOf(top) >= 0) { name = PARTS[k].title.replace(/\.$/, ''); if (others.indexOf(name) < 0) others.push(name); }
+return;
+}
+if (!s.errs[key]) s.errs[key] = say(p.field, p.why);
+marked++;
+});
+s.bad = true;
+s.msg = marked ? 'Have a look at the boxes marked in\u00a0red.'
+: needs.length ? 'Your page is live, so it also needs ' + and(needs) + '.'
+: others.length ? 'Another part needs a look first: ' + and(others) + '.'
+: 'Something went wrong on our side. Try\u00a0again.';
+return draw();
+}
+s.bad = true; s.msg = fail(r && r.code);
+draw();
+});
+}
+function addDate(e) {
+if (e && e.preventDefault) e.preventDefault();
+if (s.dateBusy) return;
+var city = str(s.nd.city).replace(/\s+/g, ' ').replace(/^ | $/g, ''), from = s.nd.from, to = s.nd.to || s.nd.from, now = today();
+s.dateMsg = '';
+if (!city) { s.dateErr = 'Add the\u00a0city.'; return draw(); }
+if (!from) { s.dateErr = 'Pick the first\u00a0night.'; return draw(); }
+if (from < now || to < now) { s.dateErr = 'That night has passed. Pick one coming\u00a0up.'; return draw(); }
+if (to < from) { s.dateErr = 'The last night is before the first\u00a0one.'; return draw(); }
+s.dateErr = ''; s.dateBusy = true; draw();
+B.dj.addDate(s.id, { city: city, from: from, to: to }).then(function (r) {
+if (gone) return;
+s.dateBusy = false;
+if (!r || !r.ok) { s.dateErr = r && r.code === 'invalid' ? "We couldn't save that date. Check the city and the\u00a0nights." : fail(r && r.code); return draw(); }
+s.dates.push(r.date);
+s.dates.sort(function (a, b) { return a.from < b.from ? -1 : a.from > b.from ? 1 : 0; });
+s.nd = { city: '', from: '', to: '' }; s.dateMsg = 'Added ' + city + '.';
+draw();
+});
+}
+function removeDate(id) {
+if (s.dateBusy) return;
+var was = s.dates.filter(function (d) { return d.id === id; })[0];
+if (!was) return;
+s.dateBusy = true; s.dateErr = ''; s.dateMsg = ''; draw();
+B.dj.removeDate(id).then(function (r) {
+if (gone) return;
+s.dateBusy = false;
+if (!r || !r.ok) { s.dateErr = fail(r && r.code); return draw(); }
+s.dates = s.dates.filter(function (d) { return d.id !== id; });
+s.dateMsg = 'Removed ' + was.city + '.';
+draw();
+});
+}
+function savePv(e) {
+if (e && e.preventDefault) e.preventDefault();
+if (s.pvBusy) return;
+var num = function (v) { v = str(v).replace(/[$,\s]/g, ''); return v === '' ? null : (/^\d+$/.test(v) ? +v : NaN); };
+var lo = num(s.pv.low), hi = num(s.pv.high);
+if (lo !== lo || hi !== hi) { s.pvBad = true; s.pvMsg = 'Type the fee as a number, like\u00a01500.'; return draw(); }
+if (lo != null && hi != null && lo > hi) { s.pvBad = true; s.pvMsg = 'The first number is bigger than the second\u00a0one.'; return draw(); }
+s.pvBusy = true; s.pvMsg = ''; s.pvBad = false; draw();
+B.dj.save(s.id, { fee_low: lo, fee_high: hi, agent_name: s.pv.agent }).then(function (r) {
+if (gone) return;
+s.pvBusy = false;
+if (!r || !r.ok) { s.pvBad = true; s.pvMsg = fail(r && r.code); return draw(); }
+s.pv = { low: r.dj.fee_low == null ? '' : str(r.dj.fee_low), high: r.dj.fee_high == null ? '' : str(r.dj.fee_high), agent: r.dj.agent_name || '' };
+s.pvWas = copy(s.pv); s.pvMsg = 'Saved.';
+draw();
+});
+}
+var set = {}, pick = {}, clear = {}, openers = {}, ndSet = {}, pvSet = {};
+['name', 'first', 'tag', 'home', 'alt', 'bio', 'findLabel', 'findUrl', 'rider', 'riderNote', 'riderLink'].forEach(function (k) {
+set[k] = function (e) { edit(k, e && e.target ? e.target.value : ''); };
+});
+set.px = function (e) { edit('px', Math.max(0, Math.min(100, Math.round(+e.target.value || 0)))); };
+set.py = function (e) { edit('py', Math.max(0, Math.min(100, Math.round(+e.target.value || 0)))); };
+['img', 'image', 'record'].forEach(function (k) {
+pick[k] = function (e) { pickFile(k, e); };
+clear[k] = function () { if (!s.form) return; delete s.errs[k]; edit(k, ''); };
+});
+Object.keys(PARTS).forEach(function (k) { openers[k] = function (e) { open(k, e); }; });
+['city', 'from', 'to'].forEach(function (k) { ndSet[k] = function (e) { s.nd[k] = e && e.target ? e.target.value : ''; if (s.dateErr) s.dateErr = ''; draw(); }; });
+['low', 'high', 'agent'].forEach(function (k) { pvSet[k] = function (e) { s.pv[k] = e && e.target ? e.target.value : ''; s.pvMsg = ''; s.pvBad = false; draw(); }; });
+var h = {
+cancel: function () { close(true); },
+save: save,
+key: function (e) { if (e && (e.key === 'Escape' || e.key === 'Esc') && !s.busy) { e.stopPropagation(); close(true); } },
+headRef: function (el) { headEl = el; if (el && wantHead) { wantHead = false; try { el.focus(); } catch (x) {} } },
+spotAt: function (e) {
+var r = e.currentTarget.getBoundingClientRect();
+if (!r.width || !r.height || !s.form) return;
+s.form.px = Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100)));
+s.form.py = Math.max(0, Math.min(100, Math.round((e.clientY - r.top) / r.height * 100)));
+put();
+},
+addLink: function () { rowAdd('links'); },
+addSet: function () { rowAdd('sets'); },
+retry: load,
+logOut: function () { B.auth.signOut().then(function () { go(links.home || 'index.html'); }); },
+addDate: addDate, savePv: savePv,
+leave: function (e) { if (!dirty()) return undefined; e.preventDefault(); e.returnValue = ''; return ''; }
+};
+var OFF_PART = { basics: false, photo: false, about: false, sets: false, rider: false, look: false };
+function vals() {
+var ready = s.phase === 'ready' && !!s.saved, f = s.form || {}, live = ready && s.saved.status === 'live', part = s.part, P = PARTS[part] || null;
+var is = copy(OFF_PART); if (P) is[part] = true;
+var errs = s.errs, err = {}, inv = {}, k;
+['name', 'tag', 'home', 'img', 'image', 'record', 'alt', 'bio', 'rider', 'riderNote', 'riderLink', 'find.label', 'find.url', 'sets', 'links', 'first'].forEach(function (key) {
+var n = key.replace('.', '_'); err[n] = !!errs[key]; inv[n] = errs[key] ? 'true' : 'false';
+});
+var errText = {}; for (k in errs) errText[k.replace('.', '_')] = errs[k];
+var rows = function (list, a, b) {
+return (f[list] || []).map(function (r, i) {
+var o = { n: String(i + 1), bad: !!errs[list + '.' + i], err: errs[list + '.' + i] || '', inv: errs[list + '.' + i] ? 'true' : 'false',
+remove: function () { rowRemove(list, i); }, removeAria: 'Remove ' + (r[a] || (list === 'sets' ? 'set ' : 'link ') + (i + 1)) };
+o[a] = r[a]; o[b] = r[b];
+o.setA = function (e) { rowSet(list, i, a, e.target.value); };
+o.setB = function (e) { rowSet(list, i, b, e.target.value); };
+return o;
+});
+};
+var now = today();
+return {
+on: true,
+dotCls: 'pe-dot0' + (live ? ' pe-live' : ''),
+head: !ready ? 'Your dashboard.' : live ? 'Your page is\u00a0live.' : 'Your page is a\u00a0draft.',
+line: s.flash || (!ready ? '' : live ? 'This is what hosts see. Change any part with its Edit\u00a0button.' : "Hosts can't see it yet. BOOKD puts it live when it's\u00a0ready."),
+canSee: live && typeof links.artistUrl === 'function', seeHref: live && typeof links.artistUrl === 'function' ? links.artistUrl(s.saved.slug) : '',
+logOut: h.logOut,
+waiting: s.phase === 'loading', failed: s.phase === 'failed', failText: fail(s.code), retry: h.retry, noPage: s.phase === 'none',
+ready: ready,
+open: openers, photoPill: ready && s.saved.img ? 'Change photo' : 'Add a photo',
+panel: !!P, side: P ? P.side : 'right', title: P ? P.title : '', is: is, key: h.key, headRef: h.headRef,
+cancel: h.cancel, save: h.save, busy: s.busy ? 'true' : 'false', saveLabel: s.busy ? 'Saving' : 'Save',
+hasMsg: !!s.msg, msg: s.msg, msgCls: 'pe-msg' + (s.bad ? ' pe-msgbad' : ''),
+f: { name: f.name || '', first: f.first || '', tag: f.tag || '', home: f.home || '', alt: f.alt || '', bio: f.bio || '', img: f.img || '',
+px: f.px == null ? 50 : f.px, py: f.py == null ? 50 : f.py, findLabel: f.findLabel || '', findUrl: f.findUrl || '',
+rider: f.rider || '', riderNote: f.riderNote || '', riderLink: f.riderLink || '' },
+set: set, err: err, inv: inv, errText: errText,
+genres: A.genres.map(function (g) {
+var on = (f.genres || []).indexOf(g) >= 0;
+return { label: g, on: on ? 'true' : 'false', flip: function () { var list = (s.form.genres || []).slice(), i = list.indexOf(g); if (i >= 0) list.splice(i, 1); else list.push(g); edit('genres', list); } };
+}),
+hasPhoto: !!f.img, noPhoto: !f.img, hasImage: !!f.image, hasRecord: !!f.record, spotAt: h.spotAt,
+pick: pick, clear: clear,
+pickBusy: { img: s.picking === 'img' ? 'true' : 'false', image: s.picking === 'image' ? 'true' : 'false', record: s.picking === 'record' ? 'true' : 'false' },
+pickLabel: { img: s.picking === 'img' ? 'One sec' : (f.img ? 'Choose another photo' : 'Choose a photo'),
+image: s.picking === 'image' ? 'One sec' : (f.image ? 'Choose another picture' : 'Choose a picture'),
+record: s.picking === 'record' ? 'One sec' : (f.record ? 'Choose another picture' : 'Choose a picture') },
+bgs: A.backgrounds.map(function (c) { return { key: c, label: BG_NAMES[c] || c, on: f.bg === c ? 'true' : 'false', pick: function () { edit('bg', c); } }; }),
+signs: ['left', 'right'].map(function (c) { return { label: c === 'left' ? 'Left' : 'Right', on: f.sign === c ? 'true' : 'false', pick: function () { edit('sign', c); } }; }),
+links: rows('links', 'label', 'url'), addLink: h.addLink, canAddLink: (f.links || []).length < L.links,
+sets: rows('sets', 'title', 'url'), addSet: h.addSet, canAddSet: (f.sets || []).length < L.sets, noSetRows: !(f.sets || []).length,
+noBio: ready && !shownBio(),
+dates: s.dates.map(function (d) { return { when: when(d.from, d.to), city: d.city, remove: function () { removeDate(d.id); }, removeAria: 'Remove ' + d.city + ', ' + when(d.from, d.to) }; }),
+noDates: !s.dates.length, nd: s.nd, ndSet: ndSet, ndMin: now, ndInv: s.dateErr ? 'true' : 'false',
+addDate: h.addDate, addBusy: s.dateBusy ? 'true' : 'false', addLabel: s.dateBusy ? 'One sec' : 'Add the date',
+hasDateErr: !!s.dateErr, dateErr: s.dateErr, hasDateMsg: !s.dateErr && !!s.dateMsg, dateMsg: s.dateMsg,
+pv: s.pv, pvSet: pvSet, savePv: h.savePv, pvBusy: s.pvBusy ? 'true' : 'false', pvLabel: s.pvBusy ? 'Saving' : 'Save',
+hasPvMsg: !!s.pvMsg, pvMsg: s.pvMsg, pvMsgCls: 'pe-msg' + (s.pvBad ? ' pe-msgbad' : '')
+};
+}
+function shownBio() { var a = shown(); return !!(a && a.bio && a.bio.length); }
+return {
+start: function () { if (W.addEventListener) W.addEventListener('beforeunload', h.leave); load(); },
+stop: function () { gone = true; if (flashT) clearTimeout(flashT); if (W.removeEventListener) W.removeEventListener('beforeunload', h.leave); },
+vals: vals
+};
+}
+B.pageEditor = { attach: attach };
 })();
