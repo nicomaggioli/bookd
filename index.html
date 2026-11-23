@@ -1487,7 +1487,7 @@ heroRef: this.heroRef,
 menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false', menuLabel: s.menu ? 'Close' : 'Menu',
 toggleMenu: function () { self.setMenu(!self.state.menu); },
 closeMenu: function () { self.setMenu(false); }, menuBtnRef: this.menuBtnRef,
-loginHref: (function (w, mock) { return !w ? 'login.html' : (w.role === 'admin' ? 'admin.html' : (w.role === 'dj' ? 'dashboard.html' : (!'account.html'))); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null, !!(window.BOOKD_CONFIG && window.BOOKD_CONFIG.demo === true)),
+loginHref: (function (w, mock) { return !w ? 'login.html' : (w.role === 'admin' ? 'admin.html' : (w.role === 'dj' ? 'dashboard.html' : ('account.html'))); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null, !!(window.BOOKD_CONFIG && window.BOOKD_CONFIG.demo === true)),
 loginText: (function (w, mock) { return !w ? 'Log in' : (w.role === 'admin' || w.role === 'dj' ? 'Your dashboard' : (!mock ? 'Your account' : 'Your inbox')); })(window.BOOKD && window.BOOKD.ready ? window.BOOKD.who : null, !!(window.BOOKD_CONFIG && window.BOOKD_CONFIG.demo === true)),
 navBg: s.navSolid || s.menu ? '#000000' : 'transparent', navPad: s.navSolid ? '12px' : '20px',
 bookNow: function (e) {

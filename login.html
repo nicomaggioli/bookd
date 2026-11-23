@@ -465,11 +465,17 @@ function lgMock() {
 var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
 return !!(c && c.demo === true);
 }
-function lgDone(role, mode, name, live) {
+function lgDone(role, mode, name, live, notDj) {
 if (live === 'admin') return {
 title: "You're\u00a0in.",
 line: 'The roster, applications and notes are on your\u00a0dashboard.',
 next: 'Open my dashboard', nextHref: 'admin.html', alt: '', altHref: '', over: 'Not you? Log out'
+};
+if (live && notDj) return {
+title: "You're\u00a0in.",
+line: notDj === 'link' ? "That sign up link doesn't fit this account. It works once, with the email BOOKD sent it\u00a0to."
+: 'This is a regular account, not a DJ one. DJs get a sign up link from\u00a0BOOKD.',
+next: 'See the roster', nextHref: 'roster.html', alt: '', altHref: '', over: 'Not you? Log out'
 };
 if (live && !lgMock()) return role === 'dj' ? {
 title: "You're\u00a0in.",
@@ -533,6 +539,11 @@ if (bad === 'expired') return 'That link ran out. Send yourself a fresh\u00a0one
 if (bad === 'offline') return "We couldn't reach BOOKD. Check your connection and try\u00a0again.";
 if (bad) return 'Something went wrong on our side. Try\u00a0again.';
 return '';
+}
+function lgNotDj(side, liveRole) {
+if (side !== 'dj' || liveRole !== 'host') return '';
+var a = lgLive();
+return a && typeof a.linkWaiting === 'function' && a.linkWaiting() ? 'link' : 'plain';
 }
 function lgLive() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null;
@@ -658,7 +669,8 @@ this.reduce = !!(typeof window !== 'undefined' && window.matchMedia && window.ma
 this.state = {
 role: 'host', mode: 'login', name: '', email: '', pw: '', showPw: false,
 badName: '', badEmail: '', badPw: '', done: '', hostMode: '',
-busy: false, liveRole: ''
+busy: false, liveRole: '',
+viaLink: false, notDj: ''
 };
 this.stageEl = null; this.vid = null; this.io = null; this.onScreen = false;
 this.pickCut = function (el, mq) { var ph = !!(mq && mq.matches), u = (ph && el.getAttribute('data-src-phone')) || el.getAttribute('data-src'), p = (ph && el.getAttribute('data-still-phone')) || el.getAttribute('data-still'); if (p && el.getAttribute('poster') !== p) el.poster = p; if (!u || el.getAttribute('src') === u) return false; el.src = u; return true; };
@@ -701,7 +713,7 @@ if (h === '#dj' || h === '#agent') this.setState({ role: 'dj' });
 else if (h === '#reset') this.setMode('reset');
 else if (h === '#new-password') this.setMode('newpw');
 else if (h === '#dj-new-password') { this.setState({ role: 'dj' }); this.setMode('newpw'); }
-else if (/^#claim=[0-9a-f]{16}$/.test(h)) { this.setState({ role: 'dj' }); this.setMode('signup'); }
+else if (/^#claim=[0-9a-f]{16}$/.test(h)) { this.setState({ role: 'dj', viaLink: true }); this.setMode('signup'); }
 var self = this, api = lgLive();
 if (!api) return;
 var arrived = window.BOOKD.arrived;
@@ -715,7 +727,7 @@ var u = r && r.ok ? r.user : null;
 if (!u || self.state.done) return;
 var who = { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || '' };
 if (self.state.mode === 'newpw') { self.setState(who); return; }
-self.setState(Object.assign(who, { mode: 'login', done: 'in' }));
+self.setState(Object.assign(who, { mode: 'login', done: 'in', notDj: lgNotDj(self.state.role, u.role) }));
 });
 }
 setMode(mode) {
@@ -736,7 +748,7 @@ var mode = s.mode;
 var stage = LG_STAGE[role][mode] || LG_STAGE[role].login;
 var card = LG_CARD[mode] || LG_CARD.login;
 var isSignup = mode === 'signup', isLogin = mode === 'login', isReset = mode === 'reset', isNewPw = mode === 'newpw';
-var done = s.done ? lgDone(role, mode, s.name, s.liveRole) : null;
+var done = s.done ? lgDone(role, mode, s.name, s.liveRole, s.notDj) : null;
 var isDJ = role === 'dj';
 var newDj = isDJ && isNewPw;
 var noBad = { badName: '', badEmail: '', badPw: '' };
@@ -757,7 +769,7 @@ self.setState(Object.assign(st.hostMode === 'signup' && st.mode === 'login' ? { 
 pickDJ: function () {
 var st = self.state;
 if (st.role === 'dj') return;
-self.setState(Object.assign(st.mode === 'signup' ? { role: 'dj', hostMode: 'signup', mode: 'login', pw: '', showPw: false } : { role: 'dj' }, noBad));
+self.setState(Object.assign(st.mode === 'signup' && !st.viaLink ? { role: 'dj', hostMode: 'signup', mode: 'login', pw: '', showPw: false } : { role: 'dj' }, noBad));
 },
 cardTitle: isDJ && card.titleDJ ? card.titleDJ : card.title,
 cardSub: soon && card.subSoon ? card.subSoon : (isDJ && card.subDJ ? card.subDJ : card.sub),
@@ -777,7 +789,7 @@ showLabel: s.showPw ? 'Hide' : 'Show',
 toggleShow: function () { self.setState({ showPw: !self.state.showPw }); },
 goLabel: s.busy ? 'One sec' : card.go, busyAttr: s.busy ? 'true' : 'false',
 soonText: isReset ? 'Accounts open soon. Nothing gets sent\u00a0yet.' : 'Accounts open soon. Nothing gets saved\u00a0yet.',
-swapOn: (isLogin || isSignup) && !isDJ, applyOn: isLogin && isDJ, swapLead: card.lead, swapLabel: card.swap,
+swapOn: (isLogin || isSignup) && (!isDJ || s.viaLink), applyOn: isLogin && isDJ && !s.viaLink, swapLead: card.lead, swapLabel: card.swap,
 swap: function () {
 var su = self.state.mode !== 'signup';
 self.wantName = su; self.wantEmail = false;
@@ -785,7 +797,7 @@ self.setMode(su ? 'signup' : 'login');
 if (!su && self.emailEl && self.emailEl.focus) self.emailEl.focus();
 },
 toForgot: function () { self.wantEmail = true; self.setMode('reset'); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
-toLogin: function () { self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', hostMode: '', showPw: false, pw: '' }, noBad)); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
+toLogin: function () { self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', hostMode: '', showPw: false, pw: '', notDj: '' }, noBad)); if (self.emailEl && self.emailEl.focus) self.emailEl.focus(); },
 submit: function (e) {
 if (e && e.preventDefault) e.preventDefault();
 var st = self.state, m = st.mode, em = st.email.trim();
@@ -829,7 +841,7 @@ if (nx && typeof nx === 'string') { window.location.assign(nx); return; }
 self.wantDone = true;
 self.setState(Object.assign(
 { busy: false, pw: '', showPw: false, done: m === 'reset' ? 'reset' : (r.needsConfirm ? 'confirm' : 'in') },
-u ? { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || st.name } : {}, noBad));
+u ? { role: u.role === 'dj' ? 'dj' : 'host', liveRole: u.role, name: u.name || st.name, notDj: m === 'newpw' ? '' : lgNotDj(st.role, u.role) } : {}, noBad));
 });
 },
 doneOn: !!s.done && s.done !== 'soon', doneRef: this.doneRef, nsRef: this.nsRef,
@@ -841,7 +853,7 @@ nextHref: done ? done.nextHref : 'account.html', nextLabel: done ? done.next : '
 altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
 acctOn: !isDJ,
 overLabel: done ? done.over : 'Not you? Log out',
-startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false }, noBad)); }
+startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantName = false; self.wantEmail = true; self.setState(Object.assign({ mode: 'login', done: '', name: '', email: '', pw: '', showPw: false, hostMode: '', liveRole: '', busy: false, notDj: '' }, noBad)); }
 }, nav6Vals(this, {
 curLogin: 'page',
 shell: s.done === 'in' && !(lgLive() && !lgMock()) ? (isDJ ? 'dj' : 'host') : 'public',

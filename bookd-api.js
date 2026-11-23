@@ -63,6 +63,7 @@ if (r.data === true) dropClaim();
 else { try { sessionStorage.setItem(CLAIM_ASKED, asked); } catch (e) {} }
 }, function () {});
 }
+BOOKD.auth.linkWaiting = function () { return !!claimCode(); };
 function settle(me) { if (me && me.role !== 'host' && claimCode()) dropClaim(); return me; }
 function page(file) { return location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '') + file; }
 function code(err) {
