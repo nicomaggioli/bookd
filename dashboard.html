@@ -319,11 +319,16 @@ html .pe-ghost{background:rgba(255,255,255,.14);color:#fffde9}
 .pe-hint{display:block;margin:2px 4px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
 .pe-msg{margin:10px 4px 0;font-size:14px;line-height:1.35;color:rgba(0,0,0,.75)}
 .pe-msgbad{font-weight:700;color:#d31110}
-.pe-panel{position:fixed;top:12px;bottom:12px;right:12px;z-index:60;width:min(430px,calc(100% - 24px));box-sizing:border-box;border-radius:var(--r-card);background:#fffde9;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.2)}
+.pe-panel{position:fixed;top:50%;right:12px;z-index:60;transform:translateY(-50%);display:flex;flex-direction:column;width:min(430px,calc(100% - 24px));max-height:calc(100% - 24px);box-sizing:border-box;border-radius:var(--r-card);background:#fffde9;color:#000000;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.2)}
 .pe-panel[data-side="left"]{right:auto;left:12px}
-.pe-panel form{display:flex;flex-direction:column;height:100%;min-height:0;margin:0}
+.pe-panel form{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;margin:0}
+.pe-panel .field input::placeholder,.pe-panel .field textarea::placeholder{color:rgba(0,0,0,.4)}
+.pe-editing{outline:2px dashed currentColor;outline-offset:12px;border-radius:14px}
+.k6hero .pe-editing{outline-color:var(--txt)}
+.k6rec.pe-editing{outline-offset:8px;border-radius:calc(var(--r-card) + 6px)}
+.pe-toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:59;transform:translateX(-50%);margin:0;padding:13px 22px;border-radius:999px;background:#fffde9;color:#000000;font:700 15px/1.2 'Inter',sans-serif;white-space:nowrap;box-shadow:0 18px 40px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.2)}
 .pe-panel :focus-visible{outline-color:#d31110}
-.pe-phead{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 16px 10px 20px}
+.pe-phead{flex:none;padding:20px 20px 10px}
 .pe-phead h2{margin:0;font-size:30px;line-height:1;font-weight:700;letter-spacing:-0.055em;outline:none}
 .pe-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:10px;padding:6px 16px 18px}
 .pe-foot{flex:none;display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid rgba(0,0,0,.14)}
@@ -355,7 +360,8 @@ html .pe-ghost:hover{background:#fffde9;color:#000000}
 .pe-chip:hover{background:#d31110;color:#ffffff}
 }
 @media (max-width:760px){
-.pe-panel,.pe-panel[data-side="left"]{left:8px;right:8px;top:auto;bottom:8px;width:auto;height:min(64vh,560px)}
+.pe-panel,.pe-panel[data-side="left"]{left:8px;right:8px;top:auto;bottom:8px;transform:none;width:auto;max-height:min(62%,560px)}
+.pe-editing{outline-offset:6px}
 .pe-addrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .pe-addrow .field:first-child{grid-column:1 / -1}
 .pe-stripin{align-items:flex-start;flex-direction:column}
@@ -364,6 +370,9 @@ html .pe-ghost:hover{background:#fffde9;color:#000000}
 }
 @media (max-width:420px){
 .pe-row{grid-template-columns:minmax(0,1fr)}
+}
+@media (min-width:761px) and (max-width:1100px){
+.pe-panel{width:min(380px,46%)}
 }</style>
 <style>@media (max-width:359px){html .ns-acts .btn-main{padding:0 10px;font-size:15px}}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
@@ -683,9 +692,9 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </section>
 
 <sc-if value="{{ed.panel}}" hint-placeholder-val="{{ false }}">
-<aside class="pe-panel" data-side="{{ed.side}}" aria-labelledby="pe-h" onKeyDown="{{ed.key}}">
+<aside class="pe-panel" data-side="{{ed.side}}" aria-labelledby="pe-h" onKeyDown="{{ed.key}}" ref="{{ed.panelRef}}">
 <form onSubmit="{{ed.save}}" novalidate="">
-<div class="pe-phead"><h2 id="pe-h" tabindex="-1" ref="{{ed.headRef}}">{{ed.title}}</h2><button type="button" class="btn btn-sm btn-quiet" onClick="{{ed.cancel}}">Close</button></div>
+<div class="pe-phead"><h2 id="pe-h" tabindex="-1" ref="{{ed.headRef}}">{{ed.title}}</h2></div>
 <div class="pe-body">
 
 <sc-if value="{{ed.is.basics}}" hint-placeholder-val="{{ false }}">
@@ -752,6 +761,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </form>
 </aside>
 </sc-if>
+<sc-if value="{{ed.toast}}" hint-placeholder-val="{{ false }}"><p class="pe-toast" role="status">{{ed.toastText}}</p></sc-if>
 </sc-if>
 </sc-if>
 </main>
@@ -1078,7 +1088,7 @@ curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin
 bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu
 };
 }
-var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, noBio: false,
+var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, toast: false, noBio: false,
 open: {}, is: {}, f: {}, set: {}, err: {}, inv: {}, errText: {}, pick: {}, clear: {}, pickBusy: {}, pickLabel: {}, nd: {}, ndSet: {}, pv: {}, pvSet: {},
 genres: [], bgs: [], signs: [], links: [], sets: [], dates: [] };
 class Component extends DCLogic {

@@ -1038,12 +1038,12 @@ var A = B.artists, M = A.manage, L = A.limits, tidy = A._.tidy;
 var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 var PARTS = {
-basics: { title: 'Name and details.', side: 'right', fields: ['name', 'first', 'tag', 'genres', 'home'] },
-photo: { title: 'Your photo.', side: 'left', fields: ['img', 'alt', 'pos'] },
-about: { title: 'About you.', side: 'right', fields: ['bio', 'links'] },
-sets: { title: 'Your sets.', side: 'right', fields: ['sets', 'find'] },
-rider: { title: 'What you need.', side: 'left', fields: ['rider', 'riderNote', 'riderLink'] },
-look: { title: 'How your page looks.', side: 'left', fields: ['look'] }
+basics: { title: 'Name and details.', side: 'right', at: '.k6copy', fields: ['name', 'first', 'tag', 'genres', 'home'] },
+photo: { title: 'Your photo.', side: 'left', at: '.k6rec', fields: ['img', 'alt', 'pos'] },
+about: { title: 'About you.', side: 'left', at: '.k6aboutbody', fields: ['bio', 'links'] },
+sets: { title: 'Your sets.', side: 'left', at: '.k6songs', fields: ['sets', 'find'] },
+rider: { title: 'What you need.', side: 'left', at: '[id$="-needs"]', fields: ['rider', 'riderNote', 'riderLink'] },
+look: { title: 'How your page looks.', side: 'left', at: '', fields: ['look'] }
 };
 var NEEDS = { tag: 'your sound', home: 'a home city', img: 'a photo', bio: 'a few words about you' };
 var BG_NAMES = { red: 'Red', black: 'Black', cream: 'Cream' };
@@ -1112,11 +1112,11 @@ function attach(page, links) {
 links = links || {};
 var s = {
 phase: 'loading', code: '', user: null, id: '', saved: null, form: null, part: '', busy: false, msg: '', bad: false,
-errs: {}, picking: '', flash: '',
+errs: {}, picking: '', flash: '', toast: '',
 dates: [], nd: { city: '', from: '', to: '' }, dateErr: '', dateBusy: false, dateMsg: '',
 pv: { low: '', high: '', agent: '' }, pvWas: null, pvBusy: false, pvMsg: '', pvBad: false
 };
-var gone = false, tick = 0, opener = null, flashT = null, headEl = null, wantHead = false;
+var gone = false, tick = 0, opener = null, flashT = null, toastT = null, headEl = null, wantHead = false, marked = null;
 function draw() { if (!gone) page.setState({ edTick: ++tick }); }
 function shown() {
 if (!s.saved) return null;
@@ -1158,15 +1158,34 @@ s.flash = text;
 if (flashT) clearTimeout(flashT);
 flashT = setTimeout(function () { flashT = null; s.flash = ''; draw(); }, 6000);
 }
+function toast(text) {
+s.toast = text;
+if (toastT) clearTimeout(toastT);
+toastT = setTimeout(function () { toastT = null; s.toast = ''; draw(); }, 3500);
+}
+function media(q) { try { return !!(W.matchMedia && W.matchMedia(q).matches); } catch (e) { return false; } }
+function unmark() { if (marked) { try { marked.classList.remove('pe-editing'); } catch (e) {} marked = null; } }
+function mark(part) {
+unmark();
+var sel = PARTS[part] ? PARTS[part].at : '', el = null, calm = media('(prefers-reduced-motion: reduce)');
+try { el = sel && W.document ? W.document.querySelector(sel) : null; } catch (e) { el = null; }
+try {
+if (!el) { if (W.scrollTo) W.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' }); return; }
+el.classList.add('pe-editing'); marked = el;
+el.scrollIntoView({ block: media('(max-width:760px)') ? 'start' : 'center', behavior: calm ? 'auto' : 'smooth' });
+} catch (e) {}
+}
 function open(part, e) {
 if (!PARTS[part] || s.phase !== 'ready' || s.busy) return;
 if (s.part && s.part !== part && dirty()) { s.msg = 'Save or cancel this part\u00a0first.'; s.bad = true; return draw(); }
 opener = e && e.currentTarget ? e.currentTarget : null;
 s.part = part; s.form = formOf(s.saved); s.errs = {}; s.msg = ''; s.bad = false; wantHead = true;
 put();
+mark(part);
 }
 function close(back) {
 s.part = ''; s.form = s.saved ? formOf(s.saved) : null; s.errs = {}; s.msg = ''; s.bad = false; s.picking = '';
+unmark();
 put();
 if (back && opener && opener.focus) { try { opener.focus(); } catch (e) {} }
 opener = null;
@@ -1216,7 +1235,7 @@ if (gone) return;
 s.busy = false;
 if (r && r.ok && r.artist) {
 s.saved = r.artist;
-flash('Saved.');
+flash('Saved.'); toast('Saved.');
 return close(true);
 }
 if (r && r.code === 'invalid') {
@@ -1310,7 +1329,16 @@ var h = {
 cancel: function () { close(true); },
 save: save,
 key: function (e) { if (e && (e.key === 'Escape' || e.key === 'Esc') && !s.busy) { e.stopPropagation(); close(true); } },
-headRef: function (el) { headEl = el; if (el && wantHead) { wantHead = false; try { el.focus(); } catch (x) {} } },
+headRef: function (el) { headEl = el; },
+panelRef: function (el) {
+if (!el || !wantHead) return;
+wantHead = false;
+var box = media('(hover: hover) and (pointer: fine)') ? el.querySelector('.pe-body input:not([type="file"]):not([type="range"]), .pe-body textarea') : null;
+try {
+if (box) { box.focus({ preventScroll: true }); if (box.setSelectionRange) { var n = box.value.length; box.setSelectionRange(n, n); } }
+else if (headEl) headEl.focus({ preventScroll: true });
+} catch (x) {}
+},
 spotAt: function (e) {
 var r = e.currentTarget.getBoundingClientRect();
 if (!r.width || !r.height || !s.form) return;
@@ -1355,7 +1383,8 @@ logOut: h.logOut,
 waiting: s.phase === 'loading', failed: s.phase === 'failed', failText: fail(s.code), retry: h.retry, noPage: s.phase === 'none',
 ready: ready,
 open: openers, photoPill: ready && s.saved.img ? 'Change photo' : 'Add a photo',
-panel: !!P, side: P ? P.side : 'right', title: P ? P.title : '', is: is, key: h.key, headRef: h.headRef,
+panel: !!P, side: P ? P.side : 'right', title: P ? P.title : '', is: is, key: h.key, headRef: h.headRef, panelRef: h.panelRef,
+toast: !!s.toast, toastText: s.toast,
 cancel: h.cancel, save: h.save, busy: s.busy ? 'true' : 'false', saveLabel: s.busy ? 'Saving' : 'Save',
 hasMsg: !!s.msg, msg: s.msg, msgCls: 'pe-msg' + (s.bad ? ' pe-msgbad' : ''),
 f: { name: f.name || '', first: f.first || '', tag: f.tag || '', home: f.home || '', alt: f.alt || '', bio: f.bio || '', img: f.img || '',
@@ -1388,7 +1417,7 @@ hasPvMsg: !!s.pvMsg, pvMsg: s.pvMsg, pvMsgCls: 'pe-msg' + (s.pvBad ? ' pe-msgbad
 function shownBio() { var a = shown(); return !!(a && a.bio && a.bio.length); }
 return {
 start: function () { if (W.addEventListener) W.addEventListener('beforeunload', h.leave); load(); },
-stop: function () { gone = true; if (flashT) clearTimeout(flashT); if (W.removeEventListener) W.removeEventListener('beforeunload', h.leave); },
+stop: function () { gone = true; unmark(); if (flashT) clearTimeout(flashT); if (toastT) clearTimeout(toastT); if (W.removeEventListener) W.removeEventListener('beforeunload', h.leave); },
 vals: vals
 };
 }
