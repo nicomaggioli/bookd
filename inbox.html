@@ -113,8 +113,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .metaline{font-size:14px;line-height:1.4}
 .outcome{margin:0;font-size:15px;font-weight:700;line-height:1.35}
 .metaline a{font-weight:700}
-.metaline a,.terms a{position:relative}
-.metaline a::after,.terms a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+.metaline a{position:relative}
+.metaline a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
 .steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .steps li{display:flex;flex-direction:column;gap:6px;min-width:0}
 .steps .bar{height:6px;border-radius:999px}
@@ -131,14 +131,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .sysline{align-self:center;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:700;color:#4d504f}
 .sysline.red{background:#d31110;color:#ffffff}
 .note{align-self:center;max-width:520px;font-size:13px;line-height:1.4;color:#4d504f;text-align:center}
-.offer{align-self:flex-start;width:min(100%,520px);background:#ffffff;border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column}
-.offerbar{padding:16px 16px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;font-weight:700}
-.offerbody{padding:12px 16px 18px;display:flex;flex-direction:column;gap:14px}
-.price{font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
-.terms{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;font-size:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
-.terms dt{font-weight:700}.terms dd{margin:0}
-.box{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
-.box-col{flex-direction:column;flex-wrap:nowrap;align-items:stretch}
 .field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
 .field-l{font-size:12px;font-weight:700;color:#4d504f}
 .field-money{display:flex;align-items:baseline;gap:2px;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em}
@@ -155,10 +147,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .send{flex:none;min-height:44px;padding:0 22px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 15px 'Inter',sans-serif;cursor:pointer}
 .send-off{background:rgba(0,0,0,.06);color:#6b6e6d;cursor:default}
 .col-info h2{margin:0;font-size:24px;line-height:1;font-weight:700;letter-spacing:-0.04em}
-.facts{margin:0;display:flex;flex-direction:column;gap:12px}
-.facts div{display:flex;flex-direction:column;gap:2px}
-.facts dt{font-size:13px;color:#a2a5a4}
-.facts dd{margin:0;font-size:18px;font-weight:700;letter-spacing:-0.03em}
 .flag{margin:0;padding:12px 14px;border-radius:var(--r-bar);font-size:15px;font-weight:700;line-height:1.35}
 .flag-red{box-shadow:inset 0 0 0 1.5px #ff3b2f}
 .flag-cream{background:#fffde9;color:#000000}
@@ -183,7 +171,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .col-info{min-height:0;overflow-y:auto}
 .log{min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .col-info{gap:12px;padding-bottom:28px}
-.facts{gap:10px}
 .rows{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-top:6px}
 .listhead{padding-bottom:8px}
 .rows{scroll-padding-block:6px}
@@ -202,16 +189,11 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 }
 @media (max-width:1199px){
 .inbox{grid-template-columns:300px minmax(0,1fr)}
-.col-info{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
-.col-info > h2,.col-info > .flag,.col-info > .facts,.col-info > .small{grid-column:1/-1}
-.facts{flex-direction:row;flex-wrap:wrap;gap:12px 32px}
-.inbox{grid-template-rows:1fr auto}
 }
 @media (min-width:761px) and (max-width:1199px){.col-list{overflow:visible}.listin{display:block}.listfoot{margin-top:0}}
 @media (min-width:761px) and (max-width:1199px) and (min-height:720px){.listin{position:sticky;top:12px}}
 @media (max-width:1199px){.log *{scroll-margin:210px 0 140px}}
 @media (max-width:760px){.log *{scroll-margin:16px 0 140px}}
-@media (min-width:761px) and (max-width:900px){.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){
 .inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none;padding:0 16px 16px;gap:8px}
 .listhead h1{font-size:32px}
@@ -220,8 +202,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .thread.on{box-shadow:inset 0 0 0 1.5px #fffde9}
 .col-list{overflow:visible}
 .whohead h2{font-size:30px}
-.col-info{grid-template-columns:minmax(0,1fr)}
-.facts{flex-direction:column;gap:12px}
 }
 @media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
 @media (orientation:landscape) and (max-height:500px){
@@ -277,8 +257,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 .col-info .small a::after{left:-5px;right:-5px;top:-14px;bottom:-14px}
 .in-fine a{position:relative}
 .in-fine a::after{content:"";position:absolute;left:-5px;right:-5px;top:-14px;bottom:-14px}
-.offerbar{flex-wrap:wrap;gap:4px 10px}
-.offerbar > span{white-space:nowrap}
 @media (min-width:1200px){.col-info{scroll-padding-bottom:28px}.col-info.cut{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}}
 .in-disc{pointer-events:none}
 .navgrid{box-sizing:border-box}
@@ -319,6 +297,56 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 .composer input{padding-left:14px}
 .rq-closed{margin:0;padding:14px clamp(16px,calc(3 * var(--vw)),36px) 18px;border-top:1px solid rgba(0,0,0,.12);font-size:14px;line-height:1.4;color:#4d504f}
 @media (hover: hover) and (pointer: fine){.in .btn-ink:hover{background:#ffffff;color:#000000}}</style>
+<style>.col-info{gap:16px}
+.col-info h2{line-height:1.05}
+.rq-top{display:flex;flex-direction:column;gap:8px;min-width:0}
+.rq-tag{margin:0;font-size:13px;line-height:1.2;font-weight:700}
+.rq-price{margin-top:6px;font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
+.rq-price-long{font-size:36px}
+.rq-price-text{font-size:30px;line-height:1.05;letter-spacing:-0.05em}
+.rq-facts{margin:0;padding-top:16px;border-top:1px solid #2f2f31;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;font-size:15px;line-height:1.35}
+.rq-facts div{display:contents}
+.rq-facts dt{color:#a2a5a4}
+.rq-facts dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.rq-act{padding-top:16px;border-top:1px solid #2f2f31;display:flex;flex-direction:column;gap:10px}
+.rq-stack{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.rq-btns{align-self:stretch;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.rq-btns .btn-lg{flex:1 1 150px}
+.rq-strong{font-size:15px;line-height:1.35;font-weight:700}
+.box{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.box .field{align-self:stretch}
+.col-info .btn-ghost{color:#ffffff;box-shadow:inset 0 0 0 1.5px #ffffff}
+.col-info .btn-ink{background:#ffffff;color:#000000}
+.col-info .decl{color:#ffffff}
+.col-info .ferr{padding:0;color:#ff3b2f}
+.col-info button[aria-busy="true"]{opacity:.55;pointer-events:none}
+@media (hover: hover) and (pointer: fine){
+.col-info .btn-red:hover,.col-info .btn-ghost:hover{background:#ffffff;color:#000000}
+.col-info .btn-ink:hover{background:#d31110;color:#ffffff}
+}
+.rq-fine a{color:#ffffff;position:relative}
+.rq-fine a::after{content:"";position:absolute;left:-5px;right:-5px;top:-14px;bottom:-14px}
+.rq-fine-out{display:none}
+@media (max-width:1199px){
+.inbox{grid-template-columns:300px minmax(0,1fr);grid-template-rows:auto 1fr auto}
+.col-list{grid-column:1;grid-row:1 / 3}
+.col-info{grid-column:2;grid-row:1;background:#1c1c1e;border-radius:var(--r-card);padding:20px clamp(16px,calc(3 * var(--vw)),36px) 22px}
+.col-chat{grid-column:2;grid-row:2}
+.rq-fine-in{display:none}
+.rq-fine-out{display:block;grid-column:1 / -1;grid-row:3;padding:6px clamp(16px,calc(1.6 * var(--vw)),22px) 10px}
+}
+@media (min-width:900px) and (max-width:1199px){
+.col-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 32px;align-items:start}
+.rq-top{grid-column:1;grid-row:1}
+.rq-act{grid-column:1;grid-row:2}
+.rq-facts{grid-column:2;grid-row:1 / 3;padding-top:0;border-top:0}
+.rq-note{grid-column:1 / -1}
+}
+@media (max-width:760px){
+.inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+.col-list,.col-info,.col-chat,.rq-fine-out{grid-column:1;grid-row:auto}
+.col-list{order:1}.col-info{order:2}.col-chat{order:3}.rq-fine-out{order:4;padding-inline:4px}
+}</style>
 </helmet>
 
 <div class="{{appCls}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
@@ -456,57 +484,6 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </sc-for>
 <sc-if value="{{threadWait}}" hint-placeholder-val="{{ false }}"><div class="sysline" role="status">Getting the chat</div></sc-if>
 <sc-if value="{{threadFail}}" hint-placeholder-val="{{ false }}"><div class="sysline red" role="alert">The chat didn't load. It tries again in a moment.</div></sc-if>
-
-<div class="offer">
-<div class="offerbar"><span>{{cardTitle}}</span><span style="color: {{cardTagColor}};">{{cardTag}}</span></div>
-<div class="offerbody">
-<div style="display: flex; flex-direction: column; gap: 6px;">
-<div class="price">{{cardPrice}}</div>
-<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">{{cardSub}}</span>
-</div>
-<dl class="terms">
-<sc-for list="{{terms}}" as="x" hint-placeholder-count="3"><dt>{{x.k}}</dt><dd>{{x.v}}</dd></sc-for>
-</dl>
-<sc-if value="{{showActions}}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; gap: 6px;">
-<div style="display: flex; flex-wrap: wrap; gap: 8px;">
-<sc-if value="{{canAccept}}" hint-placeholder-val="{{ true }}"><button class="btn btn-red btn-lg" type="button" onClick="{{accept}}" aria-busy="{{busy}}" style="flex: 1 1 140px;">{{acceptLabel}}</button></sc-if>
-<sc-if value="{{canOffer}}" hint-placeholder-val="{{ true }}"><button class="btn btn-ghost btn-lg" type="button" onClick="{{startOffer}}" ref="{{offerBtnRef}}" style="flex: 1 1 160px;">{{offerLabel}}</button></sc-if>
-</div>
-<button class="decl" type="button" onClick="{{askDecline}}" style="align-self: flex-start;">{{declineLabel}}</button>
-</div>
-</sc-if>
-<sc-if value="{{offering}}" hint-placeholder-val="{{ false }}">
-<form class="box box-col" onSubmit="{{sendOffer}}" onKeyDown="{{offerKey}}" aria-label="Send an offer" style="margin: 0;">
-<label class="field"><span class="field-l">Your fee for the night<span class="vh">&nbsp;in dollars</span></span>
-<span class="field-money"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" autocomplete="off" maxlength="9" value="{{offerAmt}}" onInput="{{typeOffer}}" ref="{{offerRef}}" aria-invalid="{{offerInvalid}}" aria-describedby="{{offerDescribe}}"></span>
-</label>
-<sc-if value="{{offerErr}}" hint-placeholder-val="{{ false }}"><span id="err-offer" class="ferr" role="alert" style="margin-top: -6px;">Type a number first, like&nbsp;2,400.</span></sc-if>
-<div style="display: flex; flex-wrap: wrap; gap: 8px;">
-<button class="btn btn-red" type="submit" aria-busy="{{busy}}" style="flex: 1 1 160px;">Send offer</button>
-<button class="decl" type="button" onClick="{{cancelOffer}}">Never mind</button>
-</div>
-</form>
-</sc-if>
-<sc-if value="{{declining}}" hint-placeholder-val="{{ false }}">
-<div class="box box-col" role="group" aria-label="{{declineAsk}}">
-<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{declineAsk}}</span>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-<button class="btn btn-ink btn-sm" type="button" onClick="{{decline}}" ref="{{declineRef}}" aria-busy="{{busy}}">{{declineYes}}</button>
-<button class="decl" type="button" onClick="{{cancelDecline}}">Keep it</button>
-</div>
-</div>
-</sc-if>
-<sc-if value="{{showBox}}" hint-placeholder-val="{{ false }}">
-<div class="box box-col" role="status">
-<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{boxLine}}</span>
-<sc-if value="{{boxSubOn}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; line-height: 1.4; color: #4d504f;">{{boxSub}}</span></sc-if>
-<sc-if value="{{canCallOff}}" hint-placeholder-val="{{ false }}"><button class="decl" type="button" onClick="{{askDecline}}" style="align-self: flex-start;">Call it off</button></sc-if>
-</div>
-</sc-if>
-<sc-if value="{{actFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{actFailText}}</span></sc-if>
-</div>
-</div>
 </div>
 
 <sc-if value="{{composerOn}}" hint-placeholder-val="{{ true }}">
@@ -522,16 +499,62 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 </main>
 
-<aside class="col-info panel" aria-label="Request details" ref="{{infoRef}}">
-<h2>The request</h2>
-<dl class="facts">
-<sc-for list="{{factRows}}" as="r" hint-placeholder-count="4">
+<aside class="col-info panel" aria-label="The request" ref="{{infoRef}}">
+<div class="rq-top">
+<p class="rq-tag" style="color: {{cardTagColor}};">{{cardTag}}</p>
+<h2>{{cardTitle}}</h2>
+<div class="{{priceCls}}">{{cardPrice}}</div>
+<p class="small">{{cardSub}}</p>
+</div>
+<dl class="rq-facts">
+<sc-for list="{{factRows}}" as="r" hint-placeholder-count="3">
 <div><dt>{{r.k}}</dt><dd>{{r.v}}</dd></div>
 </sc-for>
 </dl>
-<sc-if value="{{changeOn}}" hint-placeholder-val="{{ true }}"><p class="small">Something changed? Sort it out in the&nbsp;chat.</p></sc-if>
-<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+<div class="rq-act">
+<sc-if value="{{showActions}}" hint-placeholder-val="{{ true }}">
+<div class="rq-stack">
+<div class="rq-btns">
+<sc-if value="{{canAccept}}" hint-placeholder-val="{{ true }}"><button class="btn btn-red btn-lg" type="button" onClick="{{accept}}" aria-busy="{{busy}}">{{acceptLabel}}</button></sc-if>
+<sc-if value="{{canOffer}}" hint-placeholder-val="{{ true }}"><button class="btn btn-ghost btn-lg" type="button" onClick="{{startOffer}}" ref="{{offerBtnRef}}">{{offerLabel}}</button></sc-if>
+</div>
+<button class="decl" type="button" onClick="{{askDecline}}">{{declineLabel}}</button>
+</div>
+</sc-if>
+<sc-if value="{{offering}}" hint-placeholder-val="{{ false }}">
+<form class="box" onSubmit="{{sendOffer}}" onKeyDown="{{offerKey}}" aria-label="Send an offer">
+<label class="field"><span class="field-l">Your fee for the night<span class="vh">&nbsp;in dollars</span></span>
+<span class="field-money"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" autocomplete="off" maxlength="9" value="{{offerAmt}}" onInput="{{typeOffer}}" ref="{{offerRef}}" aria-invalid="{{offerInvalid}}" aria-describedby="{{offerDescribe}}"></span>
+</label>
+<sc-if value="{{offerErr}}" hint-placeholder-val="{{ false }}"><span id="err-offer" class="ferr" role="alert">Type a number first, like&nbsp;2,400.</span></sc-if>
+<div class="rq-btns">
+<button class="btn btn-red" type="submit" aria-busy="{{busy}}">Send offer</button>
+<button class="decl" type="button" onClick="{{cancelOffer}}">Never mind</button>
+</div>
+</form>
+</sc-if>
+<sc-if value="{{declining}}" hint-placeholder-val="{{ false }}">
+<div class="box" role="group" aria-label="{{declineAsk}}">
+<span class="rq-strong">{{declineAsk}}</span>
+<div class="rq-btns">
+<button class="btn btn-ink btn-sm" type="button" onClick="{{decline}}" ref="{{declineRef}}" aria-busy="{{busy}}">{{declineYes}}</button>
+<button class="decl" type="button" onClick="{{cancelDecline}}">Keep it</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{showBox}}" hint-placeholder-val="{{ false }}">
+<div class="box" role="status">
+<span class="rq-strong">{{boxLine}}</span>
+<sc-if value="{{boxSubOn}}" hint-placeholder-val="{{ false }}"><span class="small">{{boxSub}}</span></sc-if>
+<sc-if value="{{canCallOff}}" hint-placeholder-val="{{ false }}"><button class="decl" type="button" onClick="{{askDecline}}">Call it off</button></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{actFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{actFailText}}</span></sc-if>
+</div>
+<sc-if value="{{changeOn}}" hint-placeholder-val="{{ true }}"><p class="small rq-note">Something changed? Sort it out in the&nbsp;chat.</p></sc-if>
+<p class="small rq-fine rq-fine-in" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 </aside>
+<p class="small rq-fine rq-fine-out" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 
 </div>
 </sc-if>
@@ -736,7 +759,8 @@ var st = this.state;
 if (st.side && typeof document !== 'undefined') { var t = (st.side === 'dj' ? 'Requests' : 'Inbox') + ' \u00b7 BOOKD'; if (document.title !== t) document.title = t; }
 if (this.wantChat) {
 this.wantChat = false;
-if (this.chatEl && window.innerWidth <= 760 && this.chatEl.scrollIntoView) this.chatEl.scrollIntoView({ block: 'start' });
+var top = this.infoEl || this.chatEl;
+if (top && window.innerWidth <= 760 && top.scrollIntoView) top.scrollIntoView({ block: 'start' });
 }
 var name = this.wantFocus;
 if (!name) return;
@@ -916,6 +940,7 @@ else lines.push({ key: m.id, isSys: true, isBub: false, text: rqAnswer(m, who) +
 });
 var fee = req.fee, priced = status !== 'sent' && fee != null;
 var price = priced ? rqMoney(fee) : (req.budget != null ? rqMoney(req.budget) : (isDj ? 'Name your price' : 'Open budget'));
+var priceCls = 'rq-price' + (!priced && req.budget == null ? ' rq-price-text' : (price.length > 8 ? ' rq-price-long' : ''));
 var cardTitle, cardTag, cardSub;
 if (isDj) {
 cardTitle = (status === 'accepted' ? 'Your night with ' : (priced ? 'Your offer to ' : 'Request from ')) + other;
@@ -927,8 +952,6 @@ cardTag = closed ? 'Closed' : (status === 'accepted' ? 'Accepted' : (myMove ? 'W
 cardSub = priced ? other + "'s price for the night. BOOKD's fee comes on\u00a0top." : (req.budget != null ? 'Your budget for the\u00a0night.' : 'You left the budget open. ' + other + ' names a\u00a0price.');
 }
 if (closed) cardSub = priced ? (isDj ? 'Your fee for the\u00a0night.' : other + "'s price for the\u00a0night.") : (req.budget != null ? (isDj ? 'Their budget for the\u00a0night.' : 'Your budget for the\u00a0night.') : 'No budget was\u00a0given.');
-var terms = [{ key: 'when', k: 'When', v: rqNight(req.date) }, { key: 'where', k: 'Where', v: req.place }];
-if (req.guests != null) terms.push({ key: 'guests', k: 'Guests', v: String(req.guests).replace(/\B(?=(\d{3})+(?!\d))/g, ',') });
 var idle = !st.offering && !st.declining;
 var canAccept = idle && myMove && (isDj ? req.budget != null : true);
 var canOffer = idle && isDj && (status === 'sent' || status === 'offer');
@@ -936,9 +959,8 @@ var showActions = idle && !closed && status !== 'accepted';
 var showBox = idle && (closed || status === 'accepted');
 var declineAsk = status === 'accepted' ? 'Call this night off? It closes for both of\u00a0you.'
 : (isDj ? 'Decline this request? It closes for both of\u00a0you.' : (status === 'offer' ? 'Pass on this price? The request closes for both of\u00a0you.' : 'Take this request back? It closes for both of\u00a0you.'));
-var factRows = [{ k: 'Date', v: rqNight(req.date) }, { k: 'Where', v: req.place }, { k: 'Guests', v: req.guests != null ? String(req.guests).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 'Not said' },
-{ k: isDj ? 'Their budget' : 'Your budget', v: req.budget != null ? rqMoney(req.budget) : 'Open' }];
-if (priced) factRows.push({ k: isDj ? 'Your fee' : other + "'s price", v: rqMoney(fee) });
+var factRows = [{ k: 'When', v: rqNight(req.date) }, { k: 'Where', v: req.place }, { k: 'Guests', v: req.guests != null ? String(req.guests).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 'Not said' }];
+if (priced) factRows.push({ k: isDj ? 'Their budget' : 'Your budget', v: req.budget != null ? rqMoney(req.budget) : 'Open' });
 factRows = factRows.map(function (f) { return { key: f.k, k: f.k, v: f.v }; });
 var draftBlank = !String(st.draft || '').trim();
 return Object.assign(base, {
@@ -951,8 +973,8 @@ activeIni: rqIni(otherName), activeName: otherName, activeRole: isDj ? 'The host
 pageOn: !isDj && !!req.djSlug, pageHref: 'artist.html#' + req.djSlug,
 outcomeOn: closed, outcome: outcome, stepsOn: !closed, steps: steps,
 lines: lines, threadWait: st.linesPhase === 'loading', threadFail: st.linesPhase === 'failed',
-cardTitle: cardTitle, cardTag: cardTag, cardTagColor: myMove ? '#d31110' : (status === 'accepted' ? '#000000' : '#4d504f'),
-cardPrice: price, cardSub: cardSub, terms: terms,
+cardTitle: cardTitle, cardTag: cardTag, cardTagColor: myMove ? '#ff3b2f' : (status === 'accepted' ? '#ffffff' : '#a2a5a4'),
+cardPrice: price, priceCls: priceCls, cardSub: cardSub,
 showActions: showActions, canAccept: canAccept, canOffer: canOffer,
 acceptLabel: isDj ? 'Accept' : 'Accept ' + rqMoney(fee),
 offerLabel: status === 'offer' ? 'Send a new offer' : 'Send an offer', offerBtnRef: this.offerBtnRef,
@@ -986,7 +1008,7 @@ typeDraft: function (e) { self.setState({ draft: e.target.value, sayFail: '' });
 send: function (e) { self.say(e); },
 sendCls: draftBlank || st.saying ? 'send send-off' : 'send', sendDisabled: draftBlank || st.saying ? 'true' : 'false',
 sayFail: !!st.sayFail, sayFailText: st.sayFail === 'invalid' ? "That didn't send. This request may have closed." : rqFail(st.sayFail),
-factRows: factRows, changeOn: !closed
+factRows: factRows, changeOn: !closed && status !== 'accepted'
 }, nav);
 }
 }</script>
