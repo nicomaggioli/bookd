@@ -364,29 +364,6 @@ html .pe-ghost:hover{background:#fffde9;color:#000000}
 }
 @media (max-width:420px){
 .pe-row{grid-template-columns:minmax(0,1fr)}
-}
-.pe-after{margin-top:16px}
-.pe-ed{display:block;min-width:1ch;white-space:pre-wrap;overflow-wrap:anywhere;outline:2px dashed transparent;outline-offset:6px;border-radius:10px;cursor:text;-webkit-user-modify:read-write-plaintext-only}
-span.pe-ed{display:inline}
-.pe-ed:focus,.pe-ed:focus-visible{outline:2px solid currentColor}
-.pe-ed:empty::before{content:attr(data-ph);opacity:.55}
-.k6name.pe-ed{pointer-events:auto;white-space:pre;overflow-wrap:normal;outline-offset:-2px;border-radius:var(--r-card)}
-.k6name-long.pe-ed{white-space:pre-wrap;overflow-wrap:anywhere}
-.k6lines li.pe-ed{border-radius:0;outline-offset:2px}
-.k6lines li.pe-ed:focus{border-radius:8px}
-.pe-bar{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:58;transform:translateX(-50%);display:flex;align-items:center;gap:8px;width:min(620px,calc(100% - 32px));box-sizing:border-box;padding:8px 8px 8px 20px;border-radius:999px;background:#fffde9;color:#000000;box-shadow:0 18px 40px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.2)}
-.pe-bar :focus-visible{outline-color:#d31110}
-.pe-bartext{flex:1 1 auto;min-width:0;margin:0;font-size:15px;line-height:1.3;font-weight:700}
-.pe-bar .btn[aria-busy="true"]{opacity:.6;cursor:progress}
-.pe-bar[data-panel="left"]{left:auto;right:16px;transform:none;width:min(620px,calc(100% - 490px))}
-.pe-bar[data-panel="right"]{left:16px;transform:none;width:min(620px,calc(100% - 490px))}
-@media (hover:hover) and (pointer:fine){
-.pe-ed:hover{outline-color:currentColor}
-}
-@media (max-width:760px){
-.pe-bar{flex-wrap:wrap;justify-content:flex-end;padding:12px;border-radius:var(--r-card)}
-.pe-bartext{flex:1 1 100%;padding:0 4px 4px}
-.pe-bar[data-panel="left"],.pe-bar[data-panel="right"]{display:none}
 }</style>
 <style>@media (max-width:359px){html .ns-acts .btn-main{padding:0 10px;font-size:15px}}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
@@ -511,19 +488,12 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <sc-if value="{{hasBgImg}}" hint-placeholder-val="{{ false }}"><span class="k6bgimg" ref="{{bgRef}}" aria-hidden="true"></span></sc-if>
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false"><defs><path id="k6arc" d="M100 71.5 a28.5 28.5 0 1 1 -0.01 0"></path></defs></svg>
 <div class="wrap">
-<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><h1 id="k6name" class="{{nameCls}}">{{dj.name}}</h1></sc-if>
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><h1 id="k6name" class="{{nameCls}} pe-ed" ref="{{ed.at.name}}"></h1></sc-if>
+<h1 id="k6name" class="{{nameCls}}">{{dj.name}}</h1>
 <div class="k6hgrid">
 <div class="k6copy">
-<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills"><button type="button" class="pe-pill" onClick="{{ed.open.basics}}">Edit name and details</button></div></sc-if>
 <p class="k6lede"><sc-if value="{{hasImg}}" hint-placeholder-val="{{ true }}"><span class="vh">The photo: {{dj.alt}}. </span></sc-if>{{tagLine}}</p>
 <sc-if value="{{hasHome}}" hint-placeholder-val="{{ true }}"><p class="k6town">Based in {{dj.home}}.</p></sc-if>
-</sc-if>
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}">
-<p class="k6lede"><span class="pe-ed" ref="{{ed.at.tag}}"></span><sc-if value="{{ed.hasTag}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true">.</span></sc-if></p>
-<p class="k6town">Based in <span class="pe-ed" ref="{{ed.at.home}}"></span>.</p>
-<div class="pe-pills"><button type="button" class="pe-pill" onClick="{{ed.open.basics}}">More details</button></div>
-</sc-if>
 <div class="k6acts">
 <a class="btn btn-lg a6req" href="{{hrefs.request}}"><span>Request {{dj.first}}</span></a>
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-lg a6hear" onClick="{{heroToggle}}" aria-pressed="{{recPressed}}" aria-label="{{hearAria}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg><span>{{hearText}}</span></button></sc-if>
@@ -550,7 +520,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <span class="k6big k6still" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt="" loading="lazy" decoding="async"><sc-if value="{{noArt}}" hint-placeholder-val="{{ true }}"><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></sc-if><sc-if value="{{hasArt}}" hint-placeholder-val="{{ false }}"><span class="k6art"><span class="k6arti" ref="{{artRef.c}}"></span></span></sc-if></span><span class="k6sheen"></span></span>
 </sc-if>
 <div class="k6songs">
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills pe-inl"><button type="button" class="pe-pill" onClick="{{ed.open.sets}}">{{ed.setsPill}}</button></div></sc-if>
+<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills pe-inl"><button type="button" class="pe-pill" onClick="{{ed.open.sets}}">Edit sets</button></div></sc-if>
 <h2 id="sets-h" class="h2">Hear {{dj.first}} before you&nbsp;book.</h2>
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}">
 <p class="lede">Straight from SoundCloud. Press play to listen right&nbsp;here.</p>
@@ -569,11 +539,11 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <div class="wrap k6about">
 <h2 id="about-h" class="h2">About {{dj.first}}.</h2>
 <div class="k6aboutbody">
-<div class="k6bio"><sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></sc-if><sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><sc-for list="{{ed.bioRows}}" as="b" hint-placeholder-count="1"><p class="pe-ed" ref="{{b.ref}}"></p></sc-for></sc-if></div>
+<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills pe-inl"><button type="button" class="pe-pill" onClick="{{ed.open.about}}">Edit about</button></div></sc-if>
+<div class="k6bio"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for><sc-if value="{{ed.noBio}}" hint-placeholder-val="{{ false }}"><p>Nothing here yet. Add a few words about&nbsp;you.</p></sc-if></div>
 <sc-if value="{{hasLinks}}" hint-placeholder-val="{{ false }}">
 <ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="btn btn-sm" href="{{l.url}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
 </sc-if>
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills pe-after"><button type="button" class="pe-pill" onClick="{{ed.open.about}}">{{ed.linksPill}}</button></div></sc-if>
 </div>
 </div>
 </section>
@@ -595,15 +565,10 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 <div class="k6col" id="{{ids.needs}}">
 <div class="k6colhead">
+<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills"><button type="button" class="pe-pill" onClick="{{ed.open.rider}}">Edit what you need</button></div></sc-if>
 <h2 class="h2 k6h2s">What {{dj.first}}&nbsp;needs.</h2>
-<sc-if value="{{pub}}" hint-placeholder-val="{{ true }}"><p class="k6colnote">{{riderNote}}</p></sc-if>
-<sc-if value="{{ed.hasLines}}" hint-placeholder-val="{{ false }}"><p class="k6colnote">{{riderNote}}</p></sc-if>
-<sc-if value="{{ed.noLines}}" hint-placeholder-val="{{ false }}"><p class="k6colnote"><span class="pe-ed" ref="{{ed.at.riderNote}}"></span></p></sc-if>
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}"><div class="pe-pills"><button type="button" class="pe-pill" onClick="{{ed.open.rider}}">{{ed.riderPill}}</button></div></sc-if>
+<p class="k6colnote">{{riderNote}}</p>
 </div>
-<sc-if value="{{ed.on}}" hint-placeholder-val="{{ false }}">
-<ul class="k6lines" role="list"><sc-for list="{{ed.riderRows}}" as="r" hint-placeholder-count="2"><li class="pe-ed" ref="{{r.ref}}"></li></sc-for></ul>
-</sc-if>
 <sc-if value="{{hasRider}}" hint-placeholder-val="{{ true }}">
 <ul class="k6lines" role="list"><sc-for list="{{rider}}" as="r" hint-placeholder-count="5"><li>{{r.t}}</li></sc-for></ul>
 </sc-if>
@@ -719,12 +684,15 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 
 <sc-if value="{{ed.panel}}" hint-placeholder-val="{{ false }}">
 <aside class="pe-panel" data-side="{{ed.side}}" aria-labelledby="pe-h" onKeyDown="{{ed.key}}">
-<form onSubmit="{{ed.done}}" novalidate="">
-<div class="pe-phead"><h2 id="pe-h" tabindex="-1" ref="{{ed.headRef}}">{{ed.title}}</h2><button type="button" class="btn btn-sm btn-quiet" onClick="{{ed.done}}">Close</button></div>
+<form onSubmit="{{ed.save}}" novalidate="">
+<div class="pe-phead"><h2 id="pe-h" tabindex="-1" ref="{{ed.headRef}}">{{ed.title}}</h2><button type="button" class="btn btn-sm btn-quiet" onClick="{{ed.cancel}}">Close</button></div>
 <div class="pe-body">
 
 <sc-if value="{{ed.is.basics}}" hint-placeholder-val="{{ false }}">
+<div class="pe-f"><label class="field"><span class="field-l">DJ name</span><input type="text" name="name" value="{{ed.f.name}}" onInput="{{ed.set.name}}" maxlength="120" autocomplete="off" aria-invalid="{{ed.inv.name}}"></label><sc-if value="{{ed.err.name}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.name}}</span></sc-if></div>
 <div class="pe-f"><label class="field"><span class="field-l">First name</span><input type="text" name="first_name" value="{{ed.f.first}}" onInput="{{ed.set.first}}" maxlength="24" autocomplete="off"></label><span class="pe-hint">It is signed by hand on your&nbsp;photo.</span></div>
+<div class="pe-f"><label class="field"><span class="field-l">Your sound, in a few words</span><input type="text" name="sound" value="{{ed.f.tag}}" onInput="{{ed.set.tag}}" maxlength="60" placeholder="House and disco" autocomplete="off" aria-invalid="{{ed.inv.tag}}"></label><sc-if value="{{ed.err.tag}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.tag}}</span></sc-if></div>
+<div class="pe-f"><label class="field"><span class="field-l">Home city</span><input type="text" name="home_city" value="{{ed.f.home}}" onInput="{{ed.set.home}}" maxlength="120" placeholder="Brooklyn, NY" autocomplete="off" aria-invalid="{{ed.inv.home}}"></label><sc-if value="{{ed.err.home}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.home}}</span></sc-if></div>
 <div class="pe-f"><span class="pe-l">What you play</span><div class="pe-chips" role="group" aria-label="What you play"><sc-for list="{{ed.genres}}" as="g" hint-placeholder-count="6"><button type="button" class="pe-chip" aria-pressed="{{g.on}}" onClick="{{g.flip}}">{{g.label}}</button></sc-for></div><span class="pe-hint">Hosts can sort the roster by&nbsp;sound.</span></div>
 </sc-if>
 
@@ -742,7 +710,8 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </sc-if>
 
 <sc-if value="{{ed.is.about}}" hint-placeholder-val="{{ false }}">
-<span class="pe-hint">The buttons under About. Give each one a name and where it&nbsp;goes.</span>
+<div class="pe-f"><label class="field"><span class="field-l">About you</span><textarea rows="9" name="bio" value="{{ed.f.bio}}" onInput="{{ed.set.bio}}" placeholder="Where you play and what a night with you sounds like." aria-invalid="{{ed.inv.bio}}"></textarea></label><sc-if value="{{ed.err.bio}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.bio}}</span></sc-if><span class="pe-hint">Leave an empty line between&nbsp;paragraphs.</span></div>
+<span class="pe-l">Your links</span>
 <sc-for list="{{ed.links}}" as="l" hint-placeholder-count="2"><div class="pe-row"><label class="field"><span class="field-l">Name</span><input type="text" value="{{l.label}}" onInput="{{l.setA}}" maxlength="40" placeholder="Instagram" autocomplete="off" aria-invalid="{{l.inv}}"></label><label class="field"><span class="field-l">Link</span><input type="text" inputmode="url" value="{{l.url}}" onInput="{{l.setB}}" placeholder="instagram.com/you" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{l.inv}}"></label><button type="button" class="btn btn-sm btn-quiet" onClick="{{l.remove}}" aria-label="{{l.removeAria}}">Remove</button><sc-if value="{{l.bad}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{l.err}}</span></sc-if></div></sc-for>
 <sc-if value="{{ed.err.links}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.links}}</span></sc-if>
 <sc-if value="{{ed.canAddLink}}" hint-placeholder-val="{{ false }}"><div class="pe-acts"><button type="button" class="btn btn-quiet" onClick="{{ed.addLink}}">Add a link</button></div></sc-if>
@@ -762,7 +731,9 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </sc-if>
 
 <sc-if value="{{ed.is.rider}}" hint-placeholder-val="{{ false }}">
-<div class="pe-f"><label class="field"><span class="field-l">Link to your full rider</span><input type="text" inputmode="url" name="rider_link" value="{{ed.f.riderLink}}" onInput="{{ed.set.riderLink}}" placeholder="A link to the file" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{ed.inv.riderLink}}"></label><sc-if value="{{ed.err.riderLink}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.riderLink}}</span></sc-if><span class="pe-hint">A file hosts can open. It shows as a button when your list is&nbsp;empty.</span></div>
+<div class="pe-f"><label class="field"><span class="field-l">What you need, one thing per line</span><textarea rows="7" name="rider_lines" value="{{ed.f.rider}}" onInput="{{ed.set.rider}}" placeholder="Two CDJ 3000s&#10;One DJM mixer&#10;A booth monitor" aria-invalid="{{ed.inv.rider}}"></textarea></label><sc-if value="{{ed.err.rider}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.rider}}</span></sc-if></div>
+<div class="pe-f"><label class="field"><span class="field-l">Or one short note</span><input type="text" name="rider_note" value="{{ed.f.riderNote}}" onInput="{{ed.set.riderNote}}" maxlength="160" placeholder="Brings their own equipment." autocomplete="off" aria-invalid="{{ed.inv.riderNote}}"></label><sc-if value="{{ed.err.riderNote}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.riderNote}}</span></sc-if><span class="pe-hint">Shown when the list above is&nbsp;empty.</span></div>
+<div class="pe-f"><label class="field"><span class="field-l">Link to your full rider</span><input type="text" inputmode="url" name="rider_link" value="{{ed.f.riderLink}}" onInput="{{ed.set.riderLink}}" placeholder="A link to the file" autocomplete="off" autocapitalize="off" spellcheck="false" aria-invalid="{{ed.inv.riderLink}}"></label><sc-if value="{{ed.err.riderLink}}" hint-placeholder-val="{{ false }}"><span class="pe-err" role="alert">{{ed.errText.riderLink}}</span></sc-if></div>
 </sc-if>
 
 <sc-if value="{{ed.is.look}}" hint-placeholder-val="{{ false }}">
@@ -774,18 +745,12 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 
 </div>
 <div class="pe-foot">
-<button type="submit" class="btn go">Done</button>
+<sc-if value="{{ed.hasMsg}}" hint-placeholder-val="{{ false }}"><p class="{{ed.msgCls}}" role="alert">{{ed.msg}}</p></sc-if>
+<button type="button" class="btn btn-quiet" onClick="{{ed.cancel}}">Cancel</button>
+<button type="submit" class="btn go" aria-busy="{{ed.busy}}">{{ed.saveLabel}}</button>
 </div>
 </form>
 </aside>
-</sc-if>
-
-<sc-if value="{{ed.bar}}" hint-placeholder-val="{{ false }}">
-<div class="pe-bar" data-panel="{{ed.barPanel}}" role="region" aria-label="Your changes">
-<p class="{{ed.barCls}}" role="status">{{ed.barText}}</p>
-<button type="button" class="btn btn-quiet" onClick="{{ed.undo}}">Undo</button>
-<button type="button" class="btn go" onClick="{{ed.save}}" aria-busy="{{ed.busy}}">{{ed.saveLabel}}</button>
-</div>
 </sc-if>
 </sc-if>
 </sc-if>
@@ -1113,9 +1078,9 @@ curRoster: c.curRoster, curJoin: c.curJoin, curLogin: who ? 'false' : c.curLogin
 bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu
 };
 }
-var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, bar: false, hasLines: false, noLines: false, hasTag: false,
+var K6_NOED = { on: false, waiting: false, failed: false, noPage: false, canSee: false, panel: false, noBio: false,
 open: {}, is: {}, f: {}, set: {}, err: {}, inv: {}, errText: {}, pick: {}, clear: {}, pickBusy: {}, pickLabel: {}, nd: {}, ndSet: {}, pv: {}, pvSet: {},
-at: {}, bioRows: [], riderRows: [], genres: [], bgs: [], signs: [], links: [], sets: [], dates: [] };
+genres: [], bgs: [], signs: [], links: [], sets: [], dates: [] };
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -1264,7 +1229,6 @@ try { el.scrollIntoView({ behavior: (jump || this.reduce) ? 'auto' : 'smooth', b
 componentDidUpdate() {
 this.setTitle();
 this.paintBg();
-if (this.ed) this.ed.painted();
 if (this.errFocus) this.focusErr();
 }
 componentWillUnmount() {
@@ -1412,7 +1376,7 @@ this.dockCompact = dockCompact;
 var edit = !!this.ed;
 if (edit) dockOn = false;
 return Object.assign({
-hasDj: true, noDj: false, ed: edit ? this.ed.vals() : K6_NOED, reqOn: !edit, pub: !edit,
+hasDj: true, noDj: false, ed: edit ? this.ed.vals() : K6_NOED, reqOn: !edit,
 dj: dj, tagLine: dj.tag ? dj.tag + '.' : '', hasImg: !!dj.img, hasHome: !!dj.home,
 nameCls: 'k6name k6name-front' + (longName ? ' k6name-long' : ''),
 ids: { sets: dj.slug + '-sets', about: dj.slug + '-about', needs: dj.slug + '-needs', request: dj.slug + '-request' },
@@ -1444,8 +1408,8 @@ hasAbout: edit || bio.length > 0 || links.length > 0,
 bio: bio.map(function (t) { return { t: t }; }),
 hasLinks: links.length > 0, links: links, linksAria: his + ' links',
 costAria: 'How you pay and what ' + dj.first + ' needs',
-riderNote: riderNote, hasRider: !edit && rider.length > 0, rider: rider.map(function (t) { return { t: t }; }),
-hasRiderLink: !edit && !rider.length && !!d.riderLink, riderLink: d.riderLink || '',
+riderNote: riderNote, hasRider: rider.length > 0, rider: rider.map(function (t) { return { t: t }; }),
+hasRiderLink: !rider.length && !!d.riderLink, riderLink: d.riderLink || '',
 formRef: this.formRef,
 whoLine: (dj.tag ? dj.tag + '.' : '') + (dj.tag && dj.home ? ' ' : '') + (dj.home ? 'Based in ' + dj.home + '.' : ''),
 form: f, set: this.setters, fieldRef: this.fieldRef,
