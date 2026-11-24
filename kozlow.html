@@ -306,7 +306,22 @@ button.k6big:hover{transform:rotate(24deg)}
 .k6dplay:hover,.k6dock .go:hover{background:#000000;color:#ffffff}
 }
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
-@media print{body::after{display:none}}</style>
+@media print{body::after{display:none}}
+.qf-when{position:relative;min-width:0;display:flex}
+.qf-when>.field{flex:1 1 auto}
+.qf-cal{position:absolute;left:0;top:calc(100% + 8px);z-index:30;width:300px;max-width:calc(100 * var(--vw) - 52px);box-sizing:border-box;padding:14px;border-radius:var(--r-card);background:#ffffff;color:#000000;box-shadow:0 24px 60px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.25);animation:qfcal .16s ease-out;outline:none}
+@keyframes qfcal{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.qf-cal-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.qf-cal-t{font:700 17px 'Inter',sans-serif;letter-spacing:-0.03em;padding-left:8px}
+.qf-cal-n{display:flex;gap:6px}
+.qf-cal-b{width:40px;height:40px;padding:0;border:0;border-radius:999px;background:#f2f2f0;color:#000000;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+.qf-cal-b svg{width:16px;height:16px;display:block}
+.qf-cal-b[aria-disabled="true"]{opacity:.35;cursor:default}
+.qf-cal-w,.qf-cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
+.qf-cal-w span{font:700 12px 'Inter',sans-serif;text-align:center;padding:6px 0 4px}
+.qf-day{aspect-ratio:1;min-width:0;padding:0;border:0;border-radius:999px;background:transparent;color:#000000;font:700 15px 'Inter',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;transition:background .12s}
+.qf-day-on{background:#d31110;color:#ffffff}
+.qf-day[aria-disabled="true"]{color:#a2a5a4;font-weight:400;cursor:default}</style>
 <style>@media (max-width:359px){html .ns-acts .btn-main{padding:0 10px;font-size:15px}}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
 #mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
@@ -345,6 +360,30 @@ html .ns-h{margin:0;font-size:clamp(32px,calc(3.8 * var(--vw)),55px);line-height
 html .ns-h:focus,html .ns-h:focus-visible{outline:none}
 html .ns-p{margin:0;max-width:30em;font-size:17px;line-height:1.45;color:#000000}
 html .ns-acts{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;margin-top:6px}</style>
+<style>.qf-cal{scroll-margin:0 0 12px}
+.qf-cal[data-side="down"]{top:calc(100% + 8px);bottom:auto}
+.qf-cal[data-side="up"]{top:auto;bottom:calc(100% + 8px)}
+.qf-day-today{box-shadow:none;background:#f2f2f0}
+.qf-cal-w span{color:rgba(0,0,0,.7)}
+@media (hover:hover) and (pointer:fine){.qf-cal-b:not([aria-disabled="true"]):hover,.qf-day:not([aria-disabled="true"]):not(.qf-day-on):hover{background:#000000;color:#ffffff}}
+@media (pointer:coarse){.qf-cal{width:348px}.qf-cal-b{width:44px;height:44px}}
+@media (max-width:760px){
+.qf-cal{left:-10px;width:min(calc(100 * var(--vw) - 32px),360px);max-width:none;padding:6px}
+.qf-cal-h{padding:6px 6px 0 6px}
+.qf-cal-w,.qf-cal-g{gap:0}
+.qf-cal-b{width:44px;height:44px}
+.qf-day{aspect-ratio:auto;height:max(44px,calc((min(calc(100 * var(--vw) - 32px),360px) - 12px) / 7))}
+}
+@media (max-height:500px){
+.qf-cal{padding:6px;scroll-margin:8px 0}
+.qf-cal-h{padding:6px 6px 0 6px;margin-bottom:0}
+.qf-cal-w,.qf-cal-g{gap:0}
+.qf-cal-w span{padding:4px 0 2px}
+.qf-day{aspect-ratio:auto;height:44px}
+html:has(#qfcal){scroll-padding-top:0;scroll-padding-bottom:0}
+html:has(#qfcal) header.nav6{position:relative}
+html:has(#qfcal) header:not(.nav6){position:absolute !important}
+}</style>
 <style>@media (max-width:760px){
 html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
 html .navend{display:contents !important}
@@ -514,7 +553,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <form class="k6form" aria-labelledby="req-h" onSubmit="{{send}}" onKeyDown="{{sendKey}}" novalidate="">
 <div class="k6fgrid">
 <div class="k6f">
-<label class="field"><span class="field-l">Date</span><input type="text" name="party_date" value="{{form.date}}" onInput="{{set.date}}" ref="{{fieldRef.date}}" placeholder="Which night?" autocomplete="off" aria-required="true" aria-invalid="{{invalid.date}}" aria-describedby="{{describe.date}}"></label>
+<div class="qf-when" onBlur="{{calBlur}}"><label class="field"><span class="field-l">Date</span><input type="text" id="qfwhen" name="party_date" value="{{form.date}}" onInput="{{set.date}}" onFocus="{{calIn}}" onClick="{{calShow}}" onKeyDown="{{whenKey}}" inputmode="{{whenMode}}" ref="{{fieldRef.date}}" placeholder="Which night?" autocomplete="off" role="combobox" aria-haspopup="dialog" aria-controls="qfcal" aria-expanded="{{calExp}}" aria-required="true" aria-invalid="{{invalid.date}}" aria-describedby="{{describe.date}}"></label><sc-if value="{{calOpen}}"><div class="qf-cal" id="qfcal" role="dialog" aria-label="Choose a date" tabindex="-1" onPointerDown="{{calHold}}" onKeyDown="{{calKey}}"><div class="qf-cal-h"><span class="qf-cal-t" aria-live="polite">{{calTitle}}</span><span class="qf-cal-n"><button type="button" class="qf-cal-b" aria-label="Previous month" aria-disabled="{{calPrevOff}}" onClick="{{calPrev}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.5 4.5 L7 10 L12.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button type="button" class="qf-cal-b" aria-label="Next month" onClick="{{calNext}}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.5 4.5 L13 10 L7.5 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></span></div><div class="qf-cal-w" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div><div class="qf-cal-g"><sc-for list="{{calDays}}" as="d"><button type="button" class="{{d.cls}}" data-d="{{d.key}}" tabindex="{{d.tab}}" aria-label="{{d.lab}}" aria-pressed="{{d.on}}" aria-disabled="{{d.off}}" aria-hidden="{{d.hide}}" onClick="{{d.pick}}">{{d.n}}</button></sc-for></div></div></sc-if></div>
 <sc-if value="{{err.date}}" hint-placeholder-val="{{ false }}"><span id="err-party_date" class="ferr" role="alert">{{errText.date}}</span></sc-if>
 </div>
 <div class="k6f">
@@ -780,6 +819,64 @@ if (n && !/[1-9]/.test(n)) bad.budget = 'number';
 return bad;
 }
 var K6_CHECKED = ['date', 'where', 'guests', 'budget'];
+var H6_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var H6_WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function H6_WHENDATE(txt, now) {
+var w = String(txt || '').toLowerCase().replace(/\b\d{1,2}(:\d{2})?\s*(am|pm)\b/g, ' ').replace(/\b\d{1,2}:\d{2}\b/g, ' ');
+var yr = (w.match(/\b(20\d{2})\b/) || [])[1]; w = w.replace(/\d{3,}/g, ' ');
+var mm = w.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})\b/), dm = w.match(/\b(\d{1,2})\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/), sl = w.match(/\b(\d{1,2})\/(\d{1,2})\b/);
+var names = 'janfebmaraprmayjunjulaugsepoctnovdec', mo, dd;
+if (mm) { mo = names.indexOf(mm[1]) / 3; dd = +mm[2]; } else if (dm) { mo = names.indexOf(dm[2]) / 3; dd = +dm[1]; } else if (sl) { mo = +sl[1] - 1; dd = +sl[2]; } else return null;
+if (mo < 0 || mo > 11 || dd < 1 || dd > 31) return null;
+var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()), d = new Date(yr ? +yr : today.getFullYear(), mo, dd);
+if (d.getMonth() !== mo) return null;
+if (!yr && d < today) d = new Date(today.getFullYear() + 1, mo, dd);
+return d;
+}
+function H6_WHENTEXT(d, now) { return H6_WD[d.getDay()].slice(0, 3) + ', ' + H6_MON[d.getMonth()].slice(0, 3) + ' ' + d.getDate() + (d.getFullYear() !== now.getFullYear() ? ', ' + d.getFullYear() : ''); }
+function qfCalPlace(up) {
+var cal = document.getElementById('qfcal'), box = cal ? cal.parentNode : null;
+if (!cal || !box || !cal.getBoundingClientRect) return;
+var head = document.querySelector('header'), bar = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
+var f = box.getBoundingClientRect(), c = cal.getBoundingClientRect();
+cal.setAttribute('data-side', up && f.top - bar - 16 >= c.height ? 'up' : 'down');
+if (cal.scrollIntoView) cal.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+}
+function r6CalVals(self, setWhen) {
+var s = self.state, cal = { y: s.calY, m: s.calM, days: [], first: true };
+self.calSet = setWhen;
+if (s.calOpen) {
+var cNow = new Date(), cMin = new Date(cNow.getFullYear(), cNow.getMonth(), cNow.getDate()), cSel = H6_WHENDATE(s.when, cNow), cLead = new Date(s.calY, s.calM, 1).getDay(), cLen = new Date(s.calY, s.calM + 1, 0).getDate(), cTab = 0, ci;
+cal.first = s.calY === cNow.getFullYear() && s.calM === cNow.getMonth();
+for (ci = 0; ci < cLead; ci++) cal.days.push({ n: '', cls: 'qf-day qf-blank', key: 'b' + ci, tab: '-1', lab: '', on: 'false', off: 'true', hide: 'true', pick: function () {} });
+for (ci = 1; ci <= cLen; ci++) (function (dd) {
+var d = new Date(s.calY, s.calM, dd), off = d < cMin, on = !!cSel && +cSel === +d, today = +d === +cMin;
+cal.days.push({ n: dd, cls: 'qf-day' + (on ? ' qf-day-on' : (today ? ' qf-day-today' : '')), key: s.calY + '-' + (s.calM + 1) + '-' + dd, tab: '-1', on: on ? 'true' : 'false', off: off ? 'true' : 'false', hide: 'false',
+lab: H6_WD[d.getDay()] + ', ' + H6_MON[s.calM] + ' ' + dd + ', ' + s.calY + (today ? ', today' : '') + (off ? ', past' : ''), pick: function () { if (!off) self.calPick(d); } });
+})(ci);
+cal.days.forEach(function (x, i) { if (x.on === 'true') cTab = i; });
+if (!cTab) cal.days.some(function (x, i) { if (x.off === 'false') { cTab = i; return true; } return false; });
+if (cal.days[cTab]) cal.days[cTab].tab = '0';
+}
+return {
+calOpen: s.calOpen, calExp: s.calOpen ? 'true' : 'false', calTitle: H6_MON[cal.m] + ' ' + cal.y, calDays: cal.days, calPrevOff: cal.first ? 'true' : 'false',
+whenMode: window.matchMedia && window.matchMedia('(pointer: coarse)').matches ? 'none' : 'text',
+calIn: function () { if (self.calSkip) { self.calSkip = false; return; } self.calShow(); }, calShow: function () { self.calShow(); },
+calHold: function (e) { if (!e.pointerType || e.pointerType === 'mouse') e.preventDefault(); },
+calBlur: function (e) { var to = e.relatedTarget, box = e.currentTarget; if (!to || !box || !box.contains(to)) self.calHide(); },
+whenKey: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); self.calGo(H6_WHENDATE(self.state.when, new Date()) || new Date()); } else if (e.key === 'Escape' && self.state.calOpen) { e.preventDefault(); e.stopPropagation(); self.calHide(); } },
+calPrev: function () { if (cal.first) return; var m = s.calM - 1, y = s.calY; if (m < 0) { m = 11; y--; } self.setState({ calY: y, calM: m }); },
+calNext: function () { var m = s.calM + 1, y = s.calY; if (m > 11) { m = 0; y++; } self.setState({ calY: y, calM: m }); },
+calKey: function (e) {
+var k = e.key, el = e.target, at = el && el.getAttribute && el.getAttribute('data-d'), step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[k];
+if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); self.calHide(true); return; }
+if (!at) return;
+var p = at.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+if (step) { e.preventDefault(); d.setDate(d.getDate() + step); self.calGo(d); }
+else if (k === 'PageDown' || k === 'PageUp') { e.preventDefault(); var dd = d.getDate(); d = new Date(d.getFullYear(), d.getMonth() + (k === 'PageDown' ? 1 : -1), 1); d.setDate(Math.min(dd, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate())); self.calGo(d); }
+}
+};
+}
 function k6Clean(hash) {
 var h = String(hash || '').replace(/^#/, '');
 try { h = decodeURIComponent(h); } catch (err) {}
@@ -911,7 +1008,8 @@ slug: at.dj ? at.dj.slug : '',
 playing: null, cur: 0, outside: false,
 heroVis: true, heroOut: false, formIn: false, pastForm: false,
 form: { date: '', where: '', guests: '', budget: '', msg: '' },
-errors: {}, sent: false
+errors: {}, sent: false,
+calOpen: false, calY: 0, calM: 0, when: ''
 };
 this.dockCompact = false;
 this.heroRef = function (el) {
@@ -947,6 +1045,7 @@ var v = e && e.target ? e.target.value : '';
 if (self.state.form[k] === v) return;
 var f = Object.assign({}, self.state.form); f[k] = v;
 var patch = { form: f };
+if (k === 'date') patch.when = v;
 if (self.state.errors[k]) { var er = Object.assign({}, self.state.errors); delete er[k]; patch.errors = er; }
 self.setState(patch);
 };
@@ -1012,7 +1111,8 @@ var self = this, slug = at.dj ? at.dj.slug : '';
 if (slug === this.state.slug) { if (again) this.setState({ got: Date.now() }); return; }
 this.closeSet();
 this.errFocus = null;
-this.setState({ slug: slug, playing: null, cur: 0, outside: false, form: { date: '', where: '', guests: '', budget: '', msg: '' }, errors: {}, sent: false });
+this.calWatch(false);
+this.setState({ slug: slug, playing: null, cur: 0, outside: false, form: { date: '', where: '', guests: '', budget: '', msg: '' }, errors: {}, sent: false, calOpen: false, when: '' });
 if (this.hashT) clearTimeout(this.hashT);
 this.hashT = setTimeout(function () {
 self.hashT = null;
@@ -1040,10 +1140,14 @@ componentDidUpdate() {
 this.setTitle();
 this.paintBg();
 if (this.errFocus) this.focusErr();
+var cal = this.state.calOpen ? this.state.calY + '-' + this.state.calM : '';
+if (cal && cal !== this.calAt) qfCalPlace(false);
+this.calAt = cal;
 }
 componentWillUnmount() {
 this.gone = true;
 if (this.ed) this.ed.stop();
+if (this.calDoc) document.removeEventListener('pointerdown', this.calDoc, true);
 if (typeof window !== 'undefined' && window.removeEventListener) window.removeEventListener('hashchange', this.onHash);
 if (this.hashT) clearTimeout(this.hashT);
 if (this.errT) clearTimeout(this.errT);
@@ -1137,6 +1241,37 @@ this.errT = setTimeout(function () { self.errT = null; self.focusErr(); }, 0);
 return;
 }
 this.setState({ errors: {}, sent: true });
+}
+calShow() {
+if (this.state.calOpen) return;
+var now = new Date(), d = H6_WHENDATE(this.state.when, now) || now;
+if (d < new Date(now.getFullYear(), now.getMonth(), 1)) d = now;
+this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() });
+this.calWatch(true);
+}
+calWatch(on) {
+var self = this;
+if (!this.calDoc) this.calDoc = function (e) { var box = document.querySelector('.qf-when'); if (box && !box.contains(e.target)) self.calHide(); };
+document.removeEventListener('pointerdown', this.calDoc, true);
+if (on) document.addEventListener('pointerdown', this.calDoc, true);
+}
+calHide(back) {
+this.calWatch(false);
+if (this.state.calOpen) this.setState({ calOpen: false });
+if (back) { var el = document.getElementById('qfwhen'); if (el) { this.calSkip = true; el.focus(); } }
+}
+calGo(d) {
+var now = new Date(), min = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+if (d < min) d = min;
+if (d.getFullYear() !== this.state.calY || d.getMonth() !== this.state.calM || !this.state.calOpen) { this.setState({ calOpen: true, calY: d.getFullYear(), calM: d.getMonth() }); this.calWatch(true); }
+var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+setTimeout(function () { var el = document.querySelector('#qfcal [data-d="' + key + '"]'); if (el) el.focus(); }, 30);
+}
+calPick(d) {
+this.calWatch(false);
+this.setState({ calOpen: false });
+if (this.calSet) this.calSet({ target: { value: H6_WHENTEXT(d, new Date()) } });
+var el = document.getElementById('qfwhen'); if (el && document.activeElement !== el) { this.calSkip = true; el.focus(); }
 }
 renderVals() {
 var self = this, s = this.state;
@@ -1237,7 +1372,7 @@ footPad: dockOn ? '96px' : '22px',
 dockPre: live || !dj.home ? '' : 'Based in ', dockLine: live ? live.title : dj.home,
 dockPlayCls: on ? 'k6dplay k6dplay-on' : 'k6dplay',
 dockPlayAria: on ? 'Close the SoundCloud player' : (cur ? 'Play ' + cur.title + ' from SoundCloud' : '')
-}, nav6Vals(this, {}));
+}, r6CalVals(this, this.setters.date), nav6Vals(this, {}));
 }
 }</script>
 <script>window.BOOKD_ARTIST='kozlow'</script>
