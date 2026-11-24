@@ -510,7 +510,7 @@ return { ok: true, mode: MODE, source: 'device', artists: noDates(list.map(funct
 var sb = LIVE ? B._.sb : null;
 var PUBLIC = 'name, slug, first_name, sound, genres, home_city, bio, cover_path, cover_alt, cover_pos, find_label, find_url, links, ' +
 'rider_lines, rider_note, rider_link, plays_on, room_needs, table_needs, arrival, hospitality, soundcloud_url, mixcloud_url, youtube_url, ' +
-'look_bg, look_image, look_record, look_sign, status, dj_tracks(position, title, url), tour_dates(city, starts_on, ends_on)';
+'look_bg, look_image, look_record, look_sign, status, open_to_requests, dj_tracks(position, title, url), tour_dates(city, starts_on, ends_on)';
 function showDb(path) {
 if (!path) return '';
 if (/^assets\//.test(path)) return path;
@@ -534,7 +534,7 @@ function dbList() {
 return within(sb.from('djs').select(PUBLIC).eq('status', 'live').order('name').then(function (r) {
 var b = err(r); if (b) return b;
 var list = [];
-(r.data || []).forEach(function (d) { var a = fromRow(d, showDb); if (a) { a.dates = datesOf(d); list.push(a); } });
+(r.data || []).forEach(function (d) { var a = fromRow(d, showDb); if (a) { a.dates = datesOf(d); a.asks = d.open_to_requests === true; list.push(a); } });
 return { ok: true, artists: list.sort(byName) };
 }), 8000, 'offline');
 }
@@ -581,6 +581,42 @@ var u = r && r.data && r.data.session ? r.data.session.user : null;
 if (!u) return { ok: true, city: '' };
 return sb.from('profiles').select('city').eq('id', u.id).maybeSingle().then(function (q) {
 return _.bad(q) || { ok: true, city: (q.data && q.data.city) || '' };
+});
+}));
+}
+};
+})();
+(function () {
+var B = window.BOOKD; if (!B || !B.ready) return;
+var _ = B._, sb = _.sb;
+function whole(v) {
+var m = /(\d[\d.,]*)\s*(k\b)?/i.exec(String(v == null ? '' : v));
+if (!m) return null;
+var t = m[1].replace(/[.,]+$/, '').replace(/[.,](?=\d{3}(\D|$))/g, '').replace(',', '.');
+var n = parseFloat(t);
+if (!isFinite(n)) return null;
+n = Math.round(m[2] ? n * 1000 : n);
+return n >= 1 && n <= 10000000 ? n : null;
+}
+B.requests = {
+whole: whole,
+send: function (o) {
+o = o || {};
+return _.guard(sb.auth.getSession().then(function (s) {
+var u = s && s.data && s.data.session ? s.data.session.user : null;
+if (!u) return { ok: false, code: 'signedOut' };
+var date = String(o.date || '');
+if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !_.clip(o.where, 120) || !_.clip(o.slug, 60)) return { ok: false, code: 'invalid' };
+return sb.from('booking_requests').insert({
+dj_slug: _.clip(o.slug, 60).toLowerCase(), party_date: date, place: _.clip(o.where, 120),
+guests: whole(o.guests), budget: whole(o.budget), note: _.clip(o.note, 2000)
+}).select('id').single().then(function (r) {
+if (!r.error) return { ok: true, id: r.data.id };
+var c = String(r.error.code || ''), m = String(r.error.message || '');
+if (c === '23505') return { ok: false, code: 'twice' };
+if (c === 'BK409') return { ok: false, code: 'notYet' };
+if (c === '42501' && /regular account/i.test(m)) return { ok: false, code: 'notHost' };
+return _.bad(r);
 });
 }));
 }

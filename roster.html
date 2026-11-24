@@ -901,9 +901,7 @@ var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? 
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
 if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
-var c = window.BOOKD_CONFIG;
-if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-return { href: 'account.html', text: 'Your inbox' };
+return { href: 'inbox.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;

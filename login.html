@@ -510,7 +510,7 @@ next: 'Find a DJ', nextHref: 'roster.html', alt: 'Open my inbox', altHref: 'acco
 return {
 title: "You're\u00a0in.",
 line: "Kaytran sent you an offer for Sat, Nov\u00a014. It's good until Tue, Nov\u00a010.",
-next: 'Open my inbox', nextHref: 'account.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
+next: 'Open my inbox', nextHref: 'inbox.html', alt: 'Find another DJ', altHref: 'roster.html', over: 'Not you? Log out'
 };
 }
 var LG_DJ_REQS = ['dani', 'theo', 'priya'];
@@ -554,7 +554,7 @@ var c = typeof window !== 'undefined' ? window.BOOKD_CONFIG : null;
 return !!(c && c.demo === false) && !lgLive();
 }
 var NAV6_DEFAULTS = {
-inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
 dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
 seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
 curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
@@ -638,9 +638,7 @@ var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? 
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
 if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
-var c = window.BOOKD_CONFIG;
-if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-return { href: 'account.html', text: 'Your inbox' };
+return { href: 'inbox.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;
@@ -849,7 +847,7 @@ nsBack: function () { var m = self.state.mode; self.wantName = m === 'signup'; s
 doneIn: s.done === 'in', doneReset: s.done === 'reset' || s.done === 'confirm', doneSoon: s.done === 'soon', soonOn: soon,
 doneTitle: s.done === 'reset' || s.done === 'confirm' ? 'Check your\u00a0email.' : (done ? done.title : ''),
 doneLine: s.done === 'confirm' ? ('We sent a link to ' + s.email.trim() + ". Tap it to confirm your email and you're in. Check spam too, it likes to hide there.") : s.done === 'reset' ? ("If there's an account for " + s.email.trim() + ", a reset link is on its way. Check spam too, it likes to hide there.") : (done ? done.line : ''),
-nextHref: done ? done.nextHref : 'account.html', nextLabel: done ? done.next : '',
+nextHref: done ? done.nextHref : 'inbox.html', nextLabel: done ? done.next : '',
 altOn: !!(done && done.alt), altHref: done ? done.altHref : 'roster.html', altLabel: done ? done.alt : '',
 acctOn: !isDJ,
 overLabel: done ? done.over : 'Not you? Log out',
@@ -857,7 +855,7 @@ startOver: function () { var api = lgLive(); if (api) api.signOut(); self.wantNa
 }, nav6Vals(this, {
 curLogin: 'page',
 shell: s.done === 'in' && !(lgLive() && !lgMock()) ? (isDJ ? 'dj' : 'host') : 'public',
-inboxHref: 'account.html',
+inboxHref: isSignup ? 'account.html' : 'inbox.html',
 signedIn: s.liveRole ? (lgName('dj', s.name)) : (newDj ? 'Soft Static' : 'Kaytran'),
 waiting: s.done !== 'in' || isSignup || newDj || s.liveRole ? 0 : (isDJ ? lgDjWaiting() : 1),
 seeOn: !newDj,

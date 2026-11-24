@@ -354,6 +354,7 @@ html .field-l,html .qf-l{font-size:12px;font-weight:700;color:rgba(0,0,0,.7)}
 html .field input::placeholder,html .field textarea::placeholder,html .qf input::placeholder{color:rgba(0,0,0,.6);font-weight:400;opacity:1}
 html .ferr{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
 html .fhint{display:block;margin:0;padding:6px 8px 0;font-size:13px;line-height:1.35;color:rgba(0,0,0,.7)}
+html .k6askerr{padding:10px 0 0;text-align:center}
 html .soon-line{margin:10px 0 0;font-size:13px;line-height:1.45;text-align:center;color:rgba(0,0,0,.7)}
 html .fine{margin:0;font-size:13px;line-height:1.45;color:rgba(0,0,0,.7)}
 html .fine a{font-weight:700;color:#000000}
@@ -577,17 +578,20 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <label class="field"><span class="field-l">Anything we should know</span><textarea rows="3" name="message" value="{{form.msg}}" onInput="{{set.msg}}" placeholder="The room, the crowd, three songs you love."></textarea></label>
 </div>
 </div>
-<button type="button" class="btn btn-lg go k6send btn-main" onClick="{{send}}"><span>Ask about {{dj.first}}</span></button>
-<p class="soon-line">Requests open soon. Nothing gets sent&nbsp;yet.</p>
+<button type="button" class="btn btn-lg go k6send btn-main" onClick="{{send}}" aria-busy="{{askBusy}}"><span>{{sendText}}</span></button>
+<sc-if value="{{askErr}}" hint-placeholder-val="{{ false }}"><p class="ferr k6askerr" role="alert">{{askErrText}}</p></sc-if>
+<sc-if value="{{soonOn}}" hint-placeholder-val="{{ true }}"><p class="soon-line">Requests open soon. Nothing gets sent&nbsp;yet.</p></sc-if>
 </form>
 </sc-if>
 <sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
 <div class="k6sent ns" role="status">
-<h3 class="ns-h" tabindex="-1" ref="{{nsRef}}">Nothing was&nbsp;sent.</h3>
+<h3 class="ns-h" tabindex="-1" ref="{{nsRef}}">{{nsHead}}</h3>
 <p class="ns-p">{{nsText}}</p>
 <div class="ns-acts">
-<a class="btn-main" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Message BOOKD on Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a>
-<button type="button" class="btn-quiet" onClick="{{nsBack}}">Back to the form</button>
+<sc-if value="{{nsInsta}}" hint-placeholder-val="{{ true }}"><a class="btn-main" href="https://www.instagram.com/bookd___/" target="_blank" rel="noopener">Message BOOKD on Instagram<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if>
+<sc-if value="{{nsInbox}}" hint-placeholder-val="{{ false }}"><a class="btn-main" href="inbox.html">Open your inbox</a></sc-if>
+<sc-if value="{{nsLogin}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn-main" onClick="{{askLogin}}">Log in or sign up</button></sc-if>
+<button type="button" class="btn-quiet" onClick="{{nsBack}}">{{nsBackText}}</button>
 </div>
 </div>
 </sc-if>
@@ -823,6 +827,38 @@ if (n && !/[1-9]/.test(n)) bad.budget = 'number';
 return bad;
 }
 var K6_CHECKED = ['date', 'where', 'guests', 'budget'];
+function k6Ask(dj) {
+var b = typeof window !== 'undefined' ? window.BOOKD : null;
+return b && b.ready && b.requests && dj && dj.asks === true ? b.requests : null;
+}
+var K6_ASK = 'bookd.ask';
+function k6AskKeep(slug, form) { try { sessionStorage.setItem(K6_ASK, JSON.stringify({ slug: slug, form: form })); } catch (e) {} }
+function k6AskDrop() { try { sessionStorage.removeItem(K6_ASK); } catch (e) {} }
+function k6AskKept(slug) {
+var o = null, f, out = {};
+try { o = JSON.parse(sessionStorage.getItem(K6_ASK) || 'null'); } catch (e) { o = null; }
+if (!o || !slug || o.slug !== slug || !o.form || typeof o.form !== 'object') return null;
+k6AskDrop();
+f = o.form;
+['date', 'where', 'guests', 'budget', 'msg'].forEach(function (k) { out[k] = typeof f[k] === 'string' ? f[k].slice(0, k === 'msg' ? 2000 : 120) : ''; });
+return out;
+}
+function k6AskCard(kind, dj, role) {
+var first = dj.first, back = 'Back to the form';
+if (kind === 'done') return { head: 'Request\u00a0sent.', text: first + ' has it now. The answer lands in your\u00a0inbox.', act: 'inbox', back: 'Ask about another night' };
+if (kind === 'signedOut') return { head: 'One step\u00a0left.', text: 'Log in or make an account to send this. What you typed stays\u00a0here.', act: 'login', back: back };
+if (kind === 'twice') return { head: 'Already\u00a0asked.', text: first + ' has your request for that night. It is in your\u00a0inbox.', act: 'inbox', back: back };
+if (kind === 'notHost') return { head: 'Nothing was\u00a0sent.', text: 'You are signed in as ' + (role === 'admin' ? 'BOOKD' : 'a DJ') + '. Requests go from a regular\u00a0account.', act: '', back: back };
+if (kind === 'notYet') return { head: 'Nothing was\u00a0sent.', text: first + " isn't taking requests on BOOKD yet, so this didn't go to anyone. For now, message BOOKD on\u00a0Instagram.", act: 'insta', back: back };
+return { head: 'Nothing was\u00a0sent.', text: "Requests aren't open yet, so this didn't go to " + first + ' or to anyone else. For now, message BOOKD on\u00a0Instagram.', act: 'insta', back: back };
+}
+function k6AskFail(code) {
+if (!code) return '';
+if (code === 'rate') return 'Too many requests in the last hour. Nothing was sent, so try again\u00a0later.';
+if (code === 'offline') return "You're offline. Nothing was sent, so try again once you're\u00a0back.";
+if (code === 'invalid') return "That didn't go through. Check the night and the place, then try\u00a0again.";
+return 'Something went wrong on our side. Nothing was sent, so try\u00a0again.';
+}
 var H6_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var H6_WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 function H6_WHENDATE(txt, now) {
@@ -973,9 +1009,7 @@ var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? 
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
 if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
-var c = window.BOOKD_CONFIG;
-if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-return { href: 'account.html', text: 'Your inbox' };
+return { href: 'inbox.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;
@@ -1004,7 +1038,7 @@ this.ready = !first || !!first.final;
 this.door = this.ready ? null : A;
 this.own = typeof window !== 'undefined' && typeof window.BOOKD_ARTIST === 'string' ? k6Clean(window.BOOKD_ARTIST) : '';
 var pe = typeof window !== 'undefined' && window.BOOKD_EDIT === true && window.BOOKD && window.BOOKD.pageEditor ? window.BOOKD.pageEditor : null;
-this.ed = pe ? pe.attach(this, { login: 'login.html', account: 'account.html', home: 'index.html', artistUrl: BOOKD_DJ_URL }) : null;
+this.ed = pe ? pe.attach(this, { login: 'login.html', account: 'account.html', home: 'index.html', inbox: 'inbox.html', artistUrl: BOOKD_DJ_URL }) : null;
 if (this.ed) { this.djs = []; this.ready = false; this.door = null; this.own = ''; }
 var at = this.where();
 this.state = {
@@ -1013,8 +1047,11 @@ playing: null, cur: 0, outside: false,
 heroVis: true, heroOut: false, formIn: false, pastForm: false,
 form: { date: '', where: '', guests: '', budget: '', msg: '' },
 errors: {}, sent: false,
+ask: 'soon', askBusy: false, askFail: '',
 calOpen: false, calY: 0, calM: 0, when: ''
 };
+var kept0 = !this.ed && this.state.slug ? k6AskKept(this.state.slug) : null;
+if (kept0) { this.state.form = kept0; this.state.when = kept0.date; }
 this.dockCompact = false;
 this.heroRef = function (el) {
 if (el === self.heroEl) return;
@@ -1064,7 +1101,8 @@ else if (el && k === 'date' && self.wantFirst) { self.wantFirst = false; if (el.
 };
 });
 this.nsRef = function (el) { if (el && el.focus) el.focus(); };
-this.nsBack = function () { self.wantFirst = true; self.setState({ sent: false }); };
+this.nsBack = function () { self.wantFirst = true; self.setState({ sent: false, askFail: '' }); };
+this.askLogin = function () { self.goLogin(); };
 this.bgNow = ''; this.artNow = '';
 this.bgRef = function (el) { self.bgEl = el; self.paintBg(); };
 this.artEls = {};
@@ -1116,7 +1154,8 @@ if (slug === this.state.slug) { if (again) this.setState({ got: Date.now() }); r
 this.closeSet();
 this.errFocus = null;
 this.calWatch(false);
-this.setState({ slug: slug, playing: null, cur: 0, outside: false, form: { date: '', where: '', guests: '', budget: '', msg: '' }, errors: {}, sent: false, calOpen: false, when: '' });
+var kept = k6AskKept(slug);
+this.setState({ slug: slug, playing: null, cur: 0, outside: false, form: kept || { date: '', where: '', guests: '', budget: '', msg: '' }, errors: {}, sent: false, ask: 'soon', askBusy: false, askFail: '', calOpen: false, when: kept ? kept.date : '' });
 if (this.hashT) clearTimeout(this.hashT);
 this.hashT = setTimeout(function () {
 self.hashT = null;
@@ -1244,7 +1283,25 @@ this.errT = setTimeout(function () { self.errT = null; self.focusErr(); }, 0);
 }
 return;
 }
-this.setState({ errors: {}, sent: true });
+var dj = this.cur(), api = k6Ask(dj), f = this.state.form;
+if (!api) { this.setState({ errors: {}, sent: true, ask: window.BOOKD && window.BOOKD.ready && window.BOOKD.requests ? 'notYet' : 'soon', askFail: '' }); return; }
+if (this.state.askBusy) return;
+this.setState({ errors: {}, askBusy: true, askFail: '' });
+api.send({ slug: dj.slug, date: k6When(String(f.date || '').trim(), k6Today()), where: f.where, guests: f.guests, budget: f.budget, note: f.msg }).then(function (r) {
+if (self.gone) return;
+var c = r && r.ok ? 'done' : ((r && r.code) || 'unknown');
+if (c === 'done') { k6AskDrop(); self.setState({ askBusy: false, sent: true, ask: 'done', form: { date: '', where: '', guests: '', budget: '', msg: '' }, when: '' }); return; }
+if (c === 'signedOut' || c === 'notHost' || c === 'twice' || c === 'notYet') { self.setState({ askBusy: false, sent: true, ask: c }); return; }
+self.setState({ askBusy: false, askFail: c });
+});
+}
+goLogin() {
+var dj = this.cur();
+if (!dj) return;
+k6AskKeep(dj.slug, this.state.form);
+try { window.history.replaceState(null, '', '#' + dj.slug + '-request'); } catch (err) {}
+if (window.BOOKD && window.BOOKD.next && window.BOOKD.next.set) window.BOOKD.next.set();
+window.location.href = 'login.html';
 }
 calShow() {
 if (this.state.calOpen) return;
@@ -1302,6 +1359,8 @@ embRef: self.embRef(i)
 };
 var errs = s.errors || {};
 var f = s.form;
+var liveSite = !!(typeof window !== 'undefined' && window.BOOKD && window.BOOKD.ready), canAsk = !!k6Ask(d);
+var ask = k6AskCard(s.ask, dj, liveSite && window.BOOKD.who ? window.BOOKD.who.role : '');
 var heroNote = !hasSets ? ''
 : live ? 'Playing below: ' + live.title
 : s.outside ? 'Opened on SoundCloud in a new tab.'
@@ -1368,8 +1427,11 @@ invalid: { date: errs.date ? 'true' : 'false', where: errs.where ? 'true' : 'fal
 describe: { date: errs.date ? 'err-party_date' : '', where: errs.where ? 'err-place' : '', guests: errs.guests ? 'err-guests' : '', budget: errs.budget ? 'hint-budget err-budget' : 'hint-budget' },
 send: function (e) { self.sendReq(e); },
 sendKey: function (e) { if (e && e.key === 'Enter' && !e.isComposing && e.target && e.target.tagName === 'INPUT') self.sendReq(e); },
-notSent: !s.sent, sent: s.sent, nsRef: this.nsRef, nsBack: this.nsBack,
-nsText: "Requests aren't open yet, so this didn't go to " + dj.first + ' or to anyone else. For now, message BOOKD on\u00a0Instagram.',
+notSent: !s.sent, sent: s.sent, nsRef: this.nsRef, nsBack: this.nsBack, askLogin: this.askLogin,
+nsHead: ask.head, nsText: ask.text, nsInsta: ask.act === 'insta', nsInbox: ask.act === 'inbox', nsLogin: ask.act === 'login', nsBackText: ask.back,
+sendText: s.askBusy ? 'Sending' : 'Ask about ' + dj.first, askBusy: s.askBusy ? 'true' : 'false',
+askErr: !!s.askFail, askErrText: k6AskFail(s.askFail),
+soonOn: canAsk ? false : (liveSite ? !!this.ready : true),
 dockCls: 'k6dock' + (dockOn ? ' k6dock-on' : '') + (dockCompact ? ' k6dock-form' : ''),
 dockAria: dj.name + ', quick actions',
 footPad: dockOn ? '96px' : '22px',

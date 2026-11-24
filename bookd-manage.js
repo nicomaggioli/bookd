@@ -1031,6 +1031,73 @@ signOut: function () { return B.auth.signOut(); }
 };
 })();
 (function () {
+var B = window.BOOKD; if (!B || !B.ready) return;
+var _ = B._, sb = _.sb;
+var COLS = 'id, host_id, dj_slug, dj_name, host_name, party_date, place, guests, budget, note, status, fee, closed_by, last_side, last_kind, last_text, created_at, updated_at';
+var UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function session() {
+return sb.auth.getSession().then(function (s) { return s && s.data && s.data.session ? s.data.session.user : null; });
+}
+function shape(row, me) {
+return {
+id: row.id, side: row.host_id === me.id ? 'host' : (me.role === 'dj' ? 'dj' : 'watch'),
+djSlug: row.dj_slug || '', djName: row.dj_name || '', hostName: row.host_name || '',
+date: String(row.party_date || '').slice(0, 10), place: row.place || '', guests: row.guests == null ? null : row.guests, budget: row.budget == null ? null : row.budget,
+note: row.note || '', status: row.status, fee: row.fee == null ? null : row.fee, closedBy: row.closed_by || '',
+lastSide: row.last_side || 'host', lastKind: row.last_kind || 'msg', lastText: row.last_text || '',
+sentAt: row.created_at || '', at: row.updated_at || row.created_at || ''
+};
+}
+function line(row) {
+return { id: row.id, side: row.side, kind: row.kind, text: row.body || '', amount: row.amount == null ? null : row.amount, at: row.created_at || '' };
+}
+function waitsOn(req) { return req.status === 'sent' ? 'dj' : (req.status === 'offer' ? 'host' : ''); }
+B.inbox = {
+waitsOn: waitsOn,
+list: function () {
+return _.guard(session().then(function (u) {
+if (!u) return { ok: false, code: 'signedOut' };
+return _.describe(u).then(function (me) {
+return sb.from('booking_requests').select(COLS).order('updated_at', { ascending: false }).limit(200).then(function (r) {
+var b = _.bad(r); if (b) return b;
+var list = (r.data || []).map(function (row) { return shape(row, me); });
+return { ok: true, me: { id: me.id, name: me.name, role: me.role }, requests: list,
+waiting: list.filter(function (q) { return q.side !== 'watch' && waitsOn(q) === q.side; }).length };
+});
+});
+}));
+},
+thread: function (id) {
+if (!UUID.test(String(id || ''))) return Promise.resolve({ ok: false, code: 'invalid' });
+return _.guard(sb.from('request_messages').select('id, side, kind, body, amount, created_at').eq('request_id', id).order('created_at').limit(500).then(function (r) {
+return _.bad(r) || { ok: true, lines: (r.data || []).map(line) };
+}));
+},
+say: function (id, text) {
+var body = _.clip(text, 2000);
+if (!UUID.test(String(id || '')) || !body) return Promise.resolve({ ok: false, code: 'invalid' });
+return _.guard(session().then(function (u) {
+if (!u) return { ok: false, code: 'signedOut' };
+return sb.from('request_messages').insert({ request_id: id, sender_id: u.id, body: body }).select('id, side, kind, body, amount, created_at').single().then(function (r) {
+return _.bad(r) || { ok: true, line: line(r.data) };
+});
+}));
+},
+answer: function (id, action, fee) {
+if (!UUID.test(String(id || '')) || !/^(accept|offer|decline)$/.test(action)) return Promise.resolve({ ok: false, code: 'invalid' });
+var args = { p_id: id, p_action: action };
+if (action === 'offer') {
+var n = B.requests && B.requests.whole ? B.requests.whole(fee) : parseInt(fee, 10);
+if (!(n >= 1)) return Promise.resolve({ ok: false, code: 'invalid' });
+args.p_fee = n;
+}
+return _.guard(sb.rpc('answer_request', args).then(function (r) {
+return _.bad(r) || { ok: true, status: String(r.data || '') };
+}));
+}
+};
+})();
+(function () {
 var W = typeof window !== 'undefined' ? window : {};
 var B = W.BOOKD;
 if (!B || !B.ready || !B.dj || !B.artists || !B.artists.manage || !B.artists.manage.mine) return;
@@ -1114,7 +1181,8 @@ var s = {
 phase: 'loading', code: '', user: null, id: '', saved: null, form: null, part: '', busy: false, msg: '', bad: false,
 errs: {}, picking: '', flash: '', toast: '',
 dates: [], nd: { city: '', from: '', to: '' }, dateErr: '', dateBusy: false, dateMsg: '',
-pv: { low: '', high: '', agent: '' }, pvWas: null, pvBusy: false, pvMsg: '', pvBad: false
+pv: { low: '', high: '', agent: '' }, pvWas: null, pvBusy: false, pvMsg: '', pvBad: false,
+reqN: 0
 };
 var gone = false, tick = 0, opener = null, flashT = null, toastT = null, headEl = null, wantHead = false, marked = null;
 function draw() { if (!gone) page.setState({ edTick: ++tick }); }
@@ -1149,6 +1217,7 @@ if (gone) return;
 if (!m || !m.ok) { s.phase = 'failed'; s.code = (m && m.code) || 'unknown'; return draw(); }
 if (!m.artist) { s.phase = 'none'; return draw(); }
 s.saved = m.artist; s.form = formOf(m.artist); s.phase = 'ready';
+if (B.inbox) B.inbox.list().then(function (q) { if (!gone && q && q.ok && q.waiting !== s.reqN) { s.reqN = q.waiting; draw(); } });
 put(true);
 });
 });
@@ -1380,6 +1449,7 @@ head: !ready ? 'Your dashboard.' : live ? 'Your page is\u00a0live.' : 'Your page
 line: s.flash || (!ready ? '' : live ? 'This is what hosts see. Change any part with its Edit\u00a0button.' : "Hosts can't see it yet. BOOKD puts it live when it's\u00a0ready."),
 canSee: live && typeof links.artistUrl === 'function', seeHref: live && typeof links.artistUrl === 'function' ? links.artistUrl(s.saved.slug) : '',
 logOut: h.logOut,
+reqHref: links.inbox || 'inbox.html', reqWaiting: s.reqN > 0, reqCount: String(s.reqN), reqAria: ' (' + s.reqN + ' waiting on you)',
 waiting: s.phase === 'loading', failed: s.phase === 'failed', failText: fail(s.code), retry: h.retry, noPage: s.phase === 'none',
 ready: ready,
 open: openers, photoPill: ready && s.saved.img ? 'Change photo' : 'Add a photo',

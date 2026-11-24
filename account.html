@@ -501,8 +501,8 @@ var AC_EMAILS = [
 { key: 'eRemind', label: 'Reminders about my booking' }
 ];
 var AC_PAST = [
-{ when: 'Sat, Sep 19', who: 'Jude & Frank', where: 'Dumbo', href: 'account.html' },
-{ when: 'Sat, Jun 6', who: 'Kaytran', where: 'Harlem', href: 'account.html' }
+{ when: 'Sat, Sep 19', who: 'Jude & Frank', where: 'Dumbo', href: 'inbox.html#jude-sep' },
+{ when: 'Sat, Jun 6', who: 'Kaytran', where: 'Harlem', href: 'inbox.html#kaytran-jun' }
 ];
 function acLive() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null;
@@ -568,7 +568,7 @@ if (code === 'invalid') return "Something in there didn't fit. Shorten it and tr
 return 'Something went wrong on our side. Try\u00a0again.';
 }
 var NAV6_DEFAULTS = {
-inboxHref: 'account.html', curInbox: 'false', curAccount: 'false',
+inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
 dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
 seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
 curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
@@ -645,9 +645,7 @@ var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? 
 if (!w) return null;
 if (w.role === 'admin') return { href: 'admin.html', text: 'Your dashboard' };
 if (w.role === 'dj') return { href: 'dashboard.html', text: 'Your dashboard' };
-var c = window.BOOKD_CONFIG;
-if (!c || c.demo !== true) return { href: 'account.html', text: 'Your account' };
-return { href: 'account.html', text: 'Your inbox' };
+return { href: 'inbox.html', text: 'Your inbox' };
 }
 function nav6Vals(self, cfg) {
 var n = self.nav6, st = self.state || {}, c = {}, k;
@@ -956,7 +954,7 @@ if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
 }
 }, nav6Vals(this, {
 curAccount: 'page', shell: s.del === 'gone' ? 'public' : 'host',
-inboxHref: api && me.role === 'dj' ? 'dashboard.html' : api && me.role === 'admin' ? 'admin.html' : 'account.html'
+inboxHref: api && me.role === 'dj' ? 'dashboard.html' : api && me.role === 'admin' ? 'admin.html' : 'inbox.html'
 }));
 }
 }</script>

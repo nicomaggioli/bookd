@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><script>/* beta gate */(function(){try{var l=location,h=l.hostname,s=localStorage;if((h==='localhost'||h==='127.0.0.1')&&!s.getItem('bookd.beta.force'))return;if(s.getItem('bookd.beta')==='3c9476c5cc468daff8e2207fb3ae7306f4b00aa5a5c9d17fa0042f1238cd67b1')return;if(/access_token=|type=recovery|type=signup|type=email_change|[?&]code=|[#&]claim=/.test(l.hash+l.search)){var f=l.pathname.split('/').pop()||'index.html';if(f.indexOf('.')<0)f+='.html';sessionStorage.setItem('bookd.beta.next',f+l.search+l.hash);l.replace('enter.html');return}}catch(e){}location.replace('waitlist.html')})();</script><script>/* tidy address */(function(){try{var l=location,h=l.hostname;if((h==='localhost'||h==='127.0.0.1')&&!localStorage.getItem('bookd.clean.force'))return;var p=l.pathname.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');if(p!==l.pathname)history.replaceState(history.state,'',p+l.search+l.hash);/* links: a page of this site only (no scheme, no //), its .html dropped; index.html becomes ./ */var R=/^(?![a-z][a-z0-9+.-]*:|\/\/)([^?#]*?)\.html(?=[?#]|$)/i;function fix(a){var v=a.getAttribute('href');if(!v||!R.test(v))return;var n=v.replace(R,function(m,b){return /(^|\/)index$/.test(b)?(b.replace(/index$/,'')||'./'):b});if(n!==v)a.setAttribute('href',n)}function all(r){if(r.nodeType!==1)return;if(r.tagName==='A')fix(r);var q=r.querySelectorAll?r.querySelectorAll('a[href]'):[];for(var i=0;i<q.length;i++)fix(q[i])}function go(){all(document.documentElement);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='attributes'){if(m.target.tagName==='A')fix(m.target)}else for(var j=0;j<m.addedNodes.length;j++)all(m.addedNodes[j])}}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();}catch(e){}})();</script>
+<style>html[data-bookd-wait]{background:#000000}x-dc{display:none}</style>
+<script>document.documentElement.setAttribute("data-bookd-wait", ""); new MutationObserver(function (m, o) { var r = document.getElementById("dc-root"); if (r && r.firstChild) { document.documentElement.removeAttribute("data-bookd-wait"); o.disconnect(); } }).observe(document.documentElement, { childList: true, subtree: true });</script>
+<title>Inbox · BOOKD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Inbox. A BOOKD account page.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="bookd-config.js" as="script">
+<link rel="preload" href="bookd-supabase.js" as="script">
+<link rel="preload" href="bookd-api.js" as="script">
+<link rel="preload" href="bookd-manage.js" as="script">
+<link rel="preload" href="dc-runtime.js" as="script">
+<script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
+@supports (zoom:calc(100vw / 1440px)){
+@media (min-width:1441px){
+:root{--bz:max(1, min(calc(100vw / 1440px), calc(100vh / 680px)));--vw:calc(1vw / var(--bz));--vh:calc(1vh / var(--bz));--svh:calc(1svh / var(--bz));--dvh:calc(1dvh / var(--bz));--lvh:calc(1lvh / var(--bz))}
+html{zoom:var(--bz)}
+}
+}
+body{margin:0;background:#000000;font-family:'Inter',Helvetica,Arial,sans-serif;color:#ffffff}
+a{color:inherit}
+:root{--r-card:20px;--r-bar:16px;--r-field:14px;--gut:clamp(16px,calc(4 * var(--vw)),48px)}
+body,.bub,dd{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+input::placeholder{color:#636665}
+a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.col-chat :focus-visible{outline-color:#d31110}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;min-height:44px;padding:0 20px;border-radius:999px;font:700 15px/1.1 'Inter',sans-serif;text-align:center;text-decoration:none;cursor:pointer;border:0}
+.btn-lg{min-height:56px;padding:0 28px;font-size:17px}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn-red{background:#d31110;color:#ffffff}
+.btn-ghost{background:transparent;color:#000000;box-shadow:inset 0 0 0 1.5px #000000}
+.btn-ink{background:#000000;color:#ffffff}
+.decl{display:inline-flex;align-items:center;background:none;border:0;padding:0 2px;min-height:44px;font:700 15px 'Inter',sans-serif;color:#000000;cursor:pointer}
+.chip{flex:1 1 0;min-width:0;min-height:40px;padding:0 10px;border-radius:999px;border:1px solid #2f2f31;background:transparent;color:#a2a5a4;font:700 13px 'Inter',sans-serif;white-space:nowrap;cursor:pointer}
+.chip[aria-pressed="true"]{background:#ffffff;color:#000000;border-color:#ffffff}
+.btn:active,.send:active{transform:translateY(1px)}
+.skip{position:absolute;left:16px;top:-80px;z-index:70;background:#d31110;color:#ffffff;padding:10px 14px;font-weight:700;text-decoration:none;border-radius:999px}
+.skip:focus{top:12px}
+.nav6{position:sticky;top:0;z-index:45;background:#000000}
+.navgrid{max-width:1440px;margin:0 auto;padding:12px var(--gut);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.navc{justify-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 30px}
+.nl{text-decoration:none;font-size:15px;padding:10px 4px;color:#ffffff;white-space:nowrap}
+.nl[aria-current="page"]{font-weight:700;color:#ff3b2f}
+.nlc{display:inline-flex;align-items:center;gap:8px}
+.navcount{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ff3b2f;color:#000000;font-size:12px;font-weight:700;line-height:1;letter-spacing:0}
+.navend{justify-self:end;display:flex;align-items:center;gap:18px}
+.navmenu{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:999px;color:#ffffff;font:700 14px 'Inter',sans-serif;min-height:44px;padding:0 14px;cursor:pointer}
+#mnav{position:absolute;left:0;right:0;top:100%;box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 68px);max-height:calc(calc(100 * var(--dvh)) - 68px);overflow-y:auto;overscroll-behavior:contain;background:#000000;border-top:1px solid #333333;display:flex;flex-direction:column;padding:8px var(--gut) 16px;border-radius:0 0 var(--r-card) var(--r-card)}
+#mnav .nl{font-size:20px;font-weight:700;letter-spacing:-0.03em;padding:14px 0;border-bottom:1px solid #222222}
+.mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
+.acctwrap{position:relative;flex:0 0 auto}
+.acct{width:44px;height:44px;border-radius:50%;border:0;background:#fffde9;color:#000000;font:700 12px 'Inter',sans-serif;cursor:pointer}
+.acctmenu{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:max-content;max-width:min(260px,calc(calc(100 * var(--vw)) - 32px));background:#151516;border-radius:var(--r-bar);box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 0 0 1px #2f2f31;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.acctwho{font-size:13px;line-height:1.4;color:#a2a5a4}
+.acctwho strong{color:#ffffff;font-weight:700}
+.acctmenu a{display:block;padding:13px 0 0;font-size:15px;font-weight:700;color:#ffffff}
+.acctmenu a:last-child{padding-bottom:13px}
+.acctmenu a[aria-current="page"]{color:#ff3b2f}
+@media (max-width:760px){.navgrid{grid-template-columns:auto 1fr}.navc,.navlogin{display:none !important}.navmenu{display:inline-flex;align-items:center}.nav6 .navbook{padding:0 14px;font-size:14px}}
+@media (min-width:761px){#mnav,.mscrim{display:none !important}}
+@media (max-width:359px){.navgrid{gap:10px}.navend{gap:8px}.navhome svg{width:100px !important}}
+@media (max-width:1100px){.nav6-in .navbook{display:none}}
+@media (min-width:761px) and (max-width:807px){.nav6:not(.nav6-in) .navc{gap:4px 16px}}
+@media (hover:hover) and (pointer:fine){.nl:hover,.acctmenu a:hover{color:#ff3b2f}.navmenu:hover{border-color:#ffffff}}
+.nav6{position:relative}
+.go{background:#d31110;color:#ffffff}
+.inbox{flex:1 1 auto;display:grid;grid-template-columns:320px minmax(0,1fr) 300px;gap:12px;padding:0 12px 12px;box-sizing:border-box}
+@media (min-width:761px){.inbox{width:100%;max-width:1536px;margin-inline:auto;padding-inline:calc(var(--gut) - clamp(16px,calc(1.6 * var(--vw)),22px))}}
+.inbox > *{min-width:0}
+.panel{background:transparent}
+.col-list{display:flex;flex-direction:column;overflow:hidden}
+.listin{display:contents}
+.col-chat{display:flex;flex-direction:column;min-width:0;background:#fffde9;color:#000000;border-radius:var(--r-card);overflow:clip}
+.col-info{display:flex;flex-direction:column;gap:16px;padding:22px clamp(16px,calc(1.6 * var(--vw)),22px)}
+.listhead{padding:22px clamp(16px,calc(1.6 * var(--vw)),22px) 14px;display:flex;flex-direction:column;gap:14px}
+.listhead h1{margin:0;font-size:44px;line-height:.9;font-weight:700;letter-spacing:-0.065em}
+.filters{display:flex;gap:6px}
+.rows{display:flex;flex-direction:column;gap:4px;padding:0 10px 10px}
+.thread{width:100%;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;box-sizing:border-box;padding:12px;border:0;border-radius:var(--r-bar);background:transparent;color:#ffffff;font:inherit;text-align:left;cursor:pointer;text-decoration:none}
+.thread.on{background:#1c1c1e}
+.tav{display:block;width:48px;height:48px;margin:4px;border-radius:50%;overflow:hidden;background:#000000}
+.thread.on .tav{box-shadow:0 0 0 2px #1c1c1e,0 0 0 4px #d31110}
+.tname{font-size:17px;font-weight:700;letter-spacing:-0.03em;min-width:0}
+.tstat{display:block;font-size:13px;font-weight:700;line-height:1.35}
+.preview{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;line-height:1.35;font-size:14px;color:#a2a5a4}
+.listfoot{margin-top:auto;padding:10px clamp(16px,calc(1.6 * var(--vw)),22px) 15px}
+.listlink{display:inline-flex;align-items:center;min-height:44px;padding:0 2px;font-size:15px;font-weight:700;color:#ffffff}
+.pastnote{margin:0;padding:6px clamp(16px,calc(1.6 * var(--vw)),22px) 12px;font-size:13px;line-height:1.4;color:#a2a5a4}
+.chathead{padding:20px clamp(16px,calc(3 * var(--vw)),36px) 18px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(0,0,0,.12)}
+@media (min-width:761px){.chathead{position:sticky;top:0;z-index:2;background:#fffde9}}
+.whohead{display:flex;align-items:center;gap:14px;min-width:0}
+.whohead .tav{flex:none;width:56px;height:56px;box-shadow:0 0 0 2px #fffde9,0 0 0 4px #d31110}
+.whohead h2{margin:0;font-size:40px;line-height:.95;font-weight:700;letter-spacing:-0.06em}
+.metaline{font-size:14px;line-height:1.4}
+.outcome{margin:0;font-size:15px;font-weight:700;line-height:1.35}
+.metaline a{font-weight:700}
+.metaline a,.terms a{position:relative}
+.metaline a::after,.terms a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+.steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.steps li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps .bar{height:6px;border-radius:999px}
+.steplbl{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:420px){.steplbl{font-size:11px}}
+.log{flex:1 1 auto;padding:24px clamp(16px,calc(3 * var(--vw)),36px);display:flex;flex-direction:column;justify-content:flex-start;gap:12px}
+.log > *{flex-shrink:0}
+.chatbody{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.log::before{content:"";flex:1 0 0;margin-bottom:-12px}
+.bub{max-width:min(78%,520px);padding:12px 16px;font-size:15px;line-height:1.45;border-radius:20px;overflow-wrap:anywhere}
+.bub strong{display:block;font-size:12px;margin-bottom:4px}
+.bub-me{align-self:flex-end;background:#000000;color:#ffffff;border-bottom-right-radius:6px}
+.bub-them{align-self:flex-start;background:#ffffff;color:#000000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);border-bottom-left-radius:6px}
+.sysline{align-self:center;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:700;color:#4d504f}
+.sysline.red{background:#d31110;color:#ffffff}
+.note{align-self:center;max-width:520px;font-size:13px;line-height:1.4;color:#4d504f;text-align:center}
+.offer{align-self:flex-start;width:min(100%,520px);background:#ffffff;border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column}
+.offerbar{padding:16px 16px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;font-weight:700}
+.offerbody{padding:12px 16px 18px;display:flex;flex-direction:column;gap:14px}
+.price{font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
+.terms{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;font-size:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
+.terms dt{font-weight:700}.terms dd{margin:0}
+.box{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:14px;border-top:1px solid rgba(0,0,0,.14)}
+.box-col{flex-direction:column;flex-wrap:nowrap;align-items:stretch}
+.field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:12px 16px 10px;border-radius:18px;background:#f2f2f0;color:#000000;cursor:text}
+.field-l{font-size:12px;font-weight:700;color:#4d504f}
+.field-money{display:flex;align-items:baseline;gap:2px;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em}
+.field input{flex:1 1 auto;width:100%;min-width:0;box-sizing:border-box;margin:0;padding:2px 0 0;border:0;border-radius:0;background:transparent;font:700 20px 'Inter',sans-serif;letter-spacing:-0.03em;color:#000000;outline:none}
+.field:focus-within{background:#ffffff;box-shadow:inset 0 0 0 2px #d31110;outline:2px solid transparent;outline-offset:-2px}
+.field:has(input[aria-invalid="true"]){box-shadow:inset 0 0 0 2px #d31110}
+.ferr{display:block;padding:6px 8px 0;font-size:13px;line-height:1.35;font-weight:700;color:#d31110}
+.composer{position:sticky;bottom:0;z-index:2;padding:12px clamp(12px,calc(2.4 * var(--vw)),28px) 14px;background:#fffde9;border-top:1px solid rgba(0,0,0,.12)}
+.composer-in{display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:#ffffff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.composer-in:focus-within{box-shadow:inset 0 0 0 2px #d31110}
+.att{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.06);cursor:pointer;display:grid;place-items:center}
+.att-off{opacity:.4;cursor:default}
+.composer input{flex:1 1 auto;min-width:0;border:0;background:transparent;font:400 16px 'Inter',sans-serif;color:#000000;padding:10px 4px;outline:none}
+.send{flex:none;min-height:44px;padding:0 22px;border:0;border-radius:999px;background:#d31110;color:#ffffff;font:700 15px 'Inter',sans-serif;cursor:pointer}
+.send-off{background:rgba(0,0,0,.06);color:#6b6e6d;cursor:default}
+.col-info h2{margin:0;font-size:24px;line-height:1;font-weight:700;letter-spacing:-0.04em}
+.facts{margin:0;display:flex;flex-direction:column;gap:12px}
+.facts div{display:flex;flex-direction:column;gap:2px}
+.facts dt{font-size:13px;color:#a2a5a4}
+.facts dd{margin:0;font-size:18px;font-weight:700;letter-spacing:-0.03em}
+.flag{margin:0;padding:12px 14px;border-radius:var(--r-bar);font-size:15px;font-weight:700;line-height:1.35}
+.flag-red{box-shadow:inset 0 0 0 1.5px #ff3b2f}
+.flag-cream{background:#fffde9;color:#000000}
+.infocard{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid #2f2f31}
+.infocard h3{margin:0;font-size:15px;font-weight:700;letter-spacing:-0.02em}
+#rider:target h3{color:#ff3b2f}
+.rider{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;font-size:14px;line-height:1.4}
+.rider dt{color:#a2a5a4}.rider dd{margin:0}
+.small{margin:0;font-size:13px;line-height:1.4;color:#a2a5a4}
+.col-info .small a{color:#ffffff;position:relative}
+.col-info .small a::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}
+.dots{display:block;clip-path:inset(-24px -24px -24px -3px)}
+.dots > span{display:flex;flex-wrap:wrap;margin-left:-.9em}
+.dots > span > span{position:relative;min-width:0;padding-left:.9em}
+.dots > span > span::before{content:"\00b7";position:absolute;left:0;width:.9em;text-align:center}
+.app{min-height:1000px}
+@media (min-width:1200px){
+.app{height:calc(100 * var(--svh));min-height:640px}
+.chathead,.composer{position:relative}
+.inbox{grid-template-rows:minmax(0,1fr);min-height:0}
+.col-list,.col-chat{min-height:0}
+.col-info{min-height:0;overflow-y:auto}
+.log{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.col-info{gap:12px;padding-bottom:28px}
+.facts{gap:10px}
+.rows{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-top:6px}
+.listhead{padding-bottom:8px}
+.rows{scroll-padding-block:6px}
+}
+@media (hover: hover) and (pointer: fine){
+.go:hover{background:#ffffff;color:#000000}
+.btn-red:hover,.send:not(.send-off):hover{background:#000000;color:#ffffff}
+.listlink:hover{color:#ff3b2f}
+.btn-ghost:hover{background:#000000;color:#ffffff}
+.btn-ink:hover{background:#d31110}
+.thread:not(.on):hover{background:#151516}
+.chip[aria-pressed="false"]:hover{color:#ffffff;border-color:#a2a5a4}
+.att:not(.att-off):hover{background:#000000}
+.att:not(.att-off):hover svg{stroke:#ffffff}
+.decl:hover{color:#d31110}
+}
+@media (max-width:1199px){
+.inbox{grid-template-columns:300px minmax(0,1fr)}
+.col-info{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+.col-info > h2,.col-info > .flag,.col-info > .facts,.col-info > .small{grid-column:1/-1}
+.facts{flex-direction:row;flex-wrap:wrap;gap:12px 32px}
+.inbox{grid-template-rows:1fr auto}
+}
+@media (min-width:761px) and (max-width:1199px){.col-list{overflow:visible}.listin{display:block}.listfoot{margin-top:0}}
+@media (min-width:761px) and (max-width:1199px) and (min-height:720px){.listin{position:sticky;top:12px}}
+@media (max-width:1199px){.log *{scroll-margin:210px 0 140px}}
+@media (max-width:760px){.log *{scroll-margin:16px 0 140px}}
+@media (min-width:761px) and (max-width:900px){.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){
+.inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none;padding:0 16px 16px;gap:8px}
+.listhead h1{font-size:32px}
+.rows{padding:0 0 10px}
+.rows .preview{display:none}
+.thread.on{box-shadow:inset 0 0 0 1.5px #fffde9}
+.col-list{overflow:visible}
+.whohead h2{font-size:30px}
+.col-info{grid-template-columns:minmax(0,1fr)}
+.facts{flex-direction:column;gap:12px}
+}
+@media (max-width:400px){.composer{padding-left:10px;padding-right:10px}.composer-in{gap:6px}.send{padding:0 16px}}
+@media (orientation:landscape) and (max-height:500px){
+.chathead{position:static}
+.composer{display:flex;align-items:center;gap:10px;padding-top:8px;padding-bottom:8px}
+.asrow{flex:none;margin:0}
+.composer-in{flex:1 1 auto;min-width:0;gap:6px}
+.send{padding:0 16px}
+.log *{scroll-margin:16px 0 84px}
+}
+@media (orientation:landscape) and (max-height:500px) and (min-width:761px) and (max-width:899px){.asrow > span{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}}
+.tini{display:grid;place-items:center;width:100%;height:100%;background:#fffde9;color:#000000;font-size:15px;font-weight:700;letter-spacing:-0.02em}
+.whohead .tini{background:#000000;color:#fffde9}
+.tav,.thread .tav,.thread.on .tav,.whohead .tav{box-shadow:none !important}
+.bub-mara{align-self:flex-end;background:#2f2f31;color:#ffffff;border-bottom-right-radius:6px}
+.asrow{display:flex;align-items:center;gap:6px;margin:0 0 8px 6px;font-size:13px;color:#4d504f}
+.asrow > span{margin-right:4px}
+.aschip{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(0,0,0,.3);background:transparent;color:#000000;font:700 14px 'Inter',sans-serif;cursor:pointer}
+@media (pointer:coarse){.aschip{min-height:44px}}
+.aschip[aria-pressed="true"]{background:#000000;color:#ffffff;border-color:#000000}
+.cardyes{font-size:14px;line-height:1.35;font-weight:700;color:#d31110}
+.cardno{font-size:14px;line-height:1.35;font-weight:700;color:#000000}
+@media (hover: hover) and (pointer: fine){.aschip[aria-pressed="false"]:hover{background:#000000;color:#ffffff}}
+.app.app-new{height:auto;min-height:calc(100 * var(--vh));min-height:calc(100 * var(--svh))}
+.innew{flex:1 1 auto;display:flex;flex-direction:column}
+.in{flex:1 1 auto;position:relative;isolation:isolate;overflow:hidden;background:#d31110;color:#fffde9;min-height:min(calc(calc(100 * var(--svh)) - 68px),832px);box-sizing:border-box;padding:clamp(24px,calc(3 * var(--vw)),44px) 0 clamp(56px,calc(6 * var(--vw)),88px)}
+.in :focus-visible{outline-color:#ffffff}
+.in-wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);box-sizing:border-box}
+.in-room{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 78% 66%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}
+.in-disc{position:absolute;z-index:-1;right:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.3);bottom:calc(clamp(300px,calc(42 * var(--vw)),640px) * -.16);width:clamp(300px,calc(42 * var(--vw)),640px);aspect-ratio:1 / 1;border-radius:50%;filter:drop-shadow(0 24px 40px rgba(0,0,0,.4))}
+.in-spin{position:absolute;inset:0;display:block;border-radius:50%;animation:inspin 7s linear infinite}
+@keyframes inspin{to{transform:rotate(360deg)}}
+.in-spin img,.in-spin svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.in-spin text{font-family:'Inter',sans-serif;font-weight:700;fill:#fffde9}
+.in-h{margin:0 0 0 -0.04em;font-size:clamp(84px,calc(15.2 * var(--vw)),219px);line-height:.84;font-weight:700;letter-spacing:-0.075em;padding-bottom:.06em;color:#fffde9;text-wrap:balance}
+.in-p{margin:clamp(20px,calc(2.4 * var(--vw)),32px) 0 0;max-width:24em;font-size:clamp(20px,calc(1.9 * var(--vw)),27px);line-height:1.2;letter-spacing:-0.025em;font-weight:700;color:#ffffff}
+.in-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(20px,calc(2.4 * var(--vw)),32px)}
+.in-next{margin:clamp(36px,calc(4 * var(--vw)),56px) 0 0;padding:0;list-style:none;max-width:560px}
+.in-next li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.4);font-size:17px;line-height:1.4}
+.in-next b{font-weight:700;color:#000000;font-size:19px}
+.in-fine{margin:clamp(28px,calc(3 * var(--vw)),40px) 0 0;font-size:13px;line-height:1.4;color:#ffffff}
+.in-fine a{color:#ffffff;font-weight:700}
+@media (hover: hover) and (pointer: fine){.in .btn-ink:hover{background:#ffffff;color:#000000}.in-fine a:hover{color:#000000}}
+@media (max-width:1199px){.in-room{background:radial-gradient(ellipse 60% 56% at 88% 86%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+@media (max-width:760px){.in-h{font-size:clamp(84px,calc(27 * var(--vw)),200px)}.in-disc{display:block;position:relative;right:auto;bottom:auto;width:min(calc(78 * var(--vw)),340px);margin:44px calc(min(calc(78 * var(--vw)),340px) * -.2) calc(min(calc(78 * var(--vw)),340px) * -.24) auto;z-index:0}.in{padding-bottom:0}.in-room{background:radial-gradient(ellipse 90% 34% at 78% 92%,#ff3b2f 0%,rgba(255,59,47,0) 72%)}}
+@media (max-width:480px){.in-acts,.in-acts .btn{width:100%}.in-next li{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion: reduce){.in-spin{animation:none}}</style>
+<style>@media (max-width:759px){.ft-decks,.r6-close{display:none !important}}</style>
+<style>.btn{white-space:nowrap}
+.chip{min-height:44px}
+@media (pointer:coarse),(max-width:760px){.btn-sm{min-height:44px}}
+.decl{min-width:44px;justify-content:center}
+.col-info .small a::after{left:-5px;right:-5px;top:-14px;bottom:-14px}
+.in-fine a{position:relative}
+.in-fine a::after{content:"";position:absolute;left:-5px;right:-5px;top:-14px;bottom:-14px}
+.offerbar{flex-wrap:wrap;gap:4px 10px}
+.offerbar > span{white-space:nowrap}
+@media (min-width:1200px){.col-info{scroll-padding-bottom:28px}.col-info.cut{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}}
+.in-disc{pointer-events:none}
+.navgrid{box-sizing:border-box}
+@media (min-width:761px){.inbox{max-width:1440px}}
+.field{border-radius:var(--r-field)}</style>
+<style>@media (max-width:760px){
+html .navgrid{grid-template-columns:minmax(0,1fr) 44px !important;gap:12px !important}
+html .navend{display:contents !important}
+html .navend > :not(.navmenu),html .navc,html .navlogin,html .navbook,html .acctwrap{display:none !important}
+html .navmenu{grid-column:2;grid-row:1;justify-self:end;position:relative;display:block !important;box-sizing:border-box;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:none;color:#ffffff;font-size:0;line-height:0;cursor:pointer}
+html .navmenu:hover{background:none;border:0}
+html .navmenu::before,html .navmenu::after{content:"";position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#ffffff;transition:transform .18s ease-out,top .18s ease-out,box-shadow .18s ease-out}
+html .navmenu::before{top:14px;box-shadow:0 7px 0 #ffffff}
+html .navmenu::after{top:28px}
+html .navmenu[aria-expanded="true"]::before{top:21px;box-shadow:none;transform:rotate(45deg)}
+html .navmenu[aria-expanded="true"]::after{top:21px;transform:rotate(-45deg)}
+html .navhome{grid-column:1;grid-row:1;justify-self:start !important}
+html #mnav .mbook{margin-top:16px;min-height:52px;font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){html .navmenu::before,html .navmenu::after{transition:none}}</style>
+<style>html body *,html body *:hover,html body *:focus{text-decoration-line:none !important}
+html body .k6dtaken .k6dcity{text-decoration-line:line-through !important}
+html p a:not([class]),html dd a:not([class]),html li a:not([class]),html span a:not([class]),html .ja-login a,html .k6mine a,html .k6dask,html .djlink{font-weight:700}
+html .decl,html .bk-quiet,html .listlink{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:0 18px;border-radius:999px;background:rgba(128,128,128,.2);background:color-mix(in srgb,currentColor 12%,transparent);font-weight:700;line-height:1.1;transition:background .15s ease-out,color .15s ease-out}
+html .decl:active,html .bk-quiet:active,html .listlink:active{transform:translateY(1px)}
+@media (hover:hover) and (pointer:fine){
+html .decl:hover,html .bk-quiet:hover,html .listlink:hover{background:#d31110;color:#ffffff}
+html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
+}</style>
+<style>.steps3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.filters .chip{flex:1 1 auto}
+.rq-plain{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-start;gap:18px;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:clamp(40px,calc(8 * var(--vw)),96px) var(--gut)}
+.rq-plain h1{margin:0;font-size:clamp(40px,calc(6 * var(--vw)),84px);line-height:.9;font-weight:700;letter-spacing:-0.065em}
+.rq-plain p{margin:0;max-width:30em;font-size:18px;line-height:1.4;color:#a2a5a4}
+.tname{color:#ffffff}
+.col-chat button[aria-busy="true"]{opacity:.55;pointer-events:none}
+.rq-sayerr{margin:0;padding:0 8px 8px}
+.composer input{padding-left:14px}
+.rq-closed{margin:0;padding:14px clamp(16px,calc(3 * var(--vw)),36px) 18px;border-top:1px solid rgba(0,0,0,.12);font-size:14px;line-height:1.4;color:#4d504f}
+@media (hover: hover) and (pointer: fine){.in .btn-ink:hover{background:#ffffff;color:#000000}}</style>
+</helmet>
+
+<div class="{{appCls}}" style="background: #000000; color: #ffffff; font-family: 'Inter', Helvetica, Arial, sans-serif; display: flex; flex-direction: column;">
+
+<header class="nav6 nav6-in">
+<a class="skip" href="#main">Skip to content</a>
+<div class="navgrid">
+<a class="navhome" href="index.html" aria-label="BOOKD home" style="justify-self: start; display: block; line-height: 0; padding: 15px 0; margin: -15px 0;"><svg viewBox="80 455 1190 170" style="width: 124px; height: auto; fill: #ffffff;" aria-hidden="true"><path d="M1205.65,591.81c0-16.32,12.92-28.22,29.58-28.22s29.58,11.9,29.58,28.22-12.58,28.56-29.58,28.56-29.58-11.9-29.58-28.56Z"></path><path d="M418.27,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM529.45,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M529.45,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM529.45,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.53-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM529.45,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM529.45,497.86c-33.6,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M636.3,539.83c0-44.98,47.25-77.83,111.18-77.83s110.87,32.85,110.87,77.83-47.56,78.05-110.87,78.05-111.18-32.85-111.18-78.05ZM747.47,584.8c33.66,0,60.53-18.08,60.53-44.98s-26.87-44.76-60.53-44.76-60.84,18.08-60.84,44.76,26.87,44.98,60.84,44.98Z"></path><path d="M747.47,620.67c-31.56,0-60.4-8.02-81.21-22.59-21.16-14.81-32.81-35.5-32.81-58.25s11.65-43.27,32.81-58.06c20.83-14.55,49.67-22.56,81.21-22.56s59.99,8.01,80.82,22.56c21.21,14.82,32.89,35.44,32.89,58.06s-11.68,43.4-32.89,58.25c-20.81,14.57-49.52,22.59-80.82,22.59ZM747.47,464.79c-30.37,0-58.04,7.65-77.91,21.53-19.62,13.71-30.42,32.71-30.42,53.5s10.8,39.97,30.42,53.7c19.86,13.9,47.53,21.56,77.91,21.56s57.67-7.66,77.52-21.56c19.67-13.77,30.5-32.84,30.5-53.7s-10.83-39.76-30.5-53.5c-19.87-13.88-47.41-21.53-77.53-21.53ZM747.47,587.6c-36.9,0-63.68-20.09-63.68-47.77s26.78-47.55,63.68-47.55,63.37,20,63.37,47.55-26.65,47.77-63.37,47.77ZM747.47,497.86c-33.61,0-58,17.65-58,41.96s24.39,42.18,58,42.18,57.69-17.74,57.69-42.18-24.26-41.96-57.69-41.96Z"></path><path d="M911.46,539.97v77.56h-49.1v-154.96h49.1v73.37l77.51-73.37h56.52l-79.37,74.04,81.22,80.92h-58.68l-77.21-77.56Z"></path><path d="M1054.41,620.37h-66.9l-3.05-3.07-70.16-70.64v73.71h-54.79v-160.65h54.79v69.6l73.54-69.6h64.86l-82.45,76.91,84.16,83.74ZM989.81,611.62h50.45l-78.29-75.04,76.29-71.17h-48.17l-76.64,72.54,76.35,73.66ZM865.2,611.62h43.42v-146.2h-43.42v146.2Z"></path><path d="M1038.07,462.57h75.35c67.01,0,110.56,30.29,110.56,76.28s-42.93,75.61-106.24,75.61h-4.63l-12.35-33.65h12.66c36.44,0,60.22-16.6,60.22-42.4s-24.09-42.18-60.22-42.18h-26.25v119.4h-49.1v-153.05Z"></path><path d="M1117.74,620.37h-6.62l-14.44-42.41h16.73c34.86,0,57.38-15.53,57.38-39.56s-22.52-39.34-57.38-39.34h-23.41v121.31h-54.79v-160.65h78.2c33.42,0,61.78,7.4,82.03,21.4,20.52,14.19,31.37,34.16,31.37,57.73,0,46.92-43.83,81.52-109.08,81.52ZM1115.1,611.62h2.65c61.84,0,103.39-29.24,103.39-72.76s-42.28-73.44-107.72-73.44h-72.51v149.28h43.42v-121.31h29.09c37.72,0,63.06,18.09,63.06,45.02s-24.75,45.25-63.06,45.25h-8.59l10.27,27.97Z"></path><path d="M85.18,460.31h287.36c42.68,0,56.54,17.29,56.54,34.79v2.26c0,19.14-19.73,39-29.37,41.26,12.72,1.8,30.55,3.97,35.36,28.11v2.47c0,24.09-13.96,51.58-61.76,51.58H85.18v-160.48ZM240.92,498.76v24.59h114.7c11.6,0,14.95-5.62,14.95-12.18v-.47c0-6.79-3.34-11.94-14.95-11.94h-114.7ZM240.92,555.98v26.35h118.24c14.55,0,17.31-7.2,17.31-13.18v-.62c0-6.59-2.95-12.56-17.31-12.56h-118.24Z"></path></svg></a>
+<nav class="navc" aria-label="Main">
+<a class="nl" href="roster.html">The roster</a>
+<sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl" href="dashboard.html">Dashboard</a></sc-if>
+<sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="inbox.html" aria-current="page">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="index.html#how">How it works</a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html">For artists</a></sc-if>
+</nav>
+<div class="navend">
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl nlc navlogin" href="inbox.html" aria-current="page">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
+<button class="navmenu" type="button" aria-expanded="{{menuExpanded}}" aria-controls="mnav" ref="{{menuBtnRef}}" onClick="{{toggleMenu}}">{{menuLabel}}</button>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="btn go navbook" href="roster.html">Book a DJ</a></sc-if>
+<div class="acctwrap" ref="{{acctWrapRef}}">
+<button type="button" class="acct" ref="{{acctBtnRef}}" aria-label="Your account" aria-expanded="{{acctExpanded}}" onClick="{{toggleAcct}}">YOU</button>
+<sc-if value="{{acctOpen}}" hint-placeholder-val="{{ false }}">
+<div class="acctmenu">
+<span class="acctwho">Signed in as <strong>{{whoName}}</strong></span>
+<a href="account.html">Your account</a>
+<a href="index.html" onClick="{{logOut}}">Log out</a>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="mscrim" aria-hidden="true" onClick="{{closeMenu}}"></div>
+<nav id="mnav" aria-label="Menu">
+<a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
+<sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl" href="dashboard.html" onClick="{{closeMenu}}">Dashboard</a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a></sc-if>
+<a class="nl nlc" href="inbox.html" aria-current="page" onClick="{{closeMenu}}">{{navHere}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
+<a class="nl" href="account.html" onClick="{{closeMenu}}">Your account</a>
+<a class="nl" href="index.html" onClick="{{logOut}}">Log out</a>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="btn go mbook" href="roster.html">Book a DJ</a></sc-if>
+</nav>
+</sc-if>
+</header>
+
+<sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
+<main id="main" class="rq-plain"><p role="status">One sec. Getting your&nbsp;requests.</p></main>
+</sc-if>
+<sc-if value="{{failed}}" hint-placeholder-val="{{ false }}">
+<main id="main" class="rq-plain"><h1>That didn't&nbsp;load.</h1><p role="alert">{{failText}}</p><button type="button" class="btn btn-lg go" onClick="{{retry}}">Try again</button></main>
+</sc-if>
+
+<sc-if value="{{isNew}}" hint-placeholder-val="{{ false }}">
+<main id="main" class="innew">
+<section class="in" aria-labelledby="in-h">
+<span class="in-room" aria-hidden="true"></span>
+<div class="in-wrap">
+<h1 id="in-h" class="in-h">Quiet in&nbsp;here.</h1>
+<p class="in-p">{{newLine}}</p>
+<div class="in-acts">
+<a class="btn btn-lg btn-ink" href="{{newHref}}">{{newBtn}}</a>
+</div>
+<ol class="in-next" aria-label="What lands here">
+<sc-for list="{{newSteps}}" as="n" hint-placeholder-count="3">
+<li><b>{{n.k}}</b><span>{{n.v}}</span></li>
+</sc-for>
+</ol>
+<p class="in-fine">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+</div>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{appOn}}" hint-placeholder-val="{{ true }}">
+<div class="inbox">
+
+<aside class="col-list panel" aria-label="{{listAria}}">
+<div class="listin">
+<div class="listhead">
+<h1>{{listTitle}}</h1>
+<div class="filters" role="group" aria-label="Show requests">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+<button type="button" class="chip" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}&nbsp;·&nbsp;{{f.count}}</button>
+</sc-for>
+</div>
+</div>
+<div class="rows">
+<sc-for list="{{threads}}" as="t" hint-placeholder-count="3">
+<button type="button" class="{{t.cls}}" onClick="{{t.pick}}" aria-current="{{t.current}}">
+<span class="tav"><span class="tini">{{t.ini}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<span style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 8px;"><span class="tname">{{t.name}}</span><span style="font-size: 12px; color: #a2a5a4; white-space: nowrap;">{{t.time}}</span></span>
+<span class="tstat dots"><span><span style="color: {{t.statusColor}};">{{t.status}}</span><span style="color: #a2a5a4; font-weight: 400;">{{t.date}}</span></span></span>
+<span class="preview">{{t.preview}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{listEmpty}}" hint-placeholder-val="{{ false }}">
+<p class="small" style="padding: 8px clamp(16px, calc(1.6 * var(--vw)), 22px);">{{emptyText}}</p>
+</sc-if>
+<div class="listfoot"><a class="listlink" href="{{footHref}}">{{footText}}</a></div>
+</div>
+</aside>
+
+<main class="col-chat" id="main" ref="{{chatRef}}">
+
+<div class="chathead">
+<div class="whohead">
+<span class="tav"><span class="tini">{{activeIni}}</span></span>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+<h2>{{activeName}}</h2>
+<span class="metaline">{{activeRole}}<sc-if value="{{pageOn}}" hint-placeholder-val="{{ false }}"> <a href="{{pageHref}}">See their&nbsp;page</a></sc-if></span>
+</div>
+</div>
+<sc-if value="{{outcomeOn}}" hint-placeholder-val="{{ false }}"><p class="outcome">{{outcome}}</p></sc-if>
+<sc-if value="{{stepsOn}}" hint-placeholder-val="{{ true }}">
+<ol class="steps steps3" aria-label="Request status">
+<sc-for list="{{steps}}" as="step" hint-placeholder-count="3">
+<li aria-current="{{step.current}}">
+<span class="bar" style="background: {{step.bar}};"></span>
+<span class="steplbl" style="color: {{step.text}};">{{step.label}}</span>
+</li>
+</sc-for>
+</ol>
+</sc-if>
+</div>
+
+<div class="chatbody">
+<div class="log" role="log" aria-label="Messages" ref="{{logRef}}">
+<sc-for list="{{lines}}" as="m" hint-placeholder-count="2">
+<sc-if value="{{m.isSys}}" hint-placeholder-val="{{ false }}"><div class="sysline">{{m.text}}</div></sc-if>
+<sc-if value="{{m.isBub}}" hint-placeholder-val="{{ true }}"><div class="{{m.cls}}"><strong>{{m.head}}</strong>{{m.text}}</div></sc-if>
+</sc-for>
+<sc-if value="{{threadWait}}" hint-placeholder-val="{{ false }}"><div class="sysline" role="status">Getting the chat</div></sc-if>
+<sc-if value="{{threadFail}}" hint-placeholder-val="{{ false }}"><div class="sysline red" role="alert">The chat didn't load. It tries again in a moment.</div></sc-if>
+
+<div class="offer">
+<div class="offerbar"><span>{{cardTitle}}</span><span style="color: {{cardTagColor}};">{{cardTag}}</span></div>
+<div class="offerbody">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div class="price">{{cardPrice}}</div>
+<span style="font-size: 13px; line-height: 1.35; color: #4d504f;">{{cardSub}}</span>
+</div>
+<dl class="terms">
+<sc-for list="{{terms}}" as="x" hint-placeholder-count="3"><dt>{{x.k}}</dt><dd>{{x.v}}</dd></sc-for>
+</dl>
+<sc-if value="{{showActions}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-if value="{{canAccept}}" hint-placeholder-val="{{ true }}"><button class="btn btn-red btn-lg" type="button" onClick="{{accept}}" aria-busy="{{busy}}" style="flex: 1 1 140px;">{{acceptLabel}}</button></sc-if>
+<sc-if value="{{canOffer}}" hint-placeholder-val="{{ true }}"><button class="btn btn-ghost btn-lg" type="button" onClick="{{startOffer}}" ref="{{offerBtnRef}}" style="flex: 1 1 160px;">{{offerLabel}}</button></sc-if>
+</div>
+<button class="decl" type="button" onClick="{{askDecline}}" style="align-self: flex-start;">{{declineLabel}}</button>
+</div>
+</sc-if>
+<sc-if value="{{offering}}" hint-placeholder-val="{{ false }}">
+<form class="box box-col" onSubmit="{{sendOffer}}" onKeyDown="{{offerKey}}" aria-label="Send an offer" style="margin: 0;">
+<label class="field"><span class="field-l">Your fee for the night<span class="vh">&nbsp;in dollars</span></span>
+<span class="field-money"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" autocomplete="off" maxlength="9" value="{{offerAmt}}" onInput="{{typeOffer}}" ref="{{offerRef}}" aria-invalid="{{offerInvalid}}" aria-describedby="{{offerDescribe}}"></span>
+</label>
+<sc-if value="{{offerErr}}" hint-placeholder-val="{{ false }}"><span id="err-offer" class="ferr" role="alert" style="margin-top: -6px;">Type a number first, like&nbsp;2,400.</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button class="btn btn-red" type="submit" aria-busy="{{busy}}" style="flex: 1 1 160px;">Send offer</button>
+<button class="decl" type="button" onClick="{{cancelOffer}}">Never mind</button>
+</div>
+</form>
+</sc-if>
+<sc-if value="{{declining}}" hint-placeholder-val="{{ false }}">
+<div class="box box-col" role="group" aria-label="{{declineAsk}}">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{declineAsk}}</span>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+<button class="btn btn-ink btn-sm" type="button" onClick="{{decline}}" ref="{{declineRef}}" aria-busy="{{busy}}">{{declineYes}}</button>
+<button class="decl" type="button" onClick="{{cancelDecline}}">Keep it</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{showBox}}" hint-placeholder-val="{{ false }}">
+<div class="box box-col" role="status">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{boxLine}}</span>
+<sc-if value="{{boxSubOn}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; line-height: 1.4; color: #4d504f;">{{boxSub}}</span></sc-if>
+<sc-if value="{{canCallOff}}" hint-placeholder-val="{{ false }}"><button class="decl" type="button" onClick="{{askDecline}}" style="align-self: flex-start;">Call it off</button></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{actFail}}" hint-placeholder-val="{{ false }}"><span class="ferr" role="alert">{{actFailText}}</span></sc-if>
+</div>
+</div>
+</div>
+
+<sc-if value="{{composerOn}}" hint-placeholder-val="{{ true }}">
+<form class="composer" onSubmit="{{send}}" aria-label="Write a message">
+<sc-if value="{{sayFail}}" hint-placeholder-val="{{ false }}"><p class="ferr rq-sayerr" role="alert">{{sayFailText}}</p></sc-if>
+<div class="composer-in">
+<label style="flex: 1 1 auto; display: flex; min-width: 0;"><span class="vh">Message</span><input type="text" value="{{draft}}" onInput="{{typeDraft}}" placeholder="{{draftHint}}" maxlength="2000" autocomplete="off" ref="{{composerRef}}"></label>
+<button class="{{sendCls}}" type="submit" aria-disabled="{{sendDisabled}}">Send</button>
+</div>
+</form>
+</sc-if>
+<sc-if value="{{closedNote}}" hint-placeholder-val="{{ false }}"><p class="rq-closed">This request is closed, so the chat is too.</p></sc-if>
+</div>
+</main>
+
+<aside class="col-info panel" aria-label="Request details" ref="{{infoRef}}">
+<h2>The request</h2>
+<dl class="facts">
+<sc-for list="{{factRows}}" as="r" hint-placeholder-count="4">
+<div><dt>{{r.k}}</dt><dd>{{r.v}}</dd></div>
+</sc-for>
+</dl>
+<sc-if value="{{changeOn}}" hint-placeholder-val="{{ true }}"><p class="small">Something changed? Sort it out in the&nbsp;chat.</p></sc-if>
+<p class="small" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
+</aside>
+
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>var RQ_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var RQ_DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var RQ_FILTERS = [{ key: 'open', label: 'Open' }, { key: 'accepted', label: 'Accepted' }, { key: 'closed', label: 'Closed' }];
+var RQ_STEPS = [{ key: 'sent', label: 'Sent' }, { key: 'offer', label: 'Offer' }, { key: 'accepted', label: 'Accepted' }];
+function rqApi() { var b = typeof window !== 'undefined' ? window.BOOKD : null; return b && b.ready && b.inbox ? b.inbox : null; }
+function rqMoney(n) { return n == null ? '' : '$' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function rqGroup(status) { return status === 'accepted' ? 'accepted' : (status === 'closed' ? 'closed' : 'open'); }
+function rqMove(q) { return q.status === 'sent' ? 'dj' : (q.status === 'offer' ? 'host' : ''); }
+function rqNight(iso) {
+var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+if (!m) return '';
+var d = new Date(+m[1], +m[2] - 1, +m[3]);
+return RQ_DOW[d.getDay()] + ', ' + RQ_MON[d.getMonth()] + '\u00a0' + d.getDate() + (d.getFullYear() === new Date().getFullYear() ? '' : ', ' + d.getFullYear());
+}
+function rqClock(d) { var h = d.getHours(), m = d.getMinutes(); return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + '\u00a0' + (h < 12 ? 'AM' : 'PM'); }
+function rqSameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+function rqShort(ts) {
+var d = new Date(ts), now = new Date(), y = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+if (isNaN(d)) return '';
+if (rqSameDay(d, now)) return rqClock(d);
+if (rqSameDay(d, y)) return 'Yesterday';
+return RQ_MON[d.getMonth()] + '\u00a0' + d.getDate();
+}
+function rqWhen(ts) {
+var d = new Date(ts);
+if (isNaN(d)) return '';
+return rqSameDay(d, new Date()) ? rqClock(d) : RQ_MON[d.getMonth()] + '\u00a0' + d.getDate() + ', ' + rqClock(d);
+}
+function rqIni(name) { return (String(name || '').replace(/[^A-Za-z0-9]/g, '').charAt(0) || '?').toUpperCase(); }
+function rqPreview(q, mine, who) {
+if (q.lastKind === 'offer') return who + ' named a price: ' + rqMoney(q.fee) + '.';
+if (q.lastKind === 'yes') return who + ' said yes' + (q.fee ? ' at ' + rqMoney(q.fee) : '') + '.';
+if (q.lastKind === 'no') return who + ' closed this one.';
+return q.lastText ? who + ': ' + q.lastText : who + ' asked.';
+}
+function rqAnswer(m, who) {
+if (m.kind === 'offer') return who + ' named a price: ' + rqMoney(m.amount);
+if (m.kind === 'yes') return who + ' said yes' + (m.amount ? ' at ' + rqMoney(m.amount) : '');
+return m.side === 'dj' ? who + ' declined' : who + ' took the request back';
+}
+function rqFail(code) {
+if (code === 'offline') return "You're offline. Try again once you're\u00a0back.";
+if (code === 'rate') return 'Too many in the last hour. Try again\u00a0later.';
+if (code === 'invalid') return 'This request changed while you were looking. Here it is\u00a0now.';
+return 'Something went wrong on our side. Try\u00a0again.';
+}
+var NAV6_DEFAULTS = {
+inboxHref: 'inbox.html', curInbox: 'false', curAccount: 'false',
+dashHref: 'dashboard.html', curDash: 'false', reqHref: 'account.html', curReq: 'false',
+seeOn: true, seeHref: 'account.html', signedIn: 'Kaytran',
+curRoster: 'false', curJoin: 'false', curLogin: 'false', loginHref: 'login.html', bookHref: 'roster.html', bookNow: null,
+waiting: 0, shell: ''
+};
+function nav6Init(self) {
+var n = self.nav6 = { btn: null, acctBtn: null, acctWrap: null, on: false };
+if (!self.state) self.state = {};
+self.state.menuOpen = false;
+self.state.acctOpen = false;
+n.btnRef = function (el) { n.btn = el; };
+n.acctBtnRef = function (el) { n.acctBtn = el; };
+n.acctWrapRef = function (el) { n.acctWrap = el; };
+n.key = function (e) { nav6Key(self, e); };
+n.focusIn = function (e) { nav6FocusIn(self, e); };
+n.down = function (e) { nav6Down(self, e); };
+n.toggleMenu = function () { nav6Set(self, { menuOpen: !self.state.menuOpen, acctOpen: false }); };
+n.closeMenu = function () { nav6Set(self, { menuOpen: false }); };
+n.toggleAcct = function () { nav6Set(self, { acctOpen: !self.state.acctOpen, menuOpen: false }); };
+self.setMenu = function (open) { nav6Set(self, { menuOpen: !!open, acctOpen: false }); };
+}
+function nav6Set(self, patch) {
+var st = self.state || {};
+var menu = 'menuOpen' in patch ? !!patch.menuOpen : !!st.menuOpen;
+var acct = 'acctOpen' in patch ? !!patch.acctOpen : !!st.acctOpen;
+if (menu !== !!st.menuOpen || acct !== !!st.acctOpen) self.setState({ menuOpen: menu, acctOpen: acct });
+nav6Listen(self, menu || acct);
+}
+function nav6Listen(self, on) {
+var n = self.nav6;
+if (!n || typeof document === 'undefined' || n.on === on) return;
+n.on = on;
+var f = on ? 'addEventListener' : 'removeEventListener';
+document[f]('keydown', n.key);
+document[f]('focusin', n.focusIn);
+document[f]('pointerdown', n.down, true);
+}
+function nav6Off(self) { nav6Listen(self, false); }
+function nav6Items(n) {
+var m = typeof document !== 'undefined' ? document.getElementById('mnav') : null;
+if (!n.btn || !m || !n.btn.getClientRects().length || !m.getClientRects().length) return null;
+return [n.btn].concat([].slice.call(m.querySelectorAll('a[href], button:not([disabled])')));
+}
+function nav6Key(self, e) {
+var n = self.nav6, st = self.state || {};
+if (!e) return;
+if (e.key === 'Escape' || e.key === 'Esc') {
+if (st.acctOpen) { nav6Set(self, { acctOpen: false }); if (n.acctBtn && n.acctBtn.focus) n.acctBtn.focus(); }
+else if (st.menuOpen) { nav6Set(self, { menuOpen: false }); if (n.btn && n.btn.focus) n.btn.focus(); }
+return;
+}
+if (e.key !== 'Tab' || !st.menuOpen) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+var i = items.indexOf(document.activeElement);
+var j = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+e.preventDefault();
+items[j].focus();
+}
+function nav6FocusIn(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && t.nodeType === 1 && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+if (!st.menuOpen || !t || (t.closest && t.closest('.nav6'))) return;
+var items = nav6Items(n);
+if (!items) { nav6Set(self, { menuOpen: false }); return; }
+items[0].focus();
+}
+function nav6Down(self, e) {
+var n = self.nav6, st = self.state || {}, t = e && e.target;
+if (st.acctOpen && n.acctWrap && t && !n.acctWrap.contains(t)) nav6Set(self, { acctOpen: false });
+}
+function nav6Vals(self, cfg) {
+var n = self.nav6, st = self.state || {}, c = {}, k;
+for (k in NAV6_DEFAULTS) c[k] = NAV6_DEFAULTS[k];
+if (cfg) for (k in cfg) if (k in NAV6_DEFAULTS) c[k] = cfg[k];
+var count = Math.max(0, parseInt(c.waiting, 10) || 0);
+return {
+menuOpen: !!st.menuOpen, menuExpanded: st.menuOpen ? 'true' : 'false', menuLabel: st.menuOpen ? 'Close' : 'Menu',
+menuBtnRef: n.btnRef, toggleMenu: n.toggleMenu, closeMenu: n.closeMenu,
+acctOpen: !!st.acctOpen, acctExpanded: st.acctOpen ? 'true' : 'false',
+acctBtnRef: n.acctBtnRef, acctWrapRef: n.acctWrapRef, toggleAcct: n.toggleAcct,
+inboxHref: c.inboxHref, curInbox: c.curInbox, curAccount: c.curAccount,
+dashHref: c.dashHref, curDash: c.curDash, reqHref: c.reqHref, curReq: c.curReq,
+seeOn: !!c.seeOn, seeHref: c.seeHref, signedIn: c.signedIn,
+navWaiting: count > 0, navCount: String(count), navWaitingText: ' (' + count + ' waiting on you)',
+curRoster: c.curRoster, curJoin: c.curJoin, curLogin: c.curLogin, loginHref: c.loginHref, bookHref: c.bookHref,
+bookNow: typeof c.bookNow === 'function' ? c.bookNow : n.closeMenu,
+pubNav: c.shell === 'public', hostNav: c.shell === 'host', djNav: c.shell === 'dj',
+outsideDown: undefined
+};
+}
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var self = this;
+this.state = {
+phase: 'loading', code: '', me: null, side: '',
+reqs: [], active: '', filter: 'open',
+lines: [], linesFor: '', linesPhase: '',
+draft: '', drafts: {}, saying: false, sayFail: '',
+offering: false, offerAmt: '', offerErr: false, declining: false, busy: false, actFail: ''
+};
+this.alive = false;
+this.els = {};
+this.wantFocus = '';
+this.viewSig = '';
+this.logRef = function (el) { self.logEl = el; };
+this.chatRef = function (el) { self.chatEl = el; };
+this.composerRef = function (el) { self.els.composer = el; };
+this.offerRef = function (el) { self.els.offer = el; };
+this.offerBtnRef = function (el) { self.els.offerBtn = el; };
+this.declineRef = function (el) { self.els.decline = el; };
+this.infoCut = function () { var el = self.infoEl; if (el && el.classList) el.classList.toggle('cut', el.scrollHeight - el.clientHeight - el.scrollTop > 28); };
+this.infoRef = function (el) {
+if (self.infoEl && self.infoEl !== el) self.infoEl.removeEventListener('scroll', self.infoCut);
+self.infoEl = el;
+if (el) { el.addEventListener('scroll', self.infoCut, { passive: true }); self.infoCut(); }
+};
+this.onSeen = function () { if (typeof document !== 'undefined' && !document.hidden) self.refresh(); };
+this.logOut = function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var b = window.BOOKD, home = function () { window.location.href = 'index.html'; };
+if (b && b.auth && b.auth.signOut) b.auth.signOut().then(home, home); else home();
+};
+nav6Init(this);
+}
+componentDidMount() {
+var self = this;
+this.alive = true;
+this.load(true);
+this.timer = setInterval(function () { self.refresh(); }, 20000);
+if (typeof document !== 'undefined') document.addEventListener('visibilitychange', this.onSeen);
+if (typeof window !== 'undefined') window.addEventListener('resize', this.infoCut);
+}
+componentWillUnmount() {
+this.alive = false;
+if (this.timer) clearInterval(this.timer);
+if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', this.onSeen);
+if (typeof window !== 'undefined') window.removeEventListener('resize', this.infoCut);
+if (this.infoEl) this.infoEl.removeEventListener('scroll', this.infoCut);
+this.infoEl = null;
+nav6Off(this);
+this.els = {};
+}
+componentDidUpdate() {
+this.syncView();
+this.infoCut();
+var st = this.state;
+if (st.side && typeof document !== 'undefined') { var t = (st.side === 'dj' ? 'Requests' : 'Inbox') + ' \u00b7 BOOKD'; if (document.title !== t) document.title = t; }
+if (this.wantChat) {
+this.wantChat = false;
+if (this.chatEl && window.innerWidth <= 760 && this.chatEl.scrollIntoView) this.chatEl.scrollIntoView({ block: 'start' });
+}
+var name = this.wantFocus;
+if (!name) return;
+this.wantFocus = '';
+var el = this.els[name];
+if (el && el.focus) {
+el.focus();
+if (name === 'offer' && el.select) el.select();
+var box = el.closest ? (el.closest('.box') || el) : el;
+if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest' });
+}
+}
+syncView() {
+var st = this.state, log = this.logEl;
+var req = this.cur(), n = st.linesFor === st.active ? st.lines.length : 0;
+var sig = st.active + ':' + n + ':' + (req ? req.status : '') + ':' + st.linesPhase;
+if (sig === this.viewSig || !log) return;
+var grew = this.viewFor === st.active && n > (this.viewN || 0);
+this.viewSig = sig; this.viewFor = st.active; this.viewN = n;
+if (log.scrollHeight > log.clientHeight + 2) log.scrollTop = log.scrollHeight;
+else if (grew && log.lastElementChild && log.lastElementChild.scrollIntoView) log.lastElementChild.scrollIntoView({ block: 'nearest' });
+}
+cur() {
+var id = this.state.active, list = this.state.reqs, i;
+for (i = 0; id && i < list.length; i++) if (list[i].id === id) return list[i];
+return null;
+}
+load(first) {
+var self = this, api = rqApi();
+if (!api) { window.location.replace('login.html'); return; }
+if (first) this.setState({ phase: 'loading', code: '' });
+api.list().then(function (r) {
+if (!self.alive) return;
+if (!r || !r.ok) {
+if (r && r.code === 'signedOut') { try { window.BOOKD.next.set(); } catch (e) {} window.location.replace('login.html'); return; }
+if (self.state.phase !== 'ready') self.setState({ phase: 'failed', code: (r && r.code) || 'unknown' });
+return;
+}
+if (r.me.role === 'admin') { window.location.replace('admin.html'); return; }
+var side = r.me.role === 'dj' ? 'dj' : 'host', st = self.state;
+var reqs = r.requests.filter(function (q) { return q.side === side; });
+var patch = { phase: 'ready', code: '', me: r.me, side: side, reqs: reqs };
+var still = st.active && reqs.some(function (q) { return q.id === st.active; });
+if (!still) {
+var want = String(window.location.hash || '').replace(/^#/, ''), by = function (f) { return reqs.filter(f)[0] || null; };
+var pick = by(function (q) { return q.id === want; }) || by(function (q) { return rqMove(q) === side; }) || by(function (q) { return rqGroup(q.status) === 'open'; }) || reqs[0] || null;
+patch.active = pick ? pick.id : '';
+patch.filter = pick ? rqGroup(pick.status) : 'open';
+patch.lines = []; patch.linesFor = patch.active; patch.linesPhase = pick ? 'loading' : '';
+}
+self.setState(patch);
+var id = still ? st.active : patch.active;
+if (id) self.loadThread(id);
+});
+}
+refresh() {
+var st = this.state;
+if (!this.alive || st.phase !== 'ready' || st.busy || st.saying || (typeof document !== 'undefined' && document.hidden)) return;
+this.load(false);
+}
+loadThread(id) {
+var self = this, api = rqApi();
+if (!api) return;
+api.thread(id).then(function (r) {
+if (!self.alive || self.state.active !== id) return;
+if (!r || !r.ok) { if (self.state.linesPhase !== 'ready') self.setState({ linesFor: id, linesPhase: 'failed' }); return; }
+self.setState({ lines: r.lines, linesFor: id, linesPhase: 'ready' });
+});
+}
+pickThread(id) {
+var st = this.state;
+if (st.active === id) return;
+var drafts = {}, k;
+for (k in st.drafts) drafts[k] = st.drafts[k];
+drafts[st.active] = st.draft;
+this.wantChat = true;
+this.setState({ active: id, drafts: drafts, draft: drafts[id] || '', lines: [], linesFor: id, linesPhase: 'loading',
+offering: false, offerErr: false, declining: false, actFail: '', sayFail: '' });
+this.loadThread(id);
+}
+pickFilter(key) {
+var st = this.state;
+if (st.filter === key) return;
+this.setState({ filter: key });
+var open = this.cur();
+if (open && rqGroup(open.status) === key) return;
+var first = st.reqs.filter(function (q) { return rqGroup(q.status) === key; })[0];
+if (first) this.pickThread(first.id);
+}
+act(action, fee) {
+var self = this, api = rqApi(), id = this.state.active;
+if (!api || !id || this.state.busy) return;
+this.setState({ busy: true, actFail: '' });
+api.answer(id, action, fee).then(function (r) {
+if (!self.alive) return;
+if (!r || !r.ok) {
+var code = (r && r.code) || 'unknown';
+self.setState({ busy: false, actFail: code, offering: code === 'invalid' ? false : self.state.offering, declining: false });
+if (code === 'invalid') self.load(false);
+return;
+}
+self.setState({ busy: false, actFail: '', offering: false, offerAmt: '', offerErr: false, declining: false, filter: rqGroup(r.status) });
+self.load(false);
+});
+}
+say(e) {
+if (e && e.preventDefault) e.preventDefault();
+var self = this, api = rqApi(), st = this.state, id = st.active, text = String(st.draft || '').trim();
+if (!api || !id || !text || st.saying) return;
+this.setState({ saying: true, sayFail: '' });
+api.say(id, text).then(function (r) {
+if (!self.alive) return;
+var now = self.state;
+if (!r || !r.ok) {
+self.setState({ saying: false, sayFail: (r && r.code) || 'unknown' });
+if (r && r.code === 'invalid') self.load(false);
+return;
+}
+var here = now.active === id;
+self.setState({ saying: false, sayFail: '', draft: here ? '' : now.draft,
+lines: here && now.linesFor === id ? now.lines.concat([r.line]) : now.lines });
+self.wantFocus = here ? 'composer' : '';
+self.load(false);
+});
+}
+renderVals() {
+var self = this, st = this.state;
+var side = st.side || 'dj', isDj = side === 'dj', ready = st.phase === 'ready';
+var reqs = st.reqs || [], req = this.cur();
+var appOn = ready && reqs.length > 0 && !!req, isNew = ready && !appOn;
+var first = function (q) { return String((isDj ? q.hostName : q.djName) || '').split(' ')[0] || (isDj ? 'The host' : 'The DJ'); };
+var waiting = reqs.filter(function (q) { return rqMove(q) === side; }).length;
+var nav = nav6Vals(this, { waiting: waiting });
+var base = {
+appCls: appOn ? 'app' : 'app app-new',
+isDj: isDj, isHost: !isDj, navHere: isDj ? 'Requests' : 'Inbox', whoName: (st.me && st.me.name) || 'you', logOut: this.logOut,
+loading: st.phase === 'loading', failed: st.phase === 'failed', failText: rqFail(st.code === 'invalid' ? 'unknown' : st.code), retry: function () { self.load(true); },
+isNew: isNew, appOn: appOn,
+newLine: isDj ? 'Hosts find you through your page and your dates. When one asks, the request lands\u00a0here.' : 'Ask a DJ about your night and the answer lands\u00a0here.',
+newHref: isDj ? 'dashboard.html' : 'roster.html', newBtn: isDj ? 'Open my dashboard' : 'See the roster',
+newSteps: isDj
+? [{ key: 'a', k: 'The request', v: 'The night, the place and their\u00a0budget.' }, { key: 'b', k: 'Your answer', v: 'Say yes, say no or name your\u00a0price.' }, { key: 'c', k: 'The chat', v: 'You and the host. No email\u00a0chains.' }]
+: [{ key: 'a', k: 'Your request', v: 'The night, the place and your\u00a0budget.' }, { key: 'b', k: 'Their answer', v: 'A yes, a no or a\u00a0price.' }, { key: 'c', k: 'The chat', v: 'You and the DJ. No email\u00a0chains.' }]
+};
+if (!appOn) return Object.assign(base, nav);
+var counts = { open: 0, accepted: 0, closed: 0 };
+reqs.forEach(function (q) { counts[rqGroup(q.status)]++; });
+var filters = RQ_FILTERS.map(function (f) {
+return { key: f.key, label: f.label, count: counts[f.key], on: st.filter === f.key ? 'true' : 'false', pick: function () { self.pickFilter(f.key); } };
+});
+var threads = reqs.filter(function (q) { return rqGroup(q.status) === st.filter; }).map(function (q) {
+var mine = rqMove(q) === side, on = q.id === st.active, name = (isDj ? q.hostName : q.djName) || (isDj ? 'A host' : 'A DJ');
+return {
+key: q.id, cls: 'thread' + (on ? ' on' : ''), current: on ? 'true' : 'false', ini: rqIni(name), name: name, time: rqShort(q.at),
+status: q.status === 'closed' ? 'Closed' : (q.status === 'accepted' ? 'Accepted' : (mine ? 'Your move' : 'Waiting on ' + first(q))),
+statusColor: mine ? '#ff3b2f' : '#ffffff', date: rqNight(q.date),
+preview: rqPreview(q, q.lastSide === side, q.lastSide === side ? 'You' : first(q)),
+pick: function () { self.pickThread(q.id); }
+};
+});
+var other = first(req), otherName = (isDj ? req.hostName : req.djName) || other;
+var status = req.status, closed = status === 'closed', myMove = rqMove(req) === side;
+var cur = { sent: 0, offer: 1, accepted: 2 }[status];
+var steps = RQ_STEPS.map(function (x, i) {
+var on = i === cur;
+return { key: x.key, label: x.label, bar: on ? '#d31110' : (i < cur ? '#000000' : '#a2a5a4'), text: on ? '#d31110' : (i < cur ? '#000000' : '#6b6e6d'), current: on ? 'step' : 'false' };
+});
+var byMe = req.closedBy === side;
+var outcome = !closed ? '' : (req.closedBy === 'dj' ? (byMe ? 'You declined this one.' : other + ' declined this one.') : (byMe ? 'You took this one back.' : other + ' took this one back.'));
+var lines = [{ key: 'sent', isSys: true, isBub: false, text: 'Request sent \u00b7 ' + rqWhen(req.sentAt), cls: '', head: '' }];
+if (req.note) lines.push({ key: 'note', isSys: false, isBub: true, cls: isDj ? 'bub bub-them' : 'bub bub-me', head: (isDj ? other : 'You') + ' \u00b7 ' + rqWhen(req.sentAt), text: req.note });
+var have = st.linesFor === req.id;
+(have ? st.lines : []).forEach(function (m) {
+var me = m.side === side, who = me ? 'You' : other;
+if (m.kind === 'msg') lines.push({ key: m.id, isSys: false, isBub: true, cls: me ? 'bub bub-me' : 'bub bub-them', head: who + ' \u00b7 ' + rqWhen(m.at), text: m.text });
+else lines.push({ key: m.id, isSys: true, isBub: false, text: rqAnswer(m, who) + ' \u00b7 ' + rqWhen(m.at), cls: '', head: '' });
+});
+var fee = req.fee, priced = status !== 'sent' && fee != null;
+var price = priced ? rqMoney(fee) : (req.budget != null ? rqMoney(req.budget) : (isDj ? 'Name your price' : 'Open budget'));
+var cardTitle, cardTag, cardSub;
+if (isDj) {
+cardTitle = (status === 'accepted' ? 'Your night with ' : (priced ? 'Your offer to ' : 'Request from ')) + other;
+cardTag = closed ? 'Closed' : (status === 'accepted' ? 'Accepted' : (myMove ? 'Waiting on you' : 'Waiting on ' + other));
+cardSub = priced ? 'Your fee for the night. You keep all of\u00a0it.' : (req.budget != null ? 'Their budget for the night. Take it or name your\u00a0price.' : 'They left the budget open. Name your\u00a0price.');
+} else {
+cardTitle = status === 'accepted' ? 'Your night with ' + other : (priced ? other + "'s price" : 'Your request to ' + other);
+cardTag = closed ? 'Closed' : (status === 'accepted' ? 'Accepted' : (myMove ? 'Waiting on you' : 'Waiting on ' + other));
+cardSub = priced ? other + "'s price for the night. BOOKD's fee comes on\u00a0top." : (req.budget != null ? 'Your budget for the\u00a0night.' : 'You left the budget open. ' + other + ' names a\u00a0price.');
+}
+if (closed) cardSub = priced ? (isDj ? 'Your fee for the\u00a0night.' : other + "'s price for the\u00a0night.") : (req.budget != null ? (isDj ? 'Their budget for the\u00a0night.' : 'Your budget for the\u00a0night.') : 'No budget was\u00a0given.');
+var terms = [{ key: 'when', k: 'When', v: rqNight(req.date) }, { key: 'where', k: 'Where', v: req.place }];
+if (req.guests != null) terms.push({ key: 'guests', k: 'Guests', v: String(req.guests).replace(/\B(?=(\d{3})+(?!\d))/g, ',') });
+var idle = !st.offering && !st.declining;
+var canAccept = idle && myMove && (isDj ? req.budget != null : true);
+var canOffer = idle && isDj && (status === 'sent' || status === 'offer');
+var showActions = idle && !closed && status !== 'accepted';
+var showBox = idle && (closed || status === 'accepted');
+var declineAsk = status === 'accepted' ? 'Call this night off? It closes for both of\u00a0you.'
+: (isDj ? 'Decline this request? It closes for both of\u00a0you.' : (status === 'offer' ? 'Pass on this price? The request closes for both of\u00a0you.' : 'Take this request back? It closes for both of\u00a0you.'));
+var factRows = [{ k: 'Date', v: rqNight(req.date) }, { k: 'Where', v: req.place }, { k: 'Guests', v: req.guests != null ? String(req.guests).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 'Not said' },
+{ k: isDj ? 'Their budget' : 'Your budget', v: req.budget != null ? rqMoney(req.budget) : 'Open' }];
+if (priced) factRows.push({ k: isDj ? 'Your fee' : other + "'s price", v: rqMoney(fee) });
+factRows = factRows.map(function (f) { return { key: f.k, k: f.k, v: f.v }; });
+var draftBlank = !String(st.draft || '').trim();
+return Object.assign(base, {
+listAria: isDj ? 'Requests' : 'Inbox', listTitle: isDj ? 'Requests.' : 'Inbox.',
+filters: filters, threads: threads, listEmpty: threads.length === 0,
+emptyText: { open: 'Nothing open. Enjoy the\u00a0quiet.', accepted: 'Nothing accepted\u00a0yet.', closed: 'Nothing closed.' }[st.filter],
+footHref: isDj ? 'dashboard.html' : 'roster.html', footText: isDj ? 'Back to my dashboard' : 'See the roster',
+chatRef: this.chatRef, logRef: this.logRef, infoRef: this.infoRef,
+activeIni: rqIni(otherName), activeName: otherName, activeRole: isDj ? 'The host.' : 'The DJ.',
+pageOn: !isDj && !!req.djSlug, pageHref: 'artist.html#' + req.djSlug,
+outcomeOn: closed, outcome: outcome, stepsOn: !closed, steps: steps,
+lines: lines, threadWait: st.linesPhase === 'loading', threadFail: st.linesPhase === 'failed',
+cardTitle: cardTitle, cardTag: cardTag, cardTagColor: myMove ? '#d31110' : (status === 'accepted' ? '#000000' : '#4d504f'),
+cardPrice: price, cardSub: cardSub, terms: terms,
+showActions: showActions, canAccept: canAccept, canOffer: canOffer,
+acceptLabel: isDj ? 'Accept' : 'Accept ' + rqMoney(fee),
+offerLabel: status === 'offer' ? 'Send a new offer' : 'Send an offer', offerBtnRef: this.offerBtnRef,
+declineLabel: isDj ? 'Decline' : (status === 'offer' ? 'Pass' : 'Take it back'),
+busy: st.busy ? 'true' : 'false',
+accept: function () { self.act('accept'); },
+startOffer: function () { self.wantFocus = 'offer'; self.setState({ offering: true, declining: false, offerErr: false, actFail: '', offerAmt: String(fee != null ? fee : (req.budget != null ? req.budget : '')).replace(/\B(?=(\d{3})+(?!\d))/g, ',') }); },
+offering: st.offering, offerAmt: st.offerAmt, offerRef: this.offerRef, offerErr: st.offerErr,
+offerInvalid: st.offerErr ? 'true' : 'false', offerDescribe: st.offerErr ? 'err-offer' : '',
+typeOffer: function (e) { var v = e.target.value; self.setState({ offerAmt: v, offerErr: self.state.offerErr && !/[1-9]/.test(v) }); },
+sendOffer: function (e) {
+if (e && e.preventDefault) e.preventDefault();
+var b = window.BOOKD, n = b && b.requests && b.requests.whole ? b.requests.whole(self.state.offerAmt) : parseInt(String(self.state.offerAmt).replace(/\D/g, ''), 10);
+if (!(n >= 1)) { self.wantFocus = 'offer'; self.setState({ offerErr: true }); return; }
+self.act('offer', n);
+},
+offerKey: function (e) { if (e && (e.key === 'Escape' || e.key === 'Esc')) { e.preventDefault(); self.wantFocus = 'offerBtn'; self.setState({ offering: false, offerErr: false }); } },
+cancelOffer: function () { self.wantFocus = 'offerBtn'; self.setState({ offering: false, offerErr: false }); },
+declining: st.declining, declineAsk: declineAsk, declineRef: this.declineRef,
+declineYes: status === 'accepted' ? 'Yes, call it off' : (isDj ? 'Yes, decline' : (status === 'offer' ? 'Yes, pass' : 'Yes, take it back')),
+askDecline: function () { self.wantFocus = 'decline'; self.setState({ declining: true, offering: false, offerErr: false, actFail: '' }); },
+cancelDecline: function () { self.setState({ declining: false }); },
+decline: function () { self.act('decline'); },
+showBox: showBox, canCallOff: showBox && !closed,
+boxLine: closed ? outcome : "You're agreed at " + rqMoney(fee) + '.',
+boxSubOn: !closed, boxSub: 'Paying the deposit here opens soon. Until then, sort the details out in the\u00a0chat.',
+actFail: !!st.actFail, actFailText: rqFail(st.actFail),
+composerOn: !closed, closedNote: closed,
+draft: st.draft, draftHint: 'Message ' + other, composerRef: this.composerRef,
+typeDraft: function (e) { self.setState({ draft: e.target.value, sayFail: '' }); },
+send: function (e) { self.say(e); },
+sendCls: draftBlank || st.saying ? 'send send-off' : 'send', sendDisabled: draftBlank || st.saying ? 'true' : 'false',
+sayFail: !!st.sayFail, sayFailText: st.sayFail === 'invalid' ? "That didn't send. This request may have closed." : rqFail(st.sayFail),
+factRows: factRows, changeOn: !closed
+}, nav);
+}
+}</script>
+<script src="bookd-config.js"></script>
+<script src="bookd-supabase.js"></script>
+<script src="bookd-api.js"></script>
+<script src="bookd-manage.js"></script>
+<script src="dc-runtime.js"></script>
+</body>
+</html>
