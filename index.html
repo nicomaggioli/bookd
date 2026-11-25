@@ -1110,6 +1110,15 @@ var H6_TORN = {
 'kozlow': 'assets/6db321c02cd74dd909d58e175b60f096.webp',
 'schloss': 'assets/73a93fa5bb04d8ce905c56b3cb71c41a.webp'
 };
+var H6_MADE = {}, H6_REDO = null;
+function h6Tear(d) {
+if (!d.img || typeof BOOKD === 'undefined' || !BOOKD.tear) return '';
+var k = d.img + '|' + (d.pos || '');
+if (k in H6_MADE) return H6_MADE[k];
+H6_MADE[k] = 'wait';
+BOOKD.tear(d.img, { seed: d.slug || d.name, pos: d.pos }).then(function (u) { H6_MADE[k] = u || ''; if (H6_REDO) H6_REDO(); });
+return 'wait';
+}
 var H6_BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 var H6_NAVB = [[1205.65, 563.59, 59.16, 56.78], [418.27, 462.0, 222.05, 155.88], [636.3, 462.0, 222.05, 155.88], [862.36, 462.57, 184.98, 154.96], [1038.07, 462.57, 185.91, 151.9], [85.18, 460.3, 349.89, 160.48]];
 var H6_STKB = [[899.2, 691.29, 82.86, 79.52], [595.26, 313.69, 327.93, 230.21], [101.93, 549.04, 310.93, 218.27], [418.47, 549.83, 259.04, 217.0], [664.53, 549.83, 260.34, 212.7], [101.71, 308.78, 516.76, 237.01]];
@@ -1474,6 +1483,7 @@ var el = document.getElementById('qfwhen'); if (el && document.activeElement !==
 }
 renderVals() {
 var self = this, s = this.state, djs = this.djs || [];
+H6_REDO = function () { if (!self.gone) self.setState({ got: Date.now() }); };
 var cal = { y: s.calY, m: s.calM, days: [], first: true };
 if (s.calOpen) {
 var cNow = new Date(), cMin = new Date(cNow.getFullYear(), cNow.getMonth(), cNow.getDate()), cSel = H6_WHENDATE(s.when, cNow), cLead = new Date(s.calY, s.calM, 1).getDay(), cLen = new Date(s.calY, s.calM + 1, 0).getDate(), cTab = 0, ci;
@@ -1496,10 +1506,11 @@ var lists = function (d) { return (d.genres || []).indexOf(snd) >= 0; };
 var bySound = s.loc === 'searched' && !!snd && !elsewhere, anyMatch = !bySound || locals.some(lists);
 var cards = shown.map(function (d) {
 var miss = bySound && anyMatch && !lists(d), first = d.first || String(d.name || '').split(' ')[0], at = H4_SHORT(H4_AT(d), djs);
-var torn = H6_TORN[d.slug] || '';
-return { name: d.name, sound: d.tag, home: d.home, img: d.img || H6_BLANK, fig: torn || d.img || H6_BLANK, figCls: torn ? 'ts-fig' : 'ts-fig ts-plain', alt: d.img ? (d.alt || d.name) : '', pos: d.pos || '50% 50%',
+var torn = H6_TORN[d.slug] || h6Tear(d), wait = torn === 'wait' || torn === 'none', lost = torn === 'none';
+if (wait) torn = '';
+return { name: d.name, sound: d.tag, home: d.home, img: d.img || H6_BLANK, fig: torn || (!lost && d.img) || H6_BLANK, figCls: torn ? 'ts-fig' : 'ts-fig ts-plain', alt: d.img && !lost ? (d.alt || d.name) : '', pos: d.pos || '50% 50%',
 first: first, sigK: first.length > 8 ? (8 / first.length).toFixed(3) : '1',
-proHref: BOOKD_DJ_URL(d.slug), tag: elsewhere ? 'Lives in ' + at : 'Lives here', tagD: elsewhere && !at ? 'none' : 'block', imgOp: !d.img ? 0 : (miss ? 0.8 : 1) };
+proHref: BOOKD_DJ_URL(d.slug), tag: elsewhere ? 'Lives in ' + at : 'Lives here', tagD: elsewhere && !at ? 'none' : 'block', imgOp: !d.img || wait ? 0 : (miss ? 0.8 : 1) };
 });
 var sndWho = bySound ? locals.filter(lists).map(function (d) { return d.name; }) : [];
 var sndList = sndWho.length > 2 ? sndWho.slice(0, -1).join(', ') + ' and ' + sndWho[sndWho.length - 1] : sndWho.join(' and ');

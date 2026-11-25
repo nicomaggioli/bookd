@@ -623,6 +623,117 @@ return _.bad(r);
 };
 })();
 (function () {
+var W = typeof window !== 'undefined' ? window : {};
+var B = W.BOOKD = W.BOOKD || { ready: false };
+var CW = 952, CH = 1176;
+var made = {};
+function hash(s) { var h = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function lat(seed, i) { var h = Math.imul(i ^ seed, 2654435761); h ^= h >>> 15; h = Math.imul(h, 2246822519); h ^= h >>> 13; return (h >>> 0) / 4294967296; }
+function n1(seed, x) { var i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return lat(seed, i) * (1 - u) + lat(seed, i + 1) * u; }
+function rip(seed, x) {
+return (n1(seed, x / 170) - .5) * 1.5 + (n1(seed + 11, x / 46) - .5) * .7 + (n1(seed + 23, x / 13) - .5) * .34 + (n1(seed + 37, x / 4) - .5) * .16;
+}
+function speckTile(rand, lo, hi, alpha) {
+var c = document.createElement('canvas'); c.width = c.height = 128;
+var x = c.getContext('2d'), d = x.createImageData(128, 128);
+for (var i = 0; i < d.data.length; i += 4) { var v = lo + rand() * (hi - lo); d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = alpha * 255 * rand(); }
+x.putImageData(d, 0, 0); return c;
+}
+function outline(ctx, p, grow) {
+var s = p.seed, x, y, st = 3;
+var edge = function (k, t) {
+if (!grow) return 0;
+var n = n1(s + 300 + k * 17, t / 60), f = n1(s + 340 + k * 17, t / 5);
+return p.white[k] * (1.1 + 9 * Math.max(0, n - .56) * 2.4 + f * 1.3);
+};
+ctx.beginPath();
+for (x = p.l; x <= p.r; x += st) { y = p.t + rip(s + 1, x) * p.amp - edge(0, x); if (x === p.l) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+for (y = p.t; y <= p.b; y += st) ctx.lineTo(p.r + (y - p.t) * p.sr + rip(s + 2, y) * p.side + edge(1, y), y);
+for (x = p.r + (p.b - p.t) * p.sr; x >= p.l + (p.b - p.t) * p.sl; x -= st) ctx.lineTo(x, p.b + rip(s + 3, x) * p.amp + edge(2, x));
+for (y = p.b; y >= p.t; y -= st) ctx.lineTo(p.l + (y - p.t) * p.sl + rip(s + 4, y) * p.side - edge(3, y), y);
+ctx.closePath();
+}
+function draw(img, seedText, pos) {
+var seed = hash(seedText), rand = rng(seed);
+var out = document.createElement('canvas'); out.width = CW; out.height = CH;
+var ctx = out.getContext('2d');
+var off = document.createElement('canvas'); off.width = CW; off.height = CH;
+var o = off.getContext('2d');
+var X0 = 76, Y0 = 56, PW = 800, PH = 1064;
+var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+var sc = Math.max(PW / iw, PH / ih), sw = PW / sc, sh = PH / sc;
+var m = /(-?[\d.]+)%\s+(-?[\d.]+)%/.exec(pos || ''), px = m ? +m[1] / 100 : .5, py = m ? +m[2] / 100 : .5;
+var sx = (iw - sw) * Math.min(1, Math.max(0, px)), sy = (ih - sh) * Math.min(1, Math.max(0, py));
+var paper = speckTile(rand, 150, 255, .16), grain = speckTile(rand, 0, 255, .09);
+var n = 5 + (rand() < .45 ? 1 : 0), cuts = [0], i, sum = 0, hs = [];
+for (i = 0; i < n; i++) { hs.push(.7 + rand() * .9); sum += hs[i]; }
+for (i = 0; i < n - 1; i++) cuts.push(cuts[i] + hs[i] / sum * PH);
+cuts.push(PH);
+for (i = 0; i < n; i++) {
+var first = i === 0, last = i === n - 1;
+var p = {
+seed: seed + i * 977,
+t: Y0 + cuts[i] - (first ? 0 : 8 + rand() * 16),
+b: Y0 + cuts[i + 1] + (last ? 0 : rand() < .3 ? -2 - rand() * 6 : 6 + rand() * 14),
+l: X0 + (rand() < .45 ? 20 + rand() * 110 : rand() * 16),
+r: X0 + PW - (rand() < .45 ? 20 + rand() * 110 : rand() * 16),
+amp: 9 + rand() * 8, side: 5 + rand() * 5, sl: (rand() - .5) * .3, sr: (rand() - .5) * .3,
+white: [1.3 + rand() * 1.1, .5 + rand() * .7, .6 + rand() * .9, .9 + rand() * .9]
+};
+var dx = (rand() - .5) * 54, dy = (rand() - .5) * 8, rot = (rand() - .5) * .05;
+o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, CW, CH);
+o.save(); outline(o, p, 1); o.clip();
+o.fillStyle = '#f3eee3'; o.fillRect(0, 0, CW, CH);
+o.fillStyle = o.createPattern(paper, 'repeat'); o.globalCompositeOperation = 'multiply'; o.fillRect(0, 0, CW, CH);
+o.restore();
+o.save(); outline(o, p, 0); o.clip();
+o.drawImage(img, sx, sy, sw, sh, X0, Y0, PW, PH);
+o.globalAlpha = 1; o.globalCompositeOperation = 'overlay'; o.fillStyle = o.createPattern(grain, 'repeat'); o.fillRect(0, 0, CW, CH);
+o.globalCompositeOperation = 'source-over';
+var g = o.createLinearGradient(0, p.t, 0, p.b);
+g.addColorStop(0, 'rgba(255,255,255,.07)'); g.addColorStop(.2, 'rgba(255,255,255,0)'); g.addColorStop(.82, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.13)');
+o.fillStyle = g; o.fillRect(0, 0, CW, CH);
+o.restore();
+var cx = (p.l + p.r) / 2, cy = (p.t + p.b) / 2;
+ctx.save();
+ctx.translate(cx + dx, cy + dy); ctx.rotate(rot); ctx.translate(-cx, -cy);
+ctx.shadowColor = 'rgba(0,0,0,.42)'; ctx.shadowBlur = 20; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 11;
+ctx.drawImage(off, 0, 0);
+ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 3; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 2;
+ctx.drawImage(off, 0, 0);
+ctx.restore();
+}
+return out;
+}
+function tear(url, opts) {
+opts = opts || {};
+var key = url + '|' + (opts.seed || '') + '|' + (opts.pos || '');
+if (made[key]) return made[key];
+made[key] = new Promise(function (done) {
+if (!url || typeof document === 'undefined' || !W.Promise) { done(''); return; }
+var img = new Image();
+if (!/^(data|blob):/.test(url)) img.crossOrigin = 'anonymous';
+img.onerror = function () {
+if (!img.crossOrigin) { done('none'); return; }
+var plain = new Image();
+plain.onload = function () { done(''); }; plain.onerror = function () { done('none'); };
+plain.src = url;
+};
+img.onload = function () {
+try {
+var c = draw(img, opts.seed || url, opts.pos);
+if (!c.toBlob) { done(c.toDataURL('image/png')); return; }
+c.toBlob(function (b) { done(b ? URL.createObjectURL(b) : ''); }, 'image/webp', .92);
+} catch (e) { done(''); }
+};
+img.src = url;
+});
+return made[key];
+}
+B.tear = tear;
+})();
+(function () {
 var B = window.BOOKD; if (!B || !B.ready) return;
 var _ = B._, sb = _.sb;
 B.waitlist = {

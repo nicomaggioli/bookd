@@ -693,6 +693,15 @@ var R6_TORN = {
 'kozlow': 'assets/6db321c02cd74dd909d58e175b60f096.webp',
 'schloss': 'assets/73a93fa5bb04d8ce905c56b3cb71c41a.webp'
 };
+var R6_MADE = {}, R6_REDO = null;
+function r6Tear(d) {
+if (!d.img || typeof BOOKD === 'undefined' || !BOOKD.tear) return '';
+var k = d.img + '|' + (d.pos || '');
+if (k in R6_MADE) return R6_MADE[k];
+R6_MADE[k] = 'wait';
+BOOKD.tear(d.img, { seed: d.slug || d.name, pos: d.pos }).then(function (u) { R6_MADE[k] = u || ''; if (R6_REDO) R6_REDO(); });
+return 'wait';
+}
 var R6_GRADE = 'grayscale(1) contrast(1.3) brightness(.95)';
 var R6_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var R6_BLANK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%23000'/%3E%3C/svg%3E";
@@ -729,8 +738,9 @@ function r6Has(text, terms) { var t = String(text || '').toLowerCase(); for (var
 function r6Snd(sound) { return sound === 'R&B' ? 'R&B' : String(sound || '').toLowerCase().replace(/\bebm\b/, 'EBM'); }
 function r6NoPhoto(e) { var t = e && e.target; if (t && t.getAttribute && t.getAttribute('src') !== R6_BLANK) { t.setAttribute('alt', ''); t.setAttribute('src', R6_BLANK); } }
 function r6Tile(a, badge, note) {
-var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length, torn = R6_TORN[a.slug] || '';
-return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: torn || a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: torn ? 'none' : R6_GRADE, pos: torn ? '50% 100%' : (a.pos || '50% 50%'), tileCls: torn ? 'rt rt-torn' : 'rt',
+var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length, torn = R6_TORN[a.slug] || r6Tear(a), wait = torn === 'wait';
+if (wait || torn === 'none') torn = '';
+return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: torn || a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: torn ? 'none' : wait ? 'opacity(0)' : R6_GRADE, pos: torn ? '50% 100%' : (a.pos || '50% 50%'), tileCls: torn ? 'rt rt-torn' : 'rt',
 sigCls: 'yb-sig yb-sig-0' + (len > 16 ? ' yb-sig-s3' : len > 12 ? ' yb-sig-s2' : len > 9 ? ' yb-sig-s1' : ''), first: first,
 href: BOOKD_DJ_URL(a.slug), noPhoto: r6NoPhoto,
 hasBadge: !!badge, badge: badge === 'town' ? 'In town' : 'Lives here', badgeCls: badge === 'town' ? 'rt-badge' : 'rt-badge rt-badge-home',
@@ -1060,6 +1070,7 @@ var el = document.getElementById('qfwhen'); if (el && document.activeElement !==
 }
 renderVals() {
 var self = this, s = this.state;
+R6_REDO = function () { if (!self.gone) self.setState({ got: Date.now() }); };
 var B = this.src === 'database' ? r6DbBoard(this) : r6OwnBoard(this);
 var bookNow = function (e) {
 if (e && e.preventDefault) e.preventDefault();
