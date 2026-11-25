@@ -252,7 +252,44 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .qf-cal-b,.qf-day{transition:none}
 .rt,.rt-photo img,.rt-name a,.rt-big{transition:none}
 }
-@media print{body::after{display:none}}</style>
+@media print{body::after{display:none}}
+.r6-wall{overflow-x:clip}
+.rg-grid{gap:clamp(40px,calc(4.4 * var(--vw)),64px) clamp(22px,calc(2.6 * var(--vw)),38px);padding:22px 0 30px;isolation:isolate}
+.rt{isolation:isolate;box-sizing:border-box;padding:4% 0 9%}
+.rt::before{content:"";position:absolute;z-index:-1;inset:-4.4% -9.2% -5.1%;pointer-events:none;background:url(assets/92b3fbb0243ccc30fd7bbce30dc66d16.webp) 0 0/100% 100% no-repeat}
+.rt:nth-child(2n)::before{background-image:url(assets/d216975acaf2a3625e08b1167a51f91e.webp)}
+.rt:nth-child(3n)::before{transform:scaleX(-1)}
+.rt:nth-child(4n+1){transform:rotate(-1.1deg)}
+.rt:nth-child(4n+2){transform:rotate(.7deg)}
+.rt:nth-child(4n+3){transform:rotate(-.5deg)}
+.rt:nth-child(4n){transform:rotate(1deg)}
+.rt-shot{margin:5% 8% 4%}
+.rt-torn .rt-shot{margin:0 1%;aspect-ratio:952 / 1176;overflow:visible;border-radius:0;background:none}
+.rt-torn .rt-shot::after{display:none}
+.rt-torn .rt-photo{overflow:visible;background:none}
+.rt-torn .rt-photo img{object-fit:contain}
+.rt-torn .yb-sig{left:13%;bottom:15%;text-shadow:0 1px 14px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.7)}
+.rt-torn .rt-badge{left:8%;top:4%}
+.rt .yb-sig{display:none}
+.rt-name{margin-top:6px}
+.rt-name,.rt-meta,.rt-note{padding:0 9%}
+.rt-meta{color:#fffde9}
+.rt-note{color:#000000}
+.rt-badge{background:#000000;color:#ffffff}
+.rt:has(.rt-name a:focus-visible) .rt-shot{outline:none}
+.rt:has(.rt-name a:focus-visible),.r6-wall .rt-you:focus-visible{outline:3px solid #fffde9;outline-offset:6px;border-radius:6px}
+.rt-you{aspect-ratio:auto;align-self:stretch;min-height:0;border-radius:0;background:none;color:#000000;padding:11% 10% 12%}
+.rt-you::before{background-image:url(assets/28b47444b0a361ab17fed52cbf356406.webp) !important;transform:none !important}
+.rt-you .rt-big{color:#000000}
+@media (hover:hover) and (pointer:fine){
+.rg-grid .rt:hover{transform:translateY(-8px) rotate(0deg)}
+.rt:hover .rt-name a{color:#000000}
+.rt-you:hover .rt-big{color:#d31110}
+.rt-you:hover .rt-youbtn,.rt-you .rt-youbtn:hover{background:#d31110;color:#ffffff}
+}
+.r6-head{grid-template-columns:minmax(0,1fr) !important;justify-items:center;text-align:center;gap:14px !important}
+.r6-head .h1{font-size:clamp(40px,calc(5.4 * var(--vw)),80px) !important;line-height:.95;letter-spacing:-0.065em}
+.r6-head p{max-width:34em;margin-left:auto;margin-right:auto;font-size:clamp(16px,calc(1.25 * var(--vw)),18px)}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
 #mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
 #mnav{border-top-color:rgba(255,255,255,.2) !important}
@@ -396,7 +433,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 <div class="rg-grid" ref="{{billRef}}" style="display: {{gridDisplay}};">
 <sc-for list="{{tiles}}" as="d" hint-placeholder-count="3">
-<article class="rt">
+<article class="{{d.tileCls}}">
 <span class="rt-shot">
 <span class="dflash rt-photo"><img sc-camel-src="{{d.img}}" alt="{{d.alt}}" loading="lazy" decoding="async" onError="{{d.noPhoto}}" style="filter: {{d.grade}}; object-position: {{d.pos}};"></span><span class="{{d.sigCls}}" aria-hidden="true">{{d.first}}</span>
 <sc-if value="{{d.hasBadge}}" hint-placeholder-val="{{ false }}"><span class="{{d.badgeCls}}">{{d.badge}}</span></sc-if>
@@ -655,6 +692,20 @@ if (s.where || s.when || s.sound) sessionStorage.setItem(R6_KEEP, JSON.stringify
 else sessionStorage.removeItem(R6_KEEP);
 } catch (e) {}
 }
+var R6_TORN = {
+'julian-gjaci': 'assets/03cacef43343437b94b58ed5291f4990.webp',
+'kozlow': 'assets/6db321c02cd74dd909d58e175b60f096.webp',
+'schloss': 'assets/73a93fa5bb04d8ce905c56b3cb71c41a.webp'
+};
+var R6_MADE = {}, R6_REDO = null;
+function r6Tear(d) {
+if (!d.img || typeof BOOKD === 'undefined' || !BOOKD.tear) return '';
+var k = d.img + '|' + (d.pos || '');
+if (k in R6_MADE) return R6_MADE[k];
+R6_MADE[k] = 'wait';
+BOOKD.tear(d.img, { seed: d.slug || d.name, pos: d.pos, pieces: 1 }).then(function (u) { R6_MADE[k] = u || ''; if (R6_REDO) R6_REDO(); });
+return 'wait';
+}
 var R6_GRADE = 'grayscale(1) contrast(1.3) brightness(.95)';
 var R6_MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var R6_BLANK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%23000'/%3E%3C/svg%3E";
@@ -691,8 +742,9 @@ function r6Has(text, terms) { var t = String(text || '').toLowerCase(); for (var
 function r6Snd(sound) { return sound === 'R&B' ? 'R&B' : String(sound || '').toLowerCase().replace(/\bebm\b/, 'EBM'); }
 function r6NoPhoto(e) { var t = e && e.target; if (t && t.getAttribute && t.getAttribute('src') !== R6_BLANK) { t.setAttribute('alt', ''); t.setAttribute('src', R6_BLANK); } }
 function r6Tile(a, badge, note) {
-var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length;
-return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: R6_GRADE, pos: a.pos || '50% 50%',
+var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length, torn = r6Tear(a), wait = torn === 'wait';
+if (wait || torn === 'none') torn = '';
+return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: torn || a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: torn ? 'grayscale(1) contrast(1.12)' : wait ? 'opacity(0)' : R6_GRADE, pos: torn ? '50% 100%' : (a.pos || '50% 50%'), tileCls: torn ? 'rt rt-torn' : 'rt',
 sigCls: 'yb-sig yb-sig-0' + (len > 16 ? ' yb-sig-s3' : len > 12 ? ' yb-sig-s2' : len > 9 ? ' yb-sig-s1' : ''), first: first,
 href: BOOKD_DJ_URL(a.slug), noPhoto: r6NoPhoto,
 hasBadge: !!badge, badge: badge === 'town' ? 'In town' : 'Lives here', badgeCls: badge === 'town' ? 'rt-badge' : 'rt-badge rt-badge-home',
@@ -1022,6 +1074,7 @@ var el = document.getElementById('qfwhen'); if (el && document.activeElement !==
 }
 renderVals() {
 var self = this, s = this.state;
+R6_REDO = function () { if (!self.gone) self.setState({ got: Date.now() }); };
 var B = this.src === 'database' ? r6DbBoard(this) : r6OwnBoard(this);
 var bookNow = function (e) {
 if (e && e.preventDefault) e.preventDefault();
