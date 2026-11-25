@@ -194,6 +194,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #ff3b2f;outline-offset:3p
 @media (min-width:761px) and (max-width:1199px) and (min-height:720px){.listin{position:sticky;top:12px}}
 @media (max-width:1199px){.log *{scroll-margin:210px 0 140px}}
 @media (max-width:760px){.log *{scroll-margin:16px 0 140px}}
+@media (max-width:760px){.nav6{position:sticky;top:0}.app{height:auto;min-height:calc(100 * var(--svh))}.col-info,.col-list,.col-chat{scroll-margin-top:76px}}
 @media (max-width:760px){
 .inbox{grid-template-columns:minmax(0,1fr);grid-template-rows:none;padding:0 16px 16px;gap:8px}
 .listhead h1{font-size:32px}
@@ -785,7 +786,7 @@ if (sig === this.viewSig || !log) return;
 var grew = this.viewFor === st.active && n > (this.viewN || 0);
 this.viewSig = sig; this.viewFor = st.active; this.viewN = n;
 if (log.scrollHeight > log.clientHeight + 2) log.scrollTop = log.scrollHeight;
-else if (grew && log.lastElementChild && log.lastElementChild.scrollIntoView) log.lastElementChild.scrollIntoView({ block: 'nearest' });
+else if (grew && log.lastElementChild && log.lastElementChild.scrollIntoView && log.getBoundingClientRect().top < (window.innerHeight || 0) - 120) log.lastElementChild.scrollIntoView({ block: 'nearest' });
 }
 cur() {
 var id = this.state.active, list = this.state.reqs, i;

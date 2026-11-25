@@ -212,6 +212,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <a class="nl" href="roster.html">The roster</a>
 <a class="nl" href="index.html#how">How it works</a>
 <a class="nl" href="artists.html">For artists</a>
+<a class="nl" href="about.html">About</a>
 </nav>
 <div class="navend">
 <sc-if value="{{inboxOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc navlogin" href="{{inboxHref}}" aria-current="{{curInbox}}">{{inboxText}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
@@ -235,10 +236,12 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
 <a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a>
 <a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a>
+<a class="nl" href="about.html" onClick="{{closeMenu}}">About</a>
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ false }}"><a class="nl" href="inbox.html" onClick="{{closeMenu}}">Requests</a></sc-if>
 <sc-if value="{{inboxOn}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="{{inboxHref}}" aria-current="{{curInbox}}" onClick="{{closeMenu}}">{{inboxText}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
 <a class="nl" href="account.html" aria-current="{{curAccount}}" onClick="{{closeMenu}}">Your account</a>
 <a class="nl" href="index.html" onClick="{{logOut}}">Log out</a>
-<a class="btn go mbook" href="roster.html">Book a DJ</a>
+<sc-if value="{{hostOn}}" hint-placeholder-val="{{ true }}"><a class="btn go mbook" href="roster.html">Book a DJ</a></sc-if>
 </nav>
 </sc-if>
 </header>
@@ -318,12 +321,14 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 <div class="ac-f">
 <label class="field"><span class="field-l">Phone</span><input type="tel" value="{{phone}}" onInput="{{setPhone}}" ref="{{phoneRef}}" autocomplete="tel" aria-invalid="{{phoneInv}}" aria-describedby="{{phoneDesc}}"></label>
-<sc-if value="{{phoneErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-phone" class="ferr" role="alert">Add a phone number so your DJ can find the&nbsp;door.</span></sc-if>
+<sc-if value="{{phoneErr}}" hint-placeholder-val="{{ false }}"><span id="ac-err-phone" class="ferr" role="alert">{{phoneMsg}}</span></sc-if>
 </div>
+<sc-if value="{{hostOn}}" hint-placeholder-val="{{ true }}">
 <div class="ac-f">
 <label class="field"><span class="field-l">Your city (optional)</span><input type="text" value="{{city}}" onInput="{{setCity}}" autocomplete="address-level2" maxlength="80" placeholder="Brooklyn, NY" aria-describedby="ac-city-note"></label>
 <span id="ac-city-note" class="ac-fine" style="margin-top: 6px;">The roster opens on your&nbsp;city.</span>
 </div>
+</sc-if>
 <div class="ac-save">
 <button class="btn go" type="submit" aria-busy="{{youBusy}}">{{youLabel}}</button>
 <sc-if value="{{youSaved}}" hint-placeholder-val="{{ false }}"><span class="ac-ok" role="status">{{youSavedText}}</span></sc-if>
@@ -380,6 +385,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 </section>
 
+<sc-if value="{{hostOn}}" hint-placeholder-val="{{ true }}">
 <section class="ac-sec" aria-labelledby="ac-pay">
 <h2 id="ac-pay" class="ac-t">Payment method</h2>
 <sc-if value="{{cardNone}}" hint-placeholder-val="{{ false }}">
@@ -441,6 +447,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 </sc-if>
 </section>
+</sc-if>
 
 <section class="ac-sec" aria-labelledby="ac-del">
 <h2 id="ac-del" class="ac-t">Delete account</h2>
@@ -487,7 +494,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 var AC_OK = {
 name: function (v) { return !!v.trim(); },
 email: function (v) { return AC_EMAIL.test(v.trim()); },
-phone: function (v) { return !!v.trim(); },
+phone: function (v) { return v.replace(/\D/g, '').length >= 7; },
 pwOld: function (v) { return !!v; },
 pwNew: function (v) { return v.length >= 8; },
 cNum: function (v) { return !!v.trim(); },
@@ -767,7 +774,7 @@ self.setState(q);
 } };
 };
 var initials = api ? acInitials(me.name, me.email) : acInitials(s.name, s.email);
-var role = api ? me.role : 'host', inboxOn = !api || role === 'admin' || role === 'dj' || acMock();
+var role = api ? me.role : 'host', inboxOn = true;
 return Object.assign({
 photo: s.photo, photoOn: !!s.photo, photoOff: !s.photo, initials: initials, acctText: api ? (initials || 'YOU') : 'YOU',
 photoLabel: s.photoBusy ? 'One sec' : (s.photo ? 'Change photo' : 'Add a photo'), photoBusy: s.photoBusy ? 'true' : 'false',
@@ -822,7 +829,7 @@ if (r && r.ok) { location.href = 'login.html'; return; }
 self.setState({ outBusy: false, outFail: (r && r.code) || 'unknown' });
 });
 },
-inboxOn: inboxOn, inboxText: api && (role === 'admin' || role === 'dj') ? 'Dashboard' : 'Inbox',
+hostOn: role === 'host', reqOn: role === 'dj', inboxOn: inboxOn, inboxText: api && (role === 'admin' || role === 'dj') ? 'Dashboard' : 'Inbox',
 whoName: api ? (me.name || me.email || '') : 'Dani Rivera',
 logOut: api ? function (e) {
 if (e && e.preventDefault) e.preventDefault();
@@ -841,14 +848,14 @@ notFail: !!s.notFail, notFailText: s.notFail === 'offline' ? "We couldn't reach 
 name: s.name, email: s.email, phone: s.phone,
 nameRef: this.nameRef, emailRef: this.emailRef, phoneRef: this.phoneRef,
 setName: put('name', 'youBad', { youSaved: false }), setEmail: put('email', 'youBad', { youSaved: false }), setPhone: put('phone', 'youBad', { youSaved: false }),
-nameErr: !!yb.name, emailErr: !!yb.email, phoneErr: !!yb.phone,
+nameErr: !!yb.name, emailErr: !!yb.email, phoneErr: !!yb.phone, phoneMsg: s.phone.trim() ? 'That number looks a little off. Mind checking\u00a0it?' : 'Add a phone number so your DJ can find the\u00a0door.',
 nameInv: inv(yb, 'name'), emailInv: inv(yb, 'email'), phoneInv: inv(yb, 'phone'),
 nameDesc: yb.name ? 'ac-err-name' : '', emailDesc: yb.email ? 'ac-err-email' : '', phoneDesc: yb.phone ? 'ac-err-phone' : '',
 youSaved: s.youSaved,
 saveYou: function (e) {
 if (e && e.preventDefault) e.preventDefault();
 if (api) {
-var st = self.state, lc = check(st.me && st.me.role !== 'host' ? ['name', 'email'] : ['name', 'email', 'phone']);
+var st = self.state, lc = check(st.me && st.me.role !== 'host' && !st.phone.trim() ? ['name', 'email'] : ['name', 'email', 'phone']);
 if (!st.loaded || st.youBusy) return;
 if (lc.first) { self.setState({ youBad: lc.bad, youSaved: false, youFail: '' }); self.focus(lc.first); return; }
 var typed = st.email.trim(), same = typed.toLowerCase() === String(st.me.email).toLowerCase() || typed.toLowerCase() === String(st.me.pending).toLowerCase();

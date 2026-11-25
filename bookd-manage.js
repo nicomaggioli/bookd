@@ -1354,10 +1354,16 @@ marked++;
 });
 s.bad = true;
 s.msg = marked ? 'Have a look at the boxes marked in\u00a0red.'
-: needs.length ? 'Your page is live, so it also needs ' + and(needs) + '.'
+: needs.length ? 'Your page is live, so it needs ' + and(needs) + ' first. Add that, then save\u00a0this.'
 : others.length ? 'Another part needs a look first: ' + and(others) + '.'
 : 'Something went wrong on our side. Try\u00a0again.';
-return draw();
+draw();
+if (marked && W.setTimeout) W.setTimeout(function () {
+var bad = W.document && W.document.querySelector('.pe-panel [aria-invalid="true"]');
+var row = bad && bad.closest ? (bad.closest('.pe-f') || bad.closest('label') || bad) : bad;
+if (row && row.scrollIntoView) row.scrollIntoView({ block: 'center' });
+}, 60);
+return;
 }
 s.bad = true; s.msg = fail(r && r.code);
 draw();
