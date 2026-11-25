@@ -89,6 +89,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .mscrim{position:fixed;inset:0;z-index:-1;background:rgba(0,0,0,.72)}
 #mnav{box-sizing:border-box;max-height:calc(calc(100 * var(--vh)) - 84px);max-height:calc(calc(100 * var(--dvh)) - 84px);overflow-y:auto;overscroll-behavior:contain;scroll-padding:8px 0;border-radius:0 0 var(--r-card) var(--r-card)}
 header a[aria-label="BOOKD home"] svg{transition:opacity .25s}
+header[style*="position: fixed"]::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:160px;background:inherit;pointer-events:none}
 .herovid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#000000 url(assets/62482694080a7cdf4882c52b5d6bd63d.jpg) 50% 40%/cover no-repeat}
 @media (max-width:480px){.herovid{background-image:url(assets/df060c38caed60942f600d570c84bcd6.jpg)}}
 .srch :focus-visible{outline-color:#d31110}
@@ -454,7 +455,10 @@ a.tvs:hover span{color:#000000}
 .iv-big{position:relative;left:-.018em}
 }
 @media (max-width:760px){
-.tvwall-m{display:block;width:calc(190% + 60px);margin:22px calc(-45% - 30px) -4px}
+.tvwall-m{display:block;width:calc(166.7% + 53px);margin:22px calc(-44.6% - 30px) -4px calc(-22.1% - 23px)}
+.tvwall-m a.tvs-nav[href$="#privacy"] span{left:0}
+.tvwall-m a.tvs-nav span{font-size:46px !important}
+.tvwall-m a.tvs-txt:not(.tvs-nav) span{font-size:33px}
 footer.redfoot .morph,footer.redfoot .reveal{display:none}
 footer.redfoot{background:#000000 !important}
 .mfoot{overflow:hidden;display:block;padding:72px 16px 22px;background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.16) 120px,#000000 520px);color:#ff3b2f}
@@ -848,10 +852,11 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <div class="stage-in" style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, calc(4 * var(--vw)), 48px); display: flex; flex-direction: column; gap: 30px;">
 <h2 class="sr">Who's in town</h2>
 
+<sc-if value="{{locOn}}" hint-placeholder-val="{{ false }}">
 <div class="locbar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: #000000; color: #ffffff; padding: 14px 16px;">
 <span aria-live="polite" style="font-size: 15px; font-weight: 700; flex: 1 1 260px;">{{locText}}<sc-if value="{{locRoster}}" hint-placeholder-val="{{ false }}"> <a class="btn btn-sm ghost" href="roster.html" style="color: #fffde9; white-space: nowrap; margin-left: 8px; vertical-align: middle;">See the whole roster</a></sc-if></span>
-<button class="go btn" type="button" onClick="{{locate}}" aria-busy="{{locBusy}}" style="opacity: {{locBtnOp}};">{{locButton}}</button>
 </div>
+</sc-if>
 
 <div class="pickrow" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px;">
 <h2 class="intown-h">Meet the roster.</h2>
@@ -1641,7 +1646,7 @@ findKey: function (e) { if (e.key === 'Enter' && e.target && e.target.tagName ==
 leaveCheck: function (e) {
 var t = e && e.target, a = t && t.closest ? t.closest('a[href]') : null, h = a ? (a.getAttribute('href') || '') : '';
 if (a && h === '#booth') { if (e.preventDefault) e.preventDefault(); self.toBooth(); } },
-cards: cards, cardN: Math.max(1, cards.length), locText: locText, locRoster: elsewhere && djs.length > 0,
+cards: cards, cardN: Math.max(1, cards.length), locOn: s.loc === 'searched' || s.loc === 'nomatch', locText: locText, locRoster: elsewhere && djs.length > 0,
 lineup: djs.length <= 6 ? djs.map(function (d) { return { name: d.name }; }) : [],
 locButton: s.loc === 'locating' ? 'Locating…' : (s.loc === 'found' ? 'Update location' : 'Use my location'),
 locBusy: s.loc === 'locating' ? 'true' : 'false', locBtnOp: s.loc === 'locating' ? 0.6 : 1,
