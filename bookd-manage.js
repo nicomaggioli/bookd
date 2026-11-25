@@ -28,6 +28,7 @@ save: function (o) {
 return _.guard(session().then(function (u) {
 if (!u) return out;
 var row = { display_name: _.clip(o.name, 120), phone: _.clip(o.phone, 40) || null };
+if (row.phone && (!/^[0-9 ().+-]+$/.test(row.phone) || row.phone.replace(/[^0-9]/g, '').length < 7)) return { ok: false, code: 'invalid', field: 'phone' };
 if (typeof o.city === 'string') row.city = _.clip(o.city, 80) || null;
 return sb.from('profiles').update(row).eq('id', u.id).select('display_name, phone').maybeSingle().then(function (r) {
 var b = _.bad(r);
@@ -1052,6 +1053,8 @@ function line(row) {
 return { id: row.id, side: row.side, kind: row.kind, text: row.body || '', amount: row.amount == null ? null : row.amount, at: row.created_at || '' };
 }
 function waitsOn(req) { return req.status === 'sent' ? 'dj' : (req.status === 'offer' ? 'host' : ''); }
+var shown = {};
+function whole(v) { var n = B.requests && B.requests.whole ? B.requests.whole(v) : parseInt(v, 10); return n >= 1 ? n : null; }
 B.inbox = {
 waitsOn: waitsOn,
 list: function () {
@@ -1061,6 +1064,8 @@ return _.describe(u).then(function (me) {
 return sb.from('booking_requests').select(COLS).order('updated_at', { ascending: false }).limit(200).then(function (r) {
 var b = _.bad(r); if (b) return b;
 var list = (r.data || []).map(function (row) { return shape(row, me); });
+shown = {};
+list.forEach(function (q) { shown[q.id] = { side: q.side, fee: q.fee, budget: q.budget }; });
 return { ok: true, me: { id: me.id, name: me.name, role: me.role }, requests: list,
 waiting: list.filter(function (q) { return q.side !== 'watch' && waitsOn(q) === q.side; }).length };
 });
@@ -1087,11 +1092,22 @@ answer: function (id, action, fee) {
 if (!UUID.test(String(id || '')) || !/^(accept|offer|decline)$/.test(action)) return Promise.resolve({ ok: false, code: 'invalid' });
 var args = { p_id: id, p_action: action };
 if (action === 'offer') {
-var n = B.requests && B.requests.whole ? B.requests.whole(fee) : parseInt(fee, 10);
-if (!(n >= 1)) return Promise.resolve({ ok: false, code: 'invalid' });
+var n = whole(fee);
+if (!n) return Promise.resolve({ ok: false, code: 'invalid' });
 args.p_fee = n;
 }
+if (action === 'accept') {
+var was = shown[id], saw = fee == null || fee === '' ? null : whole(fee);
+if (!saw && was) saw = was.side === 'host' ? was.fee : (was.side === 'dj' ? was.budget : null);
+if (saw >= 1) args.p_expect = saw;
+}
 return _.guard(sb.rpc('answer_request', args).then(function (r) {
+if (r && r.error && 'p_expect' in args && (r.error.code === 'PGRST202' || r.error.code === '42883')) {
+delete args.p_expect;
+return sb.rpc('answer_request', args);
+}
+return r;
+}).then(function (r) {
 return _.bad(r) || { ok: true, status: String(r.data || '') };
 }));
 }
@@ -1294,12 +1310,29 @@ if (k === 'img') { s.form.px = 50; s.form.py = 30; }
 put();
 });
 }
+function send(input) {
+var I = A._, live = s.saved.status === 'live';
+if (!live || !I.toRow || !B.admin || !B.admin.saveArtist) return M.saveMine(input);
+var was = tidy(s.saved).missing || [], now = tidy(input, { strict: true }).missing || [];
+if (!now.length || now.some(function (k) { return was.indexOf(k) < 0; })) return M.saveMine(input);
+var c = copy(input); c.status = 'draft';
+var t = tidy(c, { strict: true });
+if (!t.ok) return Promise.resolve({ ok: false, code: 'invalid', field: t.field, problems: t.problems });
+var a = t.artist, pics = [a.img, a.look.image, a.look.record].map(function (v) {
+var p = v ? I.HANDED[v] : '';
+return !v ? '' : p && !/^device:/.test(p) ? p : /^assets\/[A-Za-z0-9][A-Za-z0-9._-]*$/.test(v) ? v : null;
+});
+if (pics.indexOf(null) >= 0) return M.saveMine(input);
+a.slug = s.saved.slug; a.status = 'live'; a.img = pics[0]; a.look.image = pics[1]; a.look.record = pics[2];
+var r = I.toRow(a);
+return B.admin.saveArtist({ id: s.id, row: r.row, tracks: r.tracks }).then(function (w) { return w && w.ok ? M.mine() : w; });
+}
 function save(e) {
 if (e && e.preventDefault) e.preventDefault();
 if (!s.part || s.busy || !s.form) return;
 if (!dirty()) return close(true);
 s.busy = true; s.msg = ''; s.bad = false; s.errs = {}; draw();
-M.saveMine(inputOf(s.form, s.saved)).then(function (r) {
+send(inputOf(s.form, s.saved)).then(function (r) {
 if (gone) return;
 s.busy = false;
 if (r && r.ok && r.artist) {

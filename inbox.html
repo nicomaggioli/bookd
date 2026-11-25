@@ -360,7 +360,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl" href="dashboard.html">Dashboard</a></sc-if>
 <sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl nlc" href="inbox.html" aria-current="page">Requests<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
 <sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="index.html#how">How it works</a></sc-if>
-<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html">For artists</a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html">For artists</a><a class="nl" href="about.html">About</a></sc-if>
 </nav>
 <div class="navend">
 <sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl nlc navlogin" href="inbox.html" aria-current="page">Inbox<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a></sc-if>
@@ -384,7 +384,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <a class="nl" href="roster.html" onClick="{{closeMenu}}">The roster</a>
 <sc-if value="{{isDj}}" hint-placeholder-val="{{ true }}"><a class="nl" href="dashboard.html" onClick="{{closeMenu}}">Dashboard</a></sc-if>
 <sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="index.html#how" onClick="{{closeMenu}}">How it works</a></sc-if>
-<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a></sc-if>
+<sc-if value="{{isHost}}" hint-placeholder-val="{{ false }}"><a class="nl" href="artists.html" onClick="{{closeMenu}}">For artists</a><a class="nl" href="about.html">About</a></sc-if>
 <a class="nl nlc" href="inbox.html" aria-current="page" onClick="{{closeMenu}}">{{navHere}}<sc-if value="{{navWaiting}}" hint-placeholder-val="{{ false }}"><span class="navcount" aria-hidden="true">{{navCount}}</span><span class="vh">{{navWaitingText}}</span></sc-if></a>
 <a class="nl" href="account.html" onClick="{{closeMenu}}">Your account</a>
 <a class="nl" href="index.html" onClick="{{logOut}}">Log out</a>
@@ -447,12 +447,13 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </sc-for>
 </div>
 <sc-if value="{{listEmpty}}" hint-placeholder-val="{{ false }}">
-<p class="small" style="padding: 8px clamp(16px, calc(1.6 * var(--vw)), 22px);">{{emptyText}}</p>
+<p class="small" id="{{emptyId}}" style="padding: 8px clamp(16px, calc(1.6 * var(--vw)), 22px);">{{emptyText}}</p>
 </sc-if>
 <div class="listfoot"><a class="listlink" href="{{footHref}}">{{footText}}</a></div>
 </div>
 </aside>
 
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
 <main class="col-chat" id="main" ref="{{chatRef}}">
 
 <div class="chathead">
@@ -498,7 +499,9 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <sc-if value="{{closedNote}}" hint-placeholder-val="{{ false }}"><p class="rq-closed">This request is closed, so the chat is too.</p></sc-if>
 </div>
 </main>
+</sc-if>
 
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
 <aside class="col-info panel" aria-label="The request" ref="{{infoRef}}">
 <div class="rq-top">
 <p class="rq-tag" style="color: {{cardTagColor}};">{{cardTag}}</p>
@@ -554,6 +557,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <sc-if value="{{changeOn}}" hint-placeholder-val="{{ true }}"><p class="small rq-note">Something changed? Sort it out in the&nbsp;chat.</p></sc-if>
 <p class="small rq-fine rq-fine-in" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 </aside>
+</sc-if>
 <p class="small rq-fine rq-fine-out" style="text-wrap: wrap;">© 2026 BOOKD. <span style="white-space: nowrap;"><a href="contact.html">Contact</a> · <a href="terms.html#terms">Terms</a> · <a href="terms.html#privacy">Privacy</a></span></p>
 
 </div>
@@ -595,10 +599,10 @@ if (q.lastKind === 'yes') return who + ' said yes' + (q.fee ? ' at ' + rqMoney(q
 if (q.lastKind === 'no') return who + ' closed this one.';
 return q.lastText ? who + ': ' + q.lastText : who + ' asked.';
 }
-function rqAnswer(m, who) {
+function rqAnswer(m, who, passed) {
 if (m.kind === 'offer') return who + ' named a price: ' + rqMoney(m.amount);
 if (m.kind === 'yes') return who + ' said yes' + (m.amount ? ' at ' + rqMoney(m.amount) : '');
-return m.side === 'dj' ? who + ' declined' : who + ' took the request back';
+return m.side === 'dj' ? who + ' declined' : (passed ? who + ' passed on the price' : who + ' took the request back');
 }
 function rqFail(code) {
 if (code === 'offline') return "You're offline. Try again once you're\u00a0back.";
@@ -804,7 +808,11 @@ var side = r.me.role === 'dj' ? 'dj' : 'host', st = self.state;
 var reqs = r.requests.filter(function (q) { return q.side === side; });
 var patch = { phase: 'ready', code: '', me: r.me, side: side, reqs: reqs };
 var still = st.active && reqs.some(function (q) { return q.id === st.active; });
-if (!still) {
+var here = st.phase === 'ready' && !st.active && reqs.length ? reqs.filter(function (q) { return rqGroup(q.status) === st.filter; }) : null;
+if (here) {
+patch.active = here[0] ? here[0].id : '';
+patch.lines = []; patch.linesFor = patch.active; patch.linesPhase = here[0] ? 'loading' : '';
+} else if (!still) {
 var want = String(window.location.hash || '').replace(/^#/, ''), by = function (f) { return reqs.filter(f)[0] || null; };
 var pick = by(function (q) { return q.id === want; }) || by(function (q) { return rqMove(q) === side; }) || by(function (q) { return rqGroup(q.status) === 'open'; }) || reqs[0] || null;
 patch.active = pick ? pick.id : '';
@@ -848,7 +856,12 @@ this.setState({ filter: key });
 var open = this.cur();
 if (open && rqGroup(open.status) === key) return;
 var first = st.reqs.filter(function (q) { return rqGroup(q.status) === key; })[0];
-if (first) this.pickThread(first.id);
+if (first) return this.pickThread(first.id);
+var drafts = {}, k;
+for (k in st.drafts) drafts[k] = st.drafts[k];
+if (st.active) drafts[st.active] = st.draft;
+this.setState({ active: '', drafts: drafts, draft: '', lines: [], linesFor: '', linesPhase: '',
+offering: false, offerErr: false, declining: false, actFail: '', sayFail: '' });
 }
 act(action, fee) {
 var self = this, api = rqApi(), id = this.state.active;
@@ -890,7 +903,7 @@ renderVals() {
 var self = this, st = this.state;
 var side = st.side || 'dj', isDj = side === 'dj', ready = st.phase === 'ready';
 var reqs = st.reqs || [], req = this.cur();
-var appOn = ready && reqs.length > 0 && !!req, isNew = ready && !appOn;
+var appOn = ready && reqs.length > 0, isNew = ready && !appOn;
 var first = function (q) { return String((isDj ? q.hostName : q.djName) || '').split(' ')[0] || (isDj ? 'The host' : 'The DJ'); };
 var waiting = reqs.filter(function (q) { return rqMove(q) === side; }).length;
 var nav = nav6Vals(this, { waiting: waiting });
@@ -921,6 +934,15 @@ preview: rqPreview(q, q.lastSide === side, q.lastSide === side ? 'You' : first(q
 pick: function () { self.pickThread(q.id); }
 };
 });
+var listVals = {
+listAria: isDj ? 'Requests' : 'Inbox', listTitle: isDj ? 'Requests.' : 'Inbox.',
+filters: filters, threads: threads, listEmpty: threads.length === 0,
+emptyText: { open: 'Nothing open. Enjoy the\u00a0quiet.', accepted: 'Nothing accepted\u00a0yet.', closed: 'Nothing closed.' }[st.filter],
+emptyId: req ? '' : 'main',
+footHref: isDj ? 'dashboard.html' : 'roster.html', footText: isDj ? 'Back to my dashboard' : 'See the roster',
+reqOn: !!req
+};
+if (!req) return Object.assign(base, listVals, nav);
 var other = first(req), otherName = (isDj ? req.hostName : req.djName) || other;
 var status = req.status, closed = status === 'closed', myMove = rqMove(req) === side;
 var cur = { sent: 0, offer: 1, accepted: 2 }[status];
@@ -929,14 +951,21 @@ var on = i === cur;
 return { key: x.key, label: x.label, bar: on ? '#d31110' : (i < cur ? '#000000' : '#a2a5a4'), text: on ? '#d31110' : (i < cur ? '#000000' : '#6b6e6d'), current: on ? 'step' : 'false' };
 });
 var byMe = req.closedBy === side;
-var outcome = !closed ? '' : (req.closedBy === 'dj' ? (byMe ? 'You declined this one.' : other + ' declined this one.') : (byMe ? 'You took this one back.' : other + ' took this one back.'));
+var chatIn = st.linesFor === req.id && st.linesPhase === 'ready';
+var agreed = chatIn && st.lines.some(function (m) { return m.kind === 'yes'; });
+var hostWhy = req.fee == null ? 'back' : (!chatIn ? 'unsure' : (agreed ? 'back' : 'passed'));
+var hostOut = hostWhy === 'passed' ? ' passed on the price.' : (hostWhy === 'unsure' ? ' closed this one.' : ' took this one back.');
+var outcome = !closed ? '' : (req.closedBy === 'dj' ? (byMe ? 'You declined this one.' : other + ' declined this one.') : (byMe ? 'You' : other) + hostOut);
 var lines = [{ key: 'sent', isSys: true, isBub: false, text: 'Request sent \u00b7 ' + rqWhen(req.sentAt), cls: '', head: '' }];
 if (req.note) lines.push({ key: 'note', isSys: false, isBub: true, cls: isDj ? 'bub bub-them' : 'bub bub-me', head: (isDj ? other : 'You') + ' \u00b7 ' + rqWhen(req.sentAt), text: req.note });
-var have = st.linesFor === req.id;
+var have = st.linesFor === req.id, named = false, said = false;
 (have ? st.lines : []).forEach(function (m) {
 var me = m.side === side, who = me ? 'You' : other;
+var passed = m.kind === 'no' && named && !said;
+if (m.kind === 'offer') named = true;
+if (m.kind === 'yes') said = true;
 if (m.kind === 'msg') lines.push({ key: m.id, isSys: false, isBub: true, cls: me ? 'bub bub-me' : 'bub bub-them', head: who + ' \u00b7 ' + rqWhen(m.at), text: m.text });
-else lines.push({ key: m.id, isSys: true, isBub: false, text: rqAnswer(m, who) + ' \u00b7 ' + rqWhen(m.at), cls: '', head: '' });
+else lines.push({ key: m.id, isSys: true, isBub: false, text: rqAnswer(m, who, passed) + ' \u00b7 ' + rqWhen(m.at), cls: '', head: '' });
 });
 var fee = req.fee, priced = status !== 'sent' && fee != null;
 var price = priced ? rqMoney(fee) : (req.budget != null ? rqMoney(req.budget) : (isDj ? 'Name your price' : 'Open budget'));
@@ -963,11 +992,7 @@ var factRows = [{ k: 'When', v: rqNight(req.date) }, { k: 'Where', v: req.place 
 if (priced) factRows.push({ k: isDj ? 'Their budget' : 'Your budget', v: req.budget != null ? rqMoney(req.budget) : 'Open' });
 factRows = factRows.map(function (f) { return { key: f.k, k: f.k, v: f.v }; });
 var draftBlank = !String(st.draft || '').trim();
-return Object.assign(base, {
-listAria: isDj ? 'Requests' : 'Inbox', listTitle: isDj ? 'Requests.' : 'Inbox.',
-filters: filters, threads: threads, listEmpty: threads.length === 0,
-emptyText: { open: 'Nothing open. Enjoy the\u00a0quiet.', accepted: 'Nothing accepted\u00a0yet.', closed: 'Nothing closed.' }[st.filter],
-footHref: isDj ? 'dashboard.html' : 'roster.html', footText: isDj ? 'Back to my dashboard' : 'See the roster',
+return Object.assign(base, listVals, {
 chatRef: this.chatRef, logRef: this.logRef, infoRef: this.infoRef,
 activeIni: rqIni(otherName), activeName: otherName, activeRole: isDj ? 'The host.' : 'The DJ.',
 pageOn: !isDj && !!req.djSlug, pageHref: 'artist.html#' + req.djSlug,
