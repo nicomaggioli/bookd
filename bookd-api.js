@@ -654,7 +654,7 @@ for (x = p.r + (p.b - p.t) * p.sr; x >= p.l + (p.b - p.t) * p.sl; x -= st) ctx.l
 for (y = p.b; y >= p.t; y -= st) ctx.lineTo(p.l + (y - p.t) * p.sl + rip(s + 4, y) * p.side - edge(3, y), y);
 ctx.closePath();
 }
-function draw(img, seedText, pos) {
+function draw(img, seedText, pos, pieces) {
 var seed = hash(seedText), rand = rng(seed);
 var out = document.createElement('canvas'); out.width = CW; out.height = CH;
 var ctx = out.getContext('2d');
@@ -666,7 +666,8 @@ var sc = Math.max(PW / iw, PH / ih), sw = PW / sc, sh = PH / sc;
 var m = /(-?[\d.]+)%\s+(-?[\d.]+)%/.exec(pos || ''), px = m ? +m[1] / 100 : .5, py = m ? +m[2] / 100 : .5;
 var sx = (iw - sw) * Math.min(1, Math.max(0, px)), sy = (ih - sh) * Math.min(1, Math.max(0, py));
 var paper = speckTile(rand, 150, 255, .16), grain = speckTile(rand, 0, 255, .09);
-var n = 5 + (rand() < .45 ? 1 : 0), cuts = [0], i, sum = 0, hs = [];
+var whole = pieces === 1;
+var n = pieces >= 1 && pieces <= 8 ? Math.round(pieces) : 5 + (rand() < .45 ? 1 : 0), cuts = [0], i, sum = 0, hs = [];
 for (i = 0; i < n; i++) { hs.push(.7 + rand() * .9); sum += hs[i]; }
 for (i = 0; i < n - 1; i++) cuts.push(cuts[i] + hs[i] / sum * PH);
 cuts.push(PH);
@@ -676,12 +677,12 @@ var p = {
 seed: seed + i * 977,
 t: Y0 + cuts[i] - (first ? 0 : 8 + rand() * 16),
 b: Y0 + cuts[i + 1] + (last ? 0 : rand() < .3 ? -2 - rand() * 6 : 6 + rand() * 14),
-l: X0 + (rand() < .45 ? 20 + rand() * 110 : rand() * 16),
-r: X0 + PW - (rand() < .45 ? 20 + rand() * 110 : rand() * 16),
-amp: 9 + rand() * 8, side: 5 + rand() * 5, sl: (rand() - .5) * .3, sr: (rand() - .5) * .3,
-white: [1.3 + rand() * 1.1, .5 + rand() * .7, .6 + rand() * .9, .9 + rand() * .9]
+l: X0 + (!whole && rand() < .45 ? 20 + rand() * 110 : rand() * 16),
+r: X0 + PW - (!whole && rand() < .45 ? 20 + rand() * 110 : rand() * 16),
+amp: 9 + rand() * 8, side: 5 + rand() * 5, sl: (rand() - .5) * (whole ? .03 : .3), sr: (rand() - .5) * (whole ? .03 : .3),
+white: whole ? [1.5 + rand(), 1.1 + rand() * .8, 1.3 + rand(), 1.2 + rand() * .8] : [1.3 + rand() * 1.1, .5 + rand() * .7, .6 + rand() * .9, .9 + rand() * .9]
 };
-var dx = (rand() - .5) * 54, dy = (rand() - .5) * 8, rot = (rand() - .5) * .05;
+var dx = whole ? 0 : (rand() - .5) * 54, dy = whole ? 0 : (rand() - .5) * 8, rot = (rand() - .5) * (whole ? .03 : .05);
 o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, CW, CH);
 o.save(); outline(o, p, 1); o.clip();
 o.fillStyle = '#f3eee3'; o.fillRect(0, 0, CW, CH);
@@ -708,7 +709,7 @@ return out;
 }
 function tear(url, opts) {
 opts = opts || {};
-var key = url + '|' + (opts.seed || '') + '|' + (opts.pos || '');
+var key = url + '|' + (opts.seed || '') + '|' + (opts.pos || '') + '|' + (opts.pieces || '');
 if (made[key]) return made[key];
 made[key] = new Promise(function (done) {
 if (!url || typeof document === 'undefined' || !W.Promise) { done(''); return; }
@@ -722,7 +723,7 @@ plain.src = url;
 };
 img.onload = function () {
 try {
-var c = draw(img, opts.seed || url, opts.pos);
+var c = draw(img, opts.seed || url, opts.pos, opts.pieces);
 if (!c.toBlob) { done(c.toDataURL('image/png')); return; }
 c.toBlob(function (b) { done(b ? URL.createObjectURL(b) : ''); }, 'image/webp', .92);
 } catch (e) { done(''); }

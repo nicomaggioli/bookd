@@ -245,7 +245,7 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .rt-you:hover .rt-big{color:#fffde9}
 .rt-you:hover .rt-youbtn,.rt-you .rt-youbtn:hover{background:#ffffff;color:#000000}
 }
-.rt:hover .rt-photo img{filter:none !important}
+.rt:hover .rt-photo img,.rt:active .rt-photo img,.rt:has(.rt-name a:focus-visible) .rt-photo img{filter:none !important}
 @media (prefers-reduced-motion: reduce){
 *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 .qf-cal{animation:none}
@@ -699,7 +699,7 @@ if (!d.img || typeof BOOKD === 'undefined' || !BOOKD.tear) return '';
 var k = d.img + '|' + (d.pos || '');
 if (k in R6_MADE) return R6_MADE[k];
 R6_MADE[k] = 'wait';
-BOOKD.tear(d.img, { seed: d.slug || d.name, pos: d.pos }).then(function (u) { R6_MADE[k] = u || ''; if (R6_REDO) R6_REDO(); });
+BOOKD.tear(d.img, { seed: d.slug || d.name, pos: d.pos, pieces: 1 }).then(function (u) { R6_MADE[k] = u || ''; if (R6_REDO) R6_REDO(); });
 return 'wait';
 }
 var R6_GRADE = 'grayscale(1) contrast(1.3) brightness(.95)';
@@ -738,9 +738,9 @@ function r6Has(text, terms) { var t = String(text || '').toLowerCase(); for (var
 function r6Snd(sound) { return sound === 'R&B' ? 'R&B' : String(sound || '').toLowerCase().replace(/\bebm\b/, 'EBM'); }
 function r6NoPhoto(e) { var t = e && e.target; if (t && t.getAttribute && t.getAttribute('src') !== R6_BLANK) { t.setAttribute('alt', ''); t.setAttribute('src', R6_BLANK); } }
 function r6Tile(a, badge, note) {
-var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length, torn = R6_TORN[a.slug] || r6Tear(a), wait = torn === 'wait';
+var first = String(a.first || String(a.name || '').split(' ')[0] || ''), len = first.length, torn = r6Tear(a), wait = torn === 'wait';
 if (wait || torn === 'none') torn = '';
-return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: torn || a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: torn ? 'none' : wait ? 'opacity(0)' : R6_GRADE, pos: torn ? '50% 100%' : (a.pos || '50% 50%'), tileCls: torn ? 'rt rt-torn' : 'rt',
+return { name: a.name, genre: a.tag || (a.genres || []).join(' / '), home: a.home, img: torn || a.img || R6_BLANK, alt: a.img ? (a.alt || a.name) : '', grade: torn ? 'grayscale(1) contrast(1.12)' : wait ? 'opacity(0)' : R6_GRADE, pos: torn ? '50% 100%' : (a.pos || '50% 50%'), tileCls: torn ? 'rt rt-torn' : 'rt',
 sigCls: 'yb-sig yb-sig-0' + (len > 16 ? ' yb-sig-s3' : len > 12 ? ' yb-sig-s2' : len > 9 ? ' yb-sig-s1' : ''), first: first,
 href: BOOKD_DJ_URL(a.slug), noPhoto: r6NoPhoto,
 hasBadge: !!badge, badge: badge === 'town' ? 'In town' : 'Lives here', badgeCls: badge === 'town' ? 'rt-badge' : 'rt-badge rt-badge-home',
