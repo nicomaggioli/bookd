@@ -668,6 +668,55 @@ return _.bad(q) || { ok: true, city: (q.data && q.data.city) || '' };
 };
 })();
 (function () {
+if (typeof document === 'undefined' || typeof window === 'undefined') return;
+if (/^\/(login|account|admin|requests|inbox|dashboard|enter|waitlist|messages|cancel|build)(\.html)?\/?$/.test(location.pathname)) return;
+var PAPER = '/assets/cf699f6d9a6dbdaeda4a3bf15b059089.webp';
+var INK = '/assets/4ee977fd2a36a4622cc8b5daf4397af7.webp';
+var LOOK = {
+l: ['url(' + PAPER + ')', '512px 512px', 'multiply'],
+r: ['url(' + INK + '),url(' + PAPER + ')', '640px 640px,512px 512px', 'screen,multiply'],
+k: ['url(' + INK + ')', '640px 640px', 'screen']
+};
+var seen = typeof WeakSet === 'function' ? new WeakSet() : null;
+function kind(c) {
+var m = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+))?/.exec(c || '');
+if (!m || (m[4] !== undefined && +m[4] < 0.95)) return '';
+var r = +m[1], g = +m[2], b = +m[3];
+if (r < 20 && g < 20 && b < 20) return 'k';
+if (r > 180 && g < 50 && b < 50) return 'r';
+if (r > 235 && g > 235 && b > 215) return 'l';
+return '';
+}
+function mark() {
+var all = document.querySelectorAll('body, section, footer, header, main, div');
+var vw = document.documentElement.clientWidth;
+for (var i = 0; i < all.length; i++) {
+var el = all[i];
+if (seen) { if (seen.has(el)) continue; }
+if (el !== document.body) {
+var r = el.getBoundingClientRect();
+if (!r.width) continue;
+if (seen) seen.add(el);
+if (r.width < vw * 0.9 || r.height < 140) continue;
+} else if (seen) seen.add(el);
+var cs = getComputedStyle(el);
+if (cs.backgroundImage !== 'none' || cs.position === 'fixed' || cs.position === 'sticky') continue;
+var k = kind(cs.backgroundColor);
+if (!k) continue;
+el.style.setProperty('background-image', LOOK[k][0], 'important');
+el.style.setProperty('background-size', LOOK[k][1], 'important');
+el.style.setProperty('background-repeat', 'repeat', 'important');
+el.style.setProperty('background-blend-mode', LOOK[k][2], 'important');
+el.setAttribute('data-paper', k);
+}
+}
+var wait = 0;
+function soon() { clearTimeout(wait); wait = setTimeout(mark, 200); }
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mark); else mark();
+window.addEventListener('load', soon);
+if (window.MutationObserver) new MutationObserver(soon).observe(document.documentElement, { childList: true, subtree: true });
+})();
+(function () {
 var B = window.BOOKD; if (!B || !B.ready) return;
 var _ = B._, sb = _.sb;
 function whole(v) {
