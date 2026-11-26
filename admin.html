@@ -34,7 +34,20 @@ html .btn-pale:hover,html .btn-quiet:hover{background:#000000 !important;color:#
 html .field:not(:focus-within){background:#e3e3e0 !important;box-shadow:none !important}
 html .e6-grey,html .e6-x{background:#000000;color:#ffffff}
 html .e6-pick:has(input:focus-visible){outline:0;opacity:.78}
-@media (hover:hover) and (pointer:fine){html .e6-grey:hover,html .e6-x:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}}</style>
+@media (hover:hover) and (pointer:fine){html .e6-grey:hover,html .e6-x:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}}
+html button:focus-visible,html a.btn:focus-visible,html .btn:focus-visible,html a.go:focus-visible,html a.ink:focus-visible,html a.paper:focus-visible,html a.ghost:focus-visible,html [role="button"]:focus-visible{outline:0 !important;opacity:.78}
+@media (hover:hover) and (pointer:fine){html .e6-row:hover .e6-redit{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important;opacity:1}}
+@media (hover:hover) and (pointer:fine){html .e6-back:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important;opacity:1}}
+html .e6-bar .e6-soft{background:#000000;color:#ffffff}
+html .e6-bar .btn[aria-disabled="true"]{background:#000000;color:#ffffff;opacity:.35;cursor:default}
+@media (hover:hover) and (pointer:fine){html .e6-bar .e6-soft:not([aria-disabled="true"]):hover{background:#000000 !important;color:#ffffff !important;opacity:.78}html .e6-bar .btn[aria-disabled="true"]:hover{background:#000000 !important;color:#ffffff !important;opacity:.35}}
+html .e6-chip{background:#000000;color:#ffffff}
+html .e6-chip[aria-pressed="true"]{background:#d31110;color:#ffffff}
+@media (hover:hover) and (pointer:fine){html .e6-chip:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}html .e6-chip[aria-pressed="true"]:hover{background:#a50d0c !important;color:#ffffff !important;opacity:1}}
+html .e6-claim .btn{margin-top:14px;background:#000000;color:#ffffff}
+@media (hover:hover) and (pointer:fine){html .e6-claim .btn:hover{background:#000000;color:#ffffff;opacity:.78}}
+html .e6-pic .btn,html .e6-dlist .btn{background:#000000;color:#ffffff}
+@media (hover:hover) and (pointer:fine){html .e6-pic .btn:hover,html .e6-dlist .btn:hover{background:#000000;color:#ffffff;opacity:.78}}</style>
 </head>
 <body>
 <x-dc>

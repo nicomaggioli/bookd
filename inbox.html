@@ -29,7 +29,15 @@ html .btn-pale:focus-visible,html .btn-quiet:focus-visible,html .pe-pick:focus-w
 @media (hover:hover) and (pointer:fine){
 html .btn-pale:hover,html .btn-quiet:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}
 }
-html .field:not(:focus-within){background:#e3e3e0 !important;box-shadow:none !important}</style>
+html .field:not(:focus-within){background:#e3e3e0 !important;box-shadow:none !important}
+html button:focus-visible,html a.btn:focus-visible,html .btn:focus-visible,html a.go:focus-visible,html a.ink:focus-visible,html a.paper:focus-visible,html a.ghost:focus-visible,html [role="button"]:focus-visible{outline:0 !important;opacity:.78}
+html .col-info .btn-ink{background:#fffde9 !important;color:#000000 !important}
+@media (hover:hover) and (pointer:fine){html .col-info .btn-ink:not([aria-busy="true"]):hover{background:#e2dfc9 !important;color:#000000 !important;opacity:1 !important;box-shadow:none !important}}
+html .col-info .btn-ghost{background:#fffde9 !important;color:#000000 !important;box-shadow:none !important}
+@media (hover:hover) and (pointer:fine){html .send:not(.send-off):hover{background:#a50d0c !important;color:#ffffff !important}}
+html .send-off{background:#000000 !important;color:#ffffff !important;opacity:.35}
+html .col-info .decl,html .col-list .listlink{background:#fffde9 !important;color:#000000 !important}
+@media (hover:hover) and (pointer:fine){html .col-info .decl:hover,html .col-list .listlink:hover{background:#e2dfc9 !important;color:#000000 !important;opacity:1}}</style>
 </head>
 <body>
 <x-dc>
