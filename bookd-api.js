@@ -601,7 +601,7 @@ return 'light';
 function target(own, back) {
 if (own === 'red') return back === 'black' ? 'light' : 'black';
 if (own === 'black') return back === 'light' ? 'red' : 'light';
-if (own === 'light') return back === 'black' ? 'red' : 'black';
+if (own === 'light') return back === 'red' ? 'deep' : 'red';
 return '';
 }
 function off(el) {
@@ -623,7 +623,7 @@ if (!rest) return;
 var to = target(rest, behind(el));
 if (!to) return;
 held = { el: el, had: had };
-put(el, 'background', to === 'black' ? BLACK : to === 'red' ? RED : CREAM);
+put(el, 'background', to === 'black' ? BLACK : to === 'red' ? RED : to === 'deep' ? '#a50d0c' : CREAM);
 put(el, 'color', to === 'light' ? BLACK : WHITE);
 put(el, 'opacity', '1');
 put(el, 'box-shadow', 'none');
