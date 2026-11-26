@@ -672,12 +672,15 @@ if (typeof document === 'undefined' || typeof window === 'undefined') return;
 if (/^\/(login|account|admin|requests|inbox|dashboard|enter|waitlist|messages|cancel|build)(\.html)?\/?$/.test(location.pathname)) return;
 var PAPER = '/assets/cf699f6d9a6dbdaeda4a3bf15b059089.webp';
 var INK = '/assets/4ee977fd2a36a4622cc8b5daf4397af7.webp';
+var T = 512;
+var PINNED = '.reveal-stage';
 var LOOK = {
-l: ['url(' + PAPER + ')', '512px 512px', 'multiply'],
-r: ['url(' + INK + '),url(' + PAPER + ')', '640px 640px,512px 512px', 'screen,multiply'],
-k: ['url(' + INK + ')', '640px 640px', 'screen']
+l: { img: 'url(' + PAPER + ')', blend: 'multiply', n: 1 },
+r: { img: 'url(' + INK + '),url(' + PAPER + ')', blend: 'screen,multiply', n: 2 },
+k: { img: 'url(' + INK + ')', blend: 'screen', n: 1 }
 };
-var seen = typeof WeakSet === 'function' ? new WeakSet() : null;
+var seen = typeof WeakSet === 'function' ? new WeakSet() : { has: function () { return false; }, add: function () {} };
+var done = [];
 function kind(c) {
 var m = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+))?/.exec(c || '');
 if (!m || (m[4] !== undefined && +m[4] < 0.95)) return '';
@@ -687,34 +690,94 @@ if (r > 180 && g < 50 && b < 50) return 'r';
 if (r > 235 && g > 235 && b > 215) return 'l';
 return '';
 }
+function layers(v) {
+var out = [], depth = 0, cur = '';
+for (var i = 0; i < v.length; i++) {
+var ch = v.charAt(i);
+if (ch === '(') depth++; else if (ch === ')') depth--;
+if (ch === ',' && !depth) { out.push(cur.trim()); cur = ''; } else cur += ch;
+}
+if (cur.trim()) out.push(cur.trim());
+return out;
+}
+function fill(v, n) { var a = layers(v), out = []; for (var i = 0; i < n; i++) out.push(a[i % a.length] || a[0]); return out; }
+function rep(v, n) { var out = []; for (var i = 0; i < n; i++) out.push(v); return out; }
+function put(el, p, v) { el.style.setProperty(p, v, 'important'); }
+function where(el) {
+var x = 0, y = 0;
+for (var e = el; e; e = e.offsetParent) { x += e.offsetLeft || 0; y += e.offsetTop || 0; }
+return { x: x, y: y };
+}
+function mod(v) { return ((Math.round(v) % T) + T) % T; }
+function dress(el, k, fade) {
+var L = LOOK[k], cs = getComputedStyle(el), g = fade ? layers(fade) : [];
+var rest = g.length ? fill(cs.backgroundPosition, g.length) : [];
+put(el, 'background-image', [L.img].concat(g).join(','));
+put(el, 'background-size', rep(T + 'px ' + T + 'px', L.n).concat(g.length ? fill(cs.backgroundSize, g.length) : []).join(','));
+put(el, 'background-repeat', rep('repeat', L.n).concat(g.length ? fill(cs.backgroundRepeat, g.length) : []).join(','));
+put(el, 'background-blend-mode', [L.blend].concat(rep('normal', g.length)).join(','));
+el.style.setProperty('--pp-img', L.img);
+el.style.setProperty('--pp-blend', L.blend);
+el.setAttribute('data-paper', k);
+done.push({ el: el, n: L.n, rest: rest, bg: true });
+}
+function line() {
+for (var i = 0; i < done.length; i++) {
+var d = done[i];
+if (!d.el.isConnected) continue;
+var w = where(d.el), x = -mod(w.x) + 'px', y = -mod(w.y) + 'px';
+if (d.pin) { x = '0px'; y = '0px'; }
+if (d.bg) put(d.el, 'background-position', rep(x + ' ' + y, d.n).concat(d.rest).join(','));
+d.el.style.setProperty('--pp-x', x);
+d.el.style.setProperty('--pp-y', y);
+}
+}
 function mark() {
 var all = document.querySelectorAll('body, section, footer, header, main, div');
 var vw = document.documentElement.clientWidth;
 for (var i = 0; i < all.length; i++) {
 var el = all[i];
-if (seen) { if (seen.has(el)) continue; }
+if (seen.has(el)) continue;
+var isRip = el.classList.contains('rip'), pin = el.matches(PINNED);
 if (el !== document.body) {
 var r = el.getBoundingClientRect();
 if (!r.width) continue;
-if (seen) seen.add(el);
-if (r.width < vw * 0.9 || r.height < 140) continue;
-} else if (seen) seen.add(el);
+seen.add(el);
+if (!isRip && (r.width < vw * 0.9 || r.height < 140)) continue;
+} else seen.add(el);
+if (!pin && el.closest(PINNED)) continue;
 var cs = getComputedStyle(el);
-if (cs.backgroundImage !== 'none' || cs.position === 'fixed' || cs.position === 'sticky') continue;
-var k = kind(cs.backgroundColor);
-if (!k) continue;
-el.style.setProperty('background-image', LOOK[k][0], 'important');
-el.style.setProperty('background-size', LOOK[k][1], 'important');
-el.style.setProperty('background-repeat', 'repeat', 'important');
-el.style.setProperty('background-blend-mode', LOOK[k][2], 'important');
-el.setAttribute('data-paper', k);
+if (isRip) {
+var probe = document.createElement('i'); probe.style.color = cs.getPropertyValue('--rip') || '#000'; el.appendChild(probe);
+var rk = kind(getComputedStyle(probe).color); el.removeChild(probe);
+if (rk) { el.style.setProperty('--pp-img', LOOK[rk].img); el.style.setProperty('--pp-blend', LOOK[rk].blend); done.push({ el: el, n: 0, rest: [], bg: false }); }
+continue;
 }
+if (pin) { put(el, 'background-color', '#000000'); dress(el, 'k', ''); done[done.length - 1].pin = true; continue; }
+if (cs.position === 'fixed' || cs.position === 'sticky') continue;
+var img = cs.backgroundImage, k = kind(cs.backgroundColor);
+if (img === 'none') { if (k) dress(el, k, ''); continue; }
+var ours = img.indexOf(PAPER) > -1 || img.indexOf(INK) > -1;
+if (ours) {
+dress(el, img.indexOf(INK) > -1 ? (img.indexOf(PAPER) > -1 ? 'r' : 'k') : 'l', '');
+continue;
+}
+if (img.indexOf('url(') > -1) continue;
+if (!k) {
+k = kind((/rgba?\([^)]*\)/.exec(img) || [''])[0]);
+if (k) put(el, 'background-color', k === 'k' ? '#000000' : k === 'r' ? '#d31110' : '#fffde9');
+}
+if (k) dress(el, k, img);
+}
+line();
 }
 var wait = 0;
 function soon() { clearTimeout(wait); wait = setTimeout(mark, 200); }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mark); else mark();
 window.addEventListener('load', soon);
+window.addEventListener('resize', soon);
 if (window.MutationObserver) new MutationObserver(soon).observe(document.documentElement, { childList: true, subtree: true });
+if (window.ResizeObserver && document.body) new ResizeObserver(soon).observe(document.body);
 })();
 (function () {
 var B = window.BOOKD; if (!B || !B.ready) return;
