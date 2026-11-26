@@ -40,8 +40,13 @@ html .ct-list dd small{display:block;margin-top:6px;font-size:16px;line-height:1
 html .ct-list dd a{color:#fffde9}</style>
 <style>@media (hover:hover) and (pointer:fine){
 html .go:not([aria-disabled="true"]):not([aria-busy="true"]):hover,html .btn-main:not([aria-busy="true"]):not([aria-disabled="true"]):hover,html .btn-red:hover{background:#a50d0c !important;color:#ffffff !important;box-shadow:none !important}
-html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#333333 !important;color:#ffffff !important;box-shadow:none !important}
+html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#000000 !important;color:#ffffff !important;box-shadow:none !important;opacity:.78}
 html .paper:not([aria-disabled="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover,html .btn-ghost:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important}
+}</style>
+<style>html .btn-pale,html .btn-quiet{background:#000000 !important;color:#ffffff !important;box-shadow:none !important}
+html .btn-pale:focus-visible,html .btn-quiet:focus-visible,html .pe-pick:focus-within,html .pe-pill:focus-visible,html .pe-chip:focus-visible{outline:0 !important;opacity:.78}
+@media (hover:hover) and (pointer:fine){
+html .btn-pale:hover,html .btn-quiet:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}
 }</style>
 <style>html .ct .ct-form .field{padding:12px 0 10px;border-radius:0;background:none !important;color:#fffde9;box-shadow:none !important;border-bottom:2px solid rgba(255,253,233,.55);transition:border-color .15s}
 html .ct .ct-form .field:focus-within,html .ct .ct-form .field:has([aria-invalid="true"]){border-bottom-color:#ff3b2f;box-shadow:none !important;background:none !important}

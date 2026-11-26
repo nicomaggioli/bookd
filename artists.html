@@ -53,10 +53,15 @@ html .jq-list div:last-child{border-bottom:0}
 html .jq .jq-list dt{font-weight:900;text-transform:uppercase;letter-spacing:-.06em;font-size:clamp(26px,calc(3 * var(--vw)),44px);line-height:.98}</style>
 <style>@media (hover:hover) and (pointer:fine){
 html .go:not([aria-disabled="true"]):not([aria-busy="true"]):hover,html .btn-main:not([aria-busy="true"]):not([aria-disabled="true"]):hover,html .btn-red:hover{background:#a50d0c !important;color:#ffffff !important;box-shadow:none !important}
-html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#333333 !important;color:#ffffff !important;box-shadow:none !important}
+html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#000000 !important;color:#ffffff !important;box-shadow:none !important;opacity:.78}
 html .paper:not([aria-disabled="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover,html .btn-ghost:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important}
 }</style>
-<style>@media (hover:hover) and (pointer:fine){html .jh .ink:hover{background:#333333 !important;color:#ffffff !important}}</style>
+<style>html .btn-pale,html .btn-quiet{background:#000000 !important;color:#ffffff !important;box-shadow:none !important}
+html .btn-pale:focus-visible,html .btn-quiet:focus-visible,html .pe-pick:focus-within,html .pe-pill:focus-visible,html .pe-chip:focus-visible{outline:0 !important;opacity:.78}
+@media (hover:hover) and (pointer:fine){
+html .btn-pale:hover,html .btn-quiet:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}
+}</style>
+<style>@media (hover:hover) and (pointer:fine){html .jh .ink:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}}</style>
 <style>html .ja .ja-card .field{padding:12px 0 10px;border-radius:0;background:none !important;color:#fffde9;box-shadow:none !important;border-bottom:2px solid rgba(255,253,233,.55);transition:border-color .15s}
 html .ja .ja-card .field:focus-within,html .ja .ja-card .field:has([aria-invalid="true"]){border-bottom-color:#ff3b2f;box-shadow:none !important;background:none !important}
 html .ja .ja-card .field-l{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#a2a5a4}

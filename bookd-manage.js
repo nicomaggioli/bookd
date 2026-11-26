@@ -1126,7 +1126,7 @@ photo: { title: 'Your photo.', side: 'left', at: '.k6rec', fields: ['img', 'alt'
 about: { title: 'About you.', side: 'left', at: '.k6aboutbody', fields: ['bio', 'links'] },
 sets: { title: 'Your sets.', side: 'left', at: '.k6songs', fields: ['sets', 'find'] },
 rider: { title: 'What you need.', side: 'left', at: '[id$="-needs"]', fields: ['rider', 'riderNote', 'riderLink'] },
-look: { title: 'How your page looks.', side: 'left', at: '', fields: ['look'] }
+look: { title: 'Your second picture.', side: 'left', at: '', fields: ['look'] }
 };
 var NEEDS = { tag: 'your sound', home: 'a home city', img: 'a photo', bio: 'a few words about you' };
 var BG_NAMES = { red: 'Red', black: 'Black', cream: 'Cream' };

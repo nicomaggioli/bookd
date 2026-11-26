@@ -61,10 +61,15 @@ if (twice) de.classList.add('cqz');
 }</style>
 <style>@media (hover:hover) and (pointer:fine){
 html .go:not([aria-disabled="true"]):not([aria-busy="true"]):hover,html .btn-main:not([aria-busy="true"]):not([aria-disabled="true"]):hover,html .btn-red:hover{background:#a50d0c !important;color:#ffffff !important;box-shadow:none !important}
-html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#333333 !important;color:#ffffff !important;box-shadow:none !important}
+html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#000000 !important;color:#ffffff !important;box-shadow:none !important;opacity:.78}
 html .paper:not([aria-disabled="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover,html .btn-ghost:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important}
 }</style>
-<style>@media (hover:hover) and (pointer:fine){#artists .ghost.onred:hover{background:#333333 !important;color:#ffffff !important}html #artists.art-red .ink:hover{background:#e2dfc9 !important;color:#000000 !important}}</style>
+<style>html .btn-pale,html .btn-quiet{background:#000000 !important;color:#ffffff !important;box-shadow:none !important}
+html .btn-pale:focus-visible,html .btn-quiet:focus-visible,html .pe-pick:focus-within,html .pe-pill:focus-visible,html .pe-chip:focus-visible{outline:0 !important;opacity:.78}
+@media (hover:hover) and (pointer:fine){
+html .btn-pale:hover,html .btn-quiet:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}
+}</style>
+<style>@media (hover:hover) and (pointer:fine){#artists .ghost.onred:hover{background:#000000 !important;color:#ffffff !important;opacity:.78}html #artists.art-red .ink:hover{background:#e2dfc9 !important;color:#000000 !important}}</style>
 <style>html #artists .ap-form input:-webkit-autofill{-webkit-text-fill-color:#fffde9;-webkit-box-shadow:0 0 0 60px #000000 inset;caret-color:#ff3b2f}</style>
 <style>html #artists .ap-form .field{padding:12px 0 10px;border-radius:0;background:none !important;color:#fffde9;box-shadow:none !important;border-bottom:2px solid rgba(255,253,233,.55);transition:border-color .15s}
 html #artists .ap-form .field:focus-within,html #artists .ap-form .field:has([aria-invalid="true"]){border-bottom-color:#ff3b2f;box-shadow:none !important;background:none !important}
@@ -941,7 +946,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <div class="art-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); align-items: stretch;">
 <div class="art-photo" style="position: relative; min-height: 560px; overflow: hidden;">
 <img class="art-still" loading="lazy" decoding="async" src="assets/4b7326be018d88afbc7c51970c60a130.webp" alt="A packed dance floor seen from above, lit by a camera flash" width="1024" height="1536" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%;">
-<span class="art-table"></span><img class="art-fig" src="assets/e9f61fa8e9f94d9c2791e80881e7dcbb.webp" alt="" width="1774" height="887" loading="lazy" decoding="async">
+<span class="art-table"></span><img class="art-fig" src="assets/563297f833a9b69fb130d2e0cc957df4.webp" alt="" width="1774" height="887" loading="lazy" decoding="async">
 <video class="retrovid art-vid" src="assets/4f8af93a0b618b22605ad13dad82a4fc.mp4" poster="assets/7ecce55ad13c7e8ea47cae7a843bc18b.jpg" muted="" loop="" playsinline="" preload="none" tabindex="-1" aria-hidden="true"></video>
 </div>
 <div class="arttext" style="padding: clamp(44px, calc(6 * var(--vw)), 90px) clamp(16px, calc(4 * var(--vw)), 48px); display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 0; max-width: 784px; box-sizing: border-box;">
