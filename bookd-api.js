@@ -572,6 +572,87 @@ showDb: showDb, datesOf: datesOf }
 };
 })();
 (function () {
+if (typeof document === 'undefined' || typeof window === 'undefined' || !window.matchMedia) return;
+if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+var PICK = 'button,a.btn,.btn,label.btn,.go,.ink,.paper,.ghost,.btn-main,.btn-quiet,.btn-pale,.btn-ink,.btn-red,.btn-ghost';
+var SKIP = '[aria-pressed],[aria-current],[role="tab"],[role="switch"],[aria-checked],.navmenu,.tvs,.k6trk,.k6tplay,.qf-day,.qf-f,.lg-knob';
+var BLACK = '#000000', RED = '#d31110', CREAM = '#fffde9', WHITE = '#ffffff';
+var held = null;
+function parse(c) {
+var m = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+))?/.exec(c || '');
+if (!m) return null;
+return { r: +m[1], g: +m[2], b: +m[3], a: m[4] === undefined ? 1 : +m[4] };
+}
+function name(c) {
+var p = parse(c);
+if (!p || p.a < 0.9) return '';
+if (p.r < 24 && p.g < 24 && p.b < 24) return 'black';
+if (p.r > 150 && p.g < 70 && p.b < 70) return 'red';
+if (p.r > 215 && p.g > 215 && p.b > 190) return 'light';
+return '';
+}
+function behind(el) {
+for (var e = el.parentElement; e; e = e.parentElement) {
+var p = parse(getComputedStyle(e).backgroundColor);
+if (p && p.a >= 0.5) return name(getComputedStyle(e).backgroundColor);
+}
+return 'light';
+}
+function target(own, back) {
+if (own === 'red') return back === 'black' ? 'light' : 'black';
+if (own === 'black') return back === 'light' ? 'red' : 'light';
+if (own === 'light') return back === 'black' ? 'red' : 'black';
+return '';
+}
+function off(el) {
+return el.disabled || el.getAttribute('aria-disabled') === 'true' || el.getAttribute('aria-busy') === 'true';
+}
+function put(el, prop, val) { el.style.setProperty(prop, val, 'important'); }
+function leave() {
+if (!held) return;
+var h = held; held = null;
+if (h.had === null) h.el.removeAttribute('style'); else h.el.setAttribute('style', h.had);
+}
+function enter(el) {
+if (held && held.el === el) return;
+leave();
+if (el.matches(SKIP) || off(el)) return;
+var had = el.getAttribute('style');
+var rest = el.getAttribute('data-rest');
+if (!rest) return;
+var to = target(rest, behind(el));
+if (!to) return;
+held = { el: el, had: had };
+put(el, 'background', to === 'black' ? BLACK : to === 'red' ? RED : CREAM);
+put(el, 'color', to === 'light' ? BLACK : WHITE);
+put(el, 'opacity', '1');
+put(el, 'box-shadow', 'none');
+}
+function note() {
+var all = document.querySelectorAll(PICK);
+for (var i = 0; i < all.length; i++) {
+var el = all[i];
+if ((held && held.el === el) || el.matches(':hover')) continue;
+var n = name(getComputedStyle(el).backgroundColor);
+if (el.getAttribute('data-rest') !== n) { if (n) el.setAttribute('data-rest', n); else el.removeAttribute('data-rest'); }
+}
+}
+var wait = 0;
+function soon() { clearTimeout(wait); wait = setTimeout(note, 180); }
+document.addEventListener('mouseover', function (ev) {
+var el = ev.target && ev.target.closest ? ev.target.closest(PICK) : null;
+if (el) enter(el); else leave();
+}, true);
+document.documentElement.addEventListener('mouseleave', leave);
+window.addEventListener('blur', leave);
+document.addEventListener('click', function () { setTimeout(function () { leave(); note(); }, 0); }, true);
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', note); else note();
+window.addEventListener('load', soon);
+if (window.MutationObserver) {
+new MutationObserver(soon).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'aria-pressed', 'aria-disabled', 'aria-busy', 'data-bg'] });
+}
+})();
+(function () {
 var B = window.BOOKD; if (!B || !B.ready) return;
 var _ = B._, sb = _.sb;
 B.me = {
