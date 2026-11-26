@@ -674,6 +674,8 @@ var PAPER = '/assets/cf699f6d9a6dbdaeda4a3bf15b059089.webp';
 var INK = '/assets/4ee977fd2a36a4622cc8b5daf4397af7.webp';
 var T = 512;
 var PINNED = '.reveal-stage';
+var EASE_IN = '#how, .hc-chaos';
+var VEIL = { k: 'linear-gradient(#000000 0,rgba(0,0,0,.86) 60px,rgba(0,0,0,.5) 150px,rgba(0,0,0,.16) 230px,rgba(0,0,0,0) 300px)' };
 var LOOK = {
 l: { img: 'url(' + PAPER + ')', blend: 'multiply', n: 1 },
 r: { img: 'url(' + INK + '),url(' + PAPER + ')', blend: 'screen,multiply', n: 2 },
@@ -712,14 +714,17 @@ function mod(v) { return ((Math.round(v) % T) + T) % T; }
 function dress(el, k, fade) {
 var L = LOOK[k], cs = getComputedStyle(el), g = fade ? layers(fade) : [];
 var rest = g.length ? fill(cs.backgroundPosition, g.length) : [];
-put(el, 'background-image', [L.img].concat(g).join(','));
-put(el, 'background-size', rep(T + 'px ' + T + 'px', L.n).concat(g.length ? fill(cs.backgroundSize, g.length) : []).join(','));
-put(el, 'background-repeat', rep('repeat', L.n).concat(g.length ? fill(cs.backgroundRepeat, g.length) : []).join(','));
-put(el, 'background-blend-mode', [L.blend].concat(rep('normal', g.length)).join(','));
+var veil = VEIL[k] && el.matches(EASE_IN) ? [VEIL[k]] : [];
+put(el, 'background-image', veil.concat([L.img], g).join(','));
+put(el, 'background-size', rep('100% 300px', veil.length).concat(rep(T + 'px ' + T + 'px', L.n),g.length ? fill(cs.backgroundSize, g.length) : []).join(','));
+put(el, 'background-repeat', rep('no-repeat', veil.length).concat(rep('repeat', L.n),g.length ? fill(cs.backgroundRepeat, g.length) : []).join(','));
+put(el, 'background-blend-mode', rep('normal', veil.length).concat([L.blend], rep('normal', g.length)).join(','));
 el.style.setProperty('--pp-img', L.img);
 el.style.setProperty('--pp-blend', L.blend);
 el.setAttribute('data-paper', k);
-done.push({ el: el, n: L.n, rest: rest, bg: true });
+var held = false;
+for (var p = el.parentElement; p && !held; p = p.parentElement) { var pp = getComputedStyle(p).position; held = pp === 'sticky' || pp === 'fixed'; }
+done.push({ el: el, n: L.n, rest: rest, bg: true, pre: rep('0px 0px', veil.length), pin: held });
 }
 function line() {
 for (var i = 0; i < done.length; i++) {
@@ -727,7 +732,7 @@ var d = done[i];
 if (!d.el.isConnected) continue;
 var w = where(d.el), x = -mod(w.x) + 'px', y = -mod(w.y) + 'px';
 if (d.pin) { x = '0px'; y = '0px'; }
-if (d.bg) put(d.el, 'background-position', rep(x + ' ' + y, d.n).concat(d.rest).join(','));
+if (d.bg) put(d.el, 'background-position', (d.pre || []).concat(rep(x + ' ' + y, d.n), d.rest).join(','));
 d.el.style.setProperty('--pp-x', x);
 d.el.style.setProperty('--pp-y', y);
 }
