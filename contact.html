@@ -31,6 +31,33 @@
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<style>html .ct-list div{grid-template-columns:minmax(0,1fr);gap:8px;padding:22px 0 24px;border-bottom:1px solid rgba(255,253,233,.28)}
+html .ct-list div:first-child{padding-top:0}
+html .ct-list div:last-child{border-bottom:0}
+html .ct-list dt{font-size:clamp(26px,calc(3 * var(--vw)),42px);line-height:.95;font-weight:900;letter-spacing:-.06em;text-transform:uppercase;color:#ff3b2f}
+html .ct-list dd{font-size:clamp(18px,calc(1.6 * var(--vw)),22px);line-height:1.3;font-weight:700;color:#fffde9}
+html .ct-list dd small{display:block;margin-top:6px;font-size:16px;line-height:1.45;font-weight:400;color:#a2a5a4}
+html .ct-list dd a{color:#fffde9}</style>
+<style>@media (hover:hover) and (pointer:fine){
+html .go:not([aria-disabled="true"]):not([aria-busy="true"]):hover,html .btn-main:not([aria-busy="true"]):not([aria-disabled="true"]):hover,html .btn-red:hover{background:#a50d0c !important;color:#ffffff !important;box-shadow:none !important}
+html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#333333 !important;color:#ffffff !important;box-shadow:none !important}
+html .paper:not([aria-disabled="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover,html .btn-ghost:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important}
+}</style>
+<style>html .ct .ct-form .field{padding:12px 0 10px;border-radius:0;background:none !important;color:#fffde9;box-shadow:none !important;border-bottom:2px solid rgba(255,253,233,.55);transition:border-color .15s}
+html .ct .ct-form .field:focus-within,html .ct .ct-form .field:has([aria-invalid="true"]){border-bottom-color:#ff3b2f;box-shadow:none !important;background:none !important}
+html .ct .ct-form .field-l{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#a2a5a4}
+html .ct .ct-form .field input,html .ct .ct-form .field textarea,html .ct .ct-form .field select{background-color:transparent;color:#fffde9;caret-color:#ff3b2f}
+html .ct .ct-form .field input::placeholder,html .ct .ct-form .field textarea::placeholder{color:rgba(255,253,233,.5) !important}
+html .ct .ct-form .field select option{color:#000000}
+html .ct .ct-form .ferr{padding-left:0;color:#ff3b2f}
+html .ct .ct-form .fhint,html .ct .ct-form .soon-line{padding-left:0;color:#a2a5a4}
+html .ct .ct-form{background:none !important;color:#fffde9;border-radius:0;padding:0;gap:8px}
+html .ct .ct-two{gap:8px 28px}
+html .ct .ct-form h2,html .ct .ct-form .ns-h{color:#fffde9}
+html .ct .ct-form .ns-p{color:#fffde9}
+html .ct .ct-form .ct-send{margin-top:14px}
+html .ct .ct-form .field select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 8 L10 13 L15 8' fill='none' stroke='%23fffde9' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>")}</style>
+<style>html .ct .ct-form input:-webkit-autofill{-webkit-text-fill-color:#fffde9;-webkit-box-shadow:0 0 0 60px #000000 inset;caret-color:#ff3b2f}</style>
 </head>
 <body>
 <noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Talk to a real person.</h1><p>Booking question or roster question? Here is how to reach the BOOKD team.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
@@ -38,7 +65,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap">
 <style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
 @supports (zoom:calc(100vw / 1440px)){
 @media (min-width:1441px){

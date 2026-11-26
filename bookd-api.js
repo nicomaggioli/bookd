@@ -188,7 +188,7 @@ var PLACES = [
 { key: 'chi', names: ['chicago', 'chi', 'evanston', 'wicker park', 'logan square'] }
 ];
 var L = { slug: 60, name: 120, first: 24, tag: 60, genres: 6, home: 120, alt: 200, bioParas: 8, bioChars: 2000,
-sets: 4, setTitle: 120, url: 500, findLabel: 60, links: 8, linkLabel: 40, rider: 12, riderLine: 160, riderNote: 160 };
+sets: 5, setTitle: 120, url: 500, findLabel: 60, links: 8, linkLabel: 40, rider: 12, riderLine: 160, riderNote: 160 };
 var SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 var NEEDED = ['tag', 'home', 'img', 'bio'];
 function str(v) { return v == null ? '' : String(v); }
@@ -654,13 +654,14 @@ for (x = p.r + (p.b - p.t) * p.sr; x >= p.l + (p.b - p.t) * p.sl; x -= st) ctx.l
 for (y = p.b; y >= p.t; y -= st) ctx.lineTo(p.l + (y - p.t) * p.sl + rip(s + 4, y) * p.side - edge(3, y), y);
 ctx.closePath();
 }
-function draw(img, seedText, pos, pieces) {
+function draw(img, seedText, pos, pieces, ratio) {
 var seed = hash(seedText), rand = rng(seed);
+var PH = ratio > 0 ? Math.round(800 / Math.min(3, Math.max(.4, ratio))) : 1064, CH = PH + 112;
 var out = document.createElement('canvas'); out.width = CW; out.height = CH;
 var ctx = out.getContext('2d');
 var off = document.createElement('canvas'); off.width = CW; off.height = CH;
 var o = off.getContext('2d');
-var X0 = 76, Y0 = 56, PW = 800, PH = 1064;
+var X0 = 76, Y0 = 56, PW = 800;
 var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
 var sc = Math.max(PW / iw, PH / ih), sw = PW / sc, sh = PH / sc;
 var m = /(-?[\d.]+)%\s+(-?[\d.]+)%/.exec(pos || ''), px = m ? +m[1] / 100 : .5, py = m ? +m[2] / 100 : .5;
@@ -709,7 +710,7 @@ return out;
 }
 function tear(url, opts) {
 opts = opts || {};
-var key = url + '|' + (opts.seed || '') + '|' + (opts.pos || '') + '|' + (opts.pieces || '');
+var key = url + '|' + (opts.seed || '') + '|' + (opts.pos || '') + '|' + (opts.pieces || '') + '|' + (opts.ratio || '');
 if (made[key]) return made[key];
 made[key] = new Promise(function (done) {
 if (!url || typeof document === 'undefined' || !W.Promise) { done(''); return; }
@@ -723,7 +724,7 @@ plain.src = url;
 };
 img.onload = function () {
 try {
-var c = draw(img, opts.seed || url, opts.pos, opts.pieces);
+var c = draw(img, opts.seed || url, opts.pos, opts.pieces, opts.ratio);
 if (!c.toBlob) { done(c.toDataURL('image/png')); return; }
 c.toBlob(function (b) { done(b ? URL.createObjectURL(b) : ''); }, 'image/webp', .92);
 } catch (e) { done(''); }

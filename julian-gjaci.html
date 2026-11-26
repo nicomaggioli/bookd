@@ -32,6 +32,171 @@
 <link rel="preload" href="bookd-api.js" as="script">
 <link rel="preload" href="dc-runtime.js" as="script">
 <script>window.BOOKD_ARTIST_PAGES=["julian-gjaci","kozlow","schloss"]</script>
+<style>.k6sig,.e6-sig,.e6-hsig,.yb-sig,.ts-sig{display:none !important}
+#e6-l-sign,#e6-n-sign,[aria-labelledby="e6-l-sign"]{display:none !important}</style>
+<style>.k6hero.k6ed{counter-reset:k6s;--bg:#fffde9;--ink:#000000;--txt:#000000;--ring:#000000;--cw:min(100%,760px);background:#fffde9;color:#000000;min-height:0;padding:clamp(40px,calc(6 * var(--vw)),88px) 0 0;overflow:visible;overflow-x:clip}
+.k6ed .k6bgimg,.k6hero.k6ed::before{display:none}
+.k6ed .wrap,.k6ed ~ .k6sec .wrap{max-width:1040px}
+.k6ed .wrap{display:flex;flex-direction:column;container-type:inline-size}
+.k6ed .k6hgrid{display:contents}
+.k6ed .k6recwrap{order:1;display:block;width:var(--cw);margin:0 auto}
+.k6ed .k6rec{display:block;width:100%;height:auto;aspect-ratio:298 / 330;border-radius:0;cursor:default}
+.k6ed .k6sleeve,.k6ed .k6vinyl,.k6ed .k6note,.k6ed .k6acts{display:none}
+.k6clg{display:none}
+.k6ed .k6clg{position:absolute;inset:0;display:block;container-type:inline-size;pointer-events:none}
+.k6p1,.k6p2{position:absolute;display:block;overflow:hidden;background:#111111}
+.k6p1{left:28.5%;top:0;width:71.5%;height:62.7%;z-index:1}
+.k6p2{left:0;top:60.3%;width:65.4%;height:39.7%;z-index:2}
+.k6p1 img,.k6p2 img{display:block;width:100%;height:100%;object-fit:cover;-webkit-user-select:none;user-select:none}
+.k6p2 img{filter:grayscale(1) contrast(1.15)}
+.k6torn .k6p1,.k6torn .k6p2{overflow:visible;background:none}
+.k6torn .k6p1 img,.k6torn .k6p2 img{position:absolute;left:-9.5%;width:119%;height:auto;max-width:none;object-fit:fill}
+.k6torn .k6p1 img{top:-7.2%}
+.k6torn .k6p2 img{top:-10.5%}
+.k6word{display:none}
+.k6ed .k6word{position:absolute;z-index:4;right:calc(71.5% - .3em);bottom:calc(39.7% - .34em);display:block;writing-mode:vertical-rl;color:#d31110;font-weight:900;letter-spacing:-.075em;line-height:.78;white-space:nowrap;font-size:calc(40cqw * var(--wk,1))}
+.k6ed .k6name{order:2;margin:clamp(56px,calc(11 * var(--vw)),150px) 0 0;color:#d31110;font-weight:900;font-size:clamp(52px,14.2cqw,150px);line-height:.9;letter-spacing:-.06em;text-transform:uppercase;white-space:normal;overflow-wrap:anywhere}
+.k6ed .k6copy{order:3;padding-top:clamp(20px,2.6cqw,30px)}
+.k6tags{display:none}
+.k6ed .k6tags{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.k6ed .k6tags li{border:0;border-radius:999px;background:#000000;color:#fffde9;padding:11px 18px;font-size:12px;line-height:1.2;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.k6ed .k6lede,.k6ed .k6town{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.k6ed ~ .k6town-sec{background:#fffde9;color:#000000;padding:clamp(48px,calc(8 * var(--vw)),104px) 0 clamp(64px,calc(9 * var(--vw)),120px)}
+.k6ed ~ .k6town-sec :focus-visible{outline-color:#d31110}
+.k6ed ~ .k6town-sec .k6about{display:block}
+.k6ed ~ .k6town-sec .k6abh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.k6ed ~ .k6town-sec .k6bio{max-width:880px;gap:1em;font-size:clamp(17px,calc(1.45 * var(--vw)),21px);line-height:1.4}
+.k6sh{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0;padding:0 0 16px;border-bottom:4px solid var(--rule,#000000);color:var(--word,#d31110) !important;font-size:clamp(44px,calc(6.4 * var(--vw)),84px);line-height:.88;letter-spacing:-.065em;counter-increment:k6s}
+.k6ed ~ .k6sets,.k6ed ~ .k6tour,.k6ed ~ .k6costs{padding:clamp(64px,calc(9 * var(--vw)),120px) 0}
+.k6ed ~ .k6sets{background:#000000;color:#fffde9;--rule:#fffde9;--word:#ff3b2f;--line:rgba(255,255,255,.2);--txt:#fffde9;--sub:#a2a5a4}
+.k6ed ~ .k6sets .k6deck{display:block}
+.k6ed ~ .k6sets .k6big,.k6ed ~ .k6sets .k6songs .lede{display:none}
+.k6ed ~ .k6sets .k6links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch;margin:28px 0 0}
+.k6ed ~ .k6sets .k6links li{display:flex}
+.k6ed ~ .k6sets .k6links li:last-child:nth-child(odd){grid-column:1 / -1}
+.k6ed ~ .k6sets .k6links .btn{display:flex;justify-content:center;align-items:center;gap:16px;box-sizing:border-box;width:100%;min-height:0;padding:22px 30px 21px;border-radius:999px;background:#fffde9;color:#000000;text-align:center;transition:background-color .15s,color .15s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.k6ln{font-size:clamp(20px,calc(1.9 * var(--vw)),26px);line-height:1.05;font-weight:700;letter-spacing:-0.04em;min-width:0;overflow-wrap:anywhere}
+.k6la{display:none;flex:none;max-width:50%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;line-height:1.2;font-weight:400;letter-spacing:0;color:#6b6e6d;transition:color .15s}
+.k6ed ~ .k6sets .k6tracks{margin:16px 0 0}
+.k6ed ~ .k6sets .k6tracks li{border:0;margin:0 0 14px}
+.k6ed ~ .k6sets .k6trk{grid-template-columns:minmax(0,1fr) auto;min-height:76px;padding:10px 30px;border:0;border-radius:999px;background:#d31110;color:#ffffff;transition:background-color .15s,color .15s}
+.k6ed ~ .k6sets .k6tid{display:none}
+.k6ed ~ .k6sets .k6ttitle{font-size:clamp(18px,calc(1.7 * var(--vw)),22px);letter-spacing:-0.03em;line-height:1.15}
+.k6ed ~ .k6sets .k6tmeta{color:inherit}
+.k6ed ~ .k6sets .k6tplay{width:auto;height:auto;border-radius:0;background:none;color:inherit}
+.k6ed ~ .k6sets .k6tplay svg{width:22px;height:22px}
+.k6ed ~ .k6sets .k6tout{display:none;margin:12px 0 0}
+.k6ed ~ .k6sets li:has(.k6emb:not(:empty)) .k6tout{display:inline-flex}
+.k6ed ~ .k6sets .k6emb{margin:12px 0 0}
+.k6tour{background:#d31110;color:#fffde9;--rule:#000000;--word:#fffde9}
+.k6tour :focus-visible{outline-color:#ffffff}
+.k6dates{margin:0;padding:0;list-style:none}
+.k6dates li{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) auto;align-items:center;gap:20px;padding:26px 0;border-bottom:1px solid rgba(0,0,0,.28)}
+.k6dates b{font-size:clamp(20px,calc(2 * var(--vw)),28px);line-height:1;font-weight:700;letter-spacing:-.03em;text-transform:uppercase}
+.k6dwhat{display:flex;flex-direction:column;gap:4px;min-width:0;font-size:clamp(18px,calc(1.7 * var(--vw)),23px);line-height:1.15;font-weight:700;letter-spacing:-.03em}
+.k6dwhat small{font-size:16px;font-weight:400;letter-spacing:0}
+.k6dpill{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:128px;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#fffde9;color:#000000;font:700 15px/1.1 'Inter',sans-serif}
+.k6nodates{margin:0;padding:28px 0;border-bottom:1px solid rgba(0,0,0,.28);font-size:clamp(18px,calc(1.7 * var(--vw)),23px);line-height:1.2;font-weight:700;letter-spacing:-.03em}
+.k6book{display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:84px;margin:clamp(28px,calc(3.6 * var(--vw)),44px) 0 0;padding:14px 24px;border-radius:999px;background:#000000;color:#ffffff;font:700 clamp(17px,calc(1.7 * var(--vw)),22px)/1.15 'Inter',sans-serif;letter-spacing:-0.02em;text-align:center;text-decoration:none;transition:background-color .15s,color .15s}
+.k6ed ~ .k6costs{background:#fffde9;color:#000000}
+.k6fine{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,calc(4 * var(--vw)),52px) clamp(32px,calc(5 * var(--vw)),72px);margin:clamp(28px,calc(3.4 * var(--vw)),44px) 0 0}
+.k6fine h3{margin:0 0 10px;font-size:13px;line-height:1.2;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.k6fine p{margin:0;font-size:clamp(16px,calc(1.35 * var(--vw)),19px);line-height:1.45}
+.k6fine .k6lines{margin:8px 0 0}
+.k6fine .k6lines li{padding:0;border:0;font-size:clamp(16px,calc(1.35 * var(--vw)),19px);line-height:1.45;font-weight:400}
+.k6fine .k6riderbtn{margin-top:18px}
+.k6ed ~ .k6costs .k6costfoot{margin:clamp(32px,calc(4 * var(--vw)),48px) 0 0;font-size:14px;color:#6b6e6d}
+.k6ed ~ .k6tour .k6dates li{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:0 .3em;padding:.2em 0 .16em;border-bottom:1px solid rgba(0,0,0,.35);font-size:clamp(26px,calc(4.1 * var(--vw)),60px)}
+.k6ed ~ .k6tour .k6dates b{color:#000000;font-size:1em;line-height:1;font-weight:900;letter-spacing:-.065em;text-transform:uppercase;white-space:nowrap}
+.k6ed ~ .k6tour .k6dwhat{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:0 .4em;color:#fffde9;font-size:1em;line-height:1;font-weight:900;letter-spacing:-.065em;text-transform:uppercase}
+.k6ed ~ .k6tour .k6dwhat > span{white-space:nowrap}
+.k6ed ~ .k6tour .k6dwhat small{flex-basis:100%;margin:2px 0 4px;font-size:15px;line-height:1.2;font-weight:700;letter-spacing:0;text-transform:none;color:#000000}
+.k6ed ~ .k6tour .k6sh{border-bottom-width:5px}
+.k6ed ~ .k6tour .k6nodates{border-bottom:0;font-size:clamp(24px,calc(3.6 * var(--vw)),52px);line-height:1;font-weight:900;letter-spacing:-.06em;text-transform:uppercase;padding:.3em 0}
+@media (max-width:760px){.k6ed ~ .k6tour .k6dates li{grid-template-columns:minmax(0,1fr) auto;font-size:clamp(26px,9vw,44px)}.k6ed ~ .k6tour .k6dates b{grid-column:1 / -1}}
+.k6ed ~ .k6sets .k6sh,.k6ed ~ .k6costs .k6sh{border-bottom-width:5px}
+.k6ed ~ .k6sets .k6tracks{margin:22px 0 0}
+.k6ed ~ .k6sets .k6tracks li{margin:0;border-bottom:1px solid rgba(255,253,233,.3)}
+.k6ed ~ .k6sets .k6trk{box-sizing:border-box;min-height:0;padding:.2em 14px .16em 14px;border-radius:0;background:none;color:#fffde9;font-size:clamp(24px,calc(4.1 * var(--vw)),60px);transition:color .15s}
+.k6ed ~ .k6sets .k6ttitle{font-size:1em;line-height:1;font-weight:900;letter-spacing:-.065em;text-transform:uppercase;overflow-wrap:anywhere}
+.k6ed ~ .k6sets .k6tmeta{font-size:15px;line-height:1.3;font-weight:700;letter-spacing:0;text-transform:none;color:#a2a5a4}
+.k6ed ~ .k6sets .k6tplay{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#d31110;color:#ffffff;transition:background-color .15s,color .15s}
+.k6ed ~ .k6sets .k6tplay svg{width:18px;height:18px}
+.k6ed ~ .k6sets .k6tout{margin:10px 0 14px}
+.k6ed ~ .k6sets .k6emb{margin:0 0 16px}
+.k6ed ~ .k6sets .k6links{margin:22px 0 0}
+.k6ed ~ .k6costs .k6fine{gap:0 clamp(32px,calc(5 * var(--vw)),72px);margin-top:0}
+.k6ed ~ .k6costs .k6fine > div{padding:clamp(22px,calc(2.6 * var(--vw)),34px) 0 0;border-top:0}
+.k6ed ~ .k6costs .k6fine h3{margin:0 0 10px;font-size:clamp(22px,calc(2.6 * var(--vw)),38px);line-height:.95;font-weight:900;letter-spacing:-.06em;text-transform:uppercase}
+@media (hover:hover) and (pointer:fine){
+}
+@media (max-width:760px){
+.k6ed ~ .k6sets .k6trk{padding-left:0;padding-right:0;min-height:0;font-size:clamp(24px,8vw,40px)}
+.k6ed ~ .k6sets .k6tplay{width:44px;height:44px}
+}
+.k6ed ~ .k6sets .k6find{margin-top:22px;border-radius:999px}
+html .k6ed ~ .k6req .k6reqgrid{display:block}
+html .k6ed ~ .k6req .k6reqcopy{display:block}
+html .k6ed ~ .k6req #req-h{margin:0;padding:0 0 16px;border-bottom:5px solid #fffde9;color:#ff3b2f;font-size:clamp(44px,calc(6.4 * var(--vw)),84px);line-height:.88;font-weight:900;letter-spacing:-.065em;text-transform:lowercase}
+html .k6ed ~ .k6req .lede{margin:22px 0 0;max-width:34em;color:#fffde9}
+html .k6ed ~ .k6req .k6who{display:none}
+html .k6ed ~ .k6req .k6card{margin-top:clamp(20px,calc(2.6 * var(--vw)),36px);padding:0;border-radius:0;background:none;color:#fffde9;box-shadow:none}
+html .k6ed ~ .k6req .k6fgrid{gap:0 clamp(24px,calc(4 * var(--vw)),56px)}
+html .k6ed ~ .k6req .field{padding:16px 0 12px;border-radius:0;background:none !important;color:#fffde9;box-shadow:none !important;border-bottom:2px solid rgba(255,253,233,.55);transition:border-color .15s}
+html .k6ed ~ .k6req .field:focus-within{border-bottom-color:#ff3b2f}
+html .k6ed ~ .k6req .field:has([aria-invalid="true"]){border-bottom-color:#ff3b2f}
+html .k6ed ~ .k6req .field-l{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#a2a5a4}
+html .k6ed ~ .k6req .field input,html .k6ed ~ .k6req .field textarea{padding:6px 0 0;color:#fffde9;font-weight:700;font-size:clamp(20px,calc(1.9 * var(--vw)),26px);line-height:1.15;letter-spacing:-.03em;caret-color:#ff3b2f}
+html .k6ed ~ .k6req .field textarea{min-height:3.2em;font-weight:400;font-size:18px;letter-spacing:0;line-height:1.4}
+html .k6ed ~ .k6req .field input::placeholder,html .k6ed ~ .k6req .field textarea::placeholder{color:rgba(255,253,233,.45);font-weight:400}
+html .k6ed ~ .k6req .ferr{padding:8px 0 0;color:#ff3b2f}
+html .k6ed ~ .k6req .fhint{padding:8px 0 0;color:#a2a5a4}
+html .k6ed ~ .k6req .k6form .k6send{margin-top:clamp(24px,calc(3 * var(--vw)),40px);min-height:72px;font-size:clamp(17px,calc(1.6 * var(--vw)),21px)}
+html .k6ed ~ .k6req .soon-line{color:#a2a5a4}
+html .k6ed ~ .k6req .k6sent{padding:0}
+html .k6ed ~ .k6req .ns-h{color:#fffde9;font-weight:900}
+html .k6ed ~ .k6req .ns-p{color:#fffde9}
+html .k6ed ~ .k6req .k6notone{border-top:1px solid rgba(255,253,233,.3)}
+.k6hero.k6ed{--cw:min(100%,820px)}
+.k6dbooked{background:#000000 !important;color:#ffffff !important}
+.k6ed ~ .k6sets span.k6trk{display:grid;align-items:center;box-sizing:border-box;width:100%}
+.k6ed ~ .k6sets,.k6ed ~ .k6tour,.k6ed ~ .k6costs,.k6ed ~ .k6req{position:relative;overflow:visible;overflow-x:clip}
+.k6ed ~ .k6sets{--rip:#000000}
+.k6ed ~ .k6tour{--rip:#d31110;--rip-x:-430px}
+.k6ed ~ .k6costs{--rip:#fffde9;--rip-x:-910px}
+.k6ed ~ .k6req{--rip:#000000;--rip-x:-1270px}
+.k6hero.k6ed{padding-top:clamp(56px,calc(9 * var(--vw)),128px)}
+.k6ed ~ .k6town-sec .k6bio p:first-child{font-size:clamp(22px,calc(2.3 * var(--vw)),32px);line-height:1.2;font-weight:700;letter-spacing:-0.035em;margin-bottom:.35em}
+.k6ed ~ .k6town-sec .k6bio p{text-wrap:pretty}
+@media (hover:hover) and (pointer:fine){
+.k6ed ~ .k6sets .k6links .btn:hover{background:#d31110;color:#ffffff;transform:translateY(-2px)}
+.k6ed ~ .k6sets .k6links .btn:hover .k6la{color:#ffffff}
+.k6ed ~ .k6sets .k6trk:hover{background:#fffde9;color:#000000}
+.k6ed ~ .k6sets .k6trk:hover .k6tplay{background:#000000;color:#ffffff}
+.k6book:hover{background:#fffde9;color:#000000}
+}
+@media (max-width:760px){
+.k6ed .k6recwrap{grid-row:auto}
+.k6ed ~ .k6sets .k6links{grid-template-columns:minmax(0,1fr);gap:12px}
+.k6ed ~ .k6sets .k6links .btn{padding:18px 24px 17px}
+.k6ed ~ .k6sets .k6trk{min-height:66px;padding-left:24px;padding-right:24px}
+.k6dates li{grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;padding:20px 0}
+.k6dates b{grid-column:1 / -1}
+.k6dpill{min-width:104px}
+.k6fine{grid-template-columns:minmax(0,1fr)}
+.k6book{min-height:68px}
+}</style>
+<style>.rip{position:relative;z-index:3;height:0;pointer-events:none}
+.rip::before,.rip::after,.k6ed ~ .rip-top::before,.k6ed ~ .rip-top::after{content:"";position:absolute;left:0;right:0;bottom:calc(100% - 1px);height:40px;pointer-events:none;-webkit-mask-size:1600px 100%;mask-size:1600px 100%;-webkit-mask-repeat:repeat-x;mask-repeat:repeat-x;-webkit-mask-position:var(--rip-x,0px) 0;mask-position:var(--rip-x,0px) 0}
+.rip::before,.rip::after{bottom:-1px}
+.rip::before,.k6ed ~ .rip-top::before{background:#f6f1e6;filter:drop-shadow(0 -1px 1.5px rgba(0,0,0,.28));-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 40' preserveAspectRatio='none'><path d='M-8 40 L-8 16.8 L0 16.8 L3 16.7 L6 17.0 L9 17.8 L12 18.7 L15 19.0 L18 18.3 L21 17.6 L24 17.7 L27 18.0 L30 20.3 L33 21.5 L36 21.1 L39 20.3 L42 17.7 L45 17.0 L48 17.0 L51 17.3 L54 16.6 L57 16.5 L60 16.9 L63 17.9 L66 17.4 L69 16.9 L72 16.4 L75 17.3 L78 16.9 L81 16.4 L84 16.8 L87 16.7 L90 18.1 L93 18.9 L96 18.8 L99 17.0 L102 16.0 L105 15.4 L108 15.4 L111 15.4 L114 14.4 L117 13.3 L120 12.3 L123 12.7 L126 12.1 L129 11.7 L132 12.0 L135 12.5 L138 12.2 L141 12.2 L144 13.1 L147 12.7 L150 12.4 L153 11.7 L156 12.7 L159 13.0 L162 12.6 L165 12.1 L168 11.3 L171 10.2 L174 10.3 L177 10.2 L180 9.4 L183 9.3 L186 9.4 L189 9.0 L192 8.4 L195 10.5 L198 12.6 L201 13.5 L204 14.7 L207 14.7 L210 13.1 L213 10.7 L216 11.6 L219 13.4 L222 14.3 L225 14.2 L228 14.7 L231 15.0 L234 14.6 L237 13.9 L240 14.1 L243 14.8 L246 14.1 L249 13.8 L252 15.4 L255 15.6 L258 15.8 L261 15.9 L264 16.8 L267 17.7 L270 17.8 L273 18.1 L276 18.4 L279 19.1 L282 19.1 L285 18.2 L288 18.5 L291 17.8 L294 17.5 L297 17.6 L300 19.2 L303 18.6 L306 18.8 L309 19.3 L312 18.6 L315 18.9 L318 18.9 L321 18.7 L324 17.7 L327 17.9 L330 18.1 L333 17.7 L336 16.3 L339 16.0 L342 16.4 L345 16.8 L348 16.5 L351 17.3 L354 18.9 L357 20.2 L360 19.5 L363 20.6 L366 21.7 L369 22.6 L372 23.8 L375 26.6 L378 27.9 L381 27.8 L384 27.8 L387 27.2 L390 27.3 L393 27.7 L396 27.1 L399 25.3 L402 24.4 L405 24.0 L408 25.1 L411 25.2 L414 25.1 L417 25.7 L420 26.4 L423 26.9 L426 26.7 L429 26.0 L432 25.8 L435 26.4 L438 26.2 L441 25.7 L444 25.7 L447 25.2 L450 25.6 L453 25.3 L456 24.2 L459 24.1 L462 24.0 L465 24.0 L468 24.5 L471 23.9 L474 24.1 L477 24.3 L480 24.3 L483 24.9 L486 25.4 L489 24.6 L492 23.7 L495 25.1 L498 25.9 L501 26.5 L504 26.6 L507 26.7 L510 25.8 L513 24.6 L516 22.1 L519 22.6 L522 22.2 L525 20.7 L528 19.8 L531 17.9 L534 17.1 L537 16.4 L540 16.1 L543 15.1 L546 13.5 L549 12.3 L552 12.6 L555 12.5 L558 11.4 L561 10.7 L564 11.0 L567 12.1 L570 13.6 L573 14.9 L576 15.6 L579 15.6 L582 16.1 L585 16.5 L588 16.2 L591 16.5 L594 17.2 L597 17.8 L600 17.8 L603 19.5 L606 19.4 L609 19.1 L612 18.6 L615 19.3 L618 19.2 L621 19.1 L624 20.6 L627 21.9 L630 22.3 L633 21.9 L636 20.6 L639 21.5 L642 21.6 L645 21.5 L648 21.0 L651 20.2 L654 19.3 L657 19.3 L660 19.8 L663 19.7 L666 19.1 L669 18.0 L672 18.4 L675 16.5 L678 16.0 L681 16.7 L684 17.5 L687 16.6 L690 16.7 L693 18.2 L696 19.0 L699 17.2 L702 17.1 L705 18.2 L708 17.5 L711 17.7 L714 18.9 L717 19.5 L720 18.9 L723 21.9 L726 23.2 L729 23.1 L732 23.7 L735 22.7 L738 22.9 L741 23.5 L744 23.0 L747 24.0 L750 23.5 L753 23.1 L756 22.1 L759 22.0 L762 21.6 L765 22.0 L768 23.7 L771 23.7 L774 23.8 L777 26.2 L780 28.0 L783 27.1 L786 25.8 L789 23.9 L792 22.0 L795 22.4 L798 22.7 L801 23.0 L804 23.2 L807 22.0 L810 22.4 L813 22.8 L816 22.5 L819 22.6 L822 20.9 L825 19.7 L828 19.6 L831 19.0 L834 19.4 L837 20.0 L840 20.3 L843 19.1 L846 19.7 L849 20.5 L852 19.6 L855 19.0 L858 18.9 L861 19.1 L864 19.1 L867 18.9 L870 18.9 L873 18.8 L876 18.1 L879 17.3 L882 17.5 L885 17.9 L888 18.4 L891 18.0 L894 18.4 L897 18.8 L900 18.6 L903 19.1 L906 19.1 L909 19.0 L912 19.1 L915 18.3 L918 17.7 L921 16.4 L924 15.8 L927 16.4 L930 16.1 L933 16.0 L936 17.0 L939 16.8 L942 16.8 L945 17.1 L948 17.4 L951 16.8 L954 16.7 L957 17.0 L960 16.5 L963 15.9 L966 16.5 L969 16.8 L972 15.7 L975 16.9 L978 18.3 L981 19.0 L984 19.3 L987 17.8 L990 17.1 L993 18.1 L996 18.5 L999 19.5 L1002 19.3 L1005 18.9 L1008 18.9 L1011 17.7 L1014 16.3 L1017 16.4 L1020 18.5 L1023 18.0 L1026 16.3 L1029 16.0 L1032 18.2 L1035 18.3 L1038 17.5 L1041 17.1 L1044 16.2 L1047 17.2 L1050 17.5 L1053 17.7 L1056 19.3 L1059 19.8 L1062 18.9 L1065 18.3 L1068 20.0 L1071 18.8 L1074 18.9 L1077 19.3 L1080 18.7 L1083 18.5 L1086 19.0 L1089 19.4 L1092 20.9 L1095 21.5 L1098 20.6 L1101 19.7 L1104 19.4 L1107 20.7 L1110 20.3 L1113 19.3 L1116 20.5 L1119 20.9 L1122 21.2 L1125 21.3 L1128 20.6 L1131 21.1 L1134 21.1 L1137 20.8 L1140 21.6 L1143 22.5 L1146 22.6 L1149 21.9 L1152 23.0 L1155 22.9 L1158 23.6 L1161 23.6 L1164 23.0 L1167 24.2 L1170 23.9 L1173 23.3 L1176 24.8 L1179 23.0 L1182 22.6 L1185 23.0 L1188 24.0 L1191 22.9 L1194 23.2 L1197 23.9 L1200 23.7 L1203 24.4 L1206 24.9 L1209 24.6 L1212 24.5 L1215 23.5 L1218 24.5 L1221 26.3 L1224 26.2 L1227 26.2 L1230 24.8 L1233 23.5 L1236 22.1 L1239 22.8 L1242 22.8 L1245 22.6 L1248 23.8 L1251 23.8 L1254 23.7 L1257 24.4 L1260 25.8 L1263 26.4 L1266 26.7 L1269 26.8 L1272 26.0 L1275 24.6 L1278 25.8 L1281 26.6 L1284 25.8 L1287 24.3 L1290 24.0 L1293 23.4 L1296 21.2 L1299 20.2 L1302 19.6 L1305 19.2 L1308 19.4 L1311 18.3 L1314 18.1 L1317 18.0 L1320 16.0 L1323 16.9 L1326 17.7 L1329 17.6 L1332 17.5 L1335 17.9 L1338 16.8 L1341 16.9 L1344 16.8 L1347 17.7 L1350 17.4 L1353 16.7 L1356 17.0 L1359 17.5 L1362 17.7 L1365 17.7 L1368 17.2 L1371 16.1 L1374 15.9 L1377 16.8 L1380 16.3 L1383 16.4 L1386 17.0 L1389 17.8 L1392 17.8 L1395 19.1 L1398 18.9 L1401 17.9 L1404 17.6 L1407 18.1 L1410 19.3 L1413 19.5 L1416 19.0 L1419 21.0 L1422 20.8 L1425 19.4 L1428 18.8 L1431 19.0 L1434 17.7 L1437 17.6 L1440 18.5 L1443 17.8 L1446 17.7 L1449 18.0 L1452 18.2 L1455 17.2 L1458 17.4 L1461 17.3 L1464 17.3 L1467 16.3 L1470 15.7 L1473 16.5 L1476 17.3 L1479 19.2 L1482 20.2 L1485 20.4 L1488 20.4 L1491 19.6 L1494 19.7 L1497 19.8 L1500 20.4 L1503 19.1 L1506 17.9 L1509 17.2 L1512 15.6 L1515 14.6 L1518 14.9 L1521 14.3 L1524 11.1 L1527 10.5 L1530 11.7 L1533 12.5 L1536 12.2 L1539 13.3 L1542 13.2 L1545 13.1 L1548 13.8 L1551 15.8 L1554 16.5 L1557 16.7 L1560 15.9 L1563 15.4 L1566 16.1 L1569 17.1 L1572 17.3 L1575 17.5 L1578 17.8 L1581 18.2 L1584 18.2 L1587 17.0 L1590 17.5 L1593 18.5 L1596 17.9 L1599 16.9 L1608 16.9 L1608 40 Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 40' preserveAspectRatio='none'><path d='M-8 40 L-8 16.8 L0 16.8 L3 16.7 L6 17.0 L9 17.8 L12 18.7 L15 19.0 L18 18.3 L21 17.6 L24 17.7 L27 18.0 L30 20.3 L33 21.5 L36 21.1 L39 20.3 L42 17.7 L45 17.0 L48 17.0 L51 17.3 L54 16.6 L57 16.5 L60 16.9 L63 17.9 L66 17.4 L69 16.9 L72 16.4 L75 17.3 L78 16.9 L81 16.4 L84 16.8 L87 16.7 L90 18.1 L93 18.9 L96 18.8 L99 17.0 L102 16.0 L105 15.4 L108 15.4 L111 15.4 L114 14.4 L117 13.3 L120 12.3 L123 12.7 L126 12.1 L129 11.7 L132 12.0 L135 12.5 L138 12.2 L141 12.2 L144 13.1 L147 12.7 L150 12.4 L153 11.7 L156 12.7 L159 13.0 L162 12.6 L165 12.1 L168 11.3 L171 10.2 L174 10.3 L177 10.2 L180 9.4 L183 9.3 L186 9.4 L189 9.0 L192 8.4 L195 10.5 L198 12.6 L201 13.5 L204 14.7 L207 14.7 L210 13.1 L213 10.7 L216 11.6 L219 13.4 L222 14.3 L225 14.2 L228 14.7 L231 15.0 L234 14.6 L237 13.9 L240 14.1 L243 14.8 L246 14.1 L249 13.8 L252 15.4 L255 15.6 L258 15.8 L261 15.9 L264 16.8 L267 17.7 L270 17.8 L273 18.1 L276 18.4 L279 19.1 L282 19.1 L285 18.2 L288 18.5 L291 17.8 L294 17.5 L297 17.6 L300 19.2 L303 18.6 L306 18.8 L309 19.3 L312 18.6 L315 18.9 L318 18.9 L321 18.7 L324 17.7 L327 17.9 L330 18.1 L333 17.7 L336 16.3 L339 16.0 L342 16.4 L345 16.8 L348 16.5 L351 17.3 L354 18.9 L357 20.2 L360 19.5 L363 20.6 L366 21.7 L369 22.6 L372 23.8 L375 26.6 L378 27.9 L381 27.8 L384 27.8 L387 27.2 L390 27.3 L393 27.7 L396 27.1 L399 25.3 L402 24.4 L405 24.0 L408 25.1 L411 25.2 L414 25.1 L417 25.7 L420 26.4 L423 26.9 L426 26.7 L429 26.0 L432 25.8 L435 26.4 L438 26.2 L441 25.7 L444 25.7 L447 25.2 L450 25.6 L453 25.3 L456 24.2 L459 24.1 L462 24.0 L465 24.0 L468 24.5 L471 23.9 L474 24.1 L477 24.3 L480 24.3 L483 24.9 L486 25.4 L489 24.6 L492 23.7 L495 25.1 L498 25.9 L501 26.5 L504 26.6 L507 26.7 L510 25.8 L513 24.6 L516 22.1 L519 22.6 L522 22.2 L525 20.7 L528 19.8 L531 17.9 L534 17.1 L537 16.4 L540 16.1 L543 15.1 L546 13.5 L549 12.3 L552 12.6 L555 12.5 L558 11.4 L561 10.7 L564 11.0 L567 12.1 L570 13.6 L573 14.9 L576 15.6 L579 15.6 L582 16.1 L585 16.5 L588 16.2 L591 16.5 L594 17.2 L597 17.8 L600 17.8 L603 19.5 L606 19.4 L609 19.1 L612 18.6 L615 19.3 L618 19.2 L621 19.1 L624 20.6 L627 21.9 L630 22.3 L633 21.9 L636 20.6 L639 21.5 L642 21.6 L645 21.5 L648 21.0 L651 20.2 L654 19.3 L657 19.3 L660 19.8 L663 19.7 L666 19.1 L669 18.0 L672 18.4 L675 16.5 L678 16.0 L681 16.7 L684 17.5 L687 16.6 L690 16.7 L693 18.2 L696 19.0 L699 17.2 L702 17.1 L705 18.2 L708 17.5 L711 17.7 L714 18.9 L717 19.5 L720 18.9 L723 21.9 L726 23.2 L729 23.1 L732 23.7 L735 22.7 L738 22.9 L741 23.5 L744 23.0 L747 24.0 L750 23.5 L753 23.1 L756 22.1 L759 22.0 L762 21.6 L765 22.0 L768 23.7 L771 23.7 L774 23.8 L777 26.2 L780 28.0 L783 27.1 L786 25.8 L789 23.9 L792 22.0 L795 22.4 L798 22.7 L801 23.0 L804 23.2 L807 22.0 L810 22.4 L813 22.8 L816 22.5 L819 22.6 L822 20.9 L825 19.7 L828 19.6 L831 19.0 L834 19.4 L837 20.0 L840 20.3 L843 19.1 L846 19.7 L849 20.5 L852 19.6 L855 19.0 L858 18.9 L861 19.1 L864 19.1 L867 18.9 L870 18.9 L873 18.8 L876 18.1 L879 17.3 L882 17.5 L885 17.9 L888 18.4 L891 18.0 L894 18.4 L897 18.8 L900 18.6 L903 19.1 L906 19.1 L909 19.0 L912 19.1 L915 18.3 L918 17.7 L921 16.4 L924 15.8 L927 16.4 L930 16.1 L933 16.0 L936 17.0 L939 16.8 L942 16.8 L945 17.1 L948 17.4 L951 16.8 L954 16.7 L957 17.0 L960 16.5 L963 15.9 L966 16.5 L969 16.8 L972 15.7 L975 16.9 L978 18.3 L981 19.0 L984 19.3 L987 17.8 L990 17.1 L993 18.1 L996 18.5 L999 19.5 L1002 19.3 L1005 18.9 L1008 18.9 L1011 17.7 L1014 16.3 L1017 16.4 L1020 18.5 L1023 18.0 L1026 16.3 L1029 16.0 L1032 18.2 L1035 18.3 L1038 17.5 L1041 17.1 L1044 16.2 L1047 17.2 L1050 17.5 L1053 17.7 L1056 19.3 L1059 19.8 L1062 18.9 L1065 18.3 L1068 20.0 L1071 18.8 L1074 18.9 L1077 19.3 L1080 18.7 L1083 18.5 L1086 19.0 L1089 19.4 L1092 20.9 L1095 21.5 L1098 20.6 L1101 19.7 L1104 19.4 L1107 20.7 L1110 20.3 L1113 19.3 L1116 20.5 L1119 20.9 L1122 21.2 L1125 21.3 L1128 20.6 L1131 21.1 L1134 21.1 L1137 20.8 L1140 21.6 L1143 22.5 L1146 22.6 L1149 21.9 L1152 23.0 L1155 22.9 L1158 23.6 L1161 23.6 L1164 23.0 L1167 24.2 L1170 23.9 L1173 23.3 L1176 24.8 L1179 23.0 L1182 22.6 L1185 23.0 L1188 24.0 L1191 22.9 L1194 23.2 L1197 23.9 L1200 23.7 L1203 24.4 L1206 24.9 L1209 24.6 L1212 24.5 L1215 23.5 L1218 24.5 L1221 26.3 L1224 26.2 L1227 26.2 L1230 24.8 L1233 23.5 L1236 22.1 L1239 22.8 L1242 22.8 L1245 22.6 L1248 23.8 L1251 23.8 L1254 23.7 L1257 24.4 L1260 25.8 L1263 26.4 L1266 26.7 L1269 26.8 L1272 26.0 L1275 24.6 L1278 25.8 L1281 26.6 L1284 25.8 L1287 24.3 L1290 24.0 L1293 23.4 L1296 21.2 L1299 20.2 L1302 19.6 L1305 19.2 L1308 19.4 L1311 18.3 L1314 18.1 L1317 18.0 L1320 16.0 L1323 16.9 L1326 17.7 L1329 17.6 L1332 17.5 L1335 17.9 L1338 16.8 L1341 16.9 L1344 16.8 L1347 17.7 L1350 17.4 L1353 16.7 L1356 17.0 L1359 17.5 L1362 17.7 L1365 17.7 L1368 17.2 L1371 16.1 L1374 15.9 L1377 16.8 L1380 16.3 L1383 16.4 L1386 17.0 L1389 17.8 L1392 17.8 L1395 19.1 L1398 18.9 L1401 17.9 L1404 17.6 L1407 18.1 L1410 19.3 L1413 19.5 L1416 19.0 L1419 21.0 L1422 20.8 L1425 19.4 L1428 18.8 L1431 19.0 L1434 17.7 L1437 17.6 L1440 18.5 L1443 17.8 L1446 17.7 L1449 18.0 L1452 18.2 L1455 17.2 L1458 17.4 L1461 17.3 L1464 17.3 L1467 16.3 L1470 15.7 L1473 16.5 L1476 17.3 L1479 19.2 L1482 20.2 L1485 20.4 L1488 20.4 L1491 19.6 L1494 19.7 L1497 19.8 L1500 20.4 L1503 19.1 L1506 17.9 L1509 17.2 L1512 15.6 L1515 14.6 L1518 14.9 L1521 14.3 L1524 11.1 L1527 10.5 L1530 11.7 L1533 12.5 L1536 12.2 L1539 13.3 L1542 13.2 L1545 13.1 L1548 13.8 L1551 15.8 L1554 16.5 L1557 16.7 L1560 15.9 L1563 15.4 L1566 16.1 L1569 17.1 L1572 17.3 L1575 17.5 L1578 17.8 L1581 18.2 L1584 18.2 L1587 17.0 L1590 17.5 L1593 18.5 L1596 17.9 L1599 16.9 L1608 16.9 L1608 40 Z'/></svg>")}
+.rip::after,.k6ed ~ .rip-top::after{background:var(--rip,#000000);-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 40' preserveAspectRatio='none'><path d='M-8 40 L-8 21.2 L0 21.2 L3 21.1 L6 21.2 L9 21.7 L12 22.3 L15 22.3 L18 22.3 L21 22.3 L24 22.2 L27 23.1 L30 25.3 L33 26.5 L36 26.9 L39 25.4 L42 23.3 L45 23.3 L48 23.3 L51 23.3 L54 22.7 L57 22.9 L60 23.6 L63 23.8 L66 23.6 L69 23.5 L72 23.5 L75 23.5 L78 23.4 L81 23.5 L84 23.8 L87 24.0 L90 25.0 L93 25.3 L96 24.8 L99 24.2 L102 23.6 L105 23.0 L108 22.4 L111 22.0 L114 21.0 L117 20.2 L120 20.0 L123 19.9 L126 19.9 L129 20.0 L132 19.8 L135 19.7 L138 19.7 L141 20.1 L144 20.5 L147 21.1 L150 21.0 L153 20.4 L156 20.8 L159 21.5 L162 21.4 L165 21.2 L168 20.7 L171 20.1 L174 19.6 L177 18.9 L180 18.8 L183 19.3 L186 19.4 L189 18.9 L192 19.0 L195 20.4 L198 23.3 L201 24.9 L204 25.6 L207 25.0 L210 23.8 L213 21.8 L216 22.0 L219 23.5 L222 24.5 L225 24.3 L228 24.1 L231 24.2 L234 24.3 L237 23.9 L240 23.5 L243 22.8 L246 22.3 L249 22.2 L252 22.3 L255 22.8 L258 23.4 L261 23.7 L264 23.9 L267 24.1 L270 24.1 L273 24.3 L276 24.6 L279 24.9 L282 25.7 L285 25.4 L288 24.3 L291 24.3 L294 24.6 L297 25.1 L300 26.4 L303 26.9 L306 26.8 L309 27.1 L312 27.9 L315 28.2 L318 28.3 L321 28.2 L324 27.8 L327 27.5 L330 28.1 L333 28.3 L336 27.0 L339 26.4 L342 26.8 L345 27.2 L348 27.3 L351 27.5 L354 28.4 L357 29.1 L360 28.8 L363 28.4 L366 28.5 L369 28.8 L372 29.3 L375 29.9 L378 29.7 L381 29.2 L384 29.3 L387 29.5 L390 29.5 L393 29.7 L396 28.9 L399 27.4 L402 27.0 L405 26.9 L408 26.9 L411 27.2 L414 27.6 L417 28.6 L420 28.9 L423 28.8 L426 28.7 L429 28.2 L432 28.0 L435 28.1 L438 28.0 L441 27.7 L444 27.6 L447 27.9 L450 28.0 L453 27.3 L456 26.7 L459 27.1 L462 27.1 L465 26.8 L468 26.6 L471 26.3 L474 26.3 L477 26.2 L480 26.4 L483 27.1 L486 27.9 L489 27.5 L492 26.7 L495 27.2 L498 27.5 L501 27.9 L504 28.7 L507 28.5 L510 28.0 L513 27.6 L516 27.0 L519 27.1 L522 27.7 L525 27.4 L528 26.6 L531 26.2 L534 26.1 L537 25.7 L540 24.7 L543 24.3 L546 23.9 L549 23.6 L552 23.6 L555 23.3 L558 22.5 L561 22.1 L564 22.3 L567 22.7 L570 23.8 L573 24.7 L576 24.5 L579 24.6 L582 24.6 L585 24.6 L588 24.5 L591 24.4 L594 24.3 L597 24.1 L600 24.5 L603 25.0 L606 24.4 L609 23.9 L612 24.0 L615 24.1 L618 24.3 L621 24.3 L624 25.3 L627 26.7 L630 26.6 L633 26.0 L636 25.9 L639 25.9 L642 26.5 L645 27.3 L648 27.5 L651 27.0 L654 26.5 L657 26.6 L660 26.8 L663 27.5 L666 27.4 L669 26.5 L672 26.1 L675 25.9 L678 25.9 L681 26.6 L684 27.0 L687 26.8 L690 26.8 L693 28.0 L696 28.5 L699 27.4 L702 26.5 L705 26.7 L708 26.6 L711 26.4 L714 26.2 L717 25.4 L720 24.8 L723 25.4 L726 26.1 L729 25.9 L732 25.5 L735 25.6 L738 25.5 L741 25.8 L744 26.0 L747 25.6 L750 24.9 L753 24.8 L756 24.9 L759 24.5 L762 24.0 L765 24.1 L768 25.0 L771 25.3 L774 25.6 L777 28.1 L780 29.4 L783 30.0 L786 28.8 L789 26.7 L792 25.1 L795 25.1 L798 25.0 L801 24.8 L804 24.7 L807 24.5 L810 24.5 L813 24.4 L816 24.9 L819 24.8 L822 23.1 L825 21.8 L828 21.0 L831 20.5 L834 21.3 L837 22.1 L840 21.7 L843 21.3 L846 21.7 L849 22.1 L852 21.4 L855 20.6 L858 20.9 L861 21.4 L864 21.1 L867 20.7 L870 20.6 L873 20.7 L876 20.5 L879 20.2 L882 20.1 L885 19.9 L888 20.0 L891 19.8 L894 20.2 L897 20.7 L900 21.0 L903 21.8 L906 21.7 L909 21.3 L912 20.7 L915 20.2 L918 19.6 L921 18.4 L924 18.0 L927 18.4 L930 18.8 L933 19.1 L936 19.4 L939 19.3 L942 19.4 L945 19.7 L948 19.9 L951 19.5 L954 19.1 L957 19.1 L960 19.1 L963 19.0 L966 18.9 L969 18.5 L972 18.2 L975 19.0 L978 20.1 L981 20.4 L984 20.7 L987 20.3 L990 19.2 L993 19.8 L996 21.1 L999 21.2 L1002 21.2 L1005 21.0 L1008 20.5 L1011 20.1 L1014 19.2 L1017 19.3 L1020 20.6 L1023 20.6 L1026 19.5 L1029 19.3 L1032 20.6 L1035 20.9 L1038 20.5 L1041 20.3 L1044 19.6 L1047 19.5 L1050 19.8 L1053 20.1 L1056 20.9 L1059 21.3 L1062 21.2 L1065 21.2 L1068 21.4 L1071 21.6 L1074 21.8 L1077 22.0 L1080 21.3 L1083 21.1 L1086 21.6 L1089 21.8 L1092 22.8 L1095 23.6 L1098 22.5 L1101 21.6 L1104 22.3 L1107 23.6 L1110 23.1 L1113 22.0 L1116 22.2 L1119 23.2 L1122 23.3 L1125 23.3 L1128 23.4 L1131 23.8 L1134 24.0 L1137 23.9 L1140 24.3 L1143 25.1 L1146 25.3 L1149 24.5 L1152 24.4 L1155 25.2 L1158 25.5 L1161 25.0 L1164 25.0 L1167 25.8 L1170 26.2 L1173 26.1 L1176 26.1 L1179 25.8 L1182 25.7 L1185 25.9 L1188 26.2 L1191 25.7 L1194 25.3 L1197 25.4 L1200 25.3 L1203 25.8 L1206 26.3 L1209 26.0 L1212 25.8 L1215 26.1 L1218 26.6 L1221 27.9 L1224 28.6 L1227 28.1 L1230 26.5 L1233 25.1 L1236 24.2 L1239 24.5 L1242 25.2 L1245 25.6 L1248 25.8 L1251 26.2 L1254 26.1 L1257 26.7 L1260 28.3 L1263 28.7 L1266 28.7 L1269 28.6 L1272 27.5 L1275 27.4 L1278 28.1 L1281 28.4 L1284 28.2 L1287 28.1 L1290 28.6 L1293 28.8 L1296 28.1 L1299 27.6 L1302 27.5 L1305 27.3 L1308 27.6 L1311 27.7 L1314 28.0 L1317 28.2 L1320 26.9 L1323 27.3 L1326 28.2 L1329 28.3 L1332 28.2 L1335 27.9 L1338 27.0 L1341 27.2 L1344 27.0 L1347 26.6 L1350 26.6 L1353 26.4 L1356 26.4 L1359 26.6 L1362 26.1 L1365 25.5 L1368 24.6 L1371 23.1 L1374 22.9 L1377 24.0 L1380 24.2 L1383 23.4 L1386 23.5 L1389 24.0 L1392 24.4 L1395 25.2 L1398 25.3 L1401 24.5 L1404 23.9 L1407 24.1 L1410 23.9 L1413 22.7 L1416 22.0 L1419 22.7 L1422 23.1 L1425 22.4 L1428 21.7 L1431 21.4 L1434 20.4 L1437 20.6 L1440 20.7 L1443 20.5 L1446 20.2 L1449 20.2 L1452 20.2 L1455 20.2 L1458 20.5 L1461 20.1 L1464 19.7 L1467 19.2 L1470 18.5 L1473 19.1 L1476 20.1 L1479 20.8 L1482 21.6 L1485 21.9 L1488 21.9 L1491 21.9 L1494 22.3 L1497 22.3 L1500 22.0 L1503 21.8 L1506 21.3 L1509 21.1 L1512 21.2 L1515 21.0 L1518 21.2 L1521 20.7 L1524 19.3 L1527 18.5 L1530 19.1 L1533 19.5 L1536 19.6 L1539 20.2 L1542 20.5 L1545 20.9 L1548 21.7 L1551 22.3 L1554 22.6 L1557 22.7 L1560 22.4 L1563 21.9 L1566 22.4 L1569 22.9 L1572 22.4 L1575 21.8 L1578 22.3 L1581 22.9 L1584 22.5 L1587 21.7 L1590 21.9 L1593 22.6 L1596 22.3 L1599 21.3 L1608 21.3 L1608 40 Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 40' preserveAspectRatio='none'><path d='M-8 40 L-8 21.2 L0 21.2 L3 21.1 L6 21.2 L9 21.7 L12 22.3 L15 22.3 L18 22.3 L21 22.3 L24 22.2 L27 23.1 L30 25.3 L33 26.5 L36 26.9 L39 25.4 L42 23.3 L45 23.3 L48 23.3 L51 23.3 L54 22.7 L57 22.9 L60 23.6 L63 23.8 L66 23.6 L69 23.5 L72 23.5 L75 23.5 L78 23.4 L81 23.5 L84 23.8 L87 24.0 L90 25.0 L93 25.3 L96 24.8 L99 24.2 L102 23.6 L105 23.0 L108 22.4 L111 22.0 L114 21.0 L117 20.2 L120 20.0 L123 19.9 L126 19.9 L129 20.0 L132 19.8 L135 19.7 L138 19.7 L141 20.1 L144 20.5 L147 21.1 L150 21.0 L153 20.4 L156 20.8 L159 21.5 L162 21.4 L165 21.2 L168 20.7 L171 20.1 L174 19.6 L177 18.9 L180 18.8 L183 19.3 L186 19.4 L189 18.9 L192 19.0 L195 20.4 L198 23.3 L201 24.9 L204 25.6 L207 25.0 L210 23.8 L213 21.8 L216 22.0 L219 23.5 L222 24.5 L225 24.3 L228 24.1 L231 24.2 L234 24.3 L237 23.9 L240 23.5 L243 22.8 L246 22.3 L249 22.2 L252 22.3 L255 22.8 L258 23.4 L261 23.7 L264 23.9 L267 24.1 L270 24.1 L273 24.3 L276 24.6 L279 24.9 L282 25.7 L285 25.4 L288 24.3 L291 24.3 L294 24.6 L297 25.1 L300 26.4 L303 26.9 L306 26.8 L309 27.1 L312 27.9 L315 28.2 L318 28.3 L321 28.2 L324 27.8 L327 27.5 L330 28.1 L333 28.3 L336 27.0 L339 26.4 L342 26.8 L345 27.2 L348 27.3 L351 27.5 L354 28.4 L357 29.1 L360 28.8 L363 28.4 L366 28.5 L369 28.8 L372 29.3 L375 29.9 L378 29.7 L381 29.2 L384 29.3 L387 29.5 L390 29.5 L393 29.7 L396 28.9 L399 27.4 L402 27.0 L405 26.9 L408 26.9 L411 27.2 L414 27.6 L417 28.6 L420 28.9 L423 28.8 L426 28.7 L429 28.2 L432 28.0 L435 28.1 L438 28.0 L441 27.7 L444 27.6 L447 27.9 L450 28.0 L453 27.3 L456 26.7 L459 27.1 L462 27.1 L465 26.8 L468 26.6 L471 26.3 L474 26.3 L477 26.2 L480 26.4 L483 27.1 L486 27.9 L489 27.5 L492 26.7 L495 27.2 L498 27.5 L501 27.9 L504 28.7 L507 28.5 L510 28.0 L513 27.6 L516 27.0 L519 27.1 L522 27.7 L525 27.4 L528 26.6 L531 26.2 L534 26.1 L537 25.7 L540 24.7 L543 24.3 L546 23.9 L549 23.6 L552 23.6 L555 23.3 L558 22.5 L561 22.1 L564 22.3 L567 22.7 L570 23.8 L573 24.7 L576 24.5 L579 24.6 L582 24.6 L585 24.6 L588 24.5 L591 24.4 L594 24.3 L597 24.1 L600 24.5 L603 25.0 L606 24.4 L609 23.9 L612 24.0 L615 24.1 L618 24.3 L621 24.3 L624 25.3 L627 26.7 L630 26.6 L633 26.0 L636 25.9 L639 25.9 L642 26.5 L645 27.3 L648 27.5 L651 27.0 L654 26.5 L657 26.6 L660 26.8 L663 27.5 L666 27.4 L669 26.5 L672 26.1 L675 25.9 L678 25.9 L681 26.6 L684 27.0 L687 26.8 L690 26.8 L693 28.0 L696 28.5 L699 27.4 L702 26.5 L705 26.7 L708 26.6 L711 26.4 L714 26.2 L717 25.4 L720 24.8 L723 25.4 L726 26.1 L729 25.9 L732 25.5 L735 25.6 L738 25.5 L741 25.8 L744 26.0 L747 25.6 L750 24.9 L753 24.8 L756 24.9 L759 24.5 L762 24.0 L765 24.1 L768 25.0 L771 25.3 L774 25.6 L777 28.1 L780 29.4 L783 30.0 L786 28.8 L789 26.7 L792 25.1 L795 25.1 L798 25.0 L801 24.8 L804 24.7 L807 24.5 L810 24.5 L813 24.4 L816 24.9 L819 24.8 L822 23.1 L825 21.8 L828 21.0 L831 20.5 L834 21.3 L837 22.1 L840 21.7 L843 21.3 L846 21.7 L849 22.1 L852 21.4 L855 20.6 L858 20.9 L861 21.4 L864 21.1 L867 20.7 L870 20.6 L873 20.7 L876 20.5 L879 20.2 L882 20.1 L885 19.9 L888 20.0 L891 19.8 L894 20.2 L897 20.7 L900 21.0 L903 21.8 L906 21.7 L909 21.3 L912 20.7 L915 20.2 L918 19.6 L921 18.4 L924 18.0 L927 18.4 L930 18.8 L933 19.1 L936 19.4 L939 19.3 L942 19.4 L945 19.7 L948 19.9 L951 19.5 L954 19.1 L957 19.1 L960 19.1 L963 19.0 L966 18.9 L969 18.5 L972 18.2 L975 19.0 L978 20.1 L981 20.4 L984 20.7 L987 20.3 L990 19.2 L993 19.8 L996 21.1 L999 21.2 L1002 21.2 L1005 21.0 L1008 20.5 L1011 20.1 L1014 19.2 L1017 19.3 L1020 20.6 L1023 20.6 L1026 19.5 L1029 19.3 L1032 20.6 L1035 20.9 L1038 20.5 L1041 20.3 L1044 19.6 L1047 19.5 L1050 19.8 L1053 20.1 L1056 20.9 L1059 21.3 L1062 21.2 L1065 21.2 L1068 21.4 L1071 21.6 L1074 21.8 L1077 22.0 L1080 21.3 L1083 21.1 L1086 21.6 L1089 21.8 L1092 22.8 L1095 23.6 L1098 22.5 L1101 21.6 L1104 22.3 L1107 23.6 L1110 23.1 L1113 22.0 L1116 22.2 L1119 23.2 L1122 23.3 L1125 23.3 L1128 23.4 L1131 23.8 L1134 24.0 L1137 23.9 L1140 24.3 L1143 25.1 L1146 25.3 L1149 24.5 L1152 24.4 L1155 25.2 L1158 25.5 L1161 25.0 L1164 25.0 L1167 25.8 L1170 26.2 L1173 26.1 L1176 26.1 L1179 25.8 L1182 25.7 L1185 25.9 L1188 26.2 L1191 25.7 L1194 25.3 L1197 25.4 L1200 25.3 L1203 25.8 L1206 26.3 L1209 26.0 L1212 25.8 L1215 26.1 L1218 26.6 L1221 27.9 L1224 28.6 L1227 28.1 L1230 26.5 L1233 25.1 L1236 24.2 L1239 24.5 L1242 25.2 L1245 25.6 L1248 25.8 L1251 26.2 L1254 26.1 L1257 26.7 L1260 28.3 L1263 28.7 L1266 28.7 L1269 28.6 L1272 27.5 L1275 27.4 L1278 28.1 L1281 28.4 L1284 28.2 L1287 28.1 L1290 28.6 L1293 28.8 L1296 28.1 L1299 27.6 L1302 27.5 L1305 27.3 L1308 27.6 L1311 27.7 L1314 28.0 L1317 28.2 L1320 26.9 L1323 27.3 L1326 28.2 L1329 28.3 L1332 28.2 L1335 27.9 L1338 27.0 L1341 27.2 L1344 27.0 L1347 26.6 L1350 26.6 L1353 26.4 L1356 26.4 L1359 26.6 L1362 26.1 L1365 25.5 L1368 24.6 L1371 23.1 L1374 22.9 L1377 24.0 L1380 24.2 L1383 23.4 L1386 23.5 L1389 24.0 L1392 24.4 L1395 25.2 L1398 25.3 L1401 24.5 L1404 23.9 L1407 24.1 L1410 23.9 L1413 22.7 L1416 22.0 L1419 22.7 L1422 23.1 L1425 22.4 L1428 21.7 L1431 21.4 L1434 20.4 L1437 20.6 L1440 20.7 L1443 20.5 L1446 20.2 L1449 20.2 L1452 20.2 L1455 20.2 L1458 20.5 L1461 20.1 L1464 19.7 L1467 19.2 L1470 18.5 L1473 19.1 L1476 20.1 L1479 20.8 L1482 21.6 L1485 21.9 L1488 21.9 L1491 21.9 L1494 22.3 L1497 22.3 L1500 22.0 L1503 21.8 L1506 21.3 L1509 21.1 L1512 21.2 L1515 21.0 L1518 21.2 L1521 20.7 L1524 19.3 L1527 18.5 L1530 19.1 L1533 19.5 L1536 19.6 L1539 20.2 L1542 20.5 L1545 20.9 L1548 21.7 L1551 22.3 L1554 22.6 L1557 22.7 L1560 22.4 L1563 21.9 L1566 22.4 L1569 22.9 L1572 22.4 L1575 21.8 L1578 22.3 L1581 22.9 L1584 22.5 L1587 21.7 L1590 21.9 L1593 22.6 L1596 22.3 L1599 21.3 L1608 21.3 L1608 40 Z'/></svg>")}</style>
+<style>@media (hover:hover) and (pointer:fine){
+html .go:not([aria-disabled="true"]):not([aria-busy="true"]):hover,html .btn-main:not([aria-busy="true"]):not([aria-disabled="true"]):hover,html .btn-red:hover{background:#a50d0c !important;color:#ffffff !important;box-shadow:none !important}
+html .ink:not([aria-disabled="true"]):hover,html .btn-ink:hover{background:#333333 !important;color:#ffffff !important;box-shadow:none !important}
+html .paper:not([aria-disabled="true"]):hover,html .btn-pale:hover,html .btn-quiet:hover,html .btn-ghost:hover{background:#e2dfc9 !important;color:#000000 !important;box-shadow:none !important}
+}</style>
+<style>html .k6ed ~ .k6req input:-webkit-autofill{-webkit-text-fill-color:#fffde9;-webkit-box-shadow:0 0 0 60px #000000 inset;caret-color:#ff3b2f}</style>
 </head>
 <body>
 <noscript><div class="bookd-plain"><div><p>BOOKD</p><h1>Julian Gjaci</h1><p>Afro house. Based in New York, NY.</p><p>Julian Gjaci is a New York City-based DJ and music producer of Albanian origin, known for his distinctive fusion of Afro House, melodic rhythms, tribal percussion, and hypnotic grooves.</p><p>With a sound that balances sophistication and raw dance-floor energy, Julian creates immersive musical journeys that move seamlessly between intimate luxury venues and high-energy nightlife experiences.</p><p>His performances have taken him to some of New York City&#x27;s most recognized nightlife destinations, including Zuma New York, Chez Margaux, Nebula, Somewhere Nowhere, The Ned, and Submercer.</p><p>Driven by a passion for musical storytelling, Julian&#x27;s signature sound combines deep emotion, infectious rhythms, and refined underground influences.</p><ul><li><a href="./">Home</a></li><li><a href="roster.html">The roster</a></li><li><a href="julian-gjaci.html">Julian Gjaci</a></li><li><a href="kozlow.html">Kozlow</a></li><li><a href="schloss.html">Schloss</a></li><li><a href="artists.html">For artists</a></li><li><a href="contact.html">Contact</a></li><li><a href="terms.html">Terms and privacy</a></li></ul><p>Turn on JavaScript to see the whole page.</p></div></div></noscript>
@@ -39,7 +204,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Reenie+Beanie&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap">
 <style>:root{--vw:1vw;--vh:1vh;--svh:1svh;--dvh:1dvh;--lvh:1lvh}
 @supports (zoom:calc(100vw / 1440px)){
 @media (min-width:1441px){
@@ -461,6 +626,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <h1 id="k6name" class="{{nameCls}}">{{dj.name}}</h1>
 <div class="k6hgrid">
 <div class="k6copy">
+<ul class="k6tags" role="list"><sc-for list="{{tags}}" as="t" hint-placeholder-count="3"><li>{{t.t}}</li></sc-for></ul>
 <p class="k6lede"><sc-if value="{{hasImg}}" hint-placeholder-val="{{ true }}"><span class="vh">The photo: {{dj.alt}}. </span></sc-if>{{tagLine}}</p>
 <sc-if value="{{hasHome}}" hint-placeholder-val="{{ true }}"><p class="k6town">Based in {{dj.home}}.</p></sc-if>
 <div class="k6acts">
@@ -472,6 +638,7 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <button type="button" class="k6rec" onClick="{{heroToggle}}" tabindex="-1" aria-hidden="true">
 <span class="k6vinyl" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt=""><sc-if value="{{noArt}}" hint-placeholder-val="{{ true }}"><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></sc-if><sc-if value="{{hasArt}}" hint-placeholder-val="{{ false }}"><span class="k6art"><span class="k6arti" ref="{{artRef.a}}"></span></span></sc-if></span><span class="k6sheen"></span></span>
 <span class="{{sleeveCls}}"><sc-if value="{{hasImg}}" hint-placeholder-val="{{ true }}"><img sc-camel-src="{{dj.img}}" alt="" fetchpriority="high" style="object-position: {{dj.pos}};"></sc-if><span class="{{sigCls}}" style="--sk: {{sigK}};" aria-hidden="true">{{dj.first}}</span></span>
+<span class="{{col.cls}}" aria-hidden="true"><span class="k6p1"><img sc-camel-src="{{col.a}}" alt="" style="object-position: {{dj.pos}};"></span><span class="k6word" style="--wk: {{col.wk}};">{{col.word}}</span><span class="k6p2"><img sc-camel-src="{{col.b}}" alt=""></span></span>
 </button>
 <p class="k6note" aria-live="polite">{{heroNote}}</p>
 </div>
@@ -479,7 +646,18 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 </div>
 </section>
 
-<section id="{{ids.sets}}" class="k6sets k6sec" aria-labelledby="sets-h">
+<sc-if value="{{hasAbout}}" hint-placeholder-val="{{ true }}">
+<section id="{{ids.about}}" class="k6town-sec k6sec" aria-labelledby="about-h">
+<div class="wrap k6about">
+<h2 id="about-h" class="h2 k6abh">About {{dj.first}}.</h2>
+<div class="k6aboutbody">
+<div class="k6bio"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<section id="{{ids.sets}}" class="k6sets k6sec rip-top" aria-labelledby="sets-h">
 <div class="wrap k6deck">
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}">
 <button type="button" class="{{bigCls}}" onClick="{{heroToggle}}" tabindex="-1" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt="" loading="lazy" decoding="async"><sc-if value="{{noArt}}" hint-placeholder-val="{{ true }}"><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></sc-if><sc-if value="{{hasArt}}" hint-placeholder-val="{{ false }}"><span class="k6art"><span class="k6arti" ref="{{artRef.b}}"></span></span></sc-if></span><span class="k6sheen"></span></button>
@@ -488,52 +666,43 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <span class="k6big k6still" aria-hidden="true"><span class="k6disc"><img src="assets/344f6c724eb63e29ab69be7f097ccaa8.webp" alt="" loading="lazy" decoding="async"><sc-if value="{{noArt}}" hint-placeholder-val="{{ true }}"><svg class="k6lbl" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><text x="100" y="88" text-anchor="middle" font-size="{{lbl.size}}" letter-spacing="{{lbl.track}}">{{lbl.name}}</text><text x="100" y="120" text-anchor="middle" font-size="3.4">33 1/3 RPM</text><text font-size="2.7" letter-spacing=".2"><textPath href="#k6arc" textLength="170">{{lbl.ring}}</textPath></text></svg></sc-if><sc-if value="{{hasArt}}" hint-placeholder-val="{{ false }}"><span class="k6art"><span class="k6arti" ref="{{artRef.c}}"></span></span></sc-if></span><span class="k6sheen"></span></span>
 </sc-if>
 <div class="k6songs">
-<h2 id="sets-h" class="h2">Hear {{dj.first}} before you&nbsp;book.</h2>
+<h2 id="sets-h" class="h2 k6sh">listen</h2>
+<sc-if value="{{hasLinks}}" hint-placeholder-val="{{ false }}">
+<ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="btn btn-sm" href="{{l.url}}" target="_blank" rel="noopener"><span class="k6ln">{{l.label}}</span><span class="k6la" aria-hidden="true">{{l.at}}</span><span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
+</sc-if>
 <sc-if value="{{hasSets}}" hint-placeholder-val="{{ true }}">
 <p class="lede">Straight from SoundCloud. Press play to listen right&nbsp;here.</p>
-<ol class="k6tracks"><sc-for list="{{songs}}" as="t" hint-placeholder-count="3"><li><button type="button" class="{{t.cls}}" onClick="{{t.toggle}}" aria-label="{{t.aria}}" aria-expanded="{{t.expanded}}"><span class="k6tid">{{t.num}}</span><span class="k6ttext"><span class="k6ttitle">{{t.title}}</span><sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}"><span class="k6tmeta">The player is open below. If it stays empty, open the set on&nbsp;SoundCloud.</span></sc-if></span><span class="k6tplay" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg></span></button><a class="btn btn-sm k6tout" href="{{t.url}}" target="_blank" rel="noopener"><span>Open<span class="vh">&nbsp;{{t.title}}</span> on SoundCloud<span class="vh">&nbsp;(opens in a new tab)</span></span></a><div class="k6emb" ref="{{t.embRef}}"></div></li></sc-for></ol>
+<ol class="k6tracks"><sc-for list="{{songs}}" as="t" hint-placeholder-count="3"><li><button type="button" class="{{t.cls}}" onClick="{{t.toggle}}" aria-label="{{t.aria}}" aria-expanded="{{t.expanded}}"><span class="k6tid">{{t.num}}</span><span class="k6ttext"><span class="k6ttitle">{{t.title}}</span><sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}"><span class="k6tmeta">The player is open below. If it stays empty, open the set on&nbsp;SoundCloud.</span></sc-if></span><span class="k6tplay" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path class="ic-play" d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path><path class="ic-stop" d="M7.5 5 H12.5 A2.5 2.5 0 0 1 15 7.5 V12.5 A2.5 2.5 0 0 1 12.5 15 H7.5 A2.5 2.5 0 0 1 5 12.5 V7.5 A2.5 2.5 0 0 1 7.5 5 Z" fill="currentColor"></path></svg></span></button><a class="btn btn-sm k6tout" href="{{t.url}}" target="_blank" rel="noopener"><span>Open<span class="vh">&nbsp;{{t.title}}</span> on SoundCloud<span class="vh">&nbsp;(opens in a new tab)</span></span></a><div class="k6emb" ref="{{t.embRef}}"></div></li></sc-for><sc-if value="{{demoOn}}" hint-placeholder-val="{{ false }}"><sc-for list="{{demoSets}}" as="x" hint-placeholder-count="0"><li><span class="k6trk"><span class="k6ttext"><span class="k6ttitle">{{x.title}}</span></span><span class="k6tplay" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path></svg></span></span></li></sc-for></sc-if></ol>
 </sc-if>
 <sc-if value="{{noSets}}" hint-placeholder-val="{{ false }}">
 <p class="lede">Sets coming&nbsp;soon.</p>
+<sc-if value="{{demoOn}}" hint-placeholder-val="{{ false }}"><ol class="k6tracks"><sc-for list="{{demoSets}}" as="x" hint-placeholder-count="0"><li><span class="k6trk"><span class="k6ttext"><span class="k6ttitle">{{x.title}}</span></span><span class="k6tplay" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 4 L16 10 L6 16 Z" fill="currentColor"></path></svg></span></span></li></sc-for></ol></sc-if>
 <sc-if value="{{hasFind}}" hint-placeholder-val="{{ false }}"><a class="btn btn-lg paper k6find" href="{{find.url}}" target="_blank" rel="noopener">{{find.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></sc-if>
 </sc-if>
 </div>
 </div>
 </section>
 
-<sc-if value="{{hasAbout}}" hint-placeholder-val="{{ true }}">
-<section id="{{ids.about}}" class="k6town-sec k6sec" aria-labelledby="about-h">
-<div class="wrap k6about">
-<h2 id="about-h" class="h2">About {{dj.first}}.</h2>
-<div class="k6aboutbody">
-<div class="k6bio"><sc-for list="{{bio}}" as="b" hint-placeholder-count="3"><p>{{b.t}}</p></sc-for></div>
-<sc-if value="{{hasLinks}}" hint-placeholder-val="{{ false }}">
-<ul class="k6links" role="list" aria-label="{{linksAria}}"><sc-for list="{{links}}" as="l" hint-placeholder-count="3"><li><a class="btn btn-sm" href="{{l.url}}" target="_blank" rel="noopener">{{l.label}}<span class="vh">&nbsp;(opens in a new tab)</span></a></li></sc-for></ul>
+<sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
+<section class="k6tour k6sec rip-top" aria-labelledby="tour-h">
+<div class="wrap">
+<h2 id="tour-h" class="h2 k6sh">tour dates</h2>
+<sc-if value="{{hasTour}}" hint-placeholder-val="{{ true }}">
+<ul class="k6dates" role="list"><sc-for list="{{tour}}" as="d" hint-placeholder-count="3"><li><b>{{d.when}}</b><span class="k6dwhat"><span>{{d.city}}</span><sc-if value="{{d.hasMore}}" hint-placeholder-val="{{ false }}"><small>{{d.more}}</small></sc-if></span><span class="{{d.cls}}">{{d.tag}}</span></li></sc-for></ul>
 </sc-if>
-</div>
+<sc-if value="{{noTour}}" hint-placeholder-val="{{ false }}"><p class="k6nodates">No dates posted yet. Ask about any&nbsp;night.</p></sc-if>
+<a class="k6book" href="{{hrefs.request}}"><span>Book {{dj.name}} for your&nbsp;event</span></a>
 </div>
 </section>
 </sc-if>
 
-<section class="k6costs k6sec" aria-label="{{costAria}}">
-<div class="wrap k6costgrid">
-<div class="k6col">
-<div class="k6colhead">
-<h2 class="h2 k6h2s">How you&nbsp;pay.</h2>
-<p class="k6colnote">The price comes with the offer. These terms are the same on every BOOKD&nbsp;booking.</p>
-</div>
-<dl class="k6ledger">
-<div><dt>BOOKD booking fee</dt><dd>7%, on top of the DJ's&nbsp;rate</dd></div>
-<div><dt>Deposit to lock the date</dt><dd>50%</dd></div>
-<div><dt>The rest</dt><dd>Within 48 hours after the&nbsp;party</dd></div>
-</dl>
-<p class="k6costfoot">Read the <a href="terms.html#terms">full&nbsp;terms</a>.</p>
-</div>
-<div class="k6col" id="{{ids.needs}}">
-<div class="k6colhead">
-<h2 class="h2 k6h2s">What {{dj.first}}&nbsp;needs.</h2>
-<p class="k6colnote">{{riderNote}}</p>
-</div>
+<section class="k6costs k6sec rip-top" aria-label="{{costAria}}">
+<div class="wrap">
+<h2 class="h2 k6sh">fine print</h2>
+<div class="k6fine">
+<div id="{{ids.needs}}">
+<h3>Technical rider</h3>
+<p>{{riderNote}}</p>
 <sc-if value="{{hasRider}}" hint-placeholder-val="{{ true }}">
 <ul class="k6lines" role="list"><sc-for list="{{rider}}" as="r" hint-placeholder-count="5"><li>{{r.t}}</li></sc-for></ul>
 </sc-if>
@@ -541,11 +710,18 @@ html .footrow a:hover,html .tfoot a:hover{color:#ffffff}
 <a class="btn btn-lg go k6riderbtn" href="{{riderLink}}" target="_blank" rel="noopener">See the rider<span class="vh">&nbsp;(opens in a new tab)</span></a>
 </sc-if>
 </div>
+<div><h3>The price</h3><p>It comes with the offer, from the artist. You pay nothing to&nbsp;ask.</p></div>
+<div><h3>Booking fee</h3><p>7%, on top of the DJ's&nbsp;rate.</p></div>
+<div><h3>Deposit and payment</h3><p>50% to lock the date. The rest within 48 hours after the&nbsp;party.</p></div>
+<sc-for list="{{fineMore}}" as="x" hint-placeholder-count="0"><div><h3>{{x.h}}</h3><p>{{x.t}}</p></div></sc-for>
+</div>
+<p class="k6costfoot">These terms are the same on every BOOKD booking. Read the <a href="terms.html#terms">full&nbsp;terms</a>.</p>
+<sc-if value="{{demoOn}}" hint-placeholder-val="{{ false }}"><p class="k6costfoot" style="margin-top: 6px;">Preview: the tour dates, some of the sets and some of the fine print on this page are samples.</p></sc-if>
 </div>
 </section>
 
 <sc-if value="{{reqOn}}" hint-placeholder-val="{{ true }}">
-<section class="k6req k6sec" aria-labelledby="req-h">
+<section class="k6req k6sec rip-top" aria-labelledby="req-h">
 <div class="wrap k6reqgrid">
 <div class="k6reqcopy">
 <h2 id="req-h" class="h2">Ask about {{dj.first}}.</h2>
@@ -1003,6 +1179,31 @@ var items = nav6Items(n);
 if (!items) { nav6Set(self, { menuOpen: false }); return; }
 items[0].focus();
 }
+var K6_SAMPLE = {"tours": {"kozlow": [{"when": "Dec 4", "city": "Miami, FL", "more": "Until Dec 7", "hasMore": true, "tag": "In town", "cls": "k6dpill"}, {"when": "Dec 13", "city": "Brooklyn, NY", "more": "", "hasMore": false, "tag": "In town", "cls": "k6dpill"}, {"when": "Dec 31", "city": "New York, NY", "more": "New Year’s Eve", "hasMore": true, "tag": "Booked", "cls": "k6dpill k6dbooked"}, {"when": "Jan 17", "city": "Los Angeles, CA", "more": "Until Jan 19", "hasMore": true, "tag": "In town", "cls": "k6dpill"}], "julian-gjaci": [{"when": "Dec 6", "city": "New York, NY", "more": "", "hasMore": false, "tag": "In town", "cls": "k6dpill"}, {"when": "Dec 19", "city": "Miami, FL", "more": "Until Dec 21", "hasMore": true, "tag": "In town", "cls": "k6dpill"}, {"when": "Jan 9", "city": "Tulum, MX", "more": "Until Jan 12", "hasMore": true, "tag": "Booked", "cls": "k6dpill k6dbooked"}, {"when": "Feb 14", "city": "Chicago, IL", "more": "", "hasMore": false, "tag": "In town", "cls": "k6dpill"}], "schloss": [{"when": "Dec 12", "city": "Brooklyn, NY", "more": "", "hasMore": false, "tag": "In town", "cls": "k6dpill"}, {"when": "Dec 27", "city": "Austin, TX", "more": "Until Dec 28", "hasMore": true, "tag": "In town", "cls": "k6dpill"}, {"when": "Jan 3", "city": "New York, NY", "more": "", "hasMore": false, "tag": "Booked", "cls": "k6dpill k6dbooked"}, {"when": "Jan 24", "city": "Washington, DC", "more": "", "hasMore": false, "tag": "In town", "cls": "k6dpill"}]}, "sets": {"kozlow": [{"title": "Rooftop closing set"}, {"title": "Warehouse, all night long"}, {"title": "Sunday daytime mix"}], "julian-gjaci": [{"title": "Sunset on the terrace"}, {"title": "Afro house, two hours"}, {"title": "Late room, deep and slow"}, {"title": "Wedding afterparty"}], "schloss": [{"title": "Deep cuts, vinyl only"}]}, "fine": [{"h": "Set length", "t": "60 to 180 minutes. Longer sets on request."}, {"h": "Hospitality", "t": "Green room, water, a meal and four guest list spots."}, {"h": "Travel and lodging", "t": "Flights, a car and a hotel for parties outside the home city."}, {"h": "Cancellation", "t": "Full refund up to 30 days before. Half up to 14 days before."}, {"h": "Content and recording", "t": "Photos and short clips are fine. Ask before a full recording or a live stream."}, {"h": "Song requests", "t": "Send a short list of must plays and do not plays before the night."}]};
+function k6Demo(slug) {
+try {
+if (!K6_SAMPLE || !K6_SAMPLE.tours[slug]) return false;
+if (typeof window !== 'undefined' && (window.BOOKD_EDIT || /[?&]nodemo\b/.test(window.location.search))) return false;
+return true;
+} catch (e) { return false; }
+}
+function k6Sample(kind, slug) { var d = K6_SAMPLE || {}; return kind === 'fine' ? (d.fine || []) : ((d[kind] || {})[slug] || []); }
+function k6At(url) {
+var m = /^https?:\/\/(?:www\.|open\.|music\.)?([^\/?#]+)(?:\/([^\/?#]+))?/i.exec(String(url || ''));
+if (!m) return '';
+var host = m[1].toLowerCase();
+if (/(^|\.)instagram\.com$/.test(host) && m[2]) return '@' + m[2];
+return host;
+}
+var K6_MADE = {}, K6_REDO = null, K6_BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+function k6Tear(img, seed, pos, ratio) {
+if (!img || typeof BOOKD === 'undefined' || !BOOKD.tear) return '';
+var k = img + '|' + seed + '|' + (pos || '') + '|' + ratio;
+if (k in K6_MADE) return K6_MADE[k];
+K6_MADE[k] = 'wait';
+BOOKD.tear(img, { seed: seed, pos: pos, pieces: 1, ratio: ratio }).then(function (u) { K6_MADE[k] = u || ''; if (K6_REDO) K6_REDO(); });
+return 'wait';
+}
 function nav6Who() {
 var b = typeof window !== 'undefined' ? window.BOOKD : null, w = b && b.ready ? b.who : null;
 if (!w) return null;
@@ -1382,8 +1583,22 @@ var dockCompact = dockOn ? !!s.formIn : !!this.dockCompact;
 this.dockCompact = dockCompact;
 var edit = !!this.ed;
 if (edit) dockOn = false;
+var colOn = !!dj.img;
+var redoSelf = this;
+K6_REDO = function () { if (!redoSelf.gone) redoSelf.setState({ tearTick: (redoSelf.state.tearTick || 0) + 1 }); };
+var tornA = k6Tear(dj.img, dj.slug, dj.pos, 1.03), tornB = k6Tear(bgImage || dj.img, dj.slug + '-b', bgImage ? '50% 50%' : dj.pos, 1.5);
+var torn = !!tornA && !!tornB && tornA !== 'wait' && tornB !== 'wait' && tornA !== 'none' && tornB !== 'none';
+var word = String(dj.first || dj.name || '').toLowerCase();
+var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var day = function (iso) { var m = /^(\d{4})-(\d\d)-(\d\d)/.exec(String(iso || '')); return m ? MON[+m[2] - 1] + ' ' + (+m[3]) : ''; };
+var tour = (dj.dates || []).map(function (d) { var a = day(d.from), b = day(d.to); return { when: a, city: d.city, more: b && b !== a ? 'Until ' + b : '' , hasMore: !!(b && b !== a), tag: 'In town', cls: 'k6dpill' }; }).filter(function (d) { return d.when && d.city; });
+var demo = k6Demo(dj.slug);
+if (demo && !tour.length) tour = k6Sample('tours', dj.slug);
 return Object.assign({
+col: { cls: 'k6clg' + (colOn ? ' k6clg-on' : '') + (torn ? ' k6torn' : ''), a: torn ? tornA : dj.img || K6_BLANK, b: torn ? tornB : bgImage || dj.img || K6_BLANK, word: word, wk: Math.min(1, 3.3 / Math.max(1, word.length)).toFixed(3) },
+tour: tour, hasTour: tour.length > 0, noTour: !tour.length, fineMore: demo ? k6Sample('fine') : [], demoOn: demo, demoSets: demo ? k6Sample('sets', dj.slug) : [],
 hasDj: true, noDj: false, ed: edit ? this.ed.vals() : K6_NOED, reqOn: !edit,
+tags: String(dj.tag || '').split(/,\s*/).concat(dj.home ? [dj.home] : []).filter(function (t) { return !!t; }).map(function (t) { return { t: t }; }),
 dj: dj, tagLine: dj.tag ? dj.tag + '.' : '', hasImg: !!dj.img, hasHome: !!dj.home,
 nameCls: 'k6name k6name-front' + (longName ? ' k6name-long' : ''),
 ids: { sets: dj.slug + '-sets', about: dj.slug + '-about', needs: dj.slug + '-needs', request: dj.slug + '-request' },
@@ -1399,7 +1614,7 @@ lbl: {
 name: [lblName], size: lblSize.toFixed(2), track: (-0.042 * lblSize).toFixed(2),
 ring: ['BOOKD RECORDS \u00b7 ' + (dj.home && dj.home.length <= 28 ? dj.home.toUpperCase() + ' \u00b7 ' : '') + 'DJS FOR PRIVATE PARTIES \u00b7 BEST PLAYED LOUD \u00b7 ']
 },
-heroCls: 'k6hero' + (on ? ' k6live' : '') + (on && s.heroVis && !this.reduce ? ' k6anim' : ''),
+heroCls: 'k6hero k6ed' + (on ? ' k6live' : '') + (on && s.heroVis && !this.reduce ? ' k6anim' : ''),
 heroRef: this.heroRef,
 heroToggle: function () {
 var now = self.cur();
@@ -1413,7 +1628,7 @@ hasSets: hasSets, noSets: !hasSets, songs: sets.map(row),
 hasFind: !hasSets && !!(d.find && d.find.url), find: d.find || { label: '', url: '' },
 hasAbout: edit || bio.length > 0 || links.length > 0,
 bio: bio.map(function (t) { return { t: t }; }),
-hasLinks: links.length > 0, links: links, linksAria: his + ' links',
+hasLinks: links.length > 0, links: links.map(function (l) { return { label: l.label, url: l.url, at: k6At(l.url) }; }), linksAria: his + ' links',
 costAria: 'How you pay and what ' + dj.first + ' needs',
 riderNote: riderNote, hasRider: rider.length > 0, rider: rider.map(function (t) { return { t: t }; }),
 hasRiderLink: !rider.length && !!d.riderLink, riderLink: d.riderLink || '',
