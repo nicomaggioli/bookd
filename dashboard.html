@@ -55,7 +55,7 @@
 .k6ed ~ .k6town-sec .k6bio{max-width:880px;gap:1em;font-size:clamp(17px,calc(1.45 * var(--vw)),21px);line-height:1.4}
 .k6sh{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0;padding:0 0 16px;border-bottom:4px solid var(--rule,#000000);color:var(--word,#d31110) !important;font-size:clamp(44px,calc(6.4 * var(--vw)),84px);line-height:.88;letter-spacing:-.065em;counter-increment:k6s}
 .k6ed ~ .k6sets,.k6ed ~ .k6tour,.k6ed ~ .k6costs{padding:clamp(64px,calc(9 * var(--vw)),120px) 0}
-.k6ed ~ .k6sets{background:#000000;color:#fffde9;--rule:#fffde9;--word:#ff3b2f;--line:rgba(255,255,255,.2);--txt:#fffde9;--sub:#a2a5a4}
+.k6ed ~ .k6sets{background:#000000;color:#fffde9;--rule:#fffde9;--word:#d31110;--line:rgba(255,255,255,.2);--txt:#fffde9;--sub:#a2a5a4}
 .k6ed ~ .k6sets .k6deck{display:block}
 .k6ed ~ .k6sets .k6big,.k6ed ~ .k6sets .k6songs .lede{display:none}
 .k6ed ~ .k6sets .k6links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch;margin:28px 0 0}
@@ -202,7 +202,13 @@ html .qf-day-today:not(.qf-day-on){background:transparent !important;color:#d311
 html .k6req .btn-quiet{background:#fffde9 !important;color:#000000 !important}
 @media (hover:hover) and (pointer:fine){html .k6req .btn-quiet:hover{background:#e2dfc9 !important;color:#000000 !important;opacity:1 !important}}
 html .k6sent .btn-quiet{background:#fffde9 !important;color:#000000 !important}
-@media (hover:hover) and (pointer:fine){html .k6sent .btn-quiet:hover{background:#e2dfc9 !important;color:#000000 !important;opacity:1 !important}}</style>
+@media (hover:hover) and (pointer:fine){html .k6sent .btn-quiet:hover{background:#e2dfc9 !important;color:#000000 !important;opacity:1 !important}}
+html .k6ed ~ .k6costs .k6costfoot{color:#000000}
+html .k6ed #k6name{position:absolute !important;width:1px !important;height:1px !important;margin:-1px !important;padding:0 !important;border:0 !important;overflow:hidden !important;clip:rect(0 0 0 0) !important;clip-path:inset(50%) !important;white-space:nowrap !important}
+html .k6ed .k6copy{padding-top:clamp(48px,calc(8 * var(--vw)),104px)}</style>
+<style>html .k6hero.k6ed,html .k6ed ~ .k6town-sec,html .k6ed ~ .k6costs{background-image:url(assets/a91546cc6c2d27fb53dd2bc1dc0abaa7.webp) !important;background-size:512px 512px !important;background-blend-mode:multiply !important}
+html .k6ed ~ .k6tour{background-image:url(assets/d9b270508950dabaa32d6fa311bab6ee.webp),url(assets/a91546cc6c2d27fb53dd2bc1dc0abaa7.webp) !important;background-size:640px 640px,512px 512px !important;background-blend-mode:screen,multiply !important}
+html .k6ed ~ .k6sets,html .k6ed ~ .k6req{background-image:url(assets/d9b270508950dabaa32d6fa311bab6ee.webp) !important;background-size:640px 640px !important;background-blend-mode:screen !important}</style>
 <style>html .k6ed ~ .k6req input:-webkit-autofill{-webkit-text-fill-color:#fffde9;-webkit-box-shadow:0 0 0 60px #000000 inset;caret-color:#ff3b2f}</style>
 </head>
 <body>
