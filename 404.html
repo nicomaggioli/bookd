@@ -91,7 +91,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .go{background:#d31110;color:#ffffff}
 .ink{background:#000000;color:#ffffff}
 @media (hover:hover) and (pointer:fine){.go:hover{background:#ffffff;color:#000000}}
-.foot6{background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.006) 30px,rgba(211,17,16,.024) 60px,rgba(211,17,16,.058) 95px,rgba(211,17,16,.105) 130px,rgba(211,17,16,.14) 165px,#000000 640px);padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
+.foot6{background:#000000;padding:clamp(64px,calc(8 * var(--vw)),110px) 0 22px;overflow:hidden}
 .foot6 .bigmark{display:block;width:100%;height:auto;fill:#d31110}
 .footrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:28px;font-size:14px;color:#d31110}
 .footrow nav{display:flex;flex-wrap:wrap;gap:4px 24px}
@@ -120,7 +120,9 @@ body::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:
 .nf-num,.nf-wrong,.nf-wrong span{display:inline}
 .nf-num{margin-right:.2em}
 .nf-row{margin-top:12px;gap:14px 32px}
-}</style>
+}
+.foot6{position:relative;isolation:isolate}
+.foot6::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(211,17,16,0) 0,rgba(211,17,16,.008) 10%,rgba(211,17,16,.03) 20%,rgba(211,17,16,.07) 31%,rgba(211,17,16,.115) 42%,rgba(211,17,16,.14) 52%,rgba(211,17,16,.12) 63%,rgba(211,17,16,.075) 75%,rgba(211,17,16,.03) 87%,rgba(211,17,16,0) 100%)}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
 #mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
 #mnav{border-top-color:rgba(255,255,255,.2) !important}

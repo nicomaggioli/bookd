@@ -512,7 +512,7 @@ a.tvs:hover span{color:#000000}
 .tvwall-m a.tvs-txt:not(.tvs-nav) span{font-size:33px}
 footer.redfoot .morph,footer.redfoot .reveal{display:none}
 footer.redfoot{background:#000000 !important}
-.mfoot{overflow:hidden;display:block;padding:72px 16px 22px;background:linear-gradient(180deg,#000000 0,rgba(211,17,16,.16) 120px,#000000 520px);color:#d31110}
+.mfoot{overflow:hidden;display:block;padding:72px 16px 22px;background:#000000;color:#d31110}
 .mf-mark{display:block;width:100%;height:auto;fill:#d31110}
 .mf-line{margin:24px 0 20px;font-size:28px;line-height:1.05;font-weight:700;letter-spacing:-0.05em;color:#fffde9}
 .mf-go{width:100%}
@@ -739,7 +739,9 @@ footer nav{display:flex;flex-wrap:nowrap;column-gap:clamp(12px,calc(4.5 * var(--
 }
 @media print{
 body::after{display:none}
-}</style>
+}
+.mfoot{position:relative;isolation:isolate}
+.mfoot::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(211,17,16,0) 0,rgba(211,17,16,.008) 10%,rgba(211,17,16,.03) 20%,rgba(211,17,16,.07) 31%,rgba(211,17,16,.115) 42%,rgba(211,17,16,.14) 52%,rgba(211,17,16,.12) 63%,rgba(211,17,16,.075) 75%,rgba(211,17,16,.03) 87%,rgba(211,17,16,0) 100%)}</style>
 <style>@media (max-width:359px){html .ns-acts .btn-main{padding:0 10px;font-size:15px}}</style>
 <style>.nl{padding:13px 4px;line-height:18px}
 #mnav .nl{line-height:normal;border-bottom-color:rgba(255,255,255,.14) !important}
